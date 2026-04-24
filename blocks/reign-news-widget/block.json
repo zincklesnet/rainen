@@ -1,0 +1,40 @@
+{
+	"apiVersion": 2,
+	"name": "reign/news-widget",
+	"title": "Reign News Widget",
+	"category": "widgets",
+	"icon": "excerpt-view",
+	"description": "A Gutenberg block to display the latest blog posts with options for title, number of posts, and category selection.",
+	"keywords": [
+		"news",
+		"posts",
+		"blog",
+		"recent",
+		"latest"
+	],
+	"supports": {
+		"html": false
+	},
+	"textdomain": "reign-news",
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": "Latest Posts"
+		},
+		"postsPerPage": {
+			"type": "number",
+			"default": 5
+		},
+		"postCategory": {
+			"type": "array",
+			"default": []
+		},
+		"showAuthor": {
+			"type": "boolean",
+			"default": false
+		}
+	}
+}
