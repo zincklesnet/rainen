@@ -1,0 +1,1332 @@
+# Copyright (C) 2026 zombify
+# This file is distributed under the same license as the zombify package.
+msgid ""
+msgstr ""
+"Project-Id-Version: zombify\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-01-27 10:27+0000\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: config/config.php:5, config/config.php:164
+msgid "Personality quiz"
+msgstr ""
+
+#: config/config.php:6
+msgid "Series of questions that intends to reveal something about the personality"
+msgstr ""
+
+#: config/config.php:13, config/config.php:175
+msgid "Trivia quiz"
+msgstr ""
+
+#: config/config.php:14
+msgid "Series of questions with right and wrong answers that intends to check knowledge"
+msgstr ""
+
+#: config/config.php:21, config/config.php:142, config/config.php:186
+msgid "Poll"
+msgstr ""
+
+#: config/config.php:22
+msgid "Voting to make decisions or determine opinions"
+msgstr ""
+
+#: config/config.php:29, config/config.php:153, views/admin/sections.php:16
+msgid "Story"
+msgstr ""
+
+#: config/config.php:30, config/config.php:154
+msgid "Formatted Text with Embeds and Visuals"
+msgstr ""
+
+#: config/config.php:37, config/config.php:197
+msgid "List"
+msgstr ""
+
+#: config/config.php:38
+msgid "The Classic Internet Listicles"
+msgstr ""
+
+#: config/config.php:45, config/config.php:146
+msgid "Countdown"
+msgstr ""
+
+#: config/config.php:46
+msgid "The Classic Internet Countdowns"
+msgstr ""
+
+#: config/config.php:53
+msgid "Open List"
+msgstr ""
+
+#: config/config.php:54
+msgid "Submit your own item and vote up for the best submission"
+msgstr ""
+
+#: config/config.php:61
+msgid "Ranked List"
+msgstr ""
+
+#: config/config.php:62
+msgid "Upvote or downvote to decide the best list item"
+msgstr ""
+
+#: config/config.php:69
+msgid "Meme"
+msgstr ""
+
+#: config/config.php:70
+msgid "Upload your own images to make custom memes"
+msgstr ""
+
+#: config/config.php:77, config/config.php:148, config/config.php:208, quiz/VideoQuiz.php:167
+msgid "Video"
+msgstr ""
+
+#: config/config.php:78
+msgid "Youtube and Vimeo Embeds"
+msgstr ""
+
+#: config/config.php:85, config/config.php:147, config/config.php:219, quiz/AudioQuiz.php:167
+msgid "Audio"
+msgstr ""
+
+#: config/config.php:86
+msgid "Soundcloud or Mixcloud Embeds"
+msgstr ""
+
+#: config/config.php:93, config/config.php:139, config/config.php:230, views/quiz/countdown/list_group.php:19, views/quiz/list/list_group.php:19, views/quiz/openlist/list_group.php:49, views/quiz/rankedlist/list_group.php:49
+msgid "Image"
+msgstr ""
+
+#: config/config.php:94
+msgid "Photo or GIF"
+msgstr ""
+
+#: config/config.php:101, config/config.php:149, config/config.php:241
+msgid "Gif"
+msgstr ""
+
+#: config/config.php:102
+msgid "GIF format"
+msgstr ""
+
+#: config/config.php:138, views/quiz/personality/questions_group.php:102, views/quiz/poll/questions_group.php:101, views/quiz/trivia/questions_group.php:102
+msgid "Text"
+msgstr ""
+
+#: config/config.php:140
+msgid "Embed"
+msgstr ""
+
+#: config/config.php:141
+msgid "Link"
+msgstr ""
+
+#: config/config.php:143
+msgid "Personality Quiz"
+msgstr ""
+
+#: config/config.php:144
+msgid "Trivia"
+msgstr ""
+
+#: config/config.php:145
+msgid "Listicle"
+msgstr ""
+
+#: controllers/BaseController.php:78
+msgid "404 Not Found"
+msgstr ""
+
+#: controllers/BaseController.php:79
+msgid "Action not found. Please check the URL."
+msgstr ""
+
+#: controllers/BaseController.php:71
+msgid "Notification"
+msgstr ""
+
+#: controllers/BaseController.php:108
+msgid "View file not found"
+msgstr ""
+
+#: controllers/BaseController.php:109
+msgid "The view file doesn't exist."
+msgstr ""
+
+#: controllers/public_frontend_controller.php:29
+msgid "You are not allowed to create posts."
+msgstr ""
+
+#: controllers/public_frontend_controller.php:67
+msgid "Only registered users can upload posts."
+msgstr ""
+
+#: controllers/public_frontend_controller.php:64, controllers/public_frontend_controller.php:61, controllers/public_frontend_controller.php:59, controllers/public_frontend_controller.php:193, controllers/public_frontend_controller.php:190, controllers/public_frontend_controller.php:300, controllers/public_frontend_controller.php:297, controllers/public_frontend_controller.php:440, controllers/public_frontend_controller.php:437
+msgid "Invalid Quiz type. Type not found."
+msgstr ""
+
+#: controllers/public_frontend_controller.php:203, controllers/public_frontend_controller.php:196, controllers/public_frontend_controller.php:307, controllers/public_frontend_controller.php:447
+msgid "Access denied."
+msgstr ""
+
+#: controllers/public_frontend_controller.php:199
+msgid "Invalid post ID."
+msgstr ""
+
+#: controllers/public_frontend_controller.php:303, controllers/public_frontend_controller.php:443
+msgid "Invalid Quiz type. Type not specified."
+msgstr ""
+
+#: controllers/public_frontend_controller.php:789, controllers/public_frontend_controller.php:790
+msgid "Incorrect audio/video format."
+msgstr ""
+
+#: controllers/public_frontend_controller.php:779, controllers/public_frontend_controller.php:780
+msgid "File size is too big."
+msgstr ""
+
+#: quiz/AudioQuiz.php:43, quiz/CountdownQuiz.php:45, quiz/CountdownQuiz.php:98, quiz/GifQuiz.php:43, quiz/ImageQuiz.php:43, quiz/ListQuiz.php:45, quiz/ListQuiz.php:105, quiz/MemeQuiz.php:43, quiz/OpenlistQuiz.php:46, quiz/OpenlistQuiz.php:111, quiz/PersonalityQuiz.php:43, quiz/PollQuiz.php:43, quiz/RankedlistQuiz.php:46, quiz/RankedlistQuiz.php:111, quiz/StoryQuiz.php:88, quiz/TriviaQuiz.php:43, quiz/TriviaQuiz.php:202, quiz/VideoQuiz.php:43
+msgid "Title"
+msgstr ""
+
+#: quiz/AudioQuiz.php:52, quiz/CountdownQuiz.php:54, quiz/GifQuiz.php:52, quiz/ImageQuiz.php:52, quiz/ListQuiz.php:54, quiz/MemeQuiz.php:52, quiz/OpenlistQuiz.php:55, quiz/PersonalityQuiz.php:52, quiz/PollQuiz.php:52, quiz/RankedlistQuiz.php:55, quiz/StoryQuiz.php:97, quiz/TriviaQuiz.php:52, quiz/VideoQuiz.php:52
+msgid "Add Thumbnail"
+msgstr ""
+
+#: quiz/AudioQuiz.php:64, quiz/CountdownQuiz.php:66, quiz/GifQuiz.php:64, quiz/ImageQuiz.php:64, quiz/ListQuiz.php:66, quiz/MemeQuiz.php:64, quiz/OpenlistQuiz.php:66, quiz/PersonalityQuiz.php:63, quiz/PollQuiz.php:63, quiz/RankedlistQuiz.php:66, quiz/StoryQuiz.php:108, quiz/TriviaQuiz.php:63, quiz/VideoQuiz.php:64
+msgid "Add preface"
+msgstr ""
+
+#: quiz/AudioQuiz.php:71, quiz/CountdownQuiz.php:73, quiz/GifQuiz.php:71, quiz/ImageQuiz.php:71, quiz/ListQuiz.php:73, quiz/MemeQuiz.php:71, quiz/OpenlistQuiz.php:73, quiz/PersonalityQuiz.php:70, quiz/PollQuiz.php:70, quiz/RankedlistQuiz.php:73, quiz/StoryQuiz.php:115, quiz/TriviaQuiz.php:70, quiz/VideoQuiz.php:71
+msgid "Type something here"
+msgstr ""
+
+#: quiz/AudioQuiz.php:78, quiz/CountdownQuiz.php:80, quiz/GifQuiz.php:78, quiz/ImageQuiz.php:78, quiz/ListQuiz.php:80, quiz/MemeQuiz.php:78, quiz/OpenlistQuiz.php:80, quiz/PersonalityQuiz.php:77, quiz/PollQuiz.php:77, quiz/RankedlistQuiz.php:80, quiz/StoryQuiz.php:122, quiz/TriviaQuiz.php:77, quiz/VideoQuiz.php:78
+msgid "Add excerpt"
+msgstr ""
+
+#: quiz/AudioQuiz.php:85, quiz/CountdownQuiz.php:87, quiz/GifQuiz.php:85, quiz/ImageQuiz.php:85, quiz/ListQuiz.php:87, quiz/MemeQuiz.php:85, quiz/OpenlistQuiz.php:87, quiz/PersonalityQuiz.php:84, quiz/PollQuiz.php:84, quiz/RankedlistQuiz.php:87, quiz/StoryQuiz.php:129, quiz/TriviaQuiz.php:84, quiz/VideoQuiz.php:85
+msgid "Type excerpt here"
+msgstr ""
+
+#: quiz/AudioQuiz.php:92, quiz/AudioQuiz.php:155, quiz/CountdownQuiz.php:195, quiz/GifQuiz.php:92, quiz/GifQuiz.php:138, quiz/ImageQuiz.php:92, quiz/ImageQuiz.php:134, quiz/ListQuiz.php:94, quiz/ListQuiz.php:202, quiz/MemeQuiz.php:92, quiz/MemeQuiz.php:134, quiz/OpenlistQuiz.php:94, quiz/OpenlistQuiz.php:216, quiz/PersonalityQuiz.php:91, quiz/PersonalityQuiz.php:108, quiz/PersonalityQuiz.php:202, quiz/PollQuiz.php:91, quiz/PollQuiz.php:159, quiz/RankedlistQuiz.php:94, quiz/RankedlistQuiz.php:216, quiz/StoryQuiz.php:136, quiz/StoryQuiz.php:157, quiz/StoryQuiz.php:176, quiz/StoryQuiz.php:230, quiz/StoryQuiz.php:283, quiz/TriviaQuiz.php:91, quiz/TriviaQuiz.php:108, quiz/TriviaQuiz.php:190, quiz/TriviaQuiz.php:208, quiz/VideoQuiz.php:92, quiz/VideoQuiz.php:155, views/quiz_view/openlist.php:441, views/quiz_view/rankedlist.php:386
+msgid "Description"
+msgstr ""
+
+#: quiz/AudioQuiz.php:103, quiz/CountdownQuiz.php:115, quiz/GifQuiz.php:114, quiz/ImageQuiz.php:110, quiz/ListQuiz.php:122, quiz/MemeQuiz.php:110, quiz/OpenlistQuiz.php:129, quiz/PersonalityQuiz.php:124, quiz/PersonalityQuiz.php:214, quiz/PollQuiz.php:171, quiz/RankedlistQuiz.php:129, quiz/StoryQuiz.php:210, quiz/StoryQuiz.php:306, quiz/TriviaQuiz.php:224, quiz/TriviaQuiz.php:248, quiz/VideoQuiz.php:103, views/quiz_view/openlist.php:416
+msgid "Via"
+msgstr ""
+
+#: quiz/AudioQuiz.php:113, quiz/CountdownQuiz.php:137, quiz/GifQuiz.php:121, quiz/ImageQuiz.php:117, quiz/ListQuiz.php:144, quiz/MemeQuiz.php:117, quiz/OpenlistQuiz.php:151, quiz/PersonalityQuiz.php:131, quiz/PersonalityQuiz.php:225, quiz/PersonalityQuiz.php:265, quiz/PollQuiz.php:182, quiz/PollQuiz.php:228, quiz/RankedlistQuiz.php:151, quiz/StoryQuiz.php:193, quiz/StoryQuiz.php:289, quiz/TriviaQuiz.php:231, quiz/TriviaQuiz.php:259, quiz/TriviaQuiz.php:308, quiz/VideoQuiz.php:113, views/quiz_view/openlist.php:422
+msgid "Source URL"
+msgstr ""
+
+#: quiz/AudioQuiz.php:123, quiz/CountdownQuiz.php:147, quiz/GifQuiz.php:131, quiz/ImageQuiz.php:127, quiz/ListQuiz.php:154, quiz/MemeQuiz.php:127, quiz/OpenlistQuiz.php:161, quiz/PersonalityQuiz.php:141, quiz/PersonalityQuiz.php:235, quiz/PollQuiz.php:192, quiz/RankedlistQuiz.php:161, quiz/StoryQuiz.php:203, quiz/StoryQuiz.php:299, quiz/TriviaQuiz.php:241, quiz/TriviaQuiz.php:269, quiz/VideoQuiz.php:123, includes/public/functions.php:13, views/quiz_view/openlist.php:432, views/quiz_view/personality/header.php:38, views/quiz_view/personality/question_2up.php:22, views/quiz_view/personality/question_3up.php:22, views/quiz_view/poll/header.php:28, views/quiz_view/poll/question_2up.php:38, views/quiz_view/poll/question_3up.php:34, views/quiz_view/story/embedd.php:9, views/quiz_view/story/image.php:18, views/quiz_view/trivia/question_2up.php:20, views/quiz_view/trivia/question_2up.php:56, views/quiz_view/trivia/question_3up.php:19, views/quiz_view/trivia/question_3up.php:56, views/quiz_view/trivia/question_input.php:44, views/quiz_view/trivia/question_text.php:38, views/quiz_view_amp/poll/header.php:25, views/quiz_view_amp/poll/question.php:54, views/quiz_view_amp/story/embedd.php:10, views/quiz_view_amp/story/image.php:14
+msgid "Credit"
+msgstr ""
+
+#: quiz/AudioQuiz.php:130, quiz/CountdownQuiz.php:154, quiz/ListQuiz.php:161, quiz/OpenlistQuiz.php:168, quiz/PersonalityQuiz.php:177, quiz/PollQuiz.php:134, quiz/RankedlistQuiz.php:168, quiz/StoryQuiz.php:258, quiz/TriviaQuiz.php:165, quiz/VideoQuiz.php:130, views/quiz_view/openlist.php:371, views/quiz_view/rankedlist.php:347, views/quiz/audio/audio_group.php:18, views/quiz/countdown/list_group.php:25, views/quiz/list/list_group.php:25, views/quiz/openlist/list_group.php:69, views/quiz/personality/questions_group.php:25, views/quiz/poll/questions_group.php:25, views/quiz/rankedlist/list_group.php:69, views/quiz/trivia/questions_group.php:25, views/quiz/video/video_group.php:18
+msgid "Embed / URL"
+msgstr ""
+
+#: quiz/AudioQuiz.php:136, quiz/CountdownQuiz.php:160, quiz/ListQuiz.php:167, quiz/OpenlistQuiz.php:174, quiz/PersonalityQuiz.php:183, quiz/PollQuiz.php:140, quiz/RankedlistQuiz.php:174, quiz/StoryQuiz.php:264, quiz/TriviaQuiz.php:171, quiz/VideoQuiz.php:136
+msgid "Embed Thumbnail"
+msgstr ""
+
+#: quiz/AudioQuiz.php:143, quiz/CountdownQuiz.php:167, quiz/ListQuiz.php:174, quiz/OpenlistQuiz.php:181, quiz/PersonalityQuiz.php:190, quiz/PollQuiz.php:147, quiz/RankedlistQuiz.php:181, quiz/StoryQuiz.php:271, quiz/TriviaQuiz.php:178, quiz/VideoQuiz.php:143
+msgid "Embed Type"
+msgstr ""
+
+#: quiz/AudioQuiz.php:149, quiz/CountdownQuiz.php:173, quiz/ListQuiz.php:180, quiz/OpenlistQuiz.php:187, quiz/PersonalityQuiz.php:196, quiz/PollQuiz.php:153, quiz/RankedlistQuiz.php:187, quiz/StoryQuiz.php:277, quiz/TriviaQuiz.php:184, quiz/VideoQuiz.php:149
+msgid "Embed Variables"
+msgstr ""
+
+#: quiz/AudioQuiz.php:161, quiz/CountdownQuiz.php:179, quiz/ListQuiz.php:186, quiz/OpenlistQuiz.php:193, quiz/PersonalityQuiz.php:160, quiz/PollQuiz.php:117, quiz/RankedlistQuiz.php:193, quiz/TriviaQuiz.php:148, quiz/VideoQuiz.php:161
+msgid "Media type"
+msgstr ""
+
+#: quiz/AudioQuiz.php:178, quiz/VideoQuiz.php:179
+msgid "Paste Video URL"
+msgstr ""
+
+#: quiz/BaseQuiz.php:288, includes/public/hooks.php:751
+msgid "M j, Y @ H:i"
+msgstr ""
+
+#: quiz/BaseQuiz.php:310, quiz/BaseQuiz.php:300, includes/public/hooks.php:128, views/quiz/save_buttons.php:36
+msgid "Publish"
+msgstr ""
+
+#: quiz/BaseQuiz.php:310, quiz/BaseQuiz.php:300, includes/public/hooks.php:131
+msgid "immediately"
+msgstr ""
+
+#: quiz/BaseQuiz.php:305, includes/public/hooks.php:135
+msgid "Publish on:"
+msgstr ""
+
+#: quiz/BaseQuiz.php:303, quiz/BaseQuiz.php:295, includes/public/hooks.php:133
+msgid "Schedule for:"
+msgstr ""
+
+#: quiz/BaseQuiz.php:298, includes/public/hooks.php:134
+msgid "Published on:"
+msgstr ""
+
+#: quiz/BaseQuiz.php:325
+msgid "Month"
+msgstr ""
+
+#. translators: 1: month number (01, 02, etc.), 2: month abbreviation
+#: quiz/BaseQuiz.php:331
+msgid "%1$s-%2$s"
+msgstr ""
+
+#: quiz/BaseQuiz.php:336
+msgid "Day"
+msgstr ""
+
+#: quiz/BaseQuiz.php:342
+msgid "Year"
+msgstr ""
+
+#: quiz/BaseQuiz.php:348
+msgid "Hour"
+msgstr ""
+
+#: quiz/BaseQuiz.php:354
+msgid "Minute"
+msgstr ""
+
+#: quiz/BaseQuiz.php:361, views/public/buddypress/parts/submission-item.php:15
+msgid "Edit"
+msgstr ""
+
+#: quiz/BaseQuiz.php:362, views/quiz/fields/video.php:76
+msgid "Cancel"
+msgstr ""
+
+#. translators: 1: month, 2: day, 3: year, 4: hour, 5: minute
+#: quiz/BaseQuiz.php:366, includes/public/hooks.php:136
+msgid "%1$s %2$s, %3$s @ %4$s:%5$s"
+msgstr ""
+
+#: quiz/BaseQuiz.php:393
+msgid "Ok"
+msgstr ""
+
+#: quiz/BaseQuiz.php:851, views/quiz/option-panel.php:70, views/quiz/option-panel.php:114, views/quiz/option-panel.php:140
+msgid "The field is required"
+msgstr ""
+
+#: quiz/BaseQuiz.php:870, includes/public/functions.php:887, includes/public/hooks.php:157
+msgid "File is too large. Maximum size is "
+msgstr ""
+
+#: quiz/BaseQuiz.php:870, includes/public/functions.php:887, includes/public/hooks.php:115, includes/public/hooks.php:157
+msgid "MB"
+msgstr ""
+
+#: quiz/BaseQuiz.php:885
+msgid "Invalid URL"
+msgstr ""
+
+#: quiz/BaseQuiz.php:911
+msgid "Incorrect file extension. It can be only:"
+msgstr ""
+
+#: quiz/CountdownQuiz.php:104, quiz/ImageQuiz.php:99, quiz/ListQuiz.php:111, quiz/MemeQuiz.php:99, quiz/OpenlistQuiz.php:118, quiz/PersonalityQuiz.php:114, quiz/PersonalityQuiz.php:166, quiz/PersonalityQuiz.php:255, quiz/PollQuiz.php:123, quiz/PollQuiz.php:218, quiz/RankedlistQuiz.php:118, quiz/StoryQuiz.php:182, quiz/TriviaQuiz.php:114, quiz/TriviaQuiz.php:154, quiz/TriviaQuiz.php:214, quiz/TriviaQuiz.php:298, views/quiz/image.php:48, views/quiz/meme.php:35, views/quiz_view/openlist.php:348, views/quiz_view/rankedlist.php:325
+msgid "Browse Image"
+msgstr ""
+
+#: quiz/CountdownQuiz.php:126, quiz/ListQuiz.php:133, quiz/OpenlistQuiz.php:140, quiz/RankedlistQuiz.php:140
+msgid "Affiliate Link"
+msgstr ""
+
+#: quiz/CountdownQuiz.php:185, quiz/ListQuiz.php:192, quiz/OpenlistQuiz.php:199, quiz/RankedlistQuiz.php:199
+msgid "Affiliate URL"
+msgstr ""
+
+#: quiz/GifQuiz.php:103, views/quiz/gif.php:47
+msgid "Browse File"
+msgstr ""
+
+#: quiz/MemeQuiz.php:140
+msgid "Settings"
+msgstr ""
+
+#: quiz/MemeQuiz.php:146
+msgid "Ready image"
+msgstr ""
+
+#: quiz/MemeQuiz.php:152
+msgid "Meme template"
+msgstr ""
+
+#: quiz/OpenlistQuiz.php:105, quiz/RankedlistQuiz.php:105
+msgid "Post ID"
+msgstr ""
+
+#: quiz/OpenlistQuiz.php:209, quiz/RankedlistQuiz.php:209
+msgid "Affiliate button text"
+msgstr ""
+
+#: quiz/OpenlistQuiz.php:222, views/quiz_view/openlist.php:445
+msgid "Resource URL"
+msgstr ""
+
+#: quiz/PersonalityQuiz.php:102, quiz/TriviaQuiz.php:102, views/quiz/personality/results_group.php:10, views/quiz/trivia/results_group.php:10
+msgid "Result"
+msgstr ""
+
+#: quiz/PersonalityQuiz.php:154, quiz/PollQuiz.php:108, quiz/TriviaQuiz.php:142
+msgid "Question"
+msgstr ""
+
+#: quiz/PersonalityQuiz.php:208, quiz/PollQuiz.php:165, quiz/TriviaQuiz.php:196
+msgid "Answers format"
+msgstr ""
+
+#: quiz/PersonalityQuiz.php:246, quiz/PollQuiz.php:209, quiz/TriviaQuiz.php:289
+msgid "Answer text"
+msgstr ""
+
+#: quiz/PersonalityQuiz.php:274
+msgid "Assign a result"
+msgstr ""
+
+#: quiz/PollQuiz.php:102
+msgid "Question ID"
+msgstr ""
+
+#: quiz/PollQuiz.php:203
+msgid "Answer ID"
+msgstr ""
+
+#: quiz/StoryQuiz.php:151, quiz/StoryQuiz.php:224
+msgid "Paragraph Title"
+msgstr ""
+
+#: quiz/StoryQuiz.php:170
+msgid "Image Title"
+msgstr ""
+
+#: quiz/StoryQuiz.php:236
+msgid "Place Link Here"
+msgstr ""
+
+#: quiz/StoryQuiz.php:252
+msgid "Embed Title"
+msgstr ""
+
+#: quiz/TriviaQuiz.php:124
+msgid "Range from"
+msgstr ""
+
+#: quiz/TriviaQuiz.php:130
+msgid "Range to"
+msgstr ""
+
+#: quiz/TriviaQuiz.php:276
+msgid "Correct answer"
+msgstr ""
+
+#: quiz/TriviaQuiz.php:279
+msgid "Select the correct answer"
+msgstr ""
+
+#: includes/admin/hooks.php:49, includes/admin/settings.php:19, includes/admin/settings.php:20, includes/public/hooks.php:615, includes/public/hooks.php:618
+msgid "Zombify"
+msgstr ""
+
+#: includes/admin/hooks.php:78
+msgid "Zombify Edit"
+msgstr ""
+
+#: includes/admin/hooks.php:117, views/quiz/option-panel.php:138
+msgid "Items per page"
+msgstr ""
+
+#: includes/admin/hooks.php:156
+msgid "Submitted to"
+msgstr ""
+
+#: includes/admin/hooks.php:157
+msgid "Featured Image"
+msgstr ""
+
+#: includes/classes/ZF_Converter_Cloudconvert.php:57
+msgid "CloudConvert client not created"
+msgstr ""
+
+#: includes/public/functions.php:44
+msgid "Please, fill the Embed / URL."
+msgstr ""
+
+#: includes/public/functions.php:54
+msgid "Please, attach an image or fill the image URL field."
+msgstr ""
+
+#: includes/public/functions.php:36
+msgid "Incorrect media type."
+msgstr ""
+
+#: includes/public/functions.php:64
+msgid "Please, fill the title field."
+msgstr ""
+
+#: includes/public/functions.php:113, includes/public/functions.php:106
+msgid "Incorrect image uploaded."
+msgstr ""
+
+#: includes/public/functions.php:117, includes/public/functions.php:901
+msgid "File is too large."
+msgstr ""
+
+#: includes/public/functions.php:355, views/quiz/fields/file.php:80
+msgid "Your browser does not support the video tag."
+msgstr ""
+
+#: includes/public/functions.php:848, includes/public/functions.php:891
+msgid "There was a problem while getting the file by url"
+msgstr ""
+
+#: includes/public/functions.php:883
+msgid "Incorrect file type"
+msgstr ""
+
+#: includes/public/functions.php:1459, views/quiz_view_amp/poll/footer.php:10, views/quiz_view_amp/poll/footer.php:3
+msgid "Share Your Result"
+msgstr ""
+
+#: includes/public/functions.php:1463, includes/public/hooks.php:798
+msgid "Twitter"
+msgstr ""
+
+#: includes/public/functions.php:1466, includes/public/hooks.php:802
+msgid "Facebook"
+msgstr ""
+
+#: includes/public/hooks.php:110
+msgid "Start Typing Here"
+msgstr ""
+
+#: includes/public/hooks.php:113
+msgid "Invalid file extension. Valid extensions are:"
+msgstr ""
+
+#: includes/public/hooks.php:114
+msgid "File is too large. Maximum allowed file size is:"
+msgstr ""
+
+#: includes/public/hooks.php:116
+msgid "There was an error while saving the post. Please try again."
+msgstr ""
+
+#: includes/public/hooks.php:117
+msgid "Processing files ..."
+msgstr ""
+
+#: includes/public/hooks.php:118
+msgid "Uploading files"
+msgstr ""
+
+#: includes/public/hooks.php:119
+msgid "Please save the post first!"
+msgstr ""
+
+#: includes/public/hooks.php:124
+msgid "File was not uploaded successfully."
+msgstr ""
+
+#: includes/public/hooks.php:125
+msgid "Are you sure? Data will be lost."
+msgstr ""
+
+#: includes/public/hooks.php:126
+msgid "Unknown error"
+msgstr ""
+
+#: includes/public/hooks.php:129
+msgid "Schedule"
+msgstr ""
+
+#: includes/public/hooks.php:138
+msgid "Saved"
+msgstr ""
+
+#: includes/public/hooks.php:225
+msgid "Fetching preview"
+msgstr ""
+
+#: includes/public/hooks.php:226
+msgid "Preview is unavailable"
+msgstr ""
+
+#: includes/public/hooks.php:574, includes/public/hooks.php:575
+msgid "List Items"
+msgstr ""
+
+#: includes/public/hooks.php:629, includes/public/hooks.php:635
+msgid "Edit With Zombify"
+msgstr ""
+
+#: includes/public/hooks.php:750, includes/public/hooks.php:745
+msgid "Congratulations!"
+msgstr ""
+
+#: includes/public/hooks.php:751
+msgid "Your item is successfully scheduled for: %s."
+msgstr ""
+
+#: includes/public/hooks.php:746
+msgid "Your item is now published."
+msgstr ""
+
+#: includes/public/hooks.php:746
+msgid "Don't forget to share it with your friends."
+msgstr ""
+
+#: includes/public/hooks.php:740
+msgid "Thank You for Your Submission!"
+msgstr ""
+
+#: includes/public/hooks.php:741
+msgid "Your item is awaiting moderation. You'll be notified as soon as your submission is approved."
+msgstr ""
+
+#: includes/public/hooks.php:779
+msgid "Share"
+msgstr ""
+
+#: includes/public/hooks.php:813
+msgid "Create One More"
+msgstr ""
+
+#: includes/public/hooks.php:930, views/public/frontend_page/index.php:7
+msgid "Choose A Format"
+msgstr ""
+
+#: includes/public/hooks.php:1012
+msgid "Edit the post"
+msgstr ""
+
+#: includes/public/hooks.php:1273, views/quiz_view/openlist.php:231, views/quiz_view/rankedlist.php:214
+msgid "Reply"
+msgstr ""
+
+#: views/admin/branding.php:1, views/admin/sections.php:10
+msgid "Branding"
+msgstr ""
+
+#: views/admin/branding.php:11
+msgid "Primary color"
+msgstr ""
+
+#: views/admin/branding.php:17
+msgid "Color mode"
+msgstr ""
+
+#: views/admin/branding.php:39
+msgid "Logo"
+msgstr ""
+
+#: views/admin/branding.php:45
+msgid "Upload"
+msgstr ""
+
+#: views/admin/branding.php:57, views/admin/cloudconvert.php:56, views/admin/formats.php:199, views/admin/formats_story.php:57, views/admin/index.php:268
+msgid "Save Changes"
+msgstr ""
+
+#: views/admin/cloudconvert.php:1
+msgid "CloudConvert"
+msgstr ""
+
+#: views/admin/cloudconvert.php:11
+msgid "Cloudconvert API key"
+msgstr ""
+
+#: views/admin/cloudconvert.php:21
+msgid "Social networks keys"
+msgstr ""
+
+#: views/admin/cloudconvert.php:26
+msgid "Facebook/Instagram application ID"
+msgstr ""
+
+#: views/admin/cloudconvert.php:32
+msgid "Facebook/Instagram application secret"
+msgstr ""
+
+#: views/admin/cloudconvert.php:38
+msgid "Twitch application ID"
+msgstr ""
+
+#: views/admin/cloudconvert.php:44
+msgid "Twitch application secret"
+msgstr ""
+
+#: views/admin/formats.php:1, views/admin/sections.php:9
+msgid "Post formats"
+msgstr ""
+
+#: views/admin/formats.php:12
+msgid "Active formats"
+msgstr ""
+
+#: views/admin/formats.php:14, views/admin/formats_story.php:14
+msgid "drag to reorder"
+msgstr ""
+
+#: views/admin/formats.php:95
+msgid "Categories & Tags"
+msgstr ""
+
+#: views/admin/formats.php:99
+msgid "Post type"
+msgstr ""
+
+#: views/admin/formats.php:100
+msgid "Category to save"
+msgstr ""
+
+#: views/admin/formats.php:101
+msgid "Tag to save"
+msgstr ""
+
+#: views/admin/formats_story.php:1
+msgid "Story format"
+msgstr ""
+
+#: views/admin/formats_story.php:12
+msgid "Active Components"
+msgstr ""
+
+#: views/admin/index.php:1, views/admin/sections.php:8
+msgid "General"
+msgstr ""
+
+#: views/admin/index.php:12
+msgid "Frontend page"
+msgstr ""
+
+#: views/admin/index.php:34
+msgid "Post create/update page"
+msgstr ""
+
+#: views/admin/index.php:56
+msgid "Max. upload size"
+msgstr ""
+
+#: views/admin/index.php:100
+msgid "Disable video upload"
+msgstr ""
+
+#: views/admin/index.php:110
+msgid "Video max. upload file size"
+msgstr ""
+
+#: views/admin/index.php:139
+msgid "Disable audio upload"
+msgstr ""
+
+#: views/admin/index.php:149
+msgid "Audio max. upload file size"
+msgstr ""
+
+#: views/admin/index.php:175
+msgid "Max tags count"
+msgstr ""
+
+#: views/admin/index.php:182
+msgid "Max categories count"
+msgstr ""
+
+#: views/admin/index.php:189
+msgid "Allowed categories"
+msgstr ""
+
+#: views/admin/index.php:201
+msgid "Daily contributor can submit"
+msgstr ""
+
+#: views/admin/index.php:205
+msgid "only 1 post"
+msgstr ""
+
+#: views/admin/index.php:209
+msgid "posts"
+msgstr ""
+
+#: views/admin/index.php:211
+msgid "unlimited posts"
+msgstr ""
+
+#: views/admin/index.php:228
+msgid "Disable meme templates"
+msgstr ""
+
+#: views/admin/index.php:238
+msgid "Disable congratulations popup"
+msgstr ""
+
+#: views/admin/index.php:248
+msgid "Automatically set media width equal to post width"
+msgstr ""
+
+#: views/admin/index.php:254, includes/public/buddypress/components/zf_submissions/classes/class-zf_submissions-component.php:147
+msgid "All"
+msgstr ""
+
+#: views/admin/index.php:255
+msgid "Images Only"
+msgstr ""
+
+#: views/admin/index.php:256
+msgid "GIFs Only"
+msgstr ""
+
+#: views/admin/index.php:257, views/quiz/meme.php:247, views/quiz/meme.php:418
+msgid "None"
+msgstr ""
+
+#: views/admin/sections.php:11
+msgid "API Connect"
+msgstr ""
+
+#: views/admin/sections.php:15
+msgid "Global"
+msgstr ""
+
+#: views/quiz/audio.php:8, views/quiz/countdown.php:8, views/quiz/gif.php:8, views/quiz/image.php:8, views/quiz/list.php:8, views/quiz/meme.php:9, views/quiz/openlist.php:9, views/quiz/personality.php:9, views/quiz/poll.php:12, views/quiz/rankedlist.php:8, views/quiz/story.php:8, views/quiz/trivia.php:8, views/quiz/video.php:8
+msgid "Create %s"
+msgstr ""
+
+#: views/quiz/audio.php:11, views/quiz/countdown.php:11, views/quiz/gif.php:11, views/quiz/image.php:11, views/quiz/list.php:11, views/quiz/meme.php:12, views/quiz/openlist.php:12, views/quiz/personality.php:12, views/quiz/poll.php:15, views/quiz/rankedlist.php:11, views/quiz/story.php:11, views/quiz/trivia.php:11, views/quiz/video.php:11
+msgid "Update %s"
+msgstr ""
+
+#: views/quiz/countdown.php:56, views/quiz/list.php:62, views/quiz/openlist.php:64, views/quiz/rankedlist.php:61
+msgid "Add Item"
+msgstr ""
+
+#: views/quiz/gif.php:31
+msgid "Paste gif URL"
+msgstr ""
+
+#: views/quiz/gif.php:34, views/quiz/image.php:34, views/quiz/save_buttons.php:36, views/quiz_view/openlist.php:339, views/quiz_view/openlist.php:455, views/quiz_view/rankedlist.php:316, views/quiz_view/rankedlist.php:392, views/quiz/fields/file.php:31, views/quiz/fields/video.php:39
+msgid "Submit"
+msgstr ""
+
+#: views/quiz/gif.php:48, views/quiz/image.php:49, views/quiz/meme.php:37, views/quiz_view/openlist.php:349, views/quiz_view/rankedlist.php:326, views/quiz/fields/file.php:56
+msgid "or"
+msgstr ""
+
+#: views/quiz/gif.php:49, views/quiz/image.php:50, views/quiz_view/openlist.php:351, views/quiz_view/rankedlist.php:328, views/quiz/fields/file.php:57
+msgid "Get by URL"
+msgstr ""
+
+#: views/quiz/image.php:31, views/quiz_view/openlist.php:332, views/quiz_view/rankedlist.php:309, views/quiz/fields/file.php:28
+msgid "Paste Image URL"
+msgstr ""
+
+#: views/quiz/image.php:95, views/quiz/meme.php:467, views/quiz_view/openlist.php:427, views/quiz/audio/audio_group.php:63, views/quiz/countdown/list_group.php:79, views/quiz/countdown/list_group.php:81, views/quiz/gif/gif_group.php:8, views/quiz/list/list_group.php:79, views/quiz/list/list_group.php:81, views/quiz/personality/questions_group.php:77, views/quiz/personality/results_group.php:26, views/quiz/poll/questions_group.php:75, views/quiz/rankedlist/list_group.php:184, views/quiz/rankedlist/list_group.php:202, views/quiz/story/embedd_group.php:49, views/quiz/story/image_group.php:9, views/quiz/trivia/questions_group.php:77, views/quiz/trivia/questions_group.php:144, views/quiz/video/video_group.php:71
+msgid "http://example.com"
+msgstr ""
+
+#: views/quiz/meme.php:38
+msgid "Choose a popular meme template"
+msgstr ""
+
+#: views/quiz/meme.php:109
+msgid "Top Text"
+msgstr ""
+
+#: views/quiz/meme.php:115, views/quiz/meme.php:286
+msgid "Color"
+msgstr ""
+
+#: views/quiz/meme.php:154, views/quiz/meme.php:325
+msgid "Font Size"
+msgstr ""
+
+#: views/quiz/meme.php:158, views/quiz/meme.php:329
+msgid "Auto"
+msgstr ""
+
+#: views/quiz/meme.php:171, views/quiz/meme.php:342
+msgid "Font Family"
+msgstr ""
+
+#: views/quiz/meme.php:204, views/quiz/meme.php:375
+msgid "Stroke"
+msgstr ""
+
+#: views/quiz/meme.php:243, views/quiz/meme.php:414
+msgid "Width"
+msgstr ""
+
+#: views/quiz/meme.php:261, views/quiz/meme.php:432
+msgid "Top"
+msgstr ""
+
+#: views/quiz/meme.php:268, views/quiz/meme.php:439
+msgid "Left"
+msgstr ""
+
+#: views/quiz/meme.php:278
+msgid "Sorry, but your browser not support"
+msgstr ""
+
+#: views/quiz/meme.php:448
+msgid "Bottom Text"
+msgstr ""
+
+#: views/quiz/option-panel.php:3
+msgid "Additional Information"
+msgstr ""
+
+#: views/quiz/option-panel.php:43
+msgid "Choose a category"
+msgstr ""
+
+#: views/quiz/option-panel.php:111
+msgid "Enter tags ..."
+msgstr ""
+
+#: views/quiz/option-panel.php:112
+msgid " max. %s tags allowed"
+msgstr ""
+
+#: views/quiz/personality.php:61, views/quiz/trivia.php:63, views/quiz/story/personality_group.php:4, views/quiz/story/trivia_group.php:13
+msgid "Add Results"
+msgstr ""
+
+#: views/quiz/personality.php:68, views/quiz/trivia.php:70, views/quiz/story/personality_group.php:9, views/quiz/story/trivia_group.php:18
+msgid "Add Result"
+msgstr ""
+
+#: views/quiz/personality.php:71, views/quiz/trivia.php:53, views/quiz/story/personality_group.php:18, views/quiz/story/trivia_group.php:9
+msgid "Add Question"
+msgstr ""
+
+#: views/quiz/personality.php:77, views/quiz/poll.php:65, views/quiz/trivia.php:59
+msgid "Add question"
+msgstr ""
+
+#: views/quiz/save_buttons.php:4
+msgid "Save Draft"
+msgstr ""
+
+#: views/quiz/save_buttons.php:4
+msgid "Save"
+msgstr ""
+
+#: views/quiz/save_buttons.php:12
+msgid "Last session loaded"
+msgstr ""
+
+#: views/quiz/save_buttons.php:16
+msgid "Discard"
+msgstr ""
+
+#: views/quiz/save_buttons.php:28
+msgid "error has been found"
+msgstr ""
+
+#: views/quiz/save_buttons.php:29
+msgid "errors has been found"
+msgstr ""
+
+#: views/quiz/save_buttons.php:33
+msgid "Preview"
+msgstr ""
+
+#: views/quiz_view/countdown.php:51, views/quiz_view/list.php:52, views/quiz_view/openlist.php:67, views/quiz_view/rankedlist.php:61, views/quiz_view_amp/countdown.php:40, views/quiz_view_amp/list.php:41, views/quiz_view_amp/openlist.php:63, views/quiz_view_amp/rankedlist.php:51, views/quiz/openlist/list_group.php:212, views/quiz/rankedlist/list_group.php:211, views/quiz_view/openlist/subpost.php:31, views/quiz_view/rankedlist/subpost.php:30, views/quiz_view/story/story_countdown.php:46, views/quiz_view/story/story_list.php:46, views/quiz_view_amp/story/story_countdown.php:39, views/quiz_view_amp/story/story_list.php:39
+msgid "Buy Now"
+msgstr ""
+
+#: views/quiz_view/openlist.php:133, views/quiz_view_amp/openlist.php:163, views/quiz_view/openlist/subpost.php:94
+msgid "Resource URL:"
+msgstr ""
+
+#: views/quiz_view/openlist.php:185, views/quiz_view/openlist.php:160, views/quiz_view/rankedlist.php:173, views/quiz_view/rankedlist.php:146
+msgid "Write a comment"
+msgstr ""
+
+#: views/quiz_view/openlist.php:189, views/quiz_view/openlist.php:169, views/quiz_view/rankedlist.php:181, views/quiz_view/rankedlist.php:155
+msgid "Post"
+msgstr ""
+
+#: views/quiz_view/openlist.php:152, views/quiz_view/rankedlist.php:138
+msgid "Name *"
+msgstr ""
+
+#: views/quiz_view/openlist.php:157, views/quiz_view/rankedlist.php:143
+msgid "Email *"
+msgstr ""
+
+#: views/quiz_view/openlist.php:159, views/quiz_view/rankedlist.php:145
+msgid "Your email address will not be published."
+msgstr ""
+
+#: views/quiz_view/openlist.php:254, views/quiz_view/rankedlist.php:234
+msgid "view more comments"
+msgstr ""
+
+#: views/quiz_view/openlist.php:281, views/quiz_view/rankedlist.php:257, views/quiz_view_amp/openlist.php:181
+msgid "Add Your Content"
+msgstr ""
+
+#: views/quiz_view/openlist.php:300, views/quiz_view/rankedlist.php:276
+msgid "Upload Image"
+msgstr ""
+
+#: views/quiz_view/openlist.php:303, views/quiz_view/rankedlist.php:279, views/quiz/audio/audio_group.php:15, views/quiz/countdown/list_group.php:22, views/quiz/list/list_group.php:22, views/quiz/openlist/list_group.php:55, views/quiz/personality/questions_group.php:22, views/quiz/poll/questions_group.php:22, views/quiz/rankedlist/list_group.php:55, views/quiz/trivia/questions_group.php:22, views/quiz/video/video_group.php:15
+msgid "Or"
+msgstr ""
+
+#: views/quiz_view/openlist.php:310, views/quiz_view/rankedlist.php:286
+msgid "Embed Content"
+msgstr ""
+
+#: views/quiz_view/openlist.php:317, views/quiz_view/rankedlist.php:293
+msgid "Add Title"
+msgstr ""
+
+#: views/quiz_view/openlist.php:380, views/quiz_view/rankedlist.php:354, views/quiz/countdown/list_group.php:43, views/quiz/list/list_group.php:43, views/quiz/openlist/list_group.php:129, views/quiz/personality/questions_group.php:43, views/quiz/poll/questions_group.php:42, views/quiz/rankedlist/list_group.php:127, views/quiz/story/embedd_group.php:16, views/quiz/trivia/questions_group.php:43
+msgid "Paste a YouTube, Instagram or SoundCloud link or embed code."
+msgstr ""
+
+#: views/quiz_view/openlist.php:448, views/quiz/openlist/list_group.php:185, views/quiz/openlist/list_group.php:203, views/quiz/openlist/list_group.php:230
+msgid "https://example.com"
+msgstr ""
+
+#: views/quiz_view/personality.php:21, views/quiz_view/trivia.php:17, views/quiz_view/story/personality.php:16, views/quiz_view/story/trivia.php:16
+msgid "Created on"
+msgstr ""
+
+#: views/quiz_view/personality.php:30, views/quiz_view/trivia.php:23, views/quiz_view/trivia.php:39, views/quiz_view/story/personality.php:24, views/quiz_view/story/trivia.php:24
+msgid "Quiz result"
+msgstr ""
+
+#: views/quiz_view/trivia.php:24, views/quiz_view/trivia.php:41, views/quiz_view/story/trivia.php:26
+msgid "You scored"
+msgstr ""
+
+#: views/quiz_view/trivia.php:29, views/quiz_view/trivia.php:50, views/quiz_view/story/trivia.php:34, views/quiz_view/trivia/question_2up.php:38, views/quiz_view/trivia/question_3up.php:38, views/quiz_view/trivia/question_input.php:28, views/quiz_view/trivia/question_text.php:21
+msgid "Correct!"
+msgstr ""
+
+#: views/quiz_view_amp/openlist.php:79, views/quiz_view_amp/rankedlist.php:71
+msgid "at"
+msgstr ""
+
+#: views/quiz_view_amp/openlist.php:170, views/quiz_view_amp/rankedlist.php:155
+msgid "Leave a Reply"
+msgstr ""
+
+#: views/quiz_view_amp/personality.php:11, views/quiz_view_amp/trivia.php:11, views/quiz_view_amp/story/personality.php:11, views/quiz_view_amp/story/trivia.php:10
+msgid "Take a Quiz"
+msgstr ""
+
+#: views/public/frontend_page/limit.php:1
+msgid "Sorry, but you have just reached the daily limit for submitting new content."
+msgstr ""
+
+#: views/public/frontend_page/limit.php:2
+msgid "You are welcome to add more tomorrow."
+msgstr ""
+
+#: views/quiz/audio/audio_group.php:12
+msgid "Audio file"
+msgstr ""
+
+#: views/quiz/audio/audio_group.php:47
+msgid "Paste a SoundCloud or MixCloud link or embed code."
+msgstr ""
+
+#: views/quiz/fields/checkbox.php:59, views/quiz/fields/dropdown.php:77, views/quiz/fields/feature_image.php:72, views/quiz/fields/file.php:120, views/quiz/fields/number.php:30, views/quiz/fields/onlyradio.php:32, views/quiz/fields/text.php:63, views/quiz/fields/textarea.php:27, views/quiz/fields/url.php:66, views/quiz/fields/video.php:120
+msgid "Field contains errors"
+msgstr ""
+
+#: views/quiz/fields/video.php:35
+msgid "Paste %s URL"
+msgstr ""
+
+#: views/quiz/fields/video.php:64
+msgid "Upload %s"
+msgstr ""
+
+#: views/quiz/fields/video.php:130
+msgid "Maximum upload file size: %s MB."
+msgstr ""
+
+#: views/quiz/openlist/option-panel.php:15, views/quiz/rankedlist/option-panel.php:15
+msgid "Close for submissions"
+msgstr ""
+
+#: views/quiz/openlist/option-panel.php:32, views/quiz/rankedlist/option-panel.php:32
+msgid "Close for voting"
+msgstr ""
+
+#: views/quiz/openlist/option-panel.php:49
+msgid "Hide comments"
+msgstr ""
+
+#: views/quiz/personality/questions_group.php:19, views/quiz/poll/questions_group.php:19, views/quiz/trivia/questions_group.php:19
+msgid "Question Image"
+msgstr ""
+
+#: views/quiz/personality/questions_group.php:85, views/quiz/poll/questions_group.php:84, views/quiz/trivia/questions_group.php:85
+msgid "Answers"
+msgstr ""
+
+#: views/quiz/personality/questions_group.php:89, views/quiz/poll/questions_group.php:88, views/quiz/trivia/questions_group.php:89
+msgid "Answer Format"
+msgstr ""
+
+#: views/quiz/personality/questions_group.php:92, views/quiz/poll/questions_group.php:91, views/quiz/trivia/questions_group.php:92
+msgid "3 up"
+msgstr ""
+
+#: views/quiz/personality/questions_group.php:97, views/quiz/poll/questions_group.php:96, views/quiz/trivia/questions_group.php:97
+msgid "2 up"
+msgstr ""
+
+#: views/quiz/personality/questions_group.php:110, views/quiz/poll/questions_group.php:109, views/quiz/trivia/questions_group.php:120
+msgid "Add answer"
+msgstr ""
+
+#: views/quiz/story/link_group.php:7
+msgid "http://"
+msgstr ""
+
+#: views/quiz/story/personality_group.php:13, views/quiz/story/trivia_group.php:4
+msgid "Add Questions"
+msgstr ""
+
+#: views/quiz/story/story_countdown_group.php:4, views/quiz/story/story_list_group.php:7
+msgid "Add item"
+msgstr ""
+
+#: views/quiz/trivia/answers_group.php:13
+msgid "Correct"
+msgstr ""
+
+#: views/quiz/trivia/questions_group.php:107
+msgid "Input"
+msgstr ""
+
+#: views/quiz/trivia/questions_group.php:124
+msgid "Reveal When Answered"
+msgstr ""
+
+#: views/quiz/trivia/results_group.php:26
+msgid "Result Range"
+msgstr ""
+
+#: views/quiz/video/video_group.php:12
+msgid "Video file"
+msgstr ""
+
+#: views/quiz/video/video_group.php:47
+msgid "Paste a YouTube, Vimeo or Dailymotion link or embed code."
+msgstr ""
+
+#: views/quiz_view/openlist/subpost.php:106, views/quiz_view/rankedlist/subpost.php:94
+msgid "Previous"
+msgstr ""
+
+#: views/quiz_view/openlist/subpost.php:116, views/quiz_view/rankedlist/subpost.php:102
+msgid "Next"
+msgstr ""
+
+#: views/quiz_view/openlist/subpost.php:126, views/quiz_view/rankedlist/subpost.php:111
+msgid "View full list"
+msgstr ""
+
+#: views/quiz_view/personality/share.php:5, views/quiz_view/personality/share.php:16, views/quiz_view/trivia/share.php:6, views/quiz_view/trivia/share.php:16
+msgid "I got"
+msgstr ""
+
+#: views/quiz_view/poll/question_2up.php:57, views/quiz_view/poll/question_3up.php:50, views/quiz_view/poll/question_text.php:28, views/quiz_view_amp/poll/footer.php:9, views/quiz_view_amp/poll/footer.php:2
+msgid "votes"
+msgstr ""
+
+#: views/quiz_view/poll/share.php:2, views/quiz_view/poll/share.php:3
+msgid "I voted"
+msgstr ""
+
+#: views/quiz_view/story/link.php:5, views/quiz_view_amp/story/link.php:4
+msgid "Source"
+msgstr ""
+
+#: views/quiz_view/trivia/question_2up.php:42, views/quiz_view/trivia/question_3up.php:42, views/quiz_view/trivia/question_input.php:32, views/quiz_view/trivia/question_text.php:25
+msgid "Wrong!"
+msgstr ""
+
+#: views/quiz_view/trivia/question_input.php:17
+msgid "Your Answer"
+msgstr ""
+
+#: views/quiz_view/trivia/question_input.php:18
+msgid "Guess"
+msgstr ""
+
+#: views/quiz_view/trivia/question_input.php:19
+msgid "I give up"
+msgstr ""
+
+#: views/public/buddypress/parts/submission-item.php:27
+msgid "Delete"
+msgstr ""
+
+#: views/public/buddypress/parts/submission-item.php:29
+msgid "Are you sure you want to delete this item?"
+msgstr ""
+
+#: includes/public/buddypress/components/zf_open_list_notification/loader.php:263, includes/public/buddypress/components/zf_open_list_notification/loader.php:276
+msgid "@%s published \"%s\" item at \"%s\""
+msgstr ""
+
+#: includes/public/buddypress/components/zf_open_list_notification/loader.php:260, includes/public/buddypress/components/zf_open_list_notification/loader.php:273
+msgid "@%s published items at \"%s\""
+msgstr ""
+
+#: includes/public/buddypress/components/zf_open_list_notification/loader.php:290
+msgid "@%s approved your \"%s\" item submitted to \"%s\""
+msgstr ""
+
+#: includes/public/buddypress/components/zf_open_list_notification/loader.php:287
+msgid "@%s approved your items submitted to \"%s\""
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/bp-zf_submissions-actions.php:32
+msgid "All types"
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/bp-zf_submissions-actions.php:35
+msgid "Posts"
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/bp-zf_submissions-actions.php:49
+msgid "Show"
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/bp-zf_submissions-actions.php:76, includes/public/buddypress/components/zf_submissions/classes/class-zf_submissions-component.php:128
+msgid "Submissions"
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/bp-zf_submissions-actions.php:77
+msgid "Yes"
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/bp-zf_submissions-actions.php:78
+msgid "No"
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/bp-zf_submissions-actions.php:86
+msgid "Administrator publish your post"
+msgstr ""
+
+#. translators: accessibility text
+#: includes/public/buddypress/components/zf_submissions/bp-zf_submissions-actions.php:91
+msgid "Yes, send email"
+msgstr ""
+
+#. translators: accessibility text
+#: includes/public/buddypress/components/zf_submissions/bp-zf_submissions-actions.php:99
+msgid "No, do not send email"
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/bp-zf_submissions-activity.php:54
+msgid "%s published \"%s\""
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/bp-zf_submissions-notifications.php:37
+msgid "@%s approved articles"
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/bp-zf_submissions-notifications.php:47
+msgid "%1$s published your post"
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/bp-zf_submissions-notifications.php:42
+msgid "%1$d articles are published"
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/bp-zf_submissions-template-functions.php:22, includes/public/buddypress/components/zf_submissions/classes/class-zf_submissions-component.php:135
+msgid "Published"
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/bp-zf_submissions-template-functions.php:23, includes/public/buddypress/components/zf_submissions/classes/class-zf_submissions-component.php:155
+msgid "Pending"
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/bp-zf_submissions-template-functions.php:24
+msgid "Draft"
+msgstr ""
+
+#. translators: do not remove {} brackets or translate its contents.
+#: includes/public/buddypress/components/zf_submissions/zf_submissions-loader.php:57
+msgid "[{{{site.name}}}] {{moderator.name}} published your post"
+msgstr ""
+
+#. translators: do not remove {} brackets or translate its contents.
+#: includes/public/buddypress/components/zf_submissions/zf_submissions-loader.php:59
+msgid ""
+"{{moderator.name}} published your post:\n"
+"\n"
+"<blockquote>&quot;{{post.title}}&quot;</blockquote>\n"
+"\n"
+"<a href=\"{{{post.url}}}\">View Post</a>."
+msgstr ""
+
+#. translators: do not remove {} brackets or translate its contents.
+#: includes/public/buddypress/components/zf_submissions/zf_submissions-loader.php:61
+msgid ""
+"{{moderator.name}} published your post:\n"
+"\n"
+"\"{{post.title}}\"\n"
+"\n"
+"View Post: {{{post.url}}}"
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/zf_submissions-loader.php:132
+msgid "Administrator has published recipient's post."
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/zf_submissions-loader.php:135
+msgid "You will no longer receive emails when your post has published by administrator."
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/classes/class-zf_submissions-component.php:58
+msgid "Zombify Submissions"
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/classes/class-zf_submissions-component.php:59
+msgid "Lists posts created by users"
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/classes/class-zf_submissions-component.php:106
+msgid "Search Submissions..."
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/classes/class-zf_submissions-component.php:163
+msgid "Drafts"
+msgstr ""
+
+#: includes/public/buddypress/components/zf_submissions/classes/class-zf_submissions-component.php:171
+msgid "Add new post"
+msgstr ""
