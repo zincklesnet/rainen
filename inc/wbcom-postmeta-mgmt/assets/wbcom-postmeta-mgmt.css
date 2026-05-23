@@ -1,0 +1,1006 @@
+/* Tooltip css
+----------------------------------*/
+
+.rtm-tooltip-wrap {
+    text-align: left;
+    float: left;
+    width: 100%;
+    max-width: 350px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+    -ms-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.rtm-tooltip-image {
+    width: 30px;
+    height: 30px;
+    float: left;
+    cursor: pointer;
+}
+
+.rtm-tooltip-label {
+    color: #5f5f5f;
+    margin: 0 0 5px;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.rtm-tooltiptext {
+    font-size: 12px;
+    color: #797979;
+    line-height: 15px;
+    font-style: italic;
+    font-weight: normal;
+    margin-right: 30px;
+    clear: left;
+}
+
+.rtm-left-side {
+    width: 350px;
+}
+
+.wbcom-metabox-tab span {
+    margin-right: 5px;
+}
+
+
+/* CSS for vertical tabs :: Start
+----------------------------------*/
+
+#reign_postmeta_settings.postbox .inside {
+    margin: 0;
+    padding: 0;
+}
+
+.wbcom-metabox-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+
+/* Style the tab */
+
+.wbcom-metabox-tab {
+    border: 1px solid #eee;
+    border-top: 0;
+    border-left: 0;
+    background: -webkit-linear-gradient(0deg, #fafafa 0, #fafafa 180px, #fff 180px, #fff 100%);
+    background: linear-gradient(90deg, #fafafa 0, #fafafa 180px, #fff 180px, #fff 100%);
+    min-width: 180px;
+    min-height: 300px;
+}
+
+
+/* Style the buttons that are used to open the tab content */
+
+.wbcom-metabox-tab button {
+    display: block;
+    background-color: inherit;
+    color: #555;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    -webkit-transition: 0.3s;
+            transition: 0.3s;
+}
+
+
+/* Change background color of buttons on hover */
+
+
+/*.wbcom-metabox-tab button:hover {
+    background-color: #ddd;
+}*/
+
+
+/* Create an active/current "tab button" class */
+
+.wbcom-metabox-tab button.active {
+    background-color: #fff;
+    position: relative;
+}
+
+.wbcom-metabox-tab button.active:after {
+    content: ' ';
+    position: absolute;
+    width: 1px;
+    display: block;
+    height: 36px;
+    right: -1px;
+    background: #ffffff;
+    z-index: 999;
+    top: 0;
+}
+
+
+/*.wbcom-metabox-wrapper .wbcom-metabox-tablinks {
+    border-bottom: 1px solid #eee;
+}*/
+
+
+/* Style the tab content */
+
+.wbcom-metabox-content {
+    /* padding: 20px; */
+    border-left: 0;
+    border-top: 0;
+    width: 100%;
+    height: auto;
+}
+
+.wbcom-metabox-control {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.wbcom-metabox-desc {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 50%;
+            flex: 0 0 50%;
+    width: 50%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+.wbcom-metabox-desc .rtm-tooltip {
+    margin-left: 5px;
+}
+
+.wbcom-metabox-field {
+    width: 50%;
+    margin-left: 10px;
+}
+
+.wbcom-metabox-field .select2.select2-container.select2-container--default {
+    width: 100% !important;
+}
+
+.wbcom-metabox-field .select2.select2-container.select2-container--default .directorist-select2-dropdown-close {
+    display: none;
+}
+
+#wpb_wpbakery+#reign_postmeta_settings .wbcom-metabox-field .select2.select2-container.select2-container--default {
+    z-index: 99;
+}
+
+.wbcom-metabox-field .select2-container--default .select2-selection--single {
+    background-color: #fff !important;
+    color: #333;
+    border: 1px solid #aaa !important;
+    font-size: 13px;
+    height: -webkit-calc(2.25rem + 2px) !important;
+    height: calc(2.25rem + 2px) !important;
+    line-height: 24px !important;
+    padding: 0.375rem 0.75rem;
+    width: 100%;
+    border-radius: 0.25rem !important;
+    margin: 0;
+    outline: 0;
+    box-shadow: none !important;
+    box-sizing: border-box;
+}
+
+.wbcom-metabox-field .select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: inherit;
+    padding: 0;
+}
+
+.wbcom-metabox-field .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: -webkit-calc(2.25rem + 2px);
+    height: calc(2.25rem + 2px);
+    top: 0;
+    right: 7px;
+}
+
+.wbcom-metabox-control-radio input[type="checkbox"] {
+    margin-top: 8px;
+}
+
+
+/* CSS for vertical tabs :: End
+----------------------------------*/
+
+button.wbcom-metabox-tablinks.header_footer {
+    position: relative;
+}
+
+
+/* Media Query
+----------------------------------*/
+
+@media screen and (max-width: 782px) {
+    .wbcom-metabox-control {
+        -ms-flex-flow: row wrap;
+        flex-flow: row wrap;
+    }
+
+    .wbcom-metabox-field {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .rtm-tooltip-wrap {
+        width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .wbcom-metabox-wrapper {
+        display: block;
+    }
+
+    .wbcom-metabox-tab button {
+        width: 70%;
+    }
+
+    .wbcom-metabox-content {
+        padding: 20px 0;
+    }
+
+    .wbcom-metabox-tab {
+        min-height: 150px;
+    }
+}
+
+
+/* Reign Post Formats
+----------------------------------*/
+
+.reign_post_format-settings {
+    padding: 10px 0 0;
+}
+
+.reign_post_format-settings .reign_input_section {
+    padding: 10px 0 20px 0;
+}
+
+.format-setting-label {
+    border-bottom: 1px dashed #ccc;
+    margin: 0 0 20px 0;
+    padding: 5px 0px 1px 0px;
+    width: 100%;
+}
+
+.format-setting-label .label {
+    background: none;
+    border: none;
+    color: #222;
+    cursor: text;
+    display: block;
+    font-size: 1.3em;
+    font-weight: 500;
+    line-height: 1.6em;
+    letter-spacing: 0;
+    padding: 0 0 9px 0;
+    -webkit-user-select: text;
+    text-shadow: none;
+}
+
+input#reign_post_audio,
+input#reign_post_video {
+    width: -webkit-calc(100% - 60px);
+    width: calc(100% - 60px);
+}
+
+.reign_quote_format_setting textarea {
+    width: 99.9%;
+    border: 1px solid #ccc;
+    font-family: Consolas, Monaco, monospace;
+    line-height: 150%;
+    outline: 0;
+    padding: 10px;
+    resize: vertical;
+}
+
+.reign_quote_format_setting input,
+.reign_link_format_setting input {
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+.reign_audio_format_setting .reign_upload_media,
+.reign_video_format_setting .reign_upload_media {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    margin: 0 !important;
+}
+
+.reign_images_gallery:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.reign_images_gallery li {
+    position: relative;
+    float: left;
+    padding: 8px;
+    margin: 0;
+    color: #444;
+    cursor: pointer;
+    list-style: none;
+    text-align: center;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 33.3333%;
+    box-sizing: border-box;
+}
+
+@media (min-width: 600px) {
+    .reign_images_gallery li {
+        width: 20%;
+    }
+}
+
+@media (min-width: 800px) {
+    .reign_images_gallery li {
+        width: 15%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .reign_images_gallery li {
+        width: 11.11%;
+    }
+}
+
+.reign_images_gallery .thumbnail {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 1;
+    -webkit-transition: opacity .1s;
+            transition: opacity .1s;
+}
+
+.reign_images_gallery .thumbnail:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.reign_images_gallery .thumbnail .centered {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-transform: translate(50%, 50%);
+        -ms-transform: translate(50%, 50%);
+            transform: translate(50%, 50%);
+}
+
+.reign_images_gallery .thumbnail .centered img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.subheader_banner_image_section .image {
+    position: relative;
+}
+
+.reign_images_gallery .actions .delete,
+.subheader_banner_image_section .actions .delete {
+    display: none;
+    height: 24px;
+    width: 24px;
+    padding: 0;
+    border: 0;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    outline: none;
+    text-decoration: none;
+    background: #eee;
+    cursor: pointer;
+    box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(0, 0, 0, 0.15);
+}
+
+.reign_images_gallery li:hover .actions .delete,
+.subheader_banner_image_section .image:hover .actions .delete {
+    display: block;
+}
+
+.reign_images_gallery .actions .delete i,
+.subheader_banner_image_section .actions .delete i {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0px;
+    vertical-align: middle;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+}
+
+.add_subheader_banner_image .components-button {
+    height: auto;
+}
+
+.subheader_banner_image_section .image img {
+    max-width: 100%;
+}
+
+.reign-subheader-fields {
+    margin: 10px 0;
+}
+
+
+/* UI Tabs
+----------------------------------*/
+
+.ui-tabs {
+    position: relative;
+    /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+    padding: .2em;
+}
+
+.ui-tabs .ui-tabs-nav {
+    margin: 0;
+    padding: .2em .2em 0;
+}
+
+.ui-tabs .ui-tabs-nav:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.ui-tabs .ui-tabs-nav li {
+    list-style: none;
+    float: left;
+    position: relative;
+    top: 0;
+    margin: 1px .2em 0 0;
+    border-bottom-width: 0;
+    padding: 0;
+    white-space: nowrap;
+}
+
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+    float: left;
+    padding: .5em 1em;
+    text-decoration: none;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active {
+    margin-bottom: -1px;
+    padding-bottom: 1px;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor,
+.ui-tabs .ui-tabs-nav li.ui-state-disabled .ui-tabs-anchor,
+.ui-tabs .ui-tabs-nav li.ui-tabs-loading .ui-tabs-anchor {
+    cursor: text;
+}
+
+.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor {
+    cursor: pointer;
+}
+
+.ui-tabs .ui-tabs-panel {
+    display: block;
+    border-width: 0;
+    padding: 1em 1.4em;
+    background: none;
+}
+
+
+/* Component containers
+----------------------------------*/
+
+.ui-widget {
+    font-size: 1em;
+}
+
+.ui-widget .ui-widget {
+    font-size: 1em;
+}
+
+.ui-widget input,
+.ui-widget select,
+.ui-widget textarea,
+.ui-widget button {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+}
+
+.ui-widget.ui-widget-content {
+    border: 1px solid #c5c5c5;
+}
+
+.ui-widget-content {
+    border: 1px solid #dddddd;
+    background: #ffffff;
+    color: #333333;
+}
+
+.ui-widget-content a {
+    color: #333333;
+}
+
+.ui-widget-header a {
+    color: #333333;
+}
+
+
+/* Interaction states
+----------------------------------*/
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default,
+.ui-button,
+
+/* We use html here because we need a greater specificity to make sure disabled
+works properly when clicked or hovered */
+
+html .ui-button.ui-state-disabled:hover,
+html .ui-button.ui-state-disabled:active {
+    border: 1px solid #c5c5c5;
+    background: #f6f6f6;
+    font-weight: normal;
+    color: #454545;
+}
+
+.ui-state-default a,
+.ui-state-default a:link,
+.ui-state-default a:visited,
+a.ui-button,
+a:link.ui-button,
+a:visited.ui-button,
+.ui-button {
+    color: #454545;
+    text-decoration: none;
+}
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus,
+.ui-button:hover,
+.ui-button:focus {
+    border: 1px solid #cccccc;
+    background: #ededed;
+    font-weight: normal;
+    color: #2b2b2b;
+}
+
+.ui-state-hover a,
+.ui-state-hover a:hover,
+.ui-state-hover a:link,
+.ui-state-hover a:visited,
+.ui-state-focus a,
+.ui-state-focus a:hover,
+.ui-state-focus a:link,
+.ui-state-focus a:visited,
+a.ui-button:hover,
+a.ui-button:focus {
+    color: #2b2b2b;
+    text-decoration: none;
+}
+
+.ui-visual-focus {
+    box-shadow: 0 0 3px 1px rgb(94, 158, 214);
+}
+
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active,
+a.ui-button:active,
+.ui-button:active,
+.ui-button.ui-state-active:hover {
+    border: 1px solid #1d76da;
+    background: #1d76da;
+    font-weight: normal;
+    color: #ffffff;
+}
+
+.ui-icon-background,
+.ui-state-active .ui-icon-background {
+    border: #1d76da;
+    background-color: #ffffff;
+}
+
+.ui-state-active a,
+.ui-state-active a:link,
+.ui-state-active a:visited {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.ui-state-active a:focus {
+    box-shadow: none;
+    outline: 0;
+}
+
+
+/* Interaction Cues
+----------------------------------*/
+
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
+    border: 1px solid #dad55e;
+    background: #fffa90;
+    color: #777620;
+}
+
+.ui-state-checked {
+    border: 1px solid #dad55e;
+    background: #fffa90;
+}
+
+.ui-state-highlight a,
+.ui-widget-content .ui-state-highlight a,
+.ui-widget-header .ui-state-highlight a {
+    color: #777620;
+}
+
+.ui-state-error,
+.ui-widget-content .ui-state-error,
+.ui-widget-header .ui-state-error {
+    border: 1px solid #f1a899;
+    background: #fddfdf;
+    color: #5f3f3f;
+}
+
+.ui-state-error a,
+.ui-widget-content .ui-state-error a,
+.ui-widget-header .ui-state-error a {
+    color: #5f3f3f;
+}
+
+.ui-state-error-text,
+.ui-widget-content .ui-state-error-text,
+.ui-widget-header .ui-state-error-text {
+    color: #5f3f3f;
+}
+
+.ui-priority-primary,
+.ui-widget-content .ui-priority-primary,
+.ui-widget-header .ui-priority-primary {
+    font-weight: bold;
+}
+
+.ui-priority-secondary,
+.ui-widget-content .ui-priority-secondary,
+.ui-widget-header .ui-priority-secondary {
+    opacity: .7;
+    filter: Alpha(Opacity=70);
+    /* support: IE8 */
+    font-weight: normal;
+}
+
+.ui-state-disabled,
+.ui-widget-content .ui-state-disabled,
+.ui-widget-header .ui-state-disabled {
+    opacity: .35;
+    filter: Alpha(Opacity=35);
+    /* support: IE8 */
+    background-image: none;
+}
+
+.ui-state-disabled .ui-icon {
+    filter: Alpha(Opacity=35);
+    /* support: IE8 - See #6059 */
+}
+
+
+/* Post meta UI
+----------------------------------*/
+
+
+/* Checkbox button :: Start */
+
+#reign_postmeta_settings #reign-settings-tabs .wbcom-metabox-control input[type=checkbox] {
+    background-color: #fff;
+    border: 1px solid #8b8b8b !important;
+    width: 70px;
+    line-height: 30px;
+    height: 31px;
+    margin-right: 5px;
+    position: relative;
+    border-radius: 100px;
+    -webkit-transition: .4s;
+    transition: .4s;
+    box-shadow: none;
+}
+
+#reign_postmeta_settings #reign-settings-tabs .wbcom-metabox-control input[type=checkbox]:checked {
+    background-color: #1d76da;
+    border-color: #1d76da !important;
+}
+
+#reign_postmeta_settings #reign-settings-tabs .wbcom-metabox-control input[type=checkbox]:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    background: #8b8b8b;
+    left: 6px;
+    top: 5px;
+    border-radius: 100px;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+#reign_postmeta_settings #reign-settings-tabs .wbcom-metabox-control input[type=checkbox]:checked::before {
+    background: #ffffff;
+    -webkit-transform: translateX(38px);
+    -ms-transform: translateX(38px);
+    transform: translateX(38px);
+    margin: 0;
+}
+
+#reign_postmeta_settings #reign-settings-tabs .wbcom-metabox-control input[type="checkbox"]:after {
+    content: "No";
+    font-size: 14px;
+    color: #777;
+    position: absolute;
+    top: 0px;
+    right: 15px;
+    font-weight: 500;
+}
+
+#reign_postmeta_settings #reign-settings-tabs .wbcom-metabox-control input[type=checkbox]:checked::after {
+    content: "Yes";
+    right: 35px;
+    color: #fff;
+}
+
+
+/* Checkbox button :: End */
+
+#reign-settings-tabs {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    position: relative;
+}
+
+.reign-settings-loader {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #fff;
+    z-index: 99;
+}
+
+.reign-settings-loader::before {
+    content: "";
+    background-image: url(./images/preloader.svg);
+    background-repeat: no-repeat;
+    background-size: 50px;
+    background-position: 50% 50%;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+
+.reign-settings-main-wrapper {
+    background: #fff;
+    padding: 15px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+}
+
+.reign-settings-nav-wrapper {
+    background: #E1E6F4;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 18%;
+    padding: 15px;
+}
+
+.reign-settings-options-wrapper {
+    width: 81%;
+    background: #fff;
+    padding-left: 30px;
+}
+
+#reign-layout-settings,
+#reign-subheader-settings {
+    padding: 0;
+}
+
+.reign-options-inner-wrapper {
+    position: relative;
+    margin: 0;
+    padding: 30px;
+    box-shadow: none;
+    background: #F6F7FE;
+    font-size: 15px;
+    line-height: 2.1em;
+    overflow: hidden;
+    border-radius: 12px;
+    width: auto;
+}
+
+#reign-layout-settings .wbcom-metabox-control,
+#reign-subheader-settings .wbcom-metabox-control {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid rgba(200, 197, 218, 0.30);
+    box-shadow: 5px 5px 20px rgba(32, 53, 85, 0.10);
+    margin-bottom: 20px;
+}
+
+#reign-settings-tabs .ui-widget-header {
+    border: 0;
+    background: transparent;
+    color: #333333;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+#reign-settings-tabs.ui-tabs .ui-tabs-nav li {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin: 0 0 15px;
+    padding: 0;
+    border: 0;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+#reign-settings-tabs.ui-tabs .ui-tabs-nav li:last-child {
+    margin-bottom: 0;
+}
+
+#reign-settings-tabs.ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+    padding: 15px 20px;
+    font-size: 14px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-shadow: 0px 12px 30px rgba(53, 66, 134, 0.12);
+}
+
+.reign-options-inner-wrapper .reign-subheader-fields {
+    margin: 0 0 20px;
+}
+
+.reign-options-inner-wrapper input[type="checkbox"] {
+    height: 1.5625rem;
+    width: 1.5625rem;
+}
+
+.reign-options-inner-wrapper input[type="checkbox"]:checked:before {
+    width: 1.875rem;
+    height: 1.875rem;
+    margin: -0.1875rem -0.3125rem;
+}
+
+.reign-options-inner-wrapper .add_subheader_banner_image {
+    margin: 0;
+}
+
+.reign-layout-settings::before,
+.reign-subheader-settings::before {
+    content: "\f535";
+    font-family: 'dashicons';
+    font-weight: 400;
+    font-size: 20px;
+    margin: 0 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.reign-subheader-settings::before {
+    content: "\f489";
+}
+
+.add_subheader_banner_image a.button {
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 0;
+    border-radius: 25px;
+    border: 1px solid;
+    display: inline-block;
+    background: #1d76da;
+    color: #fff;
+    border-color: #1d76da;
+    line-height: normal;
+}
+
+.add_subheader_banner_image a.button:hover,
+.add_subheader_banner_image .components-button.is-primary.button:hover {
+    background: #1d76da;
+    color: #fff;
+    border-color: #1d76da;
+    box-shadow: inset 0 0 0 99999px rgb(0 0 0 / 10%);
+}
+
+@media screen and (max-width: 991px) {
+    .reign-settings-main-wrapper {
+        -ms-flex-flow: wrap;
+            flex-flow: wrap;
+    }
+
+    .reign-settings-nav-wrapper {
+        width: 100%;
+    }
+
+    .reign-settings-options-wrapper {
+        width: 100%;
+        padding: 0;
+    }
+}
