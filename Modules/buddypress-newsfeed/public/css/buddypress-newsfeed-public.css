@@ -1,0 +1,30 @@
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Global
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# Global
+--------------------------------------------------------------*/
+#buddypress .edit-activity-hide .edit-activity {
+    display: none !important;
+}
+
+.youzify div.item-list-tabs li a[id="newsfeed"] i {
+    color: #fff;
+    background-color: #a3a3a3;
+}
+
+.youzify div.item-list-tabs li a[id="newsfeed"] i.fa-globe,
+.youzify div.item-list-tabs li#activity-newsfeed-personal-li a i.fa-globe {
+    background: #32A0FF;
+    background: url(../images/dotted-bg.png), linear-gradient(to left, #24C6DC, #514A9D);
+    background: url(../images/dotted-bg.png), -webkit-linear-gradient(right, #24C6DC, #514A9D);
+}
+
+.youzify div.item-list-tabs li a[id="newsfeed"] i.fa-globe:before {
+    content: "\f09e";
+    font-family: "Font Awesome 5 Free"!important;
+    font-weight: 700;
+}
