@@ -1,0 +1,1 @@
+Please translate the bp-custom-background-for-user-profile.po and save the translated file as bp-custom-background-for-user-profile-your_Local.mo  e.g bp-custom-background-for-user-profile-en_US.mo or bp-custom-background-for-user-profile-nl_NL.mo etc
