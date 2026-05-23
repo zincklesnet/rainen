@@ -1,0 +1,112 @@
+/*GENERAL STYLES */
+.adl-general > p {
+padding-top: 10px;
+}
+h1.adl_lp_title {
+    font-size: 23px;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+    font-weight: 400;
+    margin: 5px 0 10px 0;
+}
+#createLegalPage{
+    padding-top: 20px;
+}
+input#adl_accept_terms {
+    margin: -4px 2px 0 0;
+}
+/*Ajax Loader*/
+.adl_lp_ajax_loading {
+    background: url("../img/ajax-loader.gif") no-repeat center center;
+    padding-left: 10px;
+    display: inline-block;
+    min-height: 32px;
+    min-width: 32px;
+}
+
+/* Pagination Style if needed later */
+
+.adl-lp-pagination a.page-numbers {
+    display: inline-block;
+    padding: 9px 11px;
+    margin: 0 2px 0 0;
+    border: 1px solid #eee;
+    line-height: 1;
+    text-decoration: none;
+    border-radius: 2px;
+    font-weight: 600;
+    color: #666;
+}
+
+.page-numbers.current {
+    color: #fff;
+    display: inline-block;
+    padding: 9px 11px;
+    margin: 0 2px 0 0;
+    border: 1px solid #eee;
+    line-height: 1;
+    text-decoration: none;
+    border-radius: 2px;
+    font-weight: 600;
+    background: dodgerblue;
+
+}
+.adl-lp-pagination a.page-numbers:hover {
+    color: #fff;
+    background: dodgerblue;
+}
+
+
+/* Notification Style*/
+#adl-lp-notification {
+    min-height: 50px;
+    padding: 10px;
+    box-shadow: 0px 0px 13px #46b450;
+    position: fixed;
+    bottom: 3%;
+    right: 0%;
+    background-color: white;
+    transition: all .5s;
+    z-index: 9999;
+    border: 3px solid green;
+    color: #4CAF50;
+}
+
+#adl_close_it {
+    display: inline-block;
+    color: red;
+    border: 1px solid #ff0300;
+    border-radius: 50%;
+    height:30px;
+    width: 30px;
+    background-color: #ffffff;
+    cursor: pointer;
+    position: absolute;
+    line-height: 28px;
+    padding-left: 8px;
+    font-size: 19px;
+    top: -19px;
+    right: 0px;
+
+}
+
+/*POPUP Listing Page Style*/
+#adl_legal_popup_container {
+margin-top: 20px;
+}
+#adl_legal_popup_container table tr td:nth-child(4){
+    text-align: right;
+}
+#adl_legal_popup_container table tr th:nth-child(4){
+    text-align: right;
+    padding-right:50px;
+}
+
+#createLPPopupBtn, #refreshPage {
+    padding:5px;
+    margin-right: 10px;
+}
+
+/*fixing bootstrap messing with radio button on the admin setting page*/
+.checkbox label, .radio label{
+    padding-left: 0;
+}
