@@ -1,0 +1,49 @@
+Version 1.2.0 (19/07/2024)
+--------------------------------------------------------------
+Fix to remove depricated options
+
+Version 1.1.2 ( 15/08/2021 )
+--------------------------------------------------------------
+Fix to remove extra comma from wpdb function in Screens
+
+Version 1.1.1 ( 13/04/2021 )
+--------------------------------------------------------------
+Fix to remove extra comma from wpdb function in Screens
+
+Version 1.1.0 ( 25/02/2021 )
+--------------------------------------------------------------
+Fix to display menu name in settings when no menu name has been set.
+
+Version 1.0.9 ( 24/02/2021 )
+--------------------------------------------------------------
+Added checks for BP being active before activation.
+
+Version 1.0.8 ( 22/02/2021 )
+--------------------------------------------------------------
+Added function to exclude the CPT from WP Query at the front end.
+
+Version 1.0.7 ( 19/02/2021 )
+--------------------------------------------------------------
+Added Text Domain
+
+Version 1.0.6 ( 19/02/2021 )
+--------------------------------------------------------------
+Updated tested up to and esc_attr added.
+
+Version 1.0.5 ( 17/02/2021 )
+--------------------------------------------------------------
+Updated Settings page
+
+Version 1.0.4 ( 17/02/2021 )
+--------------------------------------------------------------
+Corrected error with settings page
+
+Version 1.0.3 ( February 16th 2021 )
+--------------------------------------------------------------
+updated page rendering
+
+Version 1.0.0 ( February 5th 2021 )
+--------------------------------------------------------------
+
+- Initial Release.
+
