@@ -1,0 +1,405 @@
+/* Event Dashboard */
+
+.wpem-main-vmenu-dashboard-nav .wpem-main-vmenu-dashboard-ul .wpem-main-vmenu-dashboard-li .wpem-main-vmenu-dashboard-link,
+.wpem-main-vmenu-dashboard-wrapper .wpem-dashboard-events-block-wrap .wpem-dashboard-event-list-wrapper .wpem-dashboard-event-list-body .wpem-dashboard-event-placeholder,
+.wpem-main-vmenu-dashboard-wrapper .wpem-main-vmenu-dashboard-content-wrap .wpem-dashboard-events-block-wrap .wpem-dashboard-event-list-wrapper .wpem-dashboard-event-list,
+.wpem-main-vmenu-dashboard-wrapper .wpem-main-vmenu-dashboard-content-wrap .wpem-dashboard-events-block-wrap .wpem-dashboard-event-list-wrapper .wpem-dashboard-event-list .wpem-dashboard-event-datetime-location .wpem-dashboard-event-date-time,
+.wpem-main-vmenu-dashboard-wrapper .wpem-main-vmenu-dashboard-content-wrap .wpem-dashboard-events-block-wrap .wpem-dashboard-event-list-wrapper .wpem-dashboard-event-list .wpem-dashboard-event-datetime-location .wpem-dashboard-event-location {
+  color: var(--reign-site-body-text-color);
+}
+
+.wpem-event-listings.wpem-event-listing-box-view .wpem-event-layout-wrapper {
+  border-radius: var(--reign-global-border-radius);
+}
+
+.wpem-single-event-page .wpem-single-event-wrapper,
+.wpem-event-listings .wpem-event-layout-wrapper {
+  border-radius: var(--reign-global-border-radius);
+  overflow: hidden;
+}
+
+.wpem-event-listings.wpem-event-listing-box-view .wpem-event-layout-wrapper .wpem-event-infomation .wpem-event-details .wpem-event-date-time,
+.wpem-event-listings.wpem-event-listing-box-view .wpem-event-layout-wrapper .wpem-event-infomation .wpem-event-details .wpem-event-location,
+.wpem-event-listings.wpem-event-listing-box-view .wpem-event-layout-wrapper .wpem-event-infomation .wpem-event-details .wpem-event-ticket-type,
+.wpem-event-listings.wpem-event-listing-box-view .wpem-event-layout-wrapper .wpem-event-infomation .wpem-event-details .wpem-event-title,
+.wpem-event-listings.wpem-event-listing-box-view .wpem-event-layout-wrapper .wpem-event-infomation .wpem-event-details .wpem-event-type {
+  color: var(--reign-site-body-text-color);
+}
+
+.wpem-main,
+.wpem-main a,
+.wpem-event-listings.wpem-event-listing-box-view .wpem-event-layout-wrapper .wpem-event-infomation .wpem-event-details .wpem-event-title .wpem-heading-text,
+.wpem-event-listings.wpem-event-listing-list-view .wpem-event-layout-wrapper .wpem-event-infomation .wpem-event-details .wpem-event-date-time,
+.wpem-event-listings.wpem-event-listing-list-view .wpem-event-layout-wrapper .wpem-event-infomation .wpem-event-details .wpem-event-location,
+.wpem-event-listings.wpem-event-listing-list-view .wpem-event-layout-wrapper .wpem-event-infomation .wpem-event-details .wpem-event-ticket-type,
+.wpem-event-listings.wpem-event-listing-list-view .wpem-event-layout-wrapper .wpem-event-infomation .wpem-event-details .wpem-event-type,
+.organizer-letters .organizer-letters-list a,
+.venue-letters .venue-letters-list a,
+.organizer-counter-upper-wrap,
+.venue-counter-upper-wrap,
+.wpem-form-wrapper .wpem-form-group .wpem-form-label-text,
+.wpem-event-listings .wpem-event-layout-wrapper .wpem-event-infomation .wpem-event-details,
+.wpem-single-event-page .wpem-single-event-footer .wpem-organizer-profile-wrapper .wpem-organizer-profile .wpem-organizer-short-info,
+.wpem-single-event-page .wpem-single-event-footer .wpem-venue-profile-wrapper .wpem-venue-profile .wpem-venue-short-info,
+.wpem-single-organizer-profile-wrapper .wpem-organizer-profile .wpem-organizer-description,
+.wpem-single-venue-profile-wrapper .wpem-venue-profile .wpem-venue-description,
+.wpem-tabs-wrapper .wpem-tabs-wrap .wpem-tab-link,
+.wpem-modal .wpem-modal-content-wrapper .wpem-modal-header .wpem-modal-header-title .wpem-modal-header-title-text,
+.comiseo-daterangepicker.ui-widget-content,
+.comiseo-daterangepicker .ui-widget-content,
+.wpem-single-event-widget a.wpem-event-action-url,
+.wpem-single-event-widget a.wpem-event-action-url:active,
+.wpem-single-event-widget a.wpem-event-action-url:focus,
+.wpem-single-event-widget a.wpem-event-action-url:hover,
+.comiseo-daterangepicker .ui-widget-content a,
+.organizer-related-data-wrapper .show-organizer-info .wpem-list-group .organizer-name-list .organizer-list-items,
+.venue-related-data-wrapper .show-venue-info .wpem-list-group .venue-name-list .venue-list-items,
+.wpem-single-event-page .wpem-single-event-footer .wpem-listing-accordion,
+.wpem-form-wrapper .chosen-container .chosen-choices,
+.wpem-form-wrapper .chosen-container .chosen-single,
+.wpem-event-listings .wpem-event-layout-wrapper .wpem-event-infomation .wpem-event-date .wpem-event-date-type .wpem-from-date .wpem-date,
+.wpem-event-listings .wpem-event-layout-wrapper .wpem-event-infomation .wpem-event-date .wpem-event-date-type .wpem-from-date .wpem-month,
+.wpem-event-listings .wpem-event-layout-wrapper .wpem-event-infomation .wpem-event-date .wpem-event-date-type .wpem-to-date .wpem-date-separator,
+.wpem-event-listings .wpem-event-layout-wrapper .wpem-event-infomation .wpem-event-date .wpem-event-date-type .wpem-to-date .wpem-date,
+.wpem-event-listings .wpem-event-layout-wrapper .wpem-event-infomation .wpem-event-date .wpem-event-date-type .wpem-to-date .wpem-month {
+  color: var(--reign-site-body-text-color);
+}
+
+table.wpem-responsive-table-wrapper thead {
+  background: rgba(222, 222, 222, 0.5);
+}
+
+.wpem-main-vmenu-dashboard-wrapper .wpem-main-vmenu-dashboard-content-wrap .wpem-dashboard-events-block-wrap .wpem-dashboard-event-list-wrapper .wpem-dashboard-event-list .wpem-dashboard-event-datetime-location .wpem-dashboard-event-date-time, .wpem-main-vmenu-dashboard-wrapper .wpem-main-vmenu-dashboard-content-wrap .wpem-dashboard-events-block-wrap .wpem-dashboard-event-list-wrapper .wpem-dashboard-event-list .wpem-dashboard-event-datetime-location .wpem-dashboard-event-location {
+  color: var(--reign-site-body-text-color);
+}
+
+.comiseo-daterangepicker .ui-widget.ui-widget-content {
+  margin: 0;
+  list-style: none;
+}
+
+.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-front {
+  padding: 6px;
+}
+
+@media screen and (max-width: 480px) {
+
+  .comiseo-daterangepicker-presets,
+  .comiseo-daterangepicker-calendar {
+    display: block;
+    height: auto;
+  }
+
+  .comiseo-daterangepicker-calendar.ui-widget-content {
+    border: 0;
+  }
+}
+
+.wpem-event-listings .wpem-event-layout-wrapper .event_cancelled,
+.wpem-event-listings .wpem-event-layout-wrapper .event_cancelled:hover {
+  background: transparent;
+}
+
+.wpem-event-listings .wpem-event-layout-wrapper .event_featured,
+.wpem-event-listings .wpem-event-layout-wrapper .event_featured:hover {
+  background: transparent;
+}
+
+.wpem-event-listings:not(.wpem-event-listing-list-view) .wpem-event-layout-wrapper .event_cancelled,
+.wpem-event-listings:not(.wpem-event-listing-list-view) .wpem-event-layout-wrapper .event_cancelled:hover {
+  border: 1px solid #940000;
+}
+
+.wpem-event-listings:not(.wpem-event-listing-list-view) .wpem-event-layout-wrapper .event_featured,
+.wpem-event-listings:not(.wpem-event-listing-list-view) .wpem-event-layout-wrapper .event_featured:hover {
+  border: 1px solid #0c5460;
+}
+
+.wpem-alert-info {
+  color: #0c5460 !important;
+}
+
+.comiseo-daterangepicker-buttonpanel .button.ui-button,
+.comiseo-daterangepicker-buttonpanel .button.ui-button:hover,
+.comiseo-daterangepicker-buttonpanel .button.ui-button:active,
+.comiseo-daterangepicker-buttonpanel .button.ui-button:focus {
+  border: 2px solid !important;
+}
+
+ul.event_listings {
+  margin: 0;
+}
+
+.comiseo-daterangepicker button.ui-button {
+  border: 2px solid !important;
+}
+
+.dark-scheme .wp-editor-container {
+  -webkit-filter: invert(1);
+  filter: invert(1);
+}
+
+.wpem-theme-button:focus span,
+.wpem-theme-button:hover span,
+a.wpem-theme-button:focus span,
+a.wpem-theme-button:hover span,
+button.wpem-theme-button:focus span,
+button.wpem-theme-button:hover span,
+input.wpem-theme-button:focus span,
+input.wpem-theme-button:hover span {
+  color: inherit;
+}
+
+/* Sections BG Color */
+.wpem-main-vmenu-dashboard-nav .wpem-main-vmenu-dashboard-ul .wpem-main-vmenu-dashboard-li .wpem-main-vmenu-dashboard-link,
+table.wpem-responsive-table-wrapper tbody tr,
+table.wpem-responsive-table-wrapper tbody tr:nth-child(even),
+.wpem-main-vmenu-dashboard-content-wrap .wpem-dashboard-main-content .wpem-dashboard-main-header .wpem-events-filter,
+.chosen-container .chosen-drop,
+.wpem-event-listings .wpem-event-layout-wrapper,
+.wpem-event-listings.wpem-event-listing-box-view .wpem-event-layout-wrapper:hover,
+.wpem-form-wrapper .showing_applied_filters,
+.wpem-event-listings .wpem-event-layout-wrapper:hover,
+.organizer-counter-number-icon,
+.venue-counter-number-icon,
+.wpem-available-events-number-icon,
+.organizer-letters .organizer-letters-list a,
+.venue-letters .venue-letters-list a,
+.organizer-related-data-wrapper .show-organizer-info .wpem-list-group .organizer-group-header,
+.venue-related-data-wrapper .show-venue-info .wpem-list-group .venue-group-header,
+.organizer-related-data-wrapper .show-organizer-info .wpem-list-group .organizer-name-list .organizer-list-items:nth-child(odd),
+.venue-related-data-wrapper .show-venue-info .wpem-list-group .venue-name-list .venue-list-items:nth-child(odd),
+.organizer-related-data-wrapper .show-organizer-info .wpem-list-group,
+.venue-related-data-wrapper .show-venue-info .wpem-list-group,
+.wpem-event-listings .wpem-event-layout-wrapper .event_featured,
+.wpem-event-listings .wpem-event-layout-wrapper .event_featured:hover,
+.wpem-single-organizer-profile-wrapper,
+.wpem-single-venue-profile-wrapper,
+.wpem-tabs-wrapper .wpem-tabs-wrap .wpem-tab-link,
+.comiseo-daterangepicker.ui-widget-content,
+.comiseo-daterangepicker .ui-widget-content,
+.wpem-single-event-widget,
+.organizer-related-data-wrapper .show-organizer-info .wpem-list-group:hover,
+.venue-related-data-wrapper .show-venue-info .wpem-list-group:hover,
+.wpem-single-event-page .wpem-single-event-footer div.wpem-listing-accordion {
+  background-color: var(--reign-site-sections-bg-color);
+}
+
+.wpem-modal .wpem-modal-content-wrapper {
+  background-color: var(--reign-site-sections-bg-color) !important;
+}
+
+/* Theme Color */
+.wpem-main-vmenu-dashboard-nav .wpem-main-vmenu-dashboard-ul .wpem-main-vmenu-dashboard-li a.wpem-main-vmenu-dashboard-link.wpem-main-vmenu-dashboard-link-active,
+.wpem-main-vmenu-dashboard-nav .wpem-main-vmenu-dashboard-ul .wpem-main-vmenu-dashboard-li a.wpem-main-vmenu-dashboard-link.wpem-main-vmenu-dashboard-link-active i,
+.wpem-main-vmenu-dashboard-nav .wpem-main-vmenu-dashboard-ul .wpem-main-vmenu-dashboard-li .wpem-main-vmenu-dashboard-link:hover i,
+table.wpem-responsive-table-wrapper tbody tr td a,
+.wpem-dashboard-main-title.wpem-dashboard-main-filter a.wpem-dashboard-header-btn i[class^=wpem-icon-],
+.wpem-main-vmenu-dashboard-wrapper .wpem-main-vmenu-dashboard-content-wrap .wpem-dashboard-events-block-wrap .wpem-dashboard-event-list-wrapper .wpem-dashboard-event-list .wpem-dboard-event-action .wpem-dboard-event-act-btn a,
+.organizer-letters .organizer-letters-list a:hover,
+.venue-letters .venue-letters-list a:hover,
+.wpem-single-event-page .wpem-single-event-wrapper .wpem-single-event-body .wpem-single-event-body-sidebar .wpem-single-event-sidebar-info a,
+.wpem-event-organizer-tabs .wpem-tabs-wrapper .wpem-tabs-wrap .wpem-tab-link.active,
+.wpem-event-venue-tabs .wpem-tabs-wrapper .wpem-tabs-wrap .wpem-tab-link.active {
+  color: var(--reign-colors-theme);
+}
+
+.organizer-related-data-wrapper .show-organizer-info .wpem-list-group .organizer-name-list .organizer-list-items a:hover .wpem-event-organizer-conunt-number,
+.venue-related-data-wrapper .show-venue-info .wpem-list-group .venue-name-list .venue-list-items a:hover .wpem-event-venue-conunt-number {
+  background-color: var(--reign-colors-theme);
+}
+
+.wpem-main-vmenu-dashboard-wrapper .wpem-dashboard-events-block-wrap .wpem-dashboard-event-list-wrapper .wpem-dashboard-event-list-body .wpem-dashboard-event-placeholder strong,
+.organizer-related-data-wrapper .show-organizer-info .wpem-list-group .organizer-group-header,
+.venue-related-data-wrapper .show-venue-info .wpem-list-group .venue-group-header,
+.organizer-letters .organizer-letters-list a:hover,
+.venue-letters .venue-letters-list a:hover {
+  border-color: var(--reign-colors-theme);
+}
+
+/* Headings Color */
+.wpem-single-event-page .wpem-heading-text,
+.wpem-event-listings .wpem-event-layout-wrapper .wpem-event-infomation .wpem-event-details .wpem-event-title .wpem-heading-text,
+.wpem-event-listings .wpem-event-layout-wrapper .wpem-event-infomation .wpem-event-details .wpem-event-title .wpem-heading-text,
+.wpem-form-wrapper .wpem-form-title,
+.wpem-single-event-page .wpem-single-event-footer .wpem-venue-wrapper .wpem-venue-profile .wpem-venue-name.wpem-heading-text a,
+.wpem-single-event-widget .wpem-event-infomation .wpem-event-details .wpem-event-title .wpem-heading-text,
+.wpem-event-listings.wpem-event-listing-box-view .wpem-event-layout-wrapper .wpem-event-infomation .wpem-event-details .wpem-event-title .wpem-heading-text {
+  color: var(--reign-site-headings-color);
+}
+
+/* Links Color */
+.wpem-main-vmenu-dashboard-wrapper .wpem-main-vmenu-dashboard-content-wrap .wpem-dashboard-events-block-wrap .wpem-dashboard-event-list-wrapper .wpem-dashboard-event-list .wpem-dashboard-event-name a,
+.organizer-related-data-wrapper .show-organizer-info .wpem-list-group .organizer-name-list .organizer-list-items a,
+.venue-related-data-wrapper .show-venue-info .wpem-list-group .venue-name-list .venue-list-items a,
+.wpem-main-vmenu-dashboard-nav .wpem-main-vmenu-dashboard-ul .wpem-main-vmenu-dashboard-li .wpem-main-vmenu-dashboard-link {
+  color: var(--reign-site-link-color);
+}
+
+.wpem-main a:active,
+.wpem-main a:focus,
+.wpem-main a:hover,
+table.wpem-responsive-table-wrapper tbody tr td a:hover,
+.wpem-dashboard-main-title.wpem-dashboard-main-filter a.wpem-dashboard-header-btn:hover i[class^=wpem-icon-],
+.wpem-main-vmenu-dashboard-wrapper .wpem-main-vmenu-dashboard-content-wrap .wpem-dashboard-events-block-wrap .wpem-dashboard-event-list-wrapper .wpem-dashboard-event-list .wpem-dashboard-event-name a:hover,
+.organizer-related-data-wrapper .show-organizer-info .wpem-list-group .organizer-name-list .organizer-list-items a:hover,
+.venue-related-data-wrapper .show-venue-info .wpem-list-group .venue-name-list .venue-list-items a:hover,
+.wpem-main-vmenu-dashboard-nav .wpem-main-vmenu-dashboard-ul .wpem-main-vmenu-dashboard-li .wpem-main-vmenu-dashboard-link:hover {
+  color: var(--reign-site-link-hover-color);
+}
+
+/* Bottons Color */
+.wpem-theme-button,
+a.wpem-theme-button,
+button.wpem-theme-button,
+input.wpem-theme-button,
+.wpem-form-wrapper .wpem-form-group .account-sign-in a,
+.wpem-form-wrapper .wpem-form-group a.wpem_add_organizer_popup.wpem-modal-button,
+.wpem-form-wrapper .wpem-form-group a.wpem_add_venue_popup.wpem-modal-button,
+.wpem-single-event-page .wpem-single-event-right-content .wpem-single-event-body-sidebar .wpem-theme-button,
+.wpem-single-event-page .wpem-single-event-right-content .wpem-single-event-body-sidebar a.wpem-theme-button,
+.wpem-single-event-page .wpem-single-event-right-content .wpem-single-event-body-sidebar button.wpem-theme-button,
+.wpem-single-event-page .wpem-single-event-right-content .wpem-single-event-body-sidebar input.wpem-theme-button {
+  background-color: var(--reign-site-button-bg-color);
+  color: var(--reign-site-button-text-color);
+  border-radius: var(--reign-global-button-radius);
+}
+
+.wpem-theme-button:hover,
+a.wpem-theme-button:hover,
+button.wpem-theme-button:hover,
+input.wpem-theme-button:hover,
+.wpem-form-wrapper .wpem-form-group .account-sign-in a:hover,
+.wpem-form-wrapper .wpem-form-group a.wpem_add_organizer_popup.wpem-modal-button:hover,
+.wpem-form-wrapper .wpem-form-group a.wpem_add_venue_popup.wpem-modal-button:hover,
+.wpem-single-event-page .wpem-single-event-right-content .wpem-single-event-body-sidebar .wpem-theme-button:hover,
+.wpem-single-event-page .wpem-single-event-right-content .wpem-single-event-body-sidebar a.wpem-theme-button:hover,
+.wpem-single-event-page .wpem-single-event-right-content .wpem-single-event-body-sidebar button.wpem-theme-button:hover,
+.wpem-single-event-page .wpem-single-event-right-content .wpem-single-event-body-sidebar input.wpem-theme-button:hover {
+  background-color: var(--reign-site-button-bg-hover-color);
+  color: var(--reign-site-button-text-hover-color);
+  border-radius: var(--reign-global-button-radius);
+}
+
+/* Border Color */
+.wpem-main-vmenu-dashboard-nav .wpem-main-vmenu-dashboard-ul .wpem-main-vmenu-dashboard-li .wpem-main-vmenu-dashboard-link,
+.wpem-main-vmenu-dashboard-wrapper .wpem-main-vmenu-dashboard-nav ul.wpem-main-vmenu-dashboard-ul,
+.wpem-responsive-table-block,
+.wpem-dashboard-main-title.wpem-dashboard-main-filter a.wpem-dashboard-header-btn,
+.wpem-main-vmenu-dashboard-wrapper .wpem-main-vmenu-dashboard-content-wrap .wpem-dashboard-events-block-wrap .wpem-dashboard-event-list-wrapper .wpem-dashboard-event-list .wpem-dashboard-event-datetime-location,
+.wpem-main-vmenu-dashboard-wrapper .wpem-main-vmenu-dashboard-content-wrap .wpem-dashboard-events-block-wrap .wpem-dashboard-event-list-wrapper .wpem-dashboard-event-list,
+.wpem-form-wrapper .chosen-container .chosen-drop,
+.wpem-event-listings.wpem-event-listing-box-view .wpem-event-layout-wrapper,
+.wpem-single-event-page .wpem-single-event-wrapper,
+.wpem-event-listings .wpem-event-layout-wrapper,
+.wpem-event-listing-list-view .wpem-event-box-col:first-child .wpem-event-layout-wrapper,
+.wpem-event-listing-list-view.wpem-event-listings .wpem-event-layout-wrapper .event_listing,
+.organizer-related-data-wrapper .show-organizer-info .wpem-list-group,
+.venue-related-data-wrapper .show-venue-info .wpem-list-group,
+.organizer-related-data-wrapper .show-organizer-info .wpem-list-group .organizer-name-list .organizer-list-items .wpem-organizer-logo,
+.venue-related-data-wrapper .show-venue-info .wpem-list-group .venue-name-list .venue-list-items .wpem-venue-logo,
+.wpem-single-organizer-profile-wrapper .wpem-organizer-profile .wpem-organizer-logo-wrapper .wpem-organizer-logo img,
+.wpem-single-venue-profile-wrapper .wpem-venue-profile .wpem-venue-logo-wrapper .wpem-venue-logo img,
+.wpem-event-organizer-tabs .event-organizer-tab-contents.wpem-tab-content.current,
+.wpem-event-venue-tabs .event-venue-tab-contents.wpem-tab-content.current,
+.wpem-event-organizer-tabs .wpem-tabs-wrapper .wpem-tabs-wrap .wpem-tab-link.active,
+.wpem-event-venue-tabs .wpem-tabs-wrapper .wpem-tabs-wrap .wpem-tab-link.active,
+.wpem-single-event-widget,
+.wpem-main-vmenu-dashboard-nav .wpem-main-vmenu-dashboard-ul .wpem-main-vmenu-dashboard-li:first-child .wpem-main-vmenu-dashboard-link,
+.organizer-related-data-wrapper .show-organizer-info .wpem-list-group:hover,
+.venue-related-data-wrapper .show-venue-info .wpem-list-group:hover,
+.wpem-single-event-page .wpem-single-event-footer div.wpem-listing-accordion,
+table.wpem-responsive-table-wrapper tbody tr {
+  border-color: var(--reign-site-border-color);
+}
+
+.wpem-single-event-page .wpem-single-event-wrapper .wpem-single-event-body .wpem-single-event-left-content::after {
+  background-color: var(--reign-site-border-color);
+}
+
+/* Form Elements */
+.wpem-form-wrapper .wpem-form-group input[type="color"],
+.wpem-form-wrapper .wpem-form-group input[type="date"],
+.wpem-form-wrapper .wpem-form-group input[type="datetime-local"],
+.wpem-form-wrapper .wpem-form-group input[type="datetime"],
+.wpem-form-wrapper .wpem-form-group input[type="email"],
+.wpem-form-wrapper .wpem-form-group input[type="file"],
+.wpem-form-wrapper .wpem-form-group input[type="month"],
+.wpem-form-wrapper .wpem-form-group input[type="number"],
+.wpem-form-wrapper .wpem-form-group input[type="password"],
+.wpem-form-wrapper .wpem-form-group input[type="search"],
+.wpem-form-wrapper .wpem-form-group input[type="tel"],
+.wpem-form-wrapper .wpem-form-group input[type="text"],
+.wpem-form-wrapper .wpem-form-group input[type="time"],
+.wpem-form-wrapper .wpem-form-group input[type="url"],
+.wpem-form-wrapper .wpem-form-group input[type="week"],
+.wpem-form-wrapper .wpem-form-group select,
+.wpem-form-wrapper .wpem-form-group select optgroup,
+.wpem-form-wrapper .wpem-form-group textarea,
+.chosen-container-multi .chosen-choices,
+.wpem-form-wrapper .chosen-container {
+  background: var(--reign-form-background-color);
+  color: var(--reign-form-text-color);
+  border: 1px solid var(--reign-form-border-color);
+  border-radius: var(--reign-global-form-radius);
+}
+
+.wpem-form-wrapper .chosen-container {
+  border-radius: var(--reign-global-form-radius);
+}
+
+.wpem-form-group .comiseo-daterangepicker-triggerbutton.ui-button {
+  border: 1px solid var(--reign-form-border-color) !important;
+  border-radius: var(--reign-global-form-radius);
+}
+
+.chosen-container-active .chosen-choices li.search-field input[type=text] {
+  color: var(--reign-form-text-color) !important;
+}
+
+.chosen-container-active .chosen-choices li.search-field input[type=text]:focus {
+  color: var(--reign-form-focus-text-color) !important;
+}
+
+.wpem-form-wrapper .wpem-form-group input[type="color"]:hover,
+.wpem-form-wrapper .wpem-form-group input[type="date"]:hover,
+.wpem-form-wrapper .wpem-form-group input[type="datetime-local"]:hover,
+.wpem-form-wrapper .wpem-form-group input[type="datetime"]:hover,
+.wpem-form-wrapper .wpem-form-group input[type="email"]:hover,
+.wpem-form-wrapper .wpem-form-group input[type="file"]:hover,
+.wpem-form-wrapper .wpem-form-group input[type="month"]:hover,
+.wpem-form-wrapper .wpem-form-group input[type="number"]:hover,
+.wpem-form-wrapper .wpem-form-group input[type="password"]:hover,
+.wpem-form-wrapper .wpem-form-group input[type="search"]:hover,
+.wpem-form-wrapper .wpem-form-group input[type="tel"]:hover,
+.wpem-form-wrapper .wpem-form-group input[type="text"]:hover,
+.wpem-form-wrapper .wpem-form-group input[type="time"]:hover,
+.wpem-form-wrapper .wpem-form-group input[type="url"]:hover,
+.wpem-form-wrapper .wpem-form-group input[type="week"]:hover,
+.wpem-form-wrapper .wpem-form-group select:hover,
+.wpem-form-wrapper .wpem-form-group textarea:hover,
+.chosen-container-multi .chosen-choices:hover,
+.wpem-form-wrapper .chosen-container:hover,
+.wpem-form-wrapper .wpem-form-group input[type="color"]:focus,
+.wpem-form-wrapper .wpem-form-group input[type="date"]:focus,
+.wpem-form-wrapper .wpem-form-group input[type="datetime-local"]:focus,
+.wpem-form-wrapper .wpem-form-group input[type="datetime"]:focus,
+.wpem-form-wrapper .wpem-form-group input[type="email"]:focus,
+.wpem-form-wrapper .wpem-form-group input[type="file"]:focus,
+.wpem-form-wrapper .wpem-form-group input[type="month"]:focus,
+.wpem-form-wrapper .wpem-form-group input[type="number"]:focus,
+.wpem-form-wrapper .wpem-form-group input[type="password"]:focus,
+.wpem-form-wrapper .wpem-form-group input[type="search"]:focus,
+.wpem-form-wrapper .wpem-form-group input[type="tel"]:focus,
+.wpem-form-wrapper .wpem-form-group input[type="text"]:focus,
+.wpem-form-wrapper .wpem-form-group input[type="time"]:focus,
+.wpem-form-wrapper .wpem-form-group input[type="url"]:focus,
+.wpem-form-wrapper .wpem-form-group input[type="week"]:focus,
+.wpem-form-wrapper .wpem-form-group select:focus,
+.chosen-container-multi .chosen-choices:focus,
+.wpem-form-wrapper .chosen-container:focus {
+  background: var(--reign-form-focus-background-color);
+  color: var(--reign-form-focus-text-color);
+  border: 1px solid var(--reign-form-focus-border-color);
+}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndwLWV2ZW50LW1hbmFnZXIuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLHFCQUFxQjs7QUFFckI7Ozs7O0VBS0MseUNBQUE7Q0FDQTs7QUFFRDtFQUNFLGlEQUFpRDtDQUNsRDs7QUFFRDs7RUFFRSxpREFBaUI7RUFDbEIsaUJBQUE7Q0FDQTs7QUFFRDs7Ozs7RUFLQyx5Q0FBQTtDQUNBOztBQUVEOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7RUFvQ0MseUNBQUE7Q0FDQTs7QUFFRDtFQUNDLHFDQUFBO0NBQ0E7O0FBRUQ7RUFDRSx5Q0FBeUM7Q0FDMUM7O0FBRUQ7RUFDQyxVQUFBO0VBQ0EsaUJBQUE7Q0FDQTs7QUFFRDtFQUNDLGFBQUE7Q0FDQTs7QUFFRDs7RUFFRTs7SUFFQyxlQUFBO0lBQ0YsYUFBQTtHQUNFOztFQUVEO0lBQ0EsVUFBQTtHQUNEO0NBQ0E7O0FBRUQ7O0VBRUMsd0JBQUE7Q0FDQTs7QUFFRDs7RUFFQyx3QkFBQTtDQUNBOztBQUVEOztFQUVDLDBCQUFBO0NBQ0E7O0FBRUQ7O0VBRUMsMEJBQUE7Q0FDQTs7QUFFRDtFQUNDLDBCQUFBO0NBQ0E7O0FBRUQ7Ozs7RUFJQyw2QkFBQTtDQUNBOztBQUVEO0VBQ0MsVUFBQTtDQUNBOztBQUVEO0VBQ0MsNkJBQUE7Q0FDQTs7QUFFRDtFQUNFLDBCQUFrQjtFQUNuQixrQkFBQTtDQUNBOztBQUVEOzs7Ozs7OztFQVFDLGVBQUE7Q0FDQTs7QUFFRCx1QkFBQTtBQUNBOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0VBK0JDLHNEQUFBO0NBQ0E7O0FBRUQ7RUFDQyxpRUFBQTtDQUNBOztBQUVELGlCQUFBO0FBQ0E7Ozs7Ozs7Ozs7O0VBV0UsaUNBQWlDO0NBQ2xDOztBQUVEOztFQUVFLDRDQUE0QztDQUM3Qzs7QUFFRDs7Ozs7RUFLRSx3Q0FBd0M7Q0FDekM7O0FBRUQsb0JBQW9CO0FBQ3BCOzs7Ozs7O0VBT0Usd0NBQXdDO0NBQ3pDOztBQUVELGlCQUFpQjtBQUNqQjs7OztFQUlDLG9DQUFBO0NBQ0E7O0FBRUQ7Ozs7Ozs7OztFQVNDLDBDQUFBO0NBQ0E7O0FBRUQsbUJBQUE7QUFDQTs7Ozs7Ozs7Ozs7RUFXRSxvREFBQTtFQUNELDJDQUFBO0VBQ0EsaURBQUE7Q0FDQTs7QUFFRDs7Ozs7Ozs7Ozs7RUFXRSwwREFBaUQ7RUFDbEQsaURBQUE7RUFDQSxpREFBQTtDQUNBOztBQUVELGtCQUFBO0FBQ0E7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7RUE0QkMsNkNBQUE7Q0FDQTs7QUFFRDtFQUNDLGlEQUFBO0NBQ0E7O0FBRUQsbUJBQUE7QUFDQTs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7RUFvQkMsK0NBQUE7RUFDQSxvQ0FBQTtFQUNBLGlEQUFBO0VBQ0EsK0NBQUE7Q0FDQTs7QUFFRDtFQUNDLCtDQUFBO0NBQ0E7O0FBRUQ7RUFDQyw0REFBQTtFQUNBLCtDQUFBO0NBQ0E7O0FBRUQ7RUFDRSwrQ0FBK0M7Q0FDaEQ7O0FBRUQ7RUFDRSxxREFBcUQ7Q0FDdEQ7O0FBRUQ7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7RUFxQ0UscURBQXFEO0VBQ3JELDBDQUEwQztFQUMxQyx1REFBdUQ7Q0FDeEQiLCJmaWxlIjoid3AtZXZlbnQtbWFuYWdlci5jc3MifQ== */

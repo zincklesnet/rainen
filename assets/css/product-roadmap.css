@@ -1,0 +1,343 @@
+/**
+ * Micro clearfix, as per: http://cssmojo.com/latest_new_clearfix_so_far/
+ * Extend the clearfix class with Sass to avoid the `.clearfix` class appearing
+ * over and over in your markup.
+ */
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Global
+# Poll Roadmap
+# Roadmap Modal
+# Common Colors
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+# Global
+--------------------------------------------------------------*/
+.roadmap-btn.roadmap-btn-icon {
+  background-color: var(--reign-site-button-bg-color);
+  color: var(--reign-site-button-text-color);
+  border: 1px solid var(--reign-site-button-bg-color);
+}
+.roadmap-btn.roadmap-btn-icon:hover, .roadmap-btn.roadmap-btn-icon:focus {
+  background-color: var(--reign-site-button-bg-hover-color);
+  color: var(--reign-site-button-text-hover-color);
+  border: 1px solid var(--reign-site-button-bg-hover-color);
+}
+
+.roadmap-btn-primary.roadmap-btn-primary {
+  background-color: var(--reign-site-button-bg-color);
+  color: var(--reign-site-button-text-color);
+  border: 1px solid var(--reign-site-button-bg-color);
+}
+.roadmap-btn-primary.roadmap-btn-primary:hover, .roadmap-btn-primary.roadmap-btn-primary:focus {
+  background-color: var(--reign-site-button-bg-hover-color);
+  color: var(--reign-site-button-text-hover-color);
+  border: 1px solid var(--reign-site-button-bg-hover-color);
+}
+
+.roadmap-btn-secondary.roadmap-btn-secondary {
+  background: var(--reign-site-sections-bg-color);
+  color: var(--reign-site-body-text-color);
+  border-color: var(--reign-site-border-color);
+}
+
+.roadmap-btn-primary.roadmap-btn-primary:hover:not(:disabled),
+.roadmap-btn-secondary.roadmap-btn-secondary:hover:not(:disabled),
+.roadmap-btn-secondary.roadmap-btn-secondary:hover {
+  background-color: var(--reign-site-button-bg-hover-color);
+  color: var(--reign-site-button-text-hover-color);
+  border: 1px solid var(--reign-site-button-bg-hover-color);
+}
+
+.roadmap-form-control.roadmap-form-control.roadmap-form-control,
+.roadmap-filters .roadmap-sort-control.roadmap-sort-control.roadmap-sort-control {
+  background-color: var(--reign-form-background-color);
+  color: var(--reign-form-text-color);
+  border: 1px solid var(--reign-form-border-color);
+}
+.roadmap-form-control.roadmap-form-control.roadmap-form-control:hover, .roadmap-form-control.roadmap-form-control.roadmap-form-control:focus,
+.roadmap-filters .roadmap-sort-control.roadmap-sort-control.roadmap-sort-control:hover,
+.roadmap-filters .roadmap-sort-control.roadmap-sort-control.roadmap-sort-control:focus {
+  background-color: var(--reign-form-focus-background-color);
+  color: var(--reign-form-focus-text-color);
+  border: 1px solid var(--reign-form-focus-border-color);
+  box-shadow: 0 0 0 2px rgba(var(--reign-colors-theme-rgb), 0.1);
+}
+
+.roadmap-minimal-item-description,
+.roadmap-card-content,
+.roadmap-timeline-item .roadmap-timeline-item-content p {
+  text-wrap: auto;
+}
+
+/*--------------------------------------------------------------
+# Poll Roadmap
+--------------------------------------------------------------*/
+.roadmap-container {
+  background: var(--reign-site-sections-bg-color);
+  padding: 15px;
+  border: 1px solid var(--reign-site-border-color);
+  border-radius: var(--reign-global-border-radius);
+}
+
+.roadmap-minimal-filter.roadmap-minimal-filter.roadmap-minimal-filter {
+  background: var(--reign-site-secondary-bg-color);
+  color: var(--reign-site-headings-color);
+  border: 1px solid var(--reign-site-border-color);
+}
+.roadmap-minimal-filter.roadmap-minimal-filter.roadmap-minimal-filter:hover {
+  background: var(--reign-site-sections-bg-color);
+}
+.roadmap-minimal-filter.roadmap-minimal-filter.roadmap-minimal-filter.active {
+  background: var(--reign-colors-theme);
+  color: #fff;
+  border-color: var(--reign-colors-theme);
+}
+
+/*--------------------------------------------------------------
+# Roadmap Modal
+--------------------------------------------------------------*/
+.roadmap-app.roadmap-app {
+  color: var(--reign-site-body-text-color);
+}
+
+.roadmap-modal-dialog.roadmap-modal-dialog {
+  background: var(--reign-site-sections-bg-color);
+}
+
+.roadmap-modal-header.roadmap-modal-header,
+.roadmap-modal-footer.roadmap-modal-footer {
+  border-color: var(--reign-site-border-color);
+}
+
+/*--------------------------------------------------------------
+# Test Form
+--------------------------------------------------------------*/
+.roadmap-app + div:has(form#test-submit) {
+  background: var(--reign-site-sections-bg-color) !important;
+  border: 2px solid var(--reign-colors-theme) !important;
+}
+
+.roadmap-app + div:has(form#test-submit) button[type=submit] {
+  background-color: var(--reign-site-button-bg-color) !important;
+  color: var(--reign-site-button-text-color) !important;
+  border: 1px solid var(--reign-site-button-bg-color) !important;
+}
+.roadmap-app + div:has(form#test-submit) button[type=submit]:hover, .roadmap-app + div:has(form#test-submit) button[type=submit]:focus {
+  background-color: var(--reign-site-button-bg-hover-color) !important;
+  color: var(--reign-site-button-text-hover-color) !important;
+  border: 1px solid var(--reign-site-button-bg-hover-color) !important;
+}
+
+/*--------------------------------------------------------------
+# Poll Submission
+--------------------------------------------------------------*/
+.roadmap-single-voting.roadmap-single-voting {
+  background: var(--reign-site-sections-bg-color);
+  border-color: var(--reign-site-border-color);
+}
+
+.roadmap-vote-btn.roadmap-vote-btn,
+.roadmap-single-product.roadmap-single-product {
+  background: var(--reign-site-secondary-bg-color);
+  border-color: var(--reign-site-border-color);
+  color: var(--reign-site-body-text-color);
+}
+
+/*--------------------------------------------------------------
+# Change Log
+--------------------------------------------------------------*/
+.roadmap-changelog-article,
+.changelog-nav-link,
+.changelog-archive-item,
+.roadmap-changelog-version.roadmap-changelog-version {
+  background: var(--reign-site-sections-bg-color);
+}
+
+.changelog-entry-footer,
+.changelog-breadcrumb,
+.roadmap-changelog-header.roadmap-changelog-header {
+  background: var(--reign-site-secondary-bg-color);
+  border-color: var(--reign-site-border-color);
+  color: var(--reign-site-body-text-color);
+}
+
+.changelog-no-results,
+.changelog-preview-items {
+  background: var(--reign-site-secondary-bg-color);
+}
+
+.changelog-entry-title,
+.changelog-changes-title,
+.changelog-archive-title,
+.changelog-no-results h2,
+.changelog-nav-link .nav-title,
+.changelog-archive-item h2,
+.roadmap-changelog-title .version-number.version-number {
+  color: var(--reign-site-headings-color);
+}
+
+.changelog-date,
+.changelog-item-text,
+.changelog-archive-description,
+.changelog-no-results,
+.changelog-description,
+.changelog-nav-link .nav-label,
+.changelog-product-filter .filter-label,
+.changelog-preview-text,
+.changelog-archive-meta .changelog-date,
+.changelog-archive-summary,
+.changelog-type-summary,
+.changelog-product-name,
+.roadmap-changelog-date.roadmap-changelog-date,
+.roadmap-changelog-item-text.roadmap-changelog-item-text,
+.roadmap-changelog-description.roadmap-changelog-description {
+  color: var(--reign-site-body-text-color);
+}
+
+.changelog-entry-header,
+.changelog-item,
+.changelog-description,
+.changelog-nav-link,
+.changelog-archive-item,
+.changelog-preview-item,
+.roadmap-changelog-version,
+.roadmap-changelog-item.roadmap-changelog-item,
+.roadmap-changelog-version.roadmap-changelog-version {
+  border-color: var(--reign-site-border-color);
+}
+
+.changelog-back-link {
+  color: var(--reign-site-link-color);
+}
+
+.changelog-back-link:hover {
+  color: var(--reign-site-link-hover-color);
+}
+
+.changelog-product-dropdown {
+  background-color: var(--reign-site-sections-bg-color);
+  color: var(--reign-site-body-text-color);
+  border-color: var(--reign-site-border-color);
+}
+.changelog-product-dropdown:hover, .changelog-product-dropdown:focus {
+  border-color: var(--reign-site-border-color);
+}
+
+.changelog-entry-header .changelog-breadcrumb {
+  margin-bottom: 15px;
+}
+
+/*--------------------------------------------------------------
+# Common Colors
+--------------------------------------------------------------*/
+.roadmap-minimal-item:hover .roadmap-minimal-item-title.roadmap-minimal-item-title.roadmap-minimal-item-title,
+.roadmap-range-value.roadmap-range-value {
+  color: var(--reign-colors-theme);
+}
+
+.roadmap-ideabox-tab.active.roadmap-ideabox-tab.active {
+  background-color: var(--reign-colors-theme);
+}
+
+.roadmap-minimal-item-content.roadmap-minimal-item-content.roadmap-minimal-item-content,
+.roadmap-timeline.roadmap-timeline.roadmap-timeline,
+.roadmap-timeline-item.roadmap-timeline-item.roadmap-timeline-item,
+.roadmap-timeline-section .roadmap-timeline-section-header .roadmap-timeline-period.roadmap-timeline-period.roadmap-timeline-period,
+.roadmap-visual-timeline .roadmap-timeline-markers .roadmap-timeline-marker .roadmap-timeline-marker-label.roadmap-timeline-marker-label.roadmap-timeline-marker-label,
+.roadmap-card.roadmap-card.roadmap-card,
+.roadmap-list.roadmap-list.roadmap-list,
+.roadmap-ideabox.roadmap-ideabox,
+.roadmap-notification.roadmap-notification {
+  background: var(--reign-site-sections-bg-color);
+}
+
+.roadmap-minimal-item:hover .roadmap-minimal-item-content.roadmap-minimal-item-content.roadmap-minimal-item-content,
+.roadmap-minimal-category.roadmap-minimal-category.roadmap-minimal-category,
+.roadmap-timeline-section.roadmap-timeline-section.roadmap-timeline-section,
+.roadmap-card-votes.roadmap-card-votes.roadmap-card-votes,
+.roadmap-list-group-header.roadmap-list-group-header.roadmap-list-group-header,
+.roadmap-ideabox-header.roadmap-ideabox-header,
+.roadmap-ideabox-item.roadmap-ideabox-item:hover,
+.roadmap-ideabox-vote-btn.roadmap-ideabox-vote-btn {
+  background: var(--reign-site-secondary-bg-color);
+}
+
+.roadmap-minimal-footer.roadmap-minimal-footer.roadmap-minimal-footer,
+.roadmap-minimal-item-description.roadmap-minimal-item-description.roadmap-minimal-item-description,
+.roadmap-minimal-item-meta.roadmap-minimal-item-meta.roadmap-minimal-item-meta,
+.roadmap-minimal-stats.roadmap-minimal-stats.roadmap-minimal-stats,
+.roadmap-minimal-toggle.roadmap-minimal-toggle.roadmap-minimal-toggle,
+.roadmap-minimal-group-count.roadmap-minimal-group-count.roadmap-minimal-group-count,
+.roadmap-timeline-item .roadmap-timeline-item-content.roadmap-timeline-item-content.roadmap-timeline-item-content p,
+.roadmap-timeline-section .roadmap-timeline-section-header .roadmap-timeline-period.roadmap-timeline-period.roadmap-timeline-period,
+.roadmap-visual-timeline .roadmap-timeline-markers .roadmap-timeline-marker .roadmap-timeline-marker-label.roadmap-timeline-marker-label.roadmap-timeline-marker-label,
+.roadmap-detail-meta.roadmap-detail-meta.roadmap-detail-meta strong,
+.roadmap-detail-content.roadmap-detail-content.roadmap-detail-content,
+.roadmap-card-content.roadmap-card-content.roadmap-card-content,
+.roadmap-timeline-item .roadmap-timeline-item-footer .roadmap-timeline-item-stats.roadmap-timeline-item-stats.roadmap-timeline-item-stats span,
+.roadmap-list-count.roadmap-list-count.roadmap-list-count,
+.roadmap-timeline-item .roadmap-timeline-item-footer .roadmap-timeline-item-meta .roadmap-timeline-progress.roadmap-timeline-progress.roadmap-timeline-progress,
+.roadmap-single-meta-info.roadmap-single-meta-info,
+.roadmap-single-content.roadmap-single-content,
+.roadmap-single-wrapper .roadmap-vote-label.roadmap-vote-label,
+.roadmap-ideabox-excerpt.roadmap-ideabox-excerpt,
+.roadmap-ideabox-meta.roadmap-ideabox-meta,
+.roadmap-ideabox-tab.roadmap-ideabox-tab,
+.roadmap-ideabox-count.roadmap-ideabox-count,
+.roadmap-ideabox-meta-comments.roadmap-ideabox-meta-comments,
+.roadmap-ideabox-vote-btn.roadmap-ideabox-vote-btn,
+.roadmap-product-description.roadmap-product-description {
+  color: var(--reign-site-body-text-color);
+}
+
+.roadmap-minimal-group-title.roadmap-minimal-group-title.roadmap-minimal-group-title,
+.roadmap-minimal-item-title.roadmap-minimal-item-title.roadmap-minimal-item-title,
+.roadmap-timeline-section .roadmap-timeline-section-header.roadmap-timeline-section-header.roadmap-timeline-section-header h3,
+.roadmap-timeline-item .roadmap-timeline-item-content.roadmap-timeline-item-content.roadmap-timeline-item-content h4,
+.roadmap-detail-section.roadmap-detail-section.roadmap-detail-section h4,
+.roadmap-card-title.roadmap-card-title.roadmap-card-title,
+.roadmap-card-votes .roadmap-vote-count.roadmap-vote-count.roadmap-vote-count,
+.roadmap-ideabox-title.roadmap-ideabox-title,
+.roadmap-ideabox-vote-count.roadmap-ideabox-vote-count,
+.roadmap-notification.roadmap-notification {
+  color: var(--reign-site-headings-color);
+}
+
+.roadmap-single-wrapper h1.roadmap-single-title.roadmap-single-title,
+.roadmap-single-wrapper .roadmap-single-title.roadmap-single-title,
+.roadmap-single-wrapper.roadmap-single-wrapper h1,
+.roadmap-single-wrapper .roadmap-single-title.roadmap-single-title,
+h1.roadmap-single-title.roadmap-single-title,
+.roadmap-single-article.roadmap-single-article h1,
+.roadmap-single-wrapper .roadmap-vote-count.roadmap-vote-count {
+  color: var(--reign-site-headings-color) !important;
+}
+
+.roadmap-minimal-filters.roadmap-minimal-filters.roadmap-minimal-filters,
+.roadmap-minimal-footer.roadmap-minimal-footer.roadmap-minimal-footer,
+.roadmap-footer.roadmap-footer.roadmap-footer,
+.roadmap-minimal-item-content.roadmap-minimal-item-content.roadmap-minimal-item-content,
+.roadmap-minimal-item-actions.roadmap-minimal-item-actions.roadmap-minimal-item-actions,
+.roadmap-detail-meta.roadmap-detail-meta.roadmap-detail-meta,
+.roadmap-detail-stats.roadmap-detail-stats.roadmap-detail-stats,
+.roadmap-card.roadmap-card.roadmap-card,
+.roadmap-card-categories.roadmap-card-categories.roadmap-card-categories,
+.roadmap-list-group.roadmap-list-group.roadmap-list-group,
+.roadmap-single-header.roadmap-single-header,
+.roadmap-single-footer.roadmap-single-footer,
+.roadmap-single-comments.roadmap-single-comments,
+.roadmap-ideabox-item.roadmap-ideabox-item,
+.roadmap-ideabox-vote-btn.roadmap-ideabox-vote-btn,
+.roadmap-ideabox-header.roadmap-ideabox-header {
+  border-color: var(--reign-site-border-color);
+}
+
+.roadmap-minimal-items.roadmap-minimal-items.roadmap-minimal-items:before {
+  background-color: var(--reign-site-border-color);
+}
+
+.roadmap-visual-timeline .roadmap-timeline-markers .roadmap-timeline-marker .roadmap-timeline-marker-label.roadmap-timeline-marker-label.roadmap-timeline-marker-label {
+  box-shadow: var(--reign-more-options-box-shadow);
+}

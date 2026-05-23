@@ -1,0 +1,35 @@
+/**
+ * Micro clearfix, as per: http://cssmojo.com/latest_new_clearfix_so_far/
+ * Extend the clearfix class with Sass to avoid the `.clearfix` class appearing
+ * over and over in your markup.
+ */
+/*--------------------------------------------------------------
+# Button Style
+--------------------------------------------------------------*/
+button {
+  float: none;
+  display: inline-block;
+  background-color: var(--reign-site-button-bg-color);
+  color: var(--reign-site-button-text-color);
+  padding: 10px 20px;
+  border: 1px solid var(--reign-site-button-bg-color);
+  font-size: 15px;
+  font-weight: normal;
+  line-height: 1.5;
+  border-radius: var(--reign-global-button-radius);
+  text-transform: none;
+  transition: all 0.3s;
+  cursor: pointer;
+  font-weight: 400;
+  text-shadow: none;
+  font-family: inherit;
+}
+button:hover, button:focus {
+  background-color: var(--reign-site-button-bg-hover-color);
+  color: var(--reign-site-button-text-hover-color);
+  border: 1px solid var(--reign-site-button-bg-hover-color);
+}
+button:focus-visible {
+  outline: 2px solid var(--reign-site-button-bg-hover-color); /* accessible contrast color */
+  outline-offset: 2px;
+}
