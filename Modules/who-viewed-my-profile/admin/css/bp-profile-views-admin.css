@@ -1,0 +1,82 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+.nav-tab-wrapper ul li.bp-profile-views-general a.nav-tab:before {
+    content: "\f111";
+}
+.nav-tab-wrapper ul li #bp-profile-views-support-tab:before {
+    content: "\f101";
+}
+.nav-tab-wrapper ul li #bp-profile-views-members-tab:before {
+    content: "\f110";
+}
+
+.wrap .wbcom-plugin-heading {
+    display: block !important;
+}
+
+div#setting-error-settings_updated {
+    position: absolute;
+    right: 50px;
+    z-index: 99;
+    border-radius: 10px;
+    line-height: normal;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: #10ab00;
+}
+
+button.notice-dismiss:before {
+    color: red !important;
+}
+
+.wbcom-wrap .update-nag,
+.wbcom-wrap .updated,
+.wbcom-wrap .error,
+.wbcom-wrap .notice-error,
+.wbcom-wrap .is-dismissible,
+.wbcom-wrap .notice {
+    display: none !important;
+}
+
+.wbcom-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.wbcom-flex .wbcom-docslink {
+    color: #fff;
+    background: #2a32ef;
+    text-decoration: blink;
+    padding: 13px 30px;
+    line-height: 1;
+    border-radius: 12px;
+}
+
+/*Member Views*/
+.member-views-list .ag-root-wrapper {
+    border-radius: 10px;
+}
+.member-views-list .ag-header-container,
+.member-views-list .ag-center-cols-container,
+.member-views-list .ag-header-row.ag-header-row-column {
+    width: 100% !important;
+}
+
+.member-views-list .ag-header-cell,
+.member-views-list .ag-header-group-cell,
+.member-views-list .ag-cell-value.ag-cell {
+    width: 25% !important;
+    position: unset !important;
+}
+
+.member-views-list .ag-header-container *{
+    position: unset !important;
+}
+
+.member-views-list .ag-header-cell-resize {
+    display: none;
+}

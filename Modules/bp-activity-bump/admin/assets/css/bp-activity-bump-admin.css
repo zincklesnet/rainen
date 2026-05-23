@@ -1,0 +1,22 @@
+/* Layout UI */
+.form-table .wbcom-settings-section-options input[type=radio] {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #ccc;
+    box-shadow: none !important;
+}
+.form-table .wbcom-settings-section-options input[type=radio]:checked::before {
+    width: 18px;
+    height: 18px;
+    margin: 4px;
+    background-color: #2a32ef;
+}
+div#setting-error-settings_updated {
+    display: none;
+    position: absolute;
+    bottom: 153px;
+    left: 40%;
+    width: 50%;
+    z-index: 9;
+    border-radius: 8px;
+}

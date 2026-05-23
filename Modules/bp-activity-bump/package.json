@@ -1,0 +1,24 @@
+{
+    "name": "bp-activity-bump",
+    "version": "1.1.0",
+    "url": "https://github.com/vapvarun/bp-activity-bump",
+    "license": "GPL-2.0+",
+    "description": "Bump your activity to the top of all activitees on like or comment",
+    "devDependencies": {
+        "grunt": "^1.1.0",
+        "minimist": ">=1.2.2",
+        "grunt-wp-i18n": "^1.0.3"
+    },
+    "engines": {
+        "node": "16.4.0",
+        "npm": "7.24.2"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/vapvarun/bp-activity-bump"
+    },
+    "dependencies": {
+        "grunt-checktextdomain": "^1.0.1",
+        "load-grunt-tasks": "^3.5.2"
+    }
+}
