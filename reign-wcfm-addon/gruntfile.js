@@ -1,0 +1,211 @@
+'use strict';
+module.exports = function(grunt) {
+
+    // load all grunt tasks matching the `grunt-*` pattern
+    // Ref. https://npmjs.org/package/load-grunt-tasks
+    require('load-grunt-tasks')(grunt);
+    grunt.initConfig({
+        // watch for changes and trigger sass, uglify and livereload
+        watch: {
+            sass: {
+                files: ['public/sass/*.{scss,sass}'],
+                tasks: ['sass', 'autoprefixer']
+            },
+            js: {
+                files: '<%= uglify.frontend.src %>',
+                tasks: ['uglify']
+            }
+        },
+        // sass
+        sass: {
+            dist: {
+                options: {
+                    style: 'expanded'
+                },
+                files: {
+                    'public/css/reign-wcfm-addon-public.css': 'public/sass/main.scss'
+                }
+            }
+        },
+        // Task for CSS minification
+        cssmin: {
+            public: {
+                files: [{
+                    expand: true,
+                    cwd: 'public/css/', // Source directory for frontend CSS files
+                    src: ['*.css', '!*.min.css', '!vendor/*.css'], // Minify all frontend CSS files except already minified ones
+                    dest: 'public/css/', // Destination directory for minified frontend CSS
+                    ext: '.min.css', // Extension for minified files
+                },
+                {
+                    expand: true,
+                    cwd: 'public/css/rtl/', // Source directory for RTL CSS files
+                    src: ['*.css', '!*.min.css', '!vendor/*.css'], // Minify all .css files except already minified ones
+                    dest: 'public/css/rtl/', // Destination directory for minified CSS
+                    ext: '.min.css' // Output file extension
+                }],
+            },
+            admin: {
+                files: [{
+                    expand: true,
+                    cwd: 'admin/css/', // Source directory for admin CSS files
+                    src: ['*.css', '!*.min.css', '!vendor/*.css'], // Minify all admin CSS files except already minified ones
+                    dest: 'admin/css/', // Destination directory for minified admin CSS
+                    ext: '.min.css', // Extension for minified files
+                },
+                {
+                    expand: true,
+                    cwd: 'admin/css/rtl/', // Source directory for RTL CSS files
+                    src: ['*.css', '!*.min.css', '!vendor/*.css'], // Minify all .css files except already minified ones
+                    dest: 'admin/css/rtl/', // Destination directory for minified CSS
+                    ext: '.min.css' // Output file extension
+                }],
+            },
+        },
+        // rtlcss
+        rtlcss: {
+            myTask: {
+                // task options
+                options: {
+                    // generate source maps
+                    map: { inline: false },
+                    // rtlcss options
+                    opts: {
+                        clean: false
+                    },
+                    // rtlcss plugins
+                    plugins: [],
+                    // save unmodified files
+                    saveUnmodified: true
+                },
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'public/css', // Source directory for public CSS
+                        src: ['*.css', '!**/*.min.css', '!vendor/**/*.css'], // Source files, excluding vendor CSS
+                        dest: 'public/css/rtl', // Destination directory for public RTL CSS
+                        flatten: true // Prevents creating subdirectories
+                    },
+                    {
+                        expand: true,
+                        cwd: 'admin/css', // Source directory for admin CSS
+                        src: ['*.css', '!**/*.min.css', '!vendor/**/*.css'], // Source files, excluding vendor CSS
+                        dest: 'admin/css/rtl', // Destination directory for admin RTL CSS
+                        flatten: true // Prevents creating subdirectories
+                    },
+                ]
+            }
+        },
+        // autoprefixer
+        autoprefixer: {
+            options: {
+                browsers: [ 'last 2 versions', 'ie 9', 'ios 6', 'android 4' ],
+                map: true
+            },
+            files: {
+                expand: true,
+                flatten: true,
+                src: 'public/css/*.css',
+                dest: 'public/css/'
+            }
+        },
+        // uglify to concat, minify, and make source maps
+        uglify: {
+            public: {
+                options: {
+                    mangle: false, // Prevents variable name mangling
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'public/js/', // Source directory for frontend JS files
+                    src: ['*.js', '!*.min.js', '!vendor/*.js'], // Minify all frontend JS files except already minified ones
+                    dest: 'public/js/', // Destination directory for minified frontend JS
+                    ext: '.min.js', // Extension for minified files
+                }],
+            },
+            admin: {
+                options: {
+                    mangle: false, // Prevents variable name mangling
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'admin/js/', // Source directory for admin JS files
+                    src: ['*.js', '!*.min.js', '!vendor/*.js'], // Minify all admin JS files except already minified ones
+                    dest: 'admin/js/', // Destination directory for minified admin JS
+                    ext: '.min.js', // Extension for minified files
+                }],
+            },
+        },
+        // Check text domain
+        checktextdomain: {
+            options: {
+                text_domain: ['reign-wcfm-addon'], //Specify allowed domain(s)
+                keywords: [ //List keyword specifications
+                    '__:1,2d',
+                    '_e:1,2d',
+                    '_x:1,2c,3d',
+                    'esc_html__:1,2d',
+                    'esc_html_e:1,2d',
+                    'esc_html_x:1,2c,3d',
+                    'esc_attr__:1,2d',
+                    'esc_attr_e:1,2d',
+                    'esc_attr_x:1,2c,3d',
+                    '_ex:1,2c,3d',
+                    '_n:1,2,4d',
+                    '_nx:1,2,4c,5d',
+                    '_n_noop:1,2,3d',
+                    '_nx_noop:1,2,3c,4d'
+                ]
+            },
+            target: {
+                files: [{
+                    src: [
+                        '*.php',
+                        '**/*.php',
+                        '!node_modules/**',
+                        '!options/framework/**',
+                        '!tests/**'
+                    ], //all php
+                    expand: true
+                }]
+            }
+        },
+        // make po files
+        makepot: {
+            target: {
+                options: {
+                    cwd: '.', // Directory of files to internationalize.
+                    domainPath: 'languages/', // Where to save the POT file.
+                    exclude: ['node_modules/*', 'options/framework/*'], // List of files or directories to ignore.
+                    mainFile: 'index.php', // Main project file.
+                    potFilename: 'reign-wcfm-addon.pot', // Name of the POT file.
+                    potHeaders: { // Headers to add to the generated POT file.
+                        poedit: true, // Includes common Poedit headers.
+                        'Last-Translator': 'Reign-WCFM',
+                        'Language-Team': 'Reign-WCFM',
+                        'report-msgid-bugs-to': '',
+                        'x-poedit-keywordslist': true // Include a list of all possible gettext functions.
+                    },
+                    type: 'wp-theme', // Type of project (wp-plugin or wp-theme).
+                    updateTimestamp: true // Whether the POT-Creation-Date should be updated without other changes.
+                }
+            }
+        }
+    });
+
+    // Load the plugins
+    grunt.loadNpmTasks('grunt-wp-i18n');
+    grunt.loadNpmTasks('grunt-contrib-sass'); 
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-autoprefixer');
+    grunt.loadNpmTasks('grunt-rtlcss');
+    grunt.loadNpmTasks('grunt-checktextdomain');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+
+    // register task
+    //grunt.registerTask( 'default', [ 'sass', 'rtlcss', 'autoprefixer', 'uglify', 'checktextdomain', 'makepot', 'watch' ] );
+    grunt.registerTask( 'default', [ 'sass', 'autoprefixer', 'rtlcss', 'cssmin', 'uglify', 'checktextdomain', 'makepot' ] );
+
+    // grunt.registerTask( 'default', [ 'checktextdomain' ] );
+};

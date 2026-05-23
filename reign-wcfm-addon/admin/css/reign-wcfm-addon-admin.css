@@ -1,0 +1,28 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+.reignwcfm-flex-container {
+    display: flex;
+    background-color: white;
+    align-items: center;
+}
+      
+.reignwcfm-flex-container > div {
+    background-color: #d33;
+    padding: 14px;
+}
+    
+.reignwcfm-fa-icon{
+    color: white;
+    font-size: 22px !important;
+}
+    
+.reignwcfm-flex-container > p {
+    font-size: 14px;
+    line-height: 1.5 !important;
+    color: #d33;
+    margin-top : 12px;
+    margin-left : 24px;
+}

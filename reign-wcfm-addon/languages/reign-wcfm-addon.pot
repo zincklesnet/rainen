@@ -1,0 +1,312 @@
+# <!=Copyright (C) 2025
+# This file is distributed under the same license as the  package.=!>
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-15 08:33:12+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2025-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Reign-WCFM\n"
+"Language-Team: Reign-WCFM\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: admin/class-reign-wcfm-addon-admin.php:146
+msgid "WCFM Marketplace"
+msgstr ""
+
+#: admin/class-reign-wcfm-addon-admin.php:158
+msgid "General"
+msgstr ""
+
+#: admin/class-reign-wcfm-addon-admin.php:159
+msgid "Single Store"
+msgstr ""
+
+#: admin/class-reign-wcfm-addon-admin.php:243
+#: admin/class-reign-wcfm-addon-admin.php:274
+#: admin/class-reign-wcfm-addon-admin.php:291
+#: admin/class-reign-wcfm-addon-admin.php:317
+#: admin/class-reign-wcfm-addon-admin.php:338
+#: admin/class-reign-wcfm-addon-admin.php:375
+msgid "tooltip-image"
+msgstr ""
+
+#: admin/class-reign-wcfm-addon-admin.php:245
+msgid "Mark Products As Favourite"
+msgstr ""
+
+#: admin/class-reign-wcfm-addon-admin.php:249
+msgid "Setting to enable/disable product as favourite."
+msgstr ""
+
+#: admin/class-reign-wcfm-addon-admin.php:263
+msgid ""
+"Activity creation settings requires BuddyPress Activity component to be "
+"enabled."
+msgstr ""
+
+#: admin/class-reign-wcfm-addon-admin.php:276
+msgid "Display Store Tab"
+msgstr ""
+
+#: admin/class-reign-wcfm-addon-admin.php:280
+msgid "Setting to enable/disable store tab on buddypress member profile of vendor."
+msgstr ""
+
+#: admin/class-reign-wcfm-addon-admin.php:293
+msgid "Create Product Activity"
+msgstr ""
+
+#: admin/class-reign-wcfm-addon-admin.php:297
+msgid "Setting to enable/disable product creation activity."
+msgstr ""
+
+#: admin/class-reign-wcfm-addon-admin.php:309
+msgid ""
+"This option is disabled because the product activity feed is turned on in "
+"BuddyBoss settings."
+msgstr ""
+
+#: admin/class-reign-wcfm-addon-admin.php:319
+msgid "Add Review Activity"
+msgstr ""
+
+#: admin/class-reign-wcfm-addon-admin.php:323
+msgid "Setting to enable/disable product review activity."
+msgstr ""
+
+#: admin/class-reign-wcfm-addon-admin.php:340
+msgid "Order Activity"
+msgstr ""
+
+#: admin/class-reign-wcfm-addon-admin.php:344
+msgid "Setting to enable/disable product order activity."
+msgstr ""
+
+#: admin/class-reign-wcfm-addon-admin.php:377
+msgid "Single Store Layout"
+msgstr ""
+
+#: admin/class-reign-wcfm-addon-admin.php:381
+msgid "Allows you to set the single store layout."
+msgstr ""
+
+#: admin/class-reign-wcfm-addon-admin.php:387
+msgid "Layout 1"
+msgstr ""
+
+#: admin/class-reign-wcfm-addon-admin.php:388
+msgid "Layout 2"
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:54
+msgid "Inactive"
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:67
+msgid "License Key"
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:74
+msgid "Enter your license key"
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:85
+msgid "License Status"
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:89
+msgid "Active"
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:102
+#: admin/edd-license/edd-plugin-license.php:105
+msgid "Deactivate License"
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:106
+msgid "Click for deactivate license."
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:114
+msgid "License Action"
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:117
+msgid "Activate License"
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:118
+msgid "Click for Activate license."
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:191
+#: admin/edd-license/edd-plugin-license.php:229
+#: admin/edd-license/edd-plugin-license.php:304
+#: admin/edd-license/edd-plugin-license.php:487
+msgid "An error occurred, please try again."
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:201
+#. Translators: %s.
+msgid "Your license key expired on %s."
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:207
+msgid "Your license key has been disabled."
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:211
+msgid "Invalid license."
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:216
+msgid "Your license is not active for this URL."
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:221
+#. Translators: %s.
+msgid "This appears to be an invalid license key for %s."
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:225
+msgid "Your license key has reached its activation limit."
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:406
+#. translators: %1$s: Expire Time
+msgid "Your Reign WCFM Addon plugin license key expired on %s."
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:436
+msgid "Please activate your Reign WCFM Addon plugin license key."
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:507
+#. Translators: %s.
+msgid " Expires %s."
+msgstr ""
+
+#: admin/edd-license/edd-plugin-license.php:511
+#. Translators: %s.
+msgid "You have %1$s/%2$s-sites activated."
+msgstr ""
+
+#: admin/edd-license/edd_reign_wcfm_addon_plugin_updater.php:200
+#. Translators: %s.
+msgid "There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+msgstr ""
+
+#: admin/edd-license/edd_reign_wcfm_addon_plugin_updater.php:209
+#. Translators: %1$s , %2$ , %3$ ,%4$s ,%5$ .
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
+"or %5$supdate now%6$s."
+msgstr ""
+
+#: admin/edd-license/edd_reign_wcfm_addon_plugin_updater.php:395
+msgid "You do not have permission to install plugin updates"
+msgstr ""
+
+#: admin/edd-license/edd_reign_wcfm_addon_plugin_updater.php:395
+msgid "Error"
+msgstr ""
+
+#: admin/partials/reign-wcfm-addon-admin-display.php:45
+msgid "Update Settings"
+msgstr ""
+
+#: public/buddypress/class-reign-wcfm-buddypress.php:70
+#: public/buddypress/reign-wcfm-buddypress-activity.php:83
+#. Translators: %s
+#. Translators: %s is the product name.
+msgid "%2$s added a new product "
+msgstr ""
+
+#: public/buddypress/class-reign-wcfm-buddypress.php:129
+#: public/buddypress/class-reign-wcfm-buddypress.php:174
+#: public/buddypress/reign-wcfm-buddypress-activity.php:62
+#. Translators: %s
+#. Translators: %s is the
+#. Translators: %s is the name.
+msgid "%2$s wrote a review "
+msgstr ""
+
+#: public/buddypress/reign-wcfm-buddypress-activity.php:29
+#: public/buddypress/reign-wcfm-buddypress-activity.php:31
+msgid "Added a product"
+msgstr ""
+
+#: public/buddypress/reign-wcfm-buddypress-activity.php:38
+#: public/buddypress/reign-wcfm-buddypress-activity.php:40
+msgid "Added a review"
+msgstr ""
+
+#: public/class-reign-wcfm-addon-public.php:159
+msgid "Favourite"
+msgstr ""
+
+#: public/class-reign-wcfm-addon-public.php:176
+msgid "Store"
+msgstr ""
+
+#: public/class-reign-wcfm-addon-public.php:228
+#: public/class-reign-wcfm-addon-public.php:379
+msgid "No products were found matching your selection."
+msgstr ""
+
+#: public/class-reign-wcfm-addon-public.php:387
+#. Translators: %s is the user name
+msgid "%s have not any products yet."
+msgstr ""
+
+#: public/class-reign-wcfm-addon-public.php:405
+msgid "View Store"
+msgstr ""
+
+#: public/class-reign-wcfm-addon-public.php:407
+msgid "Visit Store"
+msgstr ""
+
+#: public/class-reign-wcfm-addon-public.php:480
+#. Translators: %s is the use link.
+msgid "%1$s made a purchase "
+msgstr ""
+
+#: public/class-reign-wcfm-addon-public.php:571
+#. translators: %s: the activity author user link
+msgid "%s made a purchase"
+msgstr ""
+
+#: reign-wcfm-addon.php:124
+msgid "Reign WCFM Addon"
+msgstr ""
+
+#: reign-wcfm-addon.php:125
+msgid "WCFM - WooCommerce Frontend Manager"
+msgstr ""
+
+#: reign-wcfm-addon.php:126
+msgid "WooCommerce"
+msgstr ""
+
+#: reign-wcfm-addon.php:130
+#. Translators: %s is the plugin name.
+msgid ""
+"%1$s is ineffective now as it requires %2$s, %3$s and %4$s to be installed "
+"and active."
+msgstr ""

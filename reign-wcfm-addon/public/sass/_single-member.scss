@@ -1,0 +1,64 @@
+
+/*--------------------------------------------------------------
+# Single Member
+--------------------------------------------------------------*/
+.item-body-inner-wrapper .woocommerce .woocommerce-ordering {
+    margin: 0 0 1em;
+}
+
+.item-body-inner-wrapper .reign-wcfm-store {
+    float: right !important;
+    clear: both;
+    margin: 0 0 2em !important;
+    border-radius: 30px !important;
+}
+
+.item-body-inner-wrapper .reign-wcfm-store .dashicons {
+    margin-right: 5px;
+    font-size: 18px;
+}
+
+.item-body-inner-wrapper::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#buddypress .woocommerce ul.products li.product .added_to_cart,
+#buddypress .woocommerce ul.products li.product .button.add_to_cart_button,
+#buddypress .woocommerce ul.products li.product .button.product_type_external,
+#buddypress .woocommerce ul.products li.product .button.product_type_grouped,
+#buddypress .woocommerce ul.products li.product .button.product_type_variable {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: capitalize;
+    -webkit-transition: all .35s ease-out 0s;
+    transition: all .35s ease-out 0s;
+}
+
+.bp-nouveau .buddypress-wrap.bp-dir-hori-nav nav.woocommerce-pagination {
+    position: static !important;
+    background: transparent !important;
+    border: 0 !important;
+}
+
+.bp-nouveau .buddypress-wrap.bp-dir-hori-nav nav.woocommerce-pagination::before,
+.bp-nouveau .buddypress-wrap.bp-dir-hori-nav nav.woocommerce-pagination li::after {
+    content: none !important;
+}
+
+/*--------------------------------------------------------------
+# Youzify
+--------------------------------------------------------------*/
+.youzify-page-main-content .button.reign-wcfm-store {
+    float: right !important;
+    clear: both;
+    margin: 1em 0 0.5em !important;
+}
+
+.youzify-page-main-content .button.reign-wcfm-store .dashicons {
+    margin-right: 5px;
+}

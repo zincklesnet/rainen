@@ -1,0 +1,158 @@
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Animation
+# Icon
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# Animation
+--------------------------------------------------------------*/
+
+#rwcfma-product-mark-favuorite:hover {
+    -webkit-animation: pulse 1s ease-out infinite;
+    animation: pulse 1s ease-out infinite;
+}
+
+#rwcfma-product-mark-favuorite.animate {
+    -webkit-animation: heart 0.35s;
+    animation: heart 0.35s;
+}
+
+@-webkit-keyframes heart {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-transform-origin: center center;
+        transform-origin: center center;
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+
+    10% {
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+
+    35% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+
+    75% {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+}
+
+@keyframes heart {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-transform-origin: center center;
+        transform-origin: center center;
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+
+    10% {
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+
+    35% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+
+    75% {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+}
+
+@-webkit-keyframes pulse {
+    0% {
+        opacity: 1;
+        -webkit-transform-origin: center center;
+        transform-origin: center center;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.6;
+        -webkit-transform: scale(1.15);
+        transform: scale(1.15);
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+        -webkit-transform-origin: center center;
+        transform-origin: center center;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.6;
+        -webkit-transform: scale(1.15);
+        transform: scale(1.15);
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+/*--------------------------------------------------------------
+# Icon
+--------------------------------------------------------------*/
+.reign-nav-iconic #wcfmmp-store-personal-li a:before,
+.reign-nav-iconic #store-personal-li a:before {
+    content: "\f54e";
+}
+
+.reign-nav-iconic #favourite-personal-li a:before {
+    content: "\f004";
+}
+
+.reign-nav-iconic #store-manager-personal-li a:before {
+    content: "\f108";
+}
