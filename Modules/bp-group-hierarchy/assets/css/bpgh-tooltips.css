@@ -1,0 +1,119 @@
+/**
+ * BP Group Hierarchy — Tooltip Styles
+ * @since 2.0.0
+ */
+
+/* Tooltip anchor */
+.bpgh-tooltip-anchor {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tooltip popup */
+.bpgh-tooltip-popup,
+.bpgh-tooltip {
+    position: absolute;
+    z-index: 9999;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 16px;
+    min-width: 280px;
+    max-width: 340px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #333;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.bpgh-tooltip-popup.bpgh-visible,
+.bpgh-tooltip.bpgh-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Header: avatar + name */
+.bpgh-tooltip__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.bpgh-tooltip__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.bpgh-tooltip__title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+/* Description */
+.bpgh-tooltip__desc {
+    margin: 0 0 8px;
+    color: #555;
+    font-size: 12px;
+}
+
+/* Meta row */
+.bpgh-tooltip__meta {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 6px;
+}
+
+/* Parent / Category / Tags / Admins */
+.bpgh-tooltip__parent,
+.bpgh-tooltip__cat,
+.bpgh-tooltip__tags,
+.bpgh-tooltip__admins {
+    margin: 4px 0;
+    font-size: 12px;
+}
+
+.bpgh-tooltip__label {
+    font-weight: 600;
+    color: #555;
+}
+
+/* Tag pills */
+.bpgh-tag {
+    display: inline-block;
+    background: #f0f0f0;
+    color: #555;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    margin: 2px 2px 2px 0;
+}
+
+/* Premium badge */
+.bpgh-badge {
+    display: inline-block;
+    font-size: 12px;
+}
+
+.bpgh-badge--premium {
+    color: #f5a623;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .bpgh-tooltip-popup,
+    .bpgh-tooltip {
+        min-width: 240px;
+        max-width: 280px;
+        padding: 12px;
+    }
+}

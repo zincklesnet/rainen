@@ -1,0 +1,8 @@
+- Initial Release.
+Get chart by xprofile fields.
+
+-1.1-
+Update according to the latest version of WordPress and BuddyPress
+
+-1.2-
+Update according to the latest version of WordPress and BuddyPress

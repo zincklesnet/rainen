@@ -1,0 +1,7 @@
+Ideas.
+
+Update get member and get profile fields data with better functions and validation
+
+Create language file and place it on correct folder
+
+Create plugin auto update
