@@ -1,0 +1,854 @@
+/**
+ * Micro clearfix, as per: http://cssmojo.com/latest_new_clearfix_so_far/
+ * Extend the clearfix class with Sass to avoid the `.clearfix` class appearing
+ * over and over in your markup.
+ */
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Global
+# Places Archive
+# Single Place
+# Review
+# Location
+# Add Post
+# Search Page
+# Sidebar Widgets
+# Recent Reviews
+# PeepSo
+# Widgets
+# Dark Mode
+# Colors Scheme
+# V5
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+# Global
+--------------------------------------------------------------*/
+.bsui .btn-primary,
+.bsui .btn-outline-primary,
+.aui_bs5 .bsui .btn-primary,
+.aui_bs5 .bsui .btn-outline-primary {
+  --bs-btn-border-color: var(--reign-site-button-bg-color) !important;
+  --bs-btn-hover-color: var(--reign-site-button-text-hover-color) !important;
+  --bs-btn-hover-bg: var(--reign-site-button-bg-hover-color) !important;
+  --bs-btn-hover-border-color: var(--reign-site-button-bg-hover-color) !important;
+  --bs-btn-active-color: var(--reign-site-button-text-hover-color) !important;
+  --bs-btn-active-bg: var(--reign-site-button-bg-hover-color) !important;
+  --bs-btn-active-border-color: var(--reign-site-button-bg-hover-color) !important;
+}
+
+.aui_bs5 .bsui .btn-primary,
+.aui_bs5 .bsui .btn-outline-primary {
+  --bs-btn-color: var(--reign-colors-theme) !important;
+}
+
+.bsui .btn-primary,
+.aui_bs5 .bsui .btn-primary {
+  --bs-btn-color: var(--reign-site-button-text-color) !important;
+  --bs-btn-bg: var(--reign-site-button-bg-color) !important;
+}
+
+.bsui .card {
+  --bs-card-border-color: var(--reign-site-border-color) !important;
+  --bs-card-color: var(--reign-site-body-text-color) !important;
+  --bs-card-bg: var(--reign-site-sections-bg-color) !important;
+}
+
+.bsui .btn-primary:hover,
+.bsui .btn-primary:focus,
+.bsui .btn-primary:active,
+.bsui .btn-primary.active,
+.bsui .btn-primary.show {
+  box-shadow: none !important;
+}
+
+.bsui .btn:focus,
+.bsui .btn:hover,
+.bsui .btn-primary,
+.bsui .btn-outline-primary,
+.form-submit #submit.btn:hover {
+  border: 1px solid transparent !important;
+}
+
+.bsui .alert a,
+.aui_bs5 .bsui .alert a {
+  color: inherit;
+}
+
+/*--------------------------------------------------------------
+# Places Archive
+--------------------------------------------------------------*/
+.bsui .card {
+  border-radius: var(--reign-global-border-radius);
+}
+
+.bsui .card-img,
+.bsui .card-img-top {
+  border-top-left-radius: var(--reign-global-border-radius);
+  border-top-right-radius: var(--reign-global-border-radius);
+}
+
+.bsui .row-cols-md-0 .card-img,
+.bsui .row-cols-md-0 .card-img-top {
+  border-top-right-radius: 0;
+}
+
+.bsui .dropdown-toggle::after {
+  vertical-align: 0.12em;
+}
+
+.geodir-page.blog .hentry,
+.geodir-page.search .hentry,
+.geodir-page.archive .hentry {
+  border: 0;
+}
+
+.bsui .geodir-search .form-control {
+  padding: 0.45rem 1.2rem;
+  padding-left: 2rem !important;
+}
+
+.geodir-loop-actions-container.bsui .btn-sm,
+.geodir-loop-actions-container.bsui .btn-group-sm > .btn {
+  border-radius: var(--reign-global-button-radius) !important;
+}
+
+.bsui .dropdown-item {
+  color: inherit;
+}
+
+.bsui .list-group .list-group-item {
+  background: var(--reign-site-sections-bg-color);
+  color: var(--reign-site-body-text-color);
+  border-color: var(--reign-site-border-color);
+}
+
+/*--------------------------------------------------------------
+# Single Place
+--------------------------------------------------------------*/
+.single-gd_place .has-post-thumbnail a.entry-media.rg-post-thumbnail {
+  display: none;
+}
+.single-gd_place .geodir-post-slider .slide.geodir-image-wrapper img {
+  border-radius: var(--reign-global-border-radius) !important;
+  overflow: hidden;
+}
+.single-gd_place ul#gd-single-tabs {
+  border: none;
+}
+
+@media only screen and (min-width: 1060px) {
+  .geodir-tabs dl.geodir-tab-head {
+    border-bottom: 0;
+  }
+  .geodir-tabs dl.geodir-tab-head:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #e3e3e3;
+    z-index: 1;
+  }
+  .geodir-tabs dl.geodir-tab-head dd {
+    position: relative;
+  }
+  .geodir-tabs dl.geodir-tab-head dd:after {
+    transition: all 0.5s;
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #23232c;
+    z-index: 2;
+  }
+  .geodir-tabs dl.geodir-tab-head dd:hover:after {
+    left: 0;
+    width: 100%;
+    background-color: #23232c;
+    z-index: 2;
+  }
+  .geodir-tabs dl.geodir-tab-head dd.geodir-tab-active a {
+    border-bottom: 0;
+  }
+  .geodir-tabs dl.geodir-tab-head dd.geodir-tab-active:after {
+    width: 100%;
+    left: 0;
+  }
+}
+.geodir-tabs ul.geodir-tabs-content {
+  padding: 15px;
+}
+
+.bsui.geodir-single-tabs-container .mr-1,
+.bsui.geodir-single-tabs-container .mx-1 {
+  margin: 0 !important;
+  margin-right: 0.25rem !important;
+}
+
+.wp-block-geodirectory-geodir-widget-single-next-prev .bsui .badge.bg-secondary,
+.wp-block-geodirectory-geodir-widget-single-next-prev .bsui .badge.bg-light {
+  background-color: var(--reign-site-button-bg-color) !important;
+  color: var(--reign-site-button-text-color) !important;
+  border-radius: var(--reign-global-button-radius) !important;
+  text-decoration: none;
+}
+
+.wp-block-geodirectory-geodir-widget-single-next-prev .bsui .badge.bg-secondary:hover,
+.wp-block-geodirectory-geodir-widget-single-next-prev .bsui .badge.bg-light:hover {
+  background-color: var(--reign-site-button-bg-hover-color) !important;
+  color: var(--reign-site-button-text-hover-color) !important;
+  border-radius: var(--reign-global-button-radius) !important;
+}
+
+/*--------------------------------------------------------------
+# Review
+--------------------------------------------------------------*/
+#reviewsTab .comments-title {
+  margin-bottom: 1rem;
+}
+
+#reviewsTab .geodir-comments-area .commentlist li.geodir-comment > .comment {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  column-gap: 15px;
+  margin-bottom: 15px;
+}
+
+#reviewsTab .geodir-comments-area .commentlist > li {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+#reviewsTab .geodir-comments-area .commentlist > li .comment-meta .avatar {
+  float: none;
+  margin-right: 0;
+}
+
+#reviewsTab .geodir-comments-area .commentlist > li .comment-content {
+  margin-left: 0;
+}
+
+#reviewsTab .comment-meta {
+  margin-bottom: 20px;
+}
+
+#reviewsTab .comment-meta b.reviewer {
+  display: block;
+}
+
+#reviewsTab .comment-meta a {
+  display: inline-block;
+}
+
+#reviewsTab .geodir-comments-area .commentlist .geodir-review-ratings .gd-rating-output {
+  font-size: 13px;
+}
+
+#reviewsTab .geodir-comments-area .commentlist .geodir-review-time,
+#reviewsTab .geodir-comments-area .commentlist .geodir-review-time {
+  margin-left: 0;
+  float: none;
+}
+
+#reviewsTab .geodir-comments-area .commentlist .comment-respond {
+  margin-bottom: 15px;
+}
+
+#reviews ul.commentlist.list-unstyled .card-header.toast-header {
+  padding: 10px 15px !important;
+}
+
+#reviews ul.commentlist.list-unstyled .comment-links span.edit-link.btn.btn-link {
+  border: 1px solid var(--reign-site-link-hover-color) !important;
+}
+
+@media (max-width: 543px) {
+  #reviewsTab .geodir-comments-area .commentlist li.geodir-comment > .comment {
+    grid-template-columns: 1fr;
+  }
+}
+.advmap_nofound {
+  min-height: 80px;
+  height: auto;
+}
+
+.advmap_nofound p {
+  margin-bottom: 0;
+}
+
+.bsui .geodir-comment .mr-auto,
+.bsui .geodir-comment .mx-auto {
+  margin: 0 !important;
+  margin-right: auto !important;
+}
+
+.bsui .geodir-comment .pl-2,
+.bsui .geodir-comment .px-2 {
+  padding: 0 !important;
+  padding-left: 0.5rem !important;
+}
+
+.bsui .geodir-comment .ml-2,
+.bsui .geodir-comment .mx-2 {
+  margin-left: 0.5rem !important;
+}
+
+.commentlist .comment-awaiting-moderation {
+  padding: 1.25rem 1.25rem 0;
+}
+
+/*--------------------------------------------------------------
+# Location
+--------------------------------------------------------------*/
+.bsui.geodir-categories-container .card-body {
+  display: flex !important;
+  align-items: center;
+  padding: 10px !important;
+  border: 1px solid var(--reign-site-border-color) !important;
+  border-radius: var(--reign-global-border-radius) !important;
+}
+
+body.aui_bs5 .bsui.geodir-categories-container .card-body {
+  background-color: var(--reign-site-sections-bg-color);
+  color: var(--reign-site-headings-color);
+}
+
+body.aui_bs5 .bsui.geodir-categories-container .card-body:hover {
+  background-color: var(--reign-colors-theme);
+}
+
+.bsui.geodir-categories-container .card-body .iconbox.iconmedium {
+  margin-bottom: 0 !important;
+  background: var(--reign-site-secondary-bg-color);
+  margin-right: 10px;
+}
+
+.bsui.geodir-categories-container .card-body .text-truncate a {
+  font-size: 13px;
+  transition: none;
+}
+
+.bsui.geodir-categories-container .card-body .btn:hover {
+  background-color: var(--reign-colors-theme) !important;
+}
+
+.geodir-categories-container ul li {
+  margin: 10px;
+  -webkit-box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.5);
+  -o-box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.5);
+}
+
+.geodir-categories-container ul li .gd-cptcat-cat-left {
+  max-width: 45px;
+  max-height: 45px;
+}
+
+.geodir-categories-container ul li a .gd-cptcat-icon img {
+  height: 60%;
+  margin-top: 20%;
+}
+
+.geodir-categories-container ul li a {
+  width: 100%;
+  color: inherit;
+}
+
+a.geodir-all-link {
+  display: inline-block;
+  padding: 7px 15px;
+  border-radius: var(--reign-global-button-radius);
+  border: 1px solid;
+}
+
+.select2-container.gd-select2-container .select2-selection--single .select2-selection__arrow b {
+  margin-top: -2px;
+}
+
+/*--------------------------------------------------------------
+# Add Post
+--------------------------------------------------------------*/
+form#geodirectory-add-post {
+  background: var(--reign-site-sections-bg-color);
+  padding: 15px;
+  border-radius: var(--reign-global-border-radius);
+  border: 1px solid var(--reign-site-border-color);
+}
+
+.select2-container.gd-select2-container .select2-selection {
+  background: inherit;
+  color: inherit;
+}
+
+.geodir-add-listing-container .geodir_preview_button i {
+  vertical-align: middle;
+}
+
+@media only screen and (max-width: 800px) {
+  .select2-container.gd-select2-container {
+    width: 70% !important;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .select2-container.gd-select2-container {
+    width: 100% !important;
+  }
+  form#geodirectory-add-post .geodir_button.btn {
+    width: 100%;
+    margin: 5px 0;
+  }
+}
+/*--------------------------------------------------------------
+# Search Page
+--------------------------------------------------------------*/
+.search.geodir-page-search .hentry {
+  background: transparent;
+}
+
+[dir=rtl] .bsui .aui-nav-links .page-link i {
+  transform: rotate(180deg);
+}
+
+/*--------------------------------------------------------------
+# Sidebar Widgets
+--------------------------------------------------------------*/
+.widget-area .geodir-loc-bar {
+  margin: 0;
+}
+
+.widget-area .top_banner_section {
+  margin-bottom: 0;
+}
+
+.widget-area .geodir-loc-bar-in {
+  padding: 0;
+}
+
+.widget-area .geodir-categories-container ul {
+  width: 100%;
+}
+
+.geodir-page .widget-area a:not(.button) {
+  font-size: inherit;
+  display: block;
+}
+
+.geodir-page .widget-area .widget.buddypress div.item-options a,
+.geodir-page .widget-area .geodir_get_directions a {
+  display: inline-block;
+}
+
+/* bestof-cat-list */
+.geodir-best-of .geo-bestof-contentwrap ul.geodir-bestof-cat-list li .gd-cptcat-cat-left {
+  min-width: 45px;
+  max-width: 45px;
+}
+
+.geodir-best-of .geo-bestof-contentwrap ul.geodir-bestof-cat-list li .gd-cptcat-cat-right {
+  width: 60%;
+}
+
+.widget-area .geodir-best-of .bestof-tabs-on-left .geo-bestof-contentwrap .geodir-tabs {
+  width: 100%;
+}
+
+.geodir-best-of .gd-bestof-tabs {
+  margin-bottom: 15px;
+}
+
+.widget-area .geodir-best-of .bestof-tabs-on-left .geo-bestof-contentwrap #geodir-bestof-places {
+  width: 100%;
+}
+
+@media only screen and (min-width: 801px) {
+  body .widget.geodir-best-of ul.geodir-category-list-view li .gd-list-item-left {
+    width: 100%;
+    padding-right: 0;
+  }
+  body .widget.geodir-best-of ul.geodir-category-list-view li .gd-list-item-right {
+    width: 100%;
+    padding: 15px 15px 0 15px;
+  }
+  .widget.geodir-best-of ul.geodir-category-list-view:not(.geodir-gridview) .geodir-image-container ul.geodir-images li,
+  .widget.geodir-best-of ul.geodir-category-list-view:not(.geodir-gridview) .geodir-image-container ul.geodir-images li img {
+    height: 100%;
+    border-radius: var(--reign-global-border-radius) var(--reign-global-border-radius) 0 0;
+  }
+}
+/* geodir-listings */
+@media only screen and (min-width: 801px) {
+  .widget.geodir-listings h3.geodir-entry-title {
+    font-size: 16px;
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+  .geodir-page .widget-area .widget.geodir-listings a {
+    display: inline-block;
+  }
+  body .widget.geodir-listings ul.geodir-category-list-view li .gd-list-item-left {
+    width: 100%;
+    padding-right: 0;
+  }
+  body .widget.geodir-listings ul.geodir-category-list-view li .gd-list-item-right {
+    width: 100%;
+    padding: 0 15px 0 15px;
+  }
+  .widget.geodir-listings ul.geodir-category-list-view:not(.geodir-gridview) .geodir-image-container ul.geodir-images li,
+  .widget.geodir-listings ul.geodir-category-list-view:not(.geodir-gridview) .geodir-image-container ul.geodir-images li img {
+    height: 100%;
+    border-radius: 4px 4px 0 0;
+  }
+  .widget.geodir-listings .geodir-image-container ul.geodir-images li img {
+    margin: 0;
+  }
+}
+/*--------------------------------------------------------------
+# Recent Reviews
+--------------------------------------------------------------*/
+.geodir_recent_reviews_section ul li .geodir_reviewer_content .geodir_reviewer_text {
+  margin: 10px 0 0;
+}
+
+.widget .geodir_recent_reviews_section ul li .geodir_reviewer_content .geodir_reviewer_title {
+  margin-top: 10px;
+}
+
+.bsui .input-group:not(.has-validation) > .form-control:not(:last-child),
+.bsui .input-group:not(.has-validation) > .custom-select:not(:last-child),
+.bsui .input-group:not(.has-validation) > .custom-file:not(:last-child) .custom-file-label,
+.bsui .input-group:not(.has-validation) > .custom-file:not(:last-child) .custom-file-label::after {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+/*--------------------------------------------------------------
+# PeepSo
+--------------------------------------------------------------*/
+.peepso-geodirectory-wrapper .bsui .row-cols-md-2 > .geodir-info,
+.peepso-geodirectory-wrapper .bsui .row-cols-md-2 > .alert-info {
+  flex: 0 0 100%;
+  max-width: calc(100% - 30px);
+  margin: 0 15px 15px;
+}
+
+.peepso-geodirectory-wrapper .peepso-geodir-add-place {
+  margin: 0 0 15px;
+}
+
+/*--------------------------------------------------------------
+# Widgets
+--------------------------------------------------------------*/
+.widget-area form#geodirectory-add-post {
+  padding: 0;
+}
+
+.widget-area .bsui form#geodirectory-add-post .col-sm-2,
+.widget-area .bsui form#geodirectory-add-post .col-sm-10 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.widget-area form#geodirectory-add-post .geodir_button.btn {
+  width: 100%;
+  margin: 0 0 15px;
+}
+
+.widget-area .geodir-post-meta-container .geodir_post_meta {
+  font-size: 14px;
+}
+
+.widget-area .gd-cptcat-row.gd-cptcat-gd_place {
+  margin: 0;
+}
+
+.widget-area .bsui .gd-cptcat-listing .row-cols-1 > * {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+/*--------------------------------------------------------------
+# Dark Mode
+--------------------------------------------------------------*/
+.dark-mode .bsui .toast-header,
+.dark-scheme .bsui .toast-header,
+.dark-mode .bsui .card-footer,
+.dark-scheme .bsui .card-footer {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+.dark-mode .bsui .bg-light,
+.dark-scheme .bsui .bg-light {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+.dark-mode .bsui .table,
+.dark-scheme .bsui .table {
+  color: inherit;
+}
+
+/*--------------------------------------------------------------
+# Colors Scheme
+--------------------------------------------------------------*/
+.bsui .form-control,
+.bsui .custom-select {
+  background: var(--reign-form-background-color);
+  color: var(--reign-form-text-color);
+  border: 1px solid var(--reign-form-border-color);
+  border-radius: var(--reign-global-form-radius);
+}
+
+.bsui .form-control:focus {
+  background: var(--reign-form-focus-background-color);
+  color: var(--reign-form-focus-text-color);
+  border: 1px solid var(--reign-form-focus-border-color);
+}
+
+/* Body Color */
+.bsui .dropdown-menu {
+  color: var(--reign-site-body-text-color);
+}
+
+/* Sections BG Color */
+.geodir-loc-bar-in,
+.geodir-pagination ul.page-numbers li,
+.geodir-tabs dl.geodir-tab-head dd.geodir-tab-active a,
+.geodir-tabs dl.geodir-tab-head dd a,
+#reviewsTab .geodir-comments-area .commentlist .children li,
+#reviewsTab .geodir-comments-area .commentlist .comment-respond,
+.geodir-categories-container ul li,
+form#geodirectory-add-post,
+.bsui .card,
+.bsui .dropdown-menu,
+.bsui .page-link {
+  background: var(--reign-site-sections-bg-color);
+}
+
+/*--------------------------------------------------------------
+# V5
+--------------------------------------------------------------*/
+.aui_bs5 .bsui .dropdown-toggle:not(.dropdown-toggle-split)::after {
+  margin-right: 0;
+  display: inline-block;
+  margin-left: 0.255em;
+  vertical-align: 0.255em;
+  content: "";
+  border-top: 0.5em solid;
+  border-right: 0.5em solid transparent;
+  border-bottom: 0;
+  border-left: 0.5em solid transparent;
+}
+
+.aui_bs5 .bsui .card {
+  border-radius: var(--reign-global-border-radius);
+}
+
+.aui_bs5 .bsui .card-img,
+.aui_bs5 .bsui .card-img-top {
+  border-top-left-radius: var(--reign-global-border-radius);
+  border-top-right-radius: var(--reign-global-border-radius);
+}
+
+.aui_bs5 .bsui .row-cols-md-0 .card-img,
+.aui_bs5 .bsui .row-cols-md-0 .card-img-top {
+  border-top-right-radius: 0;
+}
+
+.aui_bs5 .bsui .form-control,
+.aui_bs5 .bsui .custom-select {
+  background: var(--reign-form-background-color);
+  color: var(--reign-form-text-color);
+  border: 1px solid var(--reign-form-border-color);
+  border-radius: var(--reign-global-form-radius);
+}
+
+.aui_bs5 .bsui .form-control:focus {
+  background: var(--reign-form-focus-background-color);
+  color: var(--reign-form-focus-text-color);
+  border: 1px solid var(--reign-form-focus-border-color);
+}
+
+.aui_bs5 .bsui .input-group:not(.has-validation) > .form-control:not(:last-child),
+.aui_bs5 .bsui .input-group:not(.has-validation) > .custom-select:not(:last-child),
+.aui_bs5 .bsui .input-group:not(.has-validation) > .custom-file:not(:last-child) .custom-file-label,
+.aui_bs5 .bsui .input-group:not(.has-validation) > .custom-file:not(:last-child) .custom-file-label::after {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+/* Body Color */
+.aui_bs5 .bsui .dropdown-menu {
+  color: var(--reign-site-body-text-color);
+}
+
+/* Sections BG Color */
+.aui_bs5 .geodir-loc-bar-in,
+.aui_bs5 .geodir-pagination ul.page-numbers li,
+.aui_bs5 .geodir-tabs dl.geodir-tab-head dd.geodir-tab-active a,
+.aui_bs5 .geodir-tabs dl.geodir-tab-head dd a,
+.aui_bs5 #reviewsTab .geodir-comments-area .commentlist .children li,
+.aui_bs5 #reviewsTab .geodir-comments-area .commentlist .comment-respond,
+.aui_bs5 .geodir-categories-container ul li,
+.aui_bs5 form#geodirectory-add-post,
+.aui_bs5 .bsui .card,
+.aui_bs5 .bsui .dropdown-menu,
+.aui_bs5 .bsui .page-link {
+  background: var(--reign-site-sections-bg-color);
+}
+
+/* Theme Color */
+nav.geodir-pagination span.page-numbers.current,
+.bsui .page-link:not(.active) {
+  color: var(--reign-colors-theme);
+}
+
+.geodir-tabs dl.geodir-tab-head dd:after,
+.geodir-tabs dl.geodir-tab-head dd:hover:after {
+  background: var(--reign-colors-theme);
+}
+
+.geodir-tabs dl.geodir-tab-head dd.geodir-tab-active a {
+  border-color: var(--reign-colors-theme);
+}
+
+.aui_bs5 nav.geodir-pagination span.page-numbers.current,
+.aui_bs5 .bsui .page-link:not(.active):hover {
+  color: var(--reign-colors-theme);
+}
+
+.aui_bs5 .geodir-tabs dl.geodir-tab-head dd:after,
+.aui_bs5 .geodir-tabs dl.geodir-tab-head dd:hover:after {
+  background: var(--reign-colors-theme);
+}
+
+.aui_bs5 .geodir-tabs dl.geodir-tab-head dd.geodir-tab-active a {
+  border-color: var(--reign-colors-theme);
+}
+
+/* elements */
+.aui_bs5 .bsui .dropdown-item:hover {
+  background-color: rgba(var(--reign-colors-theme-rgb), 0.1);
+}
+
+/* Link Color */
+.bsui a,
+.aui_bs5 .bsui a {
+  color: var(--reign-site-link-color);
+}
+
+/* Link Hover Color */
+.bsui a:hover,
+.aui_bs5 .bsui a:hover {
+  color: var(--reign-site-link-hover-color);
+}
+
+/* Buttons Color */
+.bsui .btn-primary,
+.bsui .btn-outline-primary,
+.aui_bs5 .bsui .btn-primary,
+.aui_bs5 .bsui .btn-outline-primary {
+  background-color: var(--reign-site-button-bg-color);
+  color: var(--reign-site-button-text-color);
+  border-radius: var(--reign-global-button-radius);
+}
+
+.bsui .btn-primary:hover,
+.bsui .btn-outline-primary:hover,
+.aui_bs5 .bsui .btn-primary:hover,
+.aui_bs5 .bsui .btn-outline-primary:hover {
+  background-color: var(--reign-site-button-bg-hover-color);
+  color: var(--reign-site-button-text-hover-color);
+  border-radius: var(--reign-global-button-radius);
+}
+
+/* Border Color */
+.geodir-pagination ul.page-numbers li,
+.geodir-pagination ul.page-numbers li:last-child,
+.bsui .page-link,
+.bsui .card,
+.bsui .card-footer,
+.bsui .nav-tabs,
+.aui_bs5 .geodir-pagination ul.page-numbers li,
+.aui_bs5 .geodir-pagination ul.page-numbers li:last-child,
+.aui_bs5 .bsui .page-link,
+.aui_bs5 .bsui .card,
+.aui_bs5 .bsui .card-footer,
+.aui_bs5 .bsui .nav-tabs,
+.aui_bs5 .bsui .page-link:hover {
+  border-color: var(--reign-site-border-color);
+}
+
+.aui_bs5 .bsui .border-bottom {
+  border-color: var(--reign-site-border-color) !important;
+}
+
+.bsui .border-bottom {
+  border-color: var(--reign-site-border-color) !important;
+}
+
+.bsui .page-item.active .page-link {
+  background-color: var(--reign-colors-theme);
+  border-color: var(--reign-colors-theme);
+}
+
+/* elements */
+.aui_bs5 .bsui .dropdown-item {
+  color: inherit;
+}
+
+.aui_bs5 .bsui .page-link.active,
+.aui_bs5 .active > .bsui .page-link {
+  background-color: var(--reign-colors-theme);
+  border-color: var(--reign-colors-theme);
+}
+
+.aui_bs5 .bsui .nav-tabs .nav-link.active,
+.aui_bs5 .bsui .nav-tabs .nav-item.show .nav-link {
+  background-color: var(--reign-site-button-bg-hover-color);
+  color: var(--reign-site-button-text-hover-color);
+  border: 1px solid var(--reign-site-button-bg-hover-color);
+}
+
+/* Form */
+.select2-container.select2-container--bootstrap-5 .select2-selection,
+.bsui .form-select.form-select,
+.bsui .input-group-text {
+  background: var(--reign-form-background-color);
+  color: var(--reign-form-text-color);
+  border: 1px solid var(--reign-form-border-color);
+  border-radius: var(--reign-global-form-radius);
+}
+
+.select2-container.select2-container--bootstrap-5 .select2-selection:focus,
+.bsui .form-select.form-select:focus,
+.bsui .input-group-text:focus {
+  background: var(--reign-form-focus-background-color);
+  color: var(--reign-form-focus-text-color);
+  border: 1px solid var(--reign-form-focus-border-color);
+}
+
+.select2-container.select2-container--bootstrap-5 .select2-dropdown {
+  background: var(--reign-form-background-color);
+  color: var(--reign-site-body-text-color);
+}
+
+.select2-container--bootstrap-5 .select2-dropdown .select2-results__options.select2-results__options .select2-results__option.select2-results__option--highlighted {
+  background-color: var(--reign-colors-theme);
+  color: #fff;
+}
+
+.select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered .select2-selection__choice.select2-selection__choice {
+  background: var(--reign-form-background-color);
+  color: var(--reign-form-text-color);
+  border: 1px solid var(--reign-form-border-color);
+  border-radius: var(--reign-global-form-radius);
+}
+
+.select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered .select2-selection__choice.select2-selection__choice:focus {
+  background: var(--reign-form-focus-background-color);
+  color: var(--reign-form-focus-text-color);
+  border: 1px solid var(--reign-form-focus-border-color);
+}

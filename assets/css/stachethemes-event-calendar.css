@@ -1,0 +1,1129 @@
+@charset "UTF-8";
+/**
+ * Micro clearfix, as per: http://cssmojo.com/latest_new_clearfix_so_far/
+ * Extend the clearfix class with Sass to avoid the `.clearfix` class appearing
+ * over and over in your markup.
+ */
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# CSS Variable Bridge – Light Mode (base)
+# CSS Variable Bridge – Dark Mode
+# General
+# Event Cards
+# Buttons
+# Form Inputs
+# Top Navigation
+# Month/Week Grid
+# Dashboard
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+# CSS Variable Bridge – Light Mode (base)
+# Applies to all stec containers; dark-mode section overrides.
+--------------------------------------------------------------*/
+.stec-layout-wrapper,
+.stec-calendar-container,
+.stec-ep-outer,
+.stec-modal,
+.stec-light-modal,
+.stec-submit-event-form {
+  /* Layout */
+  --stec-corner-smoothing: var(--reign-global-border-radius, 3px);
+  --stec-font-general: inherit;
+  /* Brand / status colors (preserved from plugin :root) */
+  --stec-color-green: #34a853;
+  --stec-color-blue: #4285f4;
+  --stec-color-red: #ea4335;
+  --stec-color-yellow: #f93;
+  --stec-color-gray: #7e7e7e;
+  --stec-a-hover-color: #ff5f5f;
+  /* Disabled states */
+  --stec-disabled-bg: #caccd1;
+  --stec-disabled-color: #6e7277;
+  /* Event calendar – background & text */
+  --stec-ec-bg: var(--reign-site-sections-bg-color, #fff);
+  --stec-ec-title-color: var(--reign-site-headings-color, #454850);
+  --stec-ec-title-secondary-color: var(--reign-site-headings-color, #454850);
+  --stec-ec-text-color: var(--reign-site-body-text-color, #545454);
+  /* Event calendar – tab menu */
+  --stec-ec-tab-menu-bg: var(--reign-site-secondary-bg-color, #f8f8f8);
+  --stec-ec-tab-menu-bg-active: var(--reign-site-sections-bg-color, #fff);
+  --stec-ec-tab-menu-color: var(--reign-site-body-text-color, #545454);
+  --stec-ec-tab-menu-color-active: var(--reign-site-headings-color, #454850);
+  /* Event calendar – buttons */
+  --stec-ec-button-bg: var(--reign-site-button-bg-color, #454850);
+  --stec-ec-button-bg-hover: var(--reign-site-button-bg-hover-color, #f15e6e);
+  --stec-ec-button-color: var(--reign-site-button-text-color, #fff);
+  --stec-ec-button-color-hover: var(--reign-site-button-text-hover-color, #fff);
+  --stec-ec-button-toggle-color: var(--reign-site-headings-color, #454850);
+  --stec-ec-button-toggle-color-hover: var(--reign-colors-theme, #4285f4);
+  /* Event post / list card */
+  --stec-ep-bg: var(--reign-site-sections-bg-color, #fff);
+  --stec-ep-bg-hover: var(--reign-site-secondary-bg-color, #f8f8f8);
+  --stec-ep-title-color: var(--reign-site-headings-color, #454850);
+  --stec-ep-title-color-hover: var(--reign-site-body-text-color, #545454);
+  --stec-ep-text-color: var(--reign-site-body-text-color, #545454);
+  --stec-ep-text-color-hover: var(--reign-site-body-text-color, #545454);
+  --stec-ep-button-color: var(--reign-site-headings-color, #454850);
+  --stec-ep-button-color-hover: var(--reign-colors-theme, #4285f4);
+  /* Form inputs */
+  --stec-form-input-bg: var(--reign-form-background-color, #f8f8f8);
+  --stec-form-input-border: var(--reign-form-border-color, rgba(0, 0, 0, 0.07));
+  --stec-form-input-color: var(--reign-form-text-color, #545454);
+  /* Checkbox */
+  --stec-checkbox-bg: var(--reign-form-background-color, #f8f8f8);
+  --stec-checkbox-border: var(--reign-form-border-color, rgba(0, 0, 0, 0.07));
+  --stec-checkbox-color: var(--reign-site-headings-color, #454850);
+  /* Top navigation bar */
+  --stec-top-menu-bg: var(--reign-site-sections-bg-color, #fff);
+  --stec-top-menu-color: var(--reign-site-body-text-color, #545454);
+  --stec-top-menu-color-active: var(--reign-site-button-text-color, #fff);
+  --stec-top-menu-bg-active-primary: var(--reign-colors-theme, #4285f4);
+  --stec-top-menu-bg-active-secondary: var(--reign-accent-hover-color, #4285f4);
+  /* Agenda view */
+  --stec-agenda-list-title-color: var(--reign-site-headings-color, #454850);
+  --stec-agenda-month-year-bg: var(--reign-site-secondary-bg-color, #f8f8f8);
+  --stec-agenda-month-year-color: var(--reign-site-headings-color, #454850);
+  --stec-agenda-cell-bg: var(--reign-site-sections-bg-color, #fff);
+  --stec-agenda-cell-color: var(--reign-site-body-text-color, #545454);
+  --stec-agenda-cell-bg-hover: var(--reign-site-secondary-bg-color, #f8f8f8);
+  --stec-agenda-cell-color-hover: var(--reign-site-body-text-color, #545454);
+  --stec-agenda-cell-bg-active: var(--reign-site-headings-color, #454850);
+  --stec-agenda-cell-color-active: var(--reign-site-sections-bg-color, #fff);
+  --stec-agenda-cell-today-bg: var(--reign-site-sections-bg-color, #fff);
+  --stec-agenda-cell-today-color: var(--reign-colors-theme, #4285f4);
+  /* Month/Week view – legend row */
+  --stec-mw-legend-bg: var(--reign-site-headings-color, #454850);
+  --stec-mw-legend-color: var(--reign-site-sections-bg-color, #fff);
+  --stec-mw-legend-today-bg: color-mix(in srgb, var(--reign-site-headings-color, #454850) 80%, #000);
+  --stec-mw-legend-today-color: var(--reign-accent-color, #4285f4);
+  /* Month/Week view – cells */
+  --stec-mw-cell-bg: var(--reign-site-sections-bg-color, #fff);
+  --stec-mw-cell-color: var(--reign-site-body-text-color, #545454);
+  --stec-mw-cell-bg-hover: var(--reign-site-secondary-bg-color, #f8f8f8);
+  --stec-mw-cell-color-hover: var(--reign-site-body-text-color, #545454);
+  --stec-mw-cell-bg-active: var(--reign-site-headings-color, #454850);
+  --stec-mw-cell-color-active: var(--reign-site-sections-bg-color, #fff);
+  --stec-mw-cell-diff-bg: var(--reign-site-secondary-bg-color, #f5f5f5);
+  --stec-mw-cell-diff-color: var(--reign-site-body-text-color, #545454);
+  --stec-mw-cell-today-bg: var(--reign-colors-theme, #4285f4);
+  --stec-mw-cell-today-color: #ffffff;
+  --stec-mw-cell-more-color: var(--reign-site-body-text-color, #545454);
+  /* Grid view */
+  --stec-grid-bg: var(--reign-site-sections-bg-color, #fff);
+  --stec-grid-border-color: var(--reign-site-border-color, rgba(0, 0, 0, 0.07));
+  --stec-grid-title-color: var(--reign-site-headings-color, #454850);
+  --stec-grid-text-color: var(--reign-site-body-text-color, #545454);
+  /* Box-grid image overlay (high-contrast, keep white) */
+  --stec-boxgrid-title-color: #ffffff;
+  --stec-boxgrid-text-color: #ffffff;
+  /* Swiper carousel */
+  --swiper-theme-color: var(--reign-colors-theme, #4285f4);
+  --swiper-pagination-color: var(--reign-colors-theme, #4285f4);
+  --swiper-navigation-color: var(--reign-colors-theme, #4285f4);
+}
+
+/*--------------------------------------------------------------
+# CSS Variable Bridge – Dark Mode
+--------------------------------------------------------------*/
+.dark-mode.dark-mode,
+.dark-scheme.dark-scheme {
+  --stec-corner-smoothing: var(--reign-global-border-radius);
+  /* Swiper carousel colors */
+  --swiper-theme-color: var(--reign-colors-theme, #007aff);
+  --swiper-pagination-color: var(--reign-colors-theme, #007aff);
+  --swiper-navigation-color: var(--reign-colors-theme, #007aff);
+  /* Slide shadows & overlays */
+  --stec-slide-shadow-color: rgba(0, 0, 0, 0.15);
+  --stec-dark-overlay: rgba(0, 0, 0, 0.8);
+  --stec-light-overlay: rgba(255, 255, 255, 0.5);
+  /* Disabled states */
+  --stec-disabled-bg: #caccd1;
+  --stec-disabled-color: #6e7277;
+  /* Month/Week active cell text */
+  --stec-layout-month-week-active-cell-txtcolor: var(--stec-boxgrid-title-color, #fff);
+  --stec-layout-month-week-cell-event-title-txtcolor: var(--stec-boxgrid-title-color, #fff);
+  /* Form inputs */
+  --stec-form-input-bg: var(--reign-form-background-color, #f8f8f8);
+  --stec-form-input-border: var(--reign-form-border-color, rgba(0, 0, 0, 0.07));
+  --stec-form-input-color: var(--reign-form-text-color, #525252);
+  /* Checkbox */
+  --stec-checkbox-bg: var(--reign-form-background-color, #f8f8f8);
+  --stec-checkbox-border: var(--reign-form-border-color, rgba(0, 0, 0, 0.07));
+  --stec-checkbox-color: var(--reign-site-headings-color, #454850);
+  /* Top navigation bar */
+  --stec-top-menu-bg: var(--reign-site-sections-bg-color);
+  --stec-top-menu-color: var(--reign-site-body-text-color);
+  --stec-top-menu-color-active: var(--reign-site-button-text-color);
+  --stec-top-menu-bg-active-primary: var(--reign-colors-theme);
+  --stec-top-menu-bg-active-secondary: var(--reign-accent-hover-color);
+  /* Agenda view */
+  --stec-agenda-list-title-color: var(--reign-site-headings-color);
+  --stec-agenda-month-year-bg: var(--reign-site-secondary-bg-color);
+  --stec-agenda-month-year-color: var(--reign-site-headings-color);
+  --stec-agenda-cell-bg: var(--reign-site-sections-bg-color);
+  --stec-agenda-cell-color: var(--reign-site-body-text-color);
+  --stec-agenda-cell-bg-hover: var(--reign-site-secondary-bg-color);
+  --stec-agenda-cell-color-hover: var(--reign-site-body-text-color);
+  --stec-agenda-cell-bg-active: var(--reign-site-headings-color);
+  --stec-agenda-cell-color-active: var(--reign-site-sections-bg-color);
+  --stec-agenda-cell-today-bg: var(--reign-site-sections-bg-color);
+  --stec-agenda-cell-today-color: var(--reign-colors-theme);
+  /* Month/Week view – legend row */
+  --stec-mw-legend-bg: var(--reign-site-headings-color);
+  --stec-mw-legend-color: var(--reign-site-sections-bg-color);
+  --stec-mw-legend-today-bg: color-mix(in srgb, var(--reign-site-headings-color) 80%, #000);
+  --stec-mw-legend-today-color: var(--reign-accent-color);
+  /* Month/Week view – cells */
+  --stec-mw-cell-bg: var(--reign-site-sections-bg-color);
+  --stec-mw-cell-color: var(--reign-site-body-text-color);
+  --stec-mw-cell-bg-hover: var(--reign-site-secondary-bg-color);
+  --stec-mw-cell-color-hover: var(--reign-site-body-text-color);
+  --stec-mw-cell-bg-active: var(--reign-site-headings-color);
+  --stec-mw-cell-color-active: var(--reign-site-sections-bg-color);
+  --stec-mw-cell-diff-bg: var(--reign-site-secondary-bg-color);
+  --stec-mw-cell-diff-color: var(--reign-site-body-text-color);
+  --stec-mw-cell-today-bg: var(--reign-colors-theme);
+  --stec-mw-cell-today-color: #ffffff;
+  --stec-mw-cell-more-color: var(--reign-site-body-text-color);
+  /* Grid view */
+  --stec-grid-bg: var(--reign-site-sections-bg-color);
+  --stec-grid-border-color: var(--reign-site-border-color);
+  --stec-grid-title-color: var(--reign-site-headings-color);
+  --stec-grid-text-color: var(--reign-site-body-text-color);
+  /* Box-grid image overlay (high-contrast, keep white) */
+  --stec-boxgrid-title-color: #ffffff;
+  --stec-boxgrid-text-color: #ffffff;
+  /* Event post/list card */
+  --stec-ep-bg: var(--reign-site-sections-bg-color);
+  --stec-ep-bg-hover: var(--reign-site-secondary-bg-color);
+  --stec-ep-title-color: var(--reign-site-headings-color);
+  --stec-ep-title-color-hover: var(--reign-site-body-text-color);
+  --stec-ep-text-color: var(--reign-site-body-text-color);
+  --stec-ep-text-color-hover: var(--reign-site-body-text-color);
+  --stec-ep-button-color: var(--reign-site-headings-color);
+  --stec-ep-button-color-hover: var(--reign-colors-theme);
+  /* Event calendar */
+  --stec-ec-bg: var(--reign-site-sections-bg-color);
+  --stec-ec-title-color: var(--reign-site-headings-color);
+  --stec-ec-title-secondary-color: var(--reign-site-headings-color);
+  --stec-ec-text-color: var(--reign-site-body-text-color);
+  --stec-ec-tab-menu-bg: var(--reign-site-secondary-bg-color);
+  --stec-ec-tab-menu-bg-active: var(--reign-site-sections-bg-color);
+  --stec-ec-tab-menu-color: var(--reign-site-body-text-color);
+  --stec-ec-tab-menu-color-active: var(--reign-site-body-text-color);
+  --stec-ec-button-bg: var(--reign-site-button-bg-color);
+  --stec-ec-button-bg-hover: var(--reign-site-button-bg-hover-color);
+  --stec-ec-button-color: var(--reign-site-button-text-color);
+  --stec-ec-button-color-hover: var(--reign-site-button-text-hover-color);
+  --stec-ec-button-toggle-color: var(--reign-site-headings-color);
+  --stec-ec-button-toggle-color-hover: var(--reign-colors-theme);
+  /* Content tabs (plugin :root defaults are #ececec / #fff / hardcoded) */
+  --stec-content-tab-bgcolor: var(--reign-site-secondary-bg-color);
+  --stec-content-tab-txtcolor: var(--reign-site-body-text-color);
+  --stec-content-tab-active-bgcolor: var(--reign-site-sections-bg-color);
+  --stec-content-tab-active-txtcolor: var(--reign-site-headings-color);
+}
+
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+.stec-layout-wrapper,
+.stec-calendar-container {
+  border-radius: var(--reign-global-border-radius);
+  font-family: inherit;
+}
+
+.bp-nouveau #buddypress.buddypress-wrap .tox .tox-tbtn {
+  background: 0 0;
+  border: 0;
+  border-radius: 3px;
+  box-shadow: none;
+  color: #222f3e;
+  flex: 0 0 auto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  height: 28px;
+  margin: 6px 1px 5px 0;
+  outline: 0;
+  overflow: hidden;
+  padding: 0;
+  text-transform: none;
+  width: 34px;
+}
+
+.tox .tox-statusbar button.tox-statusbar__wordcount {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  border: 0;
+}
+
+body .tox-tinymce {
+  border-color: var(--reign-site-border-color);
+}
+
+/*--------------------------------------------------------------
+# Event Cards
+--------------------------------------------------------------*/
+.stec-ep-outer {
+  border-radius: var(--reign-global-border-radius);
+  border: 1px solid var(--reign-site-border-color);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.stec-ep-outer:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/*--------------------------------------------------------------
+# Buttons
+--------------------------------------------------------------*/
+.stec-ec-button,
+.stec-ep-read-more-button {
+  border-radius: var(--reign-global-button-radius);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/*--------------------------------------------------------------
+# Form Inputs
+--------------------------------------------------------------*/
+.dark-mode.dark-mode .stec-submit-form input[type=text],
+.dark-mode.dark-mode .stec-submit-form input[type=email],
+.dark-mode.dark-mode .stec-submit-form input[type=url],
+.dark-mode.dark-mode .stec-submit-form input[type=number],
+.dark-mode.dark-mode .stec-submit-form input[type=date],
+.dark-mode.dark-mode .stec-submit-form input[type=time],
+.dark-mode.dark-mode .stec-submit-form textarea,
+.dark-mode.dark-mode .stec-submit-form select,
+.dark-mode.dark-mode .stec-datepicker input[type=text],
+.dark-mode.dark-mode .stec-datepicker input[type=email],
+.dark-mode.dark-mode .stec-datepicker input[type=url],
+.dark-mode.dark-mode .stec-datepicker input[type=number],
+.dark-mode.dark-mode .stec-datepicker input[type=date],
+.dark-mode.dark-mode .stec-datepicker input[type=time],
+.dark-mode.dark-mode .stec-datepicker textarea,
+.dark-mode.dark-mode .stec-datepicker select,
+.dark-scheme.dark-scheme .stec-submit-form input[type=text],
+.dark-scheme.dark-scheme .stec-submit-form input[type=email],
+.dark-scheme.dark-scheme .stec-submit-form input[type=url],
+.dark-scheme.dark-scheme .stec-submit-form input[type=number],
+.dark-scheme.dark-scheme .stec-submit-form input[type=date],
+.dark-scheme.dark-scheme .stec-submit-form input[type=time],
+.dark-scheme.dark-scheme .stec-submit-form textarea,
+.dark-scheme.dark-scheme .stec-submit-form select,
+.dark-scheme.dark-scheme .stec-datepicker input[type=text],
+.dark-scheme.dark-scheme .stec-datepicker input[type=email],
+.dark-scheme.dark-scheme .stec-datepicker input[type=url],
+.dark-scheme.dark-scheme .stec-datepicker input[type=number],
+.dark-scheme.dark-scheme .stec-datepicker input[type=date],
+.dark-scheme.dark-scheme .stec-datepicker input[type=time],
+.dark-scheme.dark-scheme .stec-datepicker textarea,
+.dark-scheme.dark-scheme .stec-datepicker select {
+  background-color: var(--reign-form-background-color);
+  color: var(--reign-form-text-color);
+  border-color: var(--reign-form-border-color);
+  border-radius: var(--reign-global-form-radius);
+}
+.dark-mode.dark-mode .stec-submit-form input:focus,
+.dark-mode.dark-mode .stec-submit-form textarea:focus,
+.dark-mode.dark-mode .stec-submit-form select:focus,
+.dark-mode.dark-mode .stec-datepicker input:focus,
+.dark-mode.dark-mode .stec-datepicker textarea:focus,
+.dark-mode.dark-mode .stec-datepicker select:focus,
+.dark-scheme.dark-scheme .stec-submit-form input:focus,
+.dark-scheme.dark-scheme .stec-submit-form textarea:focus,
+.dark-scheme.dark-scheme .stec-submit-form select:focus,
+.dark-scheme.dark-scheme .stec-datepicker input:focus,
+.dark-scheme.dark-scheme .stec-datepicker textarea:focus,
+.dark-scheme.dark-scheme .stec-datepicker select:focus {
+  border-color: var(--reign-form-focus-border-color);
+  background-color: var(--reign-form-focus-background-color);
+  color: var(--reign-form-focus-text-color);
+  outline: none;
+}
+.dark-mode.dark-mode .stec-qty-selector input[type=text],
+.dark-scheme.dark-scheme .stec-qty-selector input[type=text] {
+  background-color: var(--stec-form-input-bg, var(--reign-form-background-color, #f8f8f8)) !important;
+  border-color: var(--stec-form-input-border, var(--reign-form-border-color, rgba(0, 0, 0, 0.07))) !important;
+  color: var(--stec-form-input-color, var(--reign-form-text-color, #525252));
+}
+.dark-mode.dark-mode .stec-qty-selector i,
+.dark-scheme.dark-scheme .stec-qty-selector i {
+  color: var(--stec-form-input-color, var(--reign-form-text-color, #525252));
+}
+.dark-mode.dark-mode .stec-qty-selector i:hover,
+.dark-scheme.dark-scheme .stec-qty-selector i:hover {
+  color: var(--stec-color-red, #ea4335);
+}
+.dark-mode.dark-mode .stec-select-wrapper .stec-select-input-wrap,
+.dark-mode.dark-mode .stec-select-wrapper:not(.multiple) .stec-select-input-item,
+.dark-mode.dark-mode .stec-select-wrapper .stec-select-dropdown,
+.dark-mode.dark-mode .stec-select-wrapper .stec-select-dropdown-noitems,
+.dark-mode.dark-mode .stec-top-search-menu-input-wrapper,
+.dark-mode.dark-mode .stec-top-search-menu-input-wrapper .stec-top-menu-search-input,
+.dark-scheme.dark-scheme .stec-select-wrapper .stec-select-input-wrap,
+.dark-scheme.dark-scheme .stec-select-wrapper:not(.multiple) .stec-select-input-item,
+.dark-scheme.dark-scheme .stec-select-wrapper .stec-select-dropdown,
+.dark-scheme.dark-scheme .stec-select-wrapper .stec-select-dropdown-noitems,
+.dark-scheme.dark-scheme .stec-top-search-menu-input-wrapper,
+.dark-scheme.dark-scheme .stec-top-search-menu-input-wrapper .stec-top-menu-search-input {
+  background-color: var(--reign-form-background-color);
+  color: var(--reign-form-text-color);
+  border-color: var(--reign-form-border-color);
+}
+.dark-mode.dark-mode .stec-input-text-wrapper input[type=email],
+.dark-mode.dark-mode .stec-input-text-wrapper input[type=password],
+.dark-mode.dark-mode .stec-input-text-wrapper input[type=text],
+.dark-mode.dark-mode .stec-icon-picker-wrapper .stec-icon-picker-container input,
+.dark-scheme.dark-scheme .stec-input-text-wrapper input[type=email],
+.dark-scheme.dark-scheme .stec-input-text-wrapper input[type=password],
+.dark-scheme.dark-scheme .stec-input-text-wrapper input[type=text],
+.dark-scheme.dark-scheme .stec-icon-picker-wrapper .stec-icon-picker-container input {
+  background: var(--reign-form-background-color) !important;
+  color: var(--reign-form-text-color) !important;
+  border-color: var(--reign-form-border-color) !important;
+}
+.dark-mode.dark-mode .stec-input-text-wrapper input[type=email]:focus,
+.dark-mode.dark-mode .stec-input-text-wrapper input[type=password]:focus,
+.dark-mode.dark-mode .stec-input-text-wrapper input[type=text]:focus,
+.dark-mode.dark-mode .stec-icon-picker-wrapper .stec-icon-picker-container input:focus,
+.dark-scheme.dark-scheme .stec-input-text-wrapper input[type=email]:focus,
+.dark-scheme.dark-scheme .stec-input-text-wrapper input[type=password]:focus,
+.dark-scheme.dark-scheme .stec-input-text-wrapper input[type=text]:focus,
+.dark-scheme.dark-scheme .stec-icon-picker-wrapper .stec-icon-picker-container input:focus {
+  background: var(--reign-form-focus-background-color) !important;
+  color: var(--reign-form-focus-text-color) !important;
+  border-color: var(--reign-form-focus-border-color) !important;
+}
+.dark-mode.dark-mode .stec-checkbox,
+.dark-scheme.dark-scheme .stec-checkbox {
+  background-color: var(--stec-checkbox-bg, var(--reign-form-background-color, #f8f8f8));
+  border-color: var(--stec-checkbox-border, var(--reign-form-border-color, rgba(0, 0, 0, 0.07)));
+  color: var(--stec-checkbox-color, var(--reign-site-headings-color, #454850));
+}
+.dark-mode.dark-mode .stec-layout-agenda .stec-layout-agenda-slider > div > div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active,
+.dark-mode.dark-mode .stec-layout-agenda .stec-layout-agenda-slider > div > stec-div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active,
+.dark-mode.dark-mode .stec-layout-agenda .stec-layout-agenda-slider > stec-div > div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active,
+.dark-mode.dark-mode .stec-layout-agenda .stec-layout-agenda-slider > stec-div > stec-div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active,
+.dark-scheme.dark-scheme .stec-layout-agenda .stec-layout-agenda-slider > div > div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active,
+.dark-scheme.dark-scheme .stec-layout-agenda .stec-layout-agenda-slider > div > stec-div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active,
+.dark-scheme.dark-scheme .stec-layout-agenda .stec-layout-agenda-slider > stec-div > div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active,
+.dark-scheme.dark-scheme .stec-layout-agenda .stec-layout-agenda-slider > stec-div > stec-div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active {
+  background-color: var(--reign-site-secondary-bg-color);
+}
+.dark-mode.dark-mode .stec-layout-agenda .stec-layout-agenda-slider > div > div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-day,
+.dark-mode.dark-mode .stec-layout-agenda .stec-layout-agenda-slider > div > div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-daylabel,
+.dark-mode.dark-mode .stec-layout-agenda .stec-layout-agenda-slider > div > div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-event-more,
+.dark-mode.dark-mode .stec-layout-agenda .stec-layout-agenda-slider > div > stec-div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-day,
+.dark-mode.dark-mode .stec-layout-agenda .stec-layout-agenda-slider > div > stec-div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-daylabel,
+.dark-mode.dark-mode .stec-layout-agenda .stec-layout-agenda-slider > div > stec-div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-event-more,
+.dark-mode.dark-mode .stec-layout-agenda .stec-layout-agenda-slider > stec-div > div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-day,
+.dark-mode.dark-mode .stec-layout-agenda .stec-layout-agenda-slider > stec-div > div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-daylabel,
+.dark-mode.dark-mode .stec-layout-agenda .stec-layout-agenda-slider > stec-div > div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-event-more,
+.dark-mode.dark-mode .stec-layout-agenda .stec-layout-agenda-slider > stec-div > stec-div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-day,
+.dark-mode.dark-mode .stec-layout-agenda .stec-layout-agenda-slider > stec-div > stec-div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-daylabel,
+.dark-mode.dark-mode .stec-layout-agenda .stec-layout-agenda-slider > stec-div > stec-div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-event-more,
+.dark-scheme.dark-scheme .stec-layout-agenda .stec-layout-agenda-slider > div > div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-day,
+.dark-scheme.dark-scheme .stec-layout-agenda .stec-layout-agenda-slider > div > div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-daylabel,
+.dark-scheme.dark-scheme .stec-layout-agenda .stec-layout-agenda-slider > div > div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-event-more,
+.dark-scheme.dark-scheme .stec-layout-agenda .stec-layout-agenda-slider > div > stec-div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-day,
+.dark-scheme.dark-scheme .stec-layout-agenda .stec-layout-agenda-slider > div > stec-div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-daylabel,
+.dark-scheme.dark-scheme .stec-layout-agenda .stec-layout-agenda-slider > div > stec-div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-event-more,
+.dark-scheme.dark-scheme .stec-layout-agenda .stec-layout-agenda-slider > stec-div > div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-day,
+.dark-scheme.dark-scheme .stec-layout-agenda .stec-layout-agenda-slider > stec-div > div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-daylabel,
+.dark-scheme.dark-scheme .stec-layout-agenda .stec-layout-agenda-slider > stec-div > div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-event-more,
+.dark-scheme.dark-scheme .stec-layout-agenda .stec-layout-agenda-slider > stec-div > stec-div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-day,
+.dark-scheme.dark-scheme .stec-layout-agenda .stec-layout-agenda-slider > stec-div > stec-div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-daylabel,
+.dark-scheme.dark-scheme .stec-layout-agenda .stec-layout-agenda-slider > stec-div > stec-div .stec-layout-agenda-slider-cell.stec-layout-agenda-slider-cell-active .stec-layout-agenda-slider-cell-event-more {
+  color: var(--reign-site-headings-color);
+}
+
+/*--------------------------------------------------------------
+# Add New Calendar Event Form
+--------------------------------------------------------------*/
+.dark-mode.dark-mode .stec-section,
+.dark-scheme.dark-scheme .stec-section {
+  background-color: var(--reign-site-sections-bg-color);
+}
+.dark-mode.dark-mode .stec-field-title,
+.dark-mode.dark-mode .stec-section .stec-section-title,
+.dark-mode.dark-mode .stec-section .stec-section-subtitle,
+.dark-scheme.dark-scheme .stec-field-title,
+.dark-scheme.dark-scheme .stec-section .stec-section-title,
+.dark-scheme.dark-scheme .stec-section .stec-section-subtitle {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-field-description,
+.dark-scheme.dark-scheme .stec-field-description {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-dashboard-changes-notice .close-button,
+.dark-scheme.dark-scheme .stec-dashboard-changes-notice .close-button {
+  background-color: var(--reign-site-secondary-bg-color);
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-upload-images-container,
+.dark-mode.dark-mode .stec-find-on-map,
+.dark-mode.dark-mode .stec-light-modal,
+.dark-mode.dark-mode .stec-cdt,
+.dark-mode.dark-mode .stec-cdt-body-day.empty,
+.dark-mode.dark-mode .stec-cdt-body-day.stec-cdt-expired,
+.dark-scheme.dark-scheme .stec-upload-images-container,
+.dark-scheme.dark-scheme .stec-find-on-map,
+.dark-scheme.dark-scheme .stec-light-modal,
+.dark-scheme.dark-scheme .stec-cdt,
+.dark-scheme.dark-scheme .stec-cdt-body-day.empty,
+.dark-scheme.dark-scheme .stec-cdt-body-day.stec-cdt-expired {
+  background-color: var(--reign-site-sections-bg-color);
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-upload-images-container-dnd,
+.dark-mode.dark-mode .stec-input-color-wrapper .stec-input-color-picker,
+.dark-mode.dark-mode .stec-input-color-wrapper.active .stec-input-color-picker,
+.dark-mode.dark-mode .stec-icon-picker-wrapper .stec-icon-picker-container,
+.dark-mode.dark-mode .stec-icon-picker-wrapper.active .stec-icon-picker-container,
+.dark-mode.dark-mode .stec-icon-picker-wrapper .stec-icon-picker-selected,
+.dark-mode.dark-mode .stec-icon-picker-wrapper .stec-icon-picker-container .stec-icon-picker-list .stec-icon-picker-list-icon,
+.dark-mode.dark-mode .stec-cdt-component-dropdown,
+.dark-mode.dark-mode .stec-cdt-header,
+.dark-mode.dark-mode .stec-cdt-footer,
+.dark-mode.dark-mode .stec-cdt-footer-button,
+.dark-mode.dark-mode .stec-select-wrapper .stec-select-dropdown .stec-select-dropdown-item,
+.dark-scheme.dark-scheme .stec-upload-images-container-dnd,
+.dark-scheme.dark-scheme .stec-input-color-wrapper .stec-input-color-picker,
+.dark-scheme.dark-scheme .stec-input-color-wrapper.active .stec-input-color-picker,
+.dark-scheme.dark-scheme .stec-icon-picker-wrapper .stec-icon-picker-container,
+.dark-scheme.dark-scheme .stec-icon-picker-wrapper.active .stec-icon-picker-container,
+.dark-scheme.dark-scheme .stec-icon-picker-wrapper .stec-icon-picker-selected,
+.dark-scheme.dark-scheme .stec-icon-picker-wrapper .stec-icon-picker-container .stec-icon-picker-list .stec-icon-picker-list-icon,
+.dark-scheme.dark-scheme .stec-cdt-component-dropdown,
+.dark-scheme.dark-scheme .stec-cdt-header,
+.dark-scheme.dark-scheme .stec-cdt-footer,
+.dark-scheme.dark-scheme .stec-cdt-footer-button,
+.dark-scheme.dark-scheme .stec-select-wrapper .stec-select-dropdown .stec-select-dropdown-item {
+  background-color: var(--reign-site-secondary-bg-color);
+  border-color: var(--reign-site-border-color);
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-input-color-wrapper.active .stec-input-color-picker,
+.dark-scheme.dark-scheme .stec-input-color-wrapper.active .stec-input-color-picker {
+  background-color: var(--reign-site-secondary-bg-color);
+}
+.dark-mode.dark-mode .chrome-picker,
+.dark-mode.dark-mode .stec-input-textarea-wrapper textarea,
+.dark-mode.dark-mode .stec-text-editor textarea,
+.dark-scheme.dark-scheme .chrome-picker,
+.dark-scheme.dark-scheme .stec-input-textarea-wrapper textarea,
+.dark-scheme.dark-scheme .stec-text-editor textarea {
+  background: var(--reign-site-secondary-bg-color) !important;
+  color: var(--reign-site-body-text-color) !important;
+}
+.dark-mode.dark-mode .stec-select-wrapper .stec-select-dropdown .stec-select-dropdown-item:hover,
+.dark-scheme.dark-scheme .stec-select-wrapper .stec-select-dropdown .stec-select-dropdown-item:hover {
+  background-color: var(--reign-site-sections-bg-color);
+}
+.dark-mode.dark-mode .stec-upload-images-container-dnd span,
+.dark-mode.dark-mode .stec-input-color-wrapper.active .stec-input-color-picker input,
+.dark-mode.dark-mode .stec-icon-picker-wrapper.active .stec-icon-picker-container input,
+.dark-mode.dark-mode .stec-icon-picker-wrapper .stec-icon-picker-container input,
+.dark-mode.dark-mode .stec-icon-picker-wrapper .stec-icon-picker-container .stec-icon-picker-list .stec-icon-picker-list-icon i,
+.dark-mode.dark-mode .stec-light-modal .stec-light-modal-title,
+.dark-mode.dark-mode .stec-cdt-header-title,
+.dark-mode.dark-mode .stec-cdt-body-weekday,
+.dark-mode.dark-mode .stec-cdt-body-day span,
+.dark-mode.dark-mode .stec-cdt-footer-button,
+.dark-scheme.dark-scheme .stec-upload-images-container-dnd span,
+.dark-scheme.dark-scheme .stec-input-color-wrapper.active .stec-input-color-picker input,
+.dark-scheme.dark-scheme .stec-icon-picker-wrapper.active .stec-icon-picker-container input,
+.dark-scheme.dark-scheme .stec-icon-picker-wrapper .stec-icon-picker-container input,
+.dark-scheme.dark-scheme .stec-icon-picker-wrapper .stec-icon-picker-container .stec-icon-picker-list .stec-icon-picker-list-icon i,
+.dark-scheme.dark-scheme .stec-light-modal .stec-light-modal-title,
+.dark-scheme.dark-scheme .stec-cdt-header-title,
+.dark-scheme.dark-scheme .stec-cdt-body-weekday,
+.dark-scheme.dark-scheme .stec-cdt-body-day span,
+.dark-scheme.dark-scheme .stec-cdt-footer-button {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-upload-images-container-dnd i,
+.dark-mode.dark-mode .stec-cdt-header-next i,
+.dark-mode.dark-mode .stec-cdt-header-prev i,
+.dark-scheme.dark-scheme .stec-upload-images-container-dnd i,
+.dark-scheme.dark-scheme .stec-cdt-header-next i,
+.dark-scheme.dark-scheme .stec-cdt-header-prev i {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-upload-images-container-dnd.drag-over,
+.dark-mode.dark-mode .stec-cdt-header-next:hover,
+.dark-mode.dark-mode .stec-cdt-header-prev:hover,
+.dark-mode.dark-mode .stec-cdt-footer-button:hover,
+.dark-scheme.dark-scheme .stec-upload-images-container-dnd.drag-over,
+.dark-scheme.dark-scheme .stec-cdt-header-next:hover,
+.dark-scheme.dark-scheme .stec-cdt-header-prev:hover,
+.dark-scheme.dark-scheme .stec-cdt-footer-button:hover {
+  background-color: var(--reign-colors-theme);
+  border-color: var(--reign-colors-theme);
+  color: var(--reign-site-button-text-color, #fff);
+}
+.dark-mode.dark-mode .stec-upload-images-container-dnd.drag-over i,
+.dark-mode.dark-mode .stec-cdt-header-next:hover i,
+.dark-mode.dark-mode .stec-cdt-header-prev:hover i,
+.dark-mode.dark-mode .stec-cdt-footer-button:hover,
+.dark-scheme.dark-scheme .stec-upload-images-container-dnd.drag-over i,
+.dark-scheme.dark-scheme .stec-cdt-header-next:hover i,
+.dark-scheme.dark-scheme .stec-cdt-header-prev:hover i,
+.dark-scheme.dark-scheme .stec-cdt-footer-button:hover {
+  color: var(--reign-site-button-text-color, #fff);
+}
+.dark-mode.dark-mode .stec-light-modal-overlay,
+.dark-scheme.dark-scheme .stec-light-modal-overlay {
+  background: rgba(0, 0, 0, 0.55);
+}
+.dark-mode.dark-mode .stec-light-modal .stec-light-modal-header,
+.dark-mode.dark-mode .stec-modal-close,
+.dark-scheme.dark-scheme .stec-light-modal .stec-light-modal-header,
+.dark-scheme.dark-scheme .stec-modal-close {
+  background-color: var(--reign-site-secondary-bg-color);
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-light-modal .stec-light-modal-header span,
+.dark-mode.dark-mode .stec-light-modal .stec-light-modal-header stec-span,
+.dark-mode.dark-mode .stec-input-color-wrapper label div,
+.dark-mode.dark-mode .stec-input-color-wrapper label stec-div,
+.dark-scheme.dark-scheme .stec-light-modal .stec-light-modal-header span,
+.dark-scheme.dark-scheme .stec-light-modal .stec-light-modal-header stec-span,
+.dark-scheme.dark-scheme .stec-input-color-wrapper label div,
+.dark-scheme.dark-scheme .stec-input-color-wrapper label stec-div {
+  border-color: var(--reign-site-border-color);
+}
+.dark-mode.dark-mode .stec-input-color-wrapper .stec-input-color-picker:before,
+.dark-mode.dark-mode .stec-icon-picker-wrapper .stec-icon-picker-container:before,
+.dark-scheme.dark-scheme .stec-input-color-wrapper .stec-input-color-picker:before,
+.dark-scheme.dark-scheme .stec-icon-picker-wrapper .stec-icon-picker-container:before {
+  background: var(--reign-site-secondary-bg-color);
+}
+.dark-mode.dark-mode .stec-light-modal .stec-light-modal-header span i,
+.dark-mode.dark-mode .stec-light-modal .stec-light-modal-header stec-span i,
+.dark-scheme.dark-scheme .stec-light-modal .stec-light-modal-header span i,
+.dark-scheme.dark-scheme .stec-light-modal .stec-light-modal-header stec-span i {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-modal-close:hover,
+.dark-scheme.dark-scheme .stec-modal-close:hover {
+  background-color: var(--reign-colors-theme);
+  color: var(--reign-site-button-text-color, #fff);
+}
+.dark-mode.dark-mode .stec-cdt-component-dropdown,
+.dark-scheme.dark-scheme .stec-cdt-component-dropdown {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+.dark-mode.dark-mode .stec-icon-picker-wrapper .stec-icon-picker-container .stec-icon-picker-list .stec-icon-picker-list-icon:hover,
+.dark-scheme.dark-scheme .stec-icon-picker-wrapper .stec-icon-picker-container .stec-icon-picker-list .stec-icon-picker-list-icon:hover {
+  background: var(--reign-site-border-color);
+}
+.dark-mode.dark-mode .stec-cdt-body-day.stec-cdt-blocked,
+.dark-mode.dark-mode .stec-cdt-body-day.stec-cdt-end:before,
+.dark-mode.dark-mode .stec-cdt-body-day.stec-cdt-start:before,
+.dark-scheme.dark-scheme .stec-cdt-body-day.stec-cdt-blocked,
+.dark-scheme.dark-scheme .stec-cdt-body-day.stec-cdt-end:before,
+.dark-scheme.dark-scheme .stec-cdt-body-day.stec-cdt-start:before {
+  background-color: var(--stec-color-red, #ea4335);
+}
+.dark-mode.dark-mode .stec-cdt-body-day.stec-cdt-selected-end,
+.dark-mode.dark-mode .stec-cdt-body-day.stec-cdt-selected-range,
+.dark-mode.dark-mode .stec-cdt-body-day.stec-cdt-selected-start,
+.dark-scheme.dark-scheme .stec-cdt-body-day.stec-cdt-selected-end,
+.dark-scheme.dark-scheme .stec-cdt-body-day.stec-cdt-selected-range,
+.dark-scheme.dark-scheme .stec-cdt-body-day.stec-cdt-selected-start {
+  background-color: var(--stec-color-green, #34a853);
+}
+.dark-mode.dark-mode .stec-cdt-body-day.available:not(.stec-cdt-selected-end, .stec-cdt-selected-start, .stec-cdt-selected-range):hover:after,
+.dark-mode.dark-mode .stec-cdt-body-day.stec-cdt-end:not(.stec-cdt-selected-end, .stec-cdt-selected-start, .stec-cdt-selected-range):hover:after,
+.dark-mode.dark-mode .stec-cdt-body-day.stec-cdt-start:not(.stec-cdt-selected-end, .stec-cdt-selected-start, .stec-cdt-selected-range):hover:after,
+.dark-scheme.dark-scheme .stec-cdt-body-day.available:not(.stec-cdt-selected-end, .stec-cdt-selected-start, .stec-cdt-selected-range):hover:after,
+.dark-scheme.dark-scheme .stec-cdt-body-day.stec-cdt-end:not(.stec-cdt-selected-end, .stec-cdt-selected-start, .stec-cdt-selected-range):hover:after,
+.dark-scheme.dark-scheme .stec-cdt-body-day.stec-cdt-start:not(.stec-cdt-selected-end, .stec-cdt-selected-start, .stec-cdt-selected-range):hover:after {
+  box-shadow: inset 0 0 0 2px var(--reign-site-headings-color);
+}
+
+/*--------------------------------------------------------------
+# Top Navigation
+--------------------------------------------------------------*/
+.stec-top-navigation {
+  border-radius: var(--reign-global-border-radius) var(--reign-global-border-radius) 0 0;
+}
+
+/*--------------------------------------------------------------
+# Month/Week Grid
+--------------------------------------------------------------*/
+.stec-mw-grid,
+.stec-mw-cell {
+  border-color: var(--reign-site-border-color);
+}
+
+/*--------------------------------------------------------------
+# Dashboard
+--------------------------------------------------------------*/
+.stec-dashboard-wrapper {
+  border-radius: var(--reign-global-border-radius);
+}
+
+/*--------------------------------------------------------------
+# Dark Mode – Dashboard, List Manager & Remaining Elements
+--------------------------------------------------------------*/
+.dark-mode.dark-mode .stec-section-collapse-content,
+.dark-scheme.dark-scheme .stec-section-collapse-content {
+  background-color: var(--reign-site-sections-bg-color);
+}
+.dark-mode.dark-mode .stec-section-collapse-content .stec-section-collapse-title,
+.dark-mode.dark-mode .stec-section-collapse-content .stec-section-collapse-subtitle,
+.dark-scheme.dark-scheme .stec-section-collapse-content .stec-section-collapse-title,
+.dark-scheme.dark-scheme .stec-section-collapse-content .stec-section-collapse-subtitle {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-section-collapse-content .stec-section-collapse-title:hover,
+.dark-mode.dark-mode .stec-section-collapse-content .stec-section-collapse-subtitle:hover,
+.dark-scheme.dark-scheme .stec-section-collapse-content .stec-section-collapse-title:hover,
+.dark-scheme.dark-scheme .stec-section-collapse-content .stec-section-collapse-subtitle:hover {
+  color: var(--reign-colors-theme);
+}
+.dark-mode.dark-mode .stec-section-collapse-content .stec-section-collapse-top > i,
+.dark-scheme.dark-scheme .stec-section-collapse-content .stec-section-collapse-top > i {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-list-manager-is-empty.stec-list-manager-is-empty,
+.dark-scheme.dark-scheme .stec-list-manager-is-empty.stec-list-manager-is-empty {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-list-manager-item,
+.dark-scheme.dark-scheme .stec-list-manager-item {
+  background-color: var(--reign-site-sections-bg-color);
+}
+.dark-mode.dark-mode .stec-list-manager-item .stec-list-manager-item-title,
+.dark-scheme.dark-scheme .stec-list-manager-item .stec-list-manager-item-title {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-list-manager-item .stec-list-manager-item-description,
+.dark-mode.dark-mode .stec-list-manager-item .stec-list-manager-item-prop,
+.dark-scheme.dark-scheme .stec-list-manager-item .stec-list-manager-item-description,
+.dark-scheme.dark-scheme .stec-list-manager-item .stec-list-manager-item-prop {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-list-manager-item:hover,
+.dark-scheme.dark-scheme .stec-list-manager-item:hover {
+  background-color: var(--reign-site-secondary-bg-color);
+}
+.dark-mode.dark-mode .stec-list-manager-item:hover .stec-list-manager-item-title,
+.dark-mode.dark-mode .stec-list-manager-item:hover .stec-list-manager-item-description,
+.dark-mode.dark-mode .stec-list-manager-item:hover .stec-list-manager-item-prop,
+.dark-scheme.dark-scheme .stec-list-manager-item:hover .stec-list-manager-item-title,
+.dark-scheme.dark-scheme .stec-list-manager-item:hover .stec-list-manager-item-description,
+.dark-scheme.dark-scheme .stec-list-manager-item:hover .stec-list-manager-item-prop {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-list-manager-item:hover .stec-list-manager-item-title:hover,
+.dark-scheme.dark-scheme .stec-list-manager-item:hover .stec-list-manager-item-title:hover {
+  color: var(--reign-colors-theme);
+}
+.dark-mode.dark-mode .stec-list-manager-top-control .stec-list-manager-top-control-checkbox,
+.dark-scheme.dark-scheme .stec-list-manager-top-control .stec-list-manager-top-control-checkbox {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-list-manager-top-control .stec-list-manager-top-control-button,
+.dark-scheme.dark-scheme .stec-list-manager-top-control .stec-list-manager-top-control-button {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-list-manager-top-control .stec-list-manager-top-control-button i,
+.dark-scheme.dark-scheme .stec-list-manager-top-control .stec-list-manager-top-control-button i {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-list-manager-top-control .stec-list-manager-top-control-button:hover.red, .dark-mode.dark-mode .stec-list-manager-top-control .stec-list-manager-top-control-button:hover.red i,
+.dark-scheme.dark-scheme .stec-list-manager-top-control .stec-list-manager-top-control-button:hover.red,
+.dark-scheme.dark-scheme .stec-list-manager-top-control .stec-list-manager-top-control-button:hover.red i {
+  color: var(--stec-color-red, #ea4335);
+}
+.dark-mode.dark-mode .stec-list-manager-top-control .stec-list-manager-top-control-button:hover.blue, .dark-mode.dark-mode .stec-list-manager-top-control .stec-list-manager-top-control-button:hover.blue i,
+.dark-scheme.dark-scheme .stec-list-manager-top-control .stec-list-manager-top-control-button:hover.blue,
+.dark-scheme.dark-scheme .stec-list-manager-top-control .stec-list-manager-top-control-button:hover.blue i {
+  color: var(--stec-color-blue, #4285f4);
+}
+.dark-mode.dark-mode .stec-list-manager-top-control .stec-list-manager-top-control-button:hover.green, .dark-mode.dark-mode .stec-list-manager-top-control .stec-list-manager-top-control-button:hover.green i,
+.dark-scheme.dark-scheme .stec-list-manager-top-control .stec-list-manager-top-control-button:hover.green,
+.dark-scheme.dark-scheme .stec-list-manager-top-control .stec-list-manager-top-control-button:hover.green i {
+  color: var(--stec-color-green, #34a853);
+}
+.dark-mode.dark-mode .stec-list-manager-top-control .stec-list-manager-top-control-button:hover.yellow, .dark-mode.dark-mode .stec-list-manager-top-control .stec-list-manager-top-control-button:hover.yellow i,
+.dark-scheme.dark-scheme .stec-list-manager-top-control .stec-list-manager-top-control-button:hover.yellow,
+.dark-scheme.dark-scheme .stec-list-manager-top-control .stec-list-manager-top-control-button:hover.yellow i {
+  color: var(--stec-color-yellow, #f93);
+}
+.dark-mode.dark-mode .stec-pagination span,
+.dark-mode.dark-mode .stec-pagination stec-span,
+.dark-scheme.dark-scheme .stec-pagination span,
+.dark-scheme.dark-scheme .stec-pagination stec-span {
+  background-color: var(--reign-site-secondary-bg-color);
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-dashboard-home-item,
+.dark-scheme.dark-scheme .stec-dashboard-home-item {
+  background-color: var(--reign-site-sections-bg-color);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+.dark-mode.dark-mode .stec-dashboard-home-item .stec-dashboard-home-item-icon,
+.dark-mode.dark-mode .stec-dashboard-home-item .stec-dashboard-home-item-title,
+.dark-mode.dark-mode .stec-dashboard-home-item .stec-dashboard-home-item-count,
+.dark-scheme.dark-scheme .stec-dashboard-home-item .stec-dashboard-home-item-icon,
+.dark-scheme.dark-scheme .stec-dashboard-home-item .stec-dashboard-home-item-title,
+.dark-scheme.dark-scheme .stec-dashboard-home-item .stec-dashboard-home-item-count {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-dashboard-home-item .stec-dashboard-home-item-buttons .stec-button:not(:hover),
+.dark-scheme.dark-scheme .stec-dashboard-home-item .stec-dashboard-home-item-buttons .stec-button:not(:hover) {
+  background-color: var(--reign-site-secondary-bg-color);
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-manage-list-filters > i,
+.dark-scheme.dark-scheme .stec-manage-list-filters > i {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-manage-list-filters-dropdown,
+.dark-scheme.dark-scheme .stec-manage-list-filters-dropdown {
+  background-color: var(--reign-site-sections-bg-color);
+  border-color: var(--reign-site-border-color);
+}
+.dark-mode.dark-mode .stec-manage-list-filters-dropdown-item,
+.dark-scheme.dark-scheme .stec-manage-list-filters-dropdown-item {
+  border-color: var(--reign-site-border-color);
+}
+.dark-mode.dark-mode .stec-manage-list-filters-dropdown-item > i,
+.dark-mode.dark-mode .stec-manage-list-filters-dropdown-item > span,
+.dark-mode.dark-mode .stec-manage-list-filters-dropdown-item > stec-span,
+.dark-scheme.dark-scheme .stec-manage-list-filters-dropdown-item > i,
+.dark-scheme.dark-scheme .stec-manage-list-filters-dropdown-item > span,
+.dark-scheme.dark-scheme .stec-manage-list-filters-dropdown-item > stec-span {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-manage-list-filterss-apply,
+.dark-mode.dark-mode .stec-manage-list-filterss-clear,
+.dark-scheme.dark-scheme .stec-manage-list-filterss-apply,
+.dark-scheme.dark-scheme .stec-manage-list-filterss-clear {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-manage-list-filterss-apply i,
+.dark-mode.dark-mode .stec-manage-list-filterss-clear i,
+.dark-scheme.dark-scheme .stec-manage-list-filterss-apply i,
+.dark-scheme.dark-scheme .stec-manage-list-filterss-clear i {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-select-wrapper .stec-select-search,
+.dark-scheme.dark-scheme .stec-select-wrapper .stec-select-search {
+  background: var(--reign-site-secondary-bg-color);
+  color: var(--reign-site-body-text-color);
+  border-color: var(--reign-site-border-color);
+}
+.dark-mode.dark-mode .stec-input-search-wrapper input,
+.dark-scheme.dark-scheme .stec-input-search-wrapper input {
+  background: var(--reign-form-background-color) !important;
+  color: var(--reign-form-text-color) !important;
+  border-color: var(--reign-form-border-color) !important;
+}
+.dark-mode.dark-mode .stec-input-search-wrapper .stec-input-search-wrapper-dropdown,
+.dark-scheme.dark-scheme .stec-input-search-wrapper .stec-input-search-wrapper-dropdown {
+  background-color: var(--reign-site-secondary-bg-color);
+  border-color: var(--reign-site-border-color);
+}
+.dark-mode.dark-mode .stec-input-search-wrapper .stec-input-search-wrapper-dropdown .stec-input-search-nothing-found,
+.dark-scheme.dark-scheme .stec-input-search-wrapper .stec-input-search-wrapper-dropdown .stec-input-search-nothing-found {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-dashboard-order-details-info-line-label,
+.dark-scheme.dark-scheme .stec-dashboard-order-details-info-line-label {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-dashboard-order-details-info-line-value,
+.dark-scheme.dark-scheme .stec-dashboard-order-details-info-line-value {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-dashboard-ordet-ticket-item,
+.dark-scheme.dark-scheme .stec-dashboard-ordet-ticket-item {
+  border-color: var(--reign-site-border-color);
+}
+.dark-mode.dark-mode .stec-dashboard-ordet-ticket-item-details-line,
+.dark-scheme.dark-scheme .stec-dashboard-ordet-ticket-item-details-line {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-dashboard-event-upsert-attachment,
+.dark-scheme.dark-scheme .stec-dashboard-event-upsert-attachment {
+  border-color: var(--reign-site-border-color);
+}
+.dark-mode.dark-mode .stec-dashboard-event-upsert-attachment .stec-dashboard-event-upsert-attachment-url,
+.dark-scheme.dark-scheme .stec-dashboard-event-upsert-attachment .stec-dashboard-event-upsert-attachment-url {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-dashboard-event-upsert-attachment .stec-dashboard-event-upsert-attachment-remove,
+.dark-scheme.dark-scheme .stec-dashboard-event-upsert-attachment .stec-dashboard-event-upsert-attachment-remove {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-comment-author,
+.dark-scheme.dark-scheme .stec-comment-author {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-comment-date,
+.dark-mode.dark-mode .stec-comment-content,
+.dark-scheme.dark-scheme .stec-comment-date,
+.dark-scheme.dark-scheme .stec-comment-content {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-event-comments-empty-big,
+.dark-scheme.dark-scheme .stec-event-comments-empty-big {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-event-comments-empty-small,
+.dark-scheme.dark-scheme .stec-event-comments-empty-small {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-loader i,
+.dark-scheme.dark-scheme .stec-loader i {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-loader span,
+.dark-mode.dark-mode .stec-loader stec-span,
+.dark-scheme.dark-scheme .stec-loader span,
+.dark-scheme.dark-scheme .stec-loader stec-span {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-input-file-wrapper input[type=text],
+.dark-scheme.dark-scheme .stec-input-file-wrapper input[type=text] {
+  background-color: var(--reign-form-background-color) !important;
+  color: var(--reign-form-text-color) !important;
+  border-color: var(--reign-form-border-color) !important;
+}
+.dark-mode.dark-mode .stec-input-file-wrapper .stec-input-file-inner-wrap i,
+.dark-scheme.dark-scheme .stec-input-file-wrapper .stec-input-file-inner-wrap i {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-input-social-link-item-remove,
+.dark-scheme.dark-scheme .stec-input-social-link-item-remove {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode stec-checkbox,
+.dark-scheme.dark-scheme stec-checkbox {
+  background-color: var(--reign-site-secondary-bg-color);
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-dashboard .stec-button,
+.dark-mode.dark-mode .wp-admin .stec-button,
+.dark-scheme.dark-scheme .stec-dashboard .stec-button,
+.dark-scheme.dark-scheme .wp-admin .stec-button {
+  background-color: var(--reign-site-secondary-bg-color);
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-select-wrapper .stec-select-input-toggle-button i,
+.dark-scheme.dark-scheme .stec-select-wrapper .stec-select-input-toggle-button i {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-input-thumb-type .stec-select-thumb-type-title,
+.dark-scheme.dark-scheme .stec-input-thumb-type .stec-select-thumb-type-title {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-modal-ai-content,
+.dark-scheme.dark-scheme .stec-modal-ai-content {
+  background-color: var(--reign-site-sections-bg-color);
+}
+.dark-mode.dark-mode .stec-modal-ai-content-title,
+.dark-scheme.dark-scheme .stec-modal-ai-content-title {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-editor-new-modal-select-type-item,
+.dark-scheme.dark-scheme .stec-editor-new-modal-select-type-item {
+  background-color: var(--reign-site-sections-bg-color);
+  border-color: var(--reign-site-border-color);
+}
+.dark-mode.dark-mode .stec-editor-new-modal-select-type-item i,
+.dark-mode.dark-mode .stec-editor-new-modal-select-type-item span,
+.dark-mode.dark-mode .stec-editor-new-modal-select-type-item stec-span,
+.dark-scheme.dark-scheme .stec-editor-new-modal-select-type-item i,
+.dark-scheme.dark-scheme .stec-editor-new-modal-select-type-item span,
+.dark-scheme.dark-scheme .stec-editor-new-modal-select-type-item stec-span {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-editor-new-modal-select-type-item:hover,
+.dark-scheme.dark-scheme .stec-editor-new-modal-select-type-item:hover {
+  background-color: var(--reign-colors-theme);
+}
+.dark-mode.dark-mode .stec-editor-new-modal-select-type-item:hover i,
+.dark-mode.dark-mode .stec-editor-new-modal-select-type-item:hover span,
+.dark-mode.dark-mode .stec-editor-new-modal-select-type-item:hover stec-span,
+.dark-scheme.dark-scheme .stec-editor-new-modal-select-type-item:hover i,
+.dark-scheme.dark-scheme .stec-editor-new-modal-select-type-item:hover span,
+.dark-scheme.dark-scheme .stec-editor-new-modal-select-type-item:hover stec-span {
+  color: #fff;
+}
+.dark-mode.dark-mode .stec-modal .stec-editor-wrapper,
+.dark-scheme.dark-scheme .stec-modal .stec-editor-wrapper {
+  background-color: var(--reign-site-secondary-bg-color);
+}
+.dark-mode.dark-mode .stec-dashboard-preloader-txt,
+.dark-scheme.dark-scheme .stec-dashboard-preloader-txt {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-dashboard-preloader,
+.dark-scheme.dark-scheme .stec-dashboard-preloader {
+  background-color: var(--reign-site-sections-bg-color);
+}
+.dark-mode.dark-mode .stec-dashboard-home,
+.dark-scheme.dark-scheme .stec-dashboard-home {
+  background: var(--reign-site-secondary-bg-color);
+}
+.dark-mode.dark-mode .stec-list-manager .stec-list-manager-loader,
+.dark-scheme.dark-scheme .stec-list-manager .stec-list-manager-loader {
+  background: var(--reign-site-sections-bg-color);
+}
+.dark-mode.dark-mode .stec-dashboard-event-upsert-search-result-product-item .stec-dashboard-event-upsert-search-result-product-item-title,
+.dark-mode.dark-mode .stec-dashboard-event-upsert-search-result-product-item .stec-dashboard-event-upsert-search-result-product-item-price,
+.dark-mode.dark-mode .stec-dashboard-event-upsert-search-result-product-item .stec-dashboard-event-upsert-search-result-product-item-in-stock,
+.dark-scheme.dark-scheme .stec-dashboard-event-upsert-search-result-product-item .stec-dashboard-event-upsert-search-result-product-item-title,
+.dark-scheme.dark-scheme .stec-dashboard-event-upsert-search-result-product-item .stec-dashboard-event-upsert-search-result-product-item-price,
+.dark-scheme.dark-scheme .stec-dashboard-event-upsert-search-result-product-item .stec-dashboard-event-upsert-search-result-product-item-in-stock {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-dashboard-event-upsert-product-list-item .stec-dashboard-event-upsert-product-list-item-title,
+.dark-mode.dark-mode .stec-dashboard-event-upsert-product-list-item .stec-dashboard-event-upsert-product-list-item-description,
+.dark-mode.dark-mode .stec-dashboard-event-upsert-product-list-item .stec-dashboard-event-upsert-product-list-item-price,
+.dark-mode.dark-mode .stec-dashboard-event-upsert-product-list-item .stec-dashboard-event-upsert-product-list-item-in-stock,
+.dark-scheme.dark-scheme .stec-dashboard-event-upsert-product-list-item .stec-dashboard-event-upsert-product-list-item-title,
+.dark-scheme.dark-scheme .stec-dashboard-event-upsert-product-list-item .stec-dashboard-event-upsert-product-list-item-description,
+.dark-scheme.dark-scheme .stec-dashboard-event-upsert-product-list-item .stec-dashboard-event-upsert-product-list-item-price,
+.dark-scheme.dark-scheme .stec-dashboard-event-upsert-product-list-item .stec-dashboard-event-upsert-product-list-item-in-stock {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-dashboard-event-upsert-product-list-item .stec-dashboard-event-upsert-product-list-item-control i,
+.dark-scheme.dark-scheme .stec-dashboard-event-upsert-product-list-item .stec-dashboard-event-upsert-product-list-item-control i {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-event-product-attribute-title,
+.dark-scheme.dark-scheme .stec-event-product-attribute-title {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-event-product-attribute-value,
+.dark-scheme.dark-scheme .stec-event-product-attribute-value {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-event-product-option select,
+.dark-scheme.dark-scheme .stec-event-product-option select {
+  background: var(--reign-form-background-color);
+  color: var(--reign-form-text-color);
+}
+.dark-mode.dark-mode .stec-product-toast-success span,
+.dark-mode.dark-mode .stec-product-toast-error span,
+.dark-scheme.dark-scheme .stec-product-toast-success span,
+.dark-scheme.dark-scheme .stec-product-toast-error span {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-product-toast-message,
+.dark-scheme.dark-scheme .stec-product-toast-message {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-product-toast-product-close i,
+.dark-scheme.dark-scheme .stec-product-toast-product-close i {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-event-location-protected,
+.dark-scheme.dark-scheme .stec-event-location-protected {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-event-location-directions .stec-input-start-address > i,
+.dark-scheme.dark-scheme .stec-event-location-directions .stec-input-start-address > i {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-layout-map-proximity-button,
+.dark-scheme.dark-scheme .stec-layout-map-proximity-button {
+  background: var(--reign-site-sections-bg-color);
+}
+.dark-mode.dark-mode .stec-layout-map-proximity-button i,
+.dark-scheme.dark-scheme .stec-layout-map-proximity-button i {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-layout-map-proximity-button:not(.active):hover,
+.dark-scheme.dark-scheme .stec-layout-map-proximity-button:not(.active):hover {
+  background-color: var(--reign-site-secondary-bg-color);
+}
+.dark-mode.dark-mode .stec-layout-map-proximity-button:not(.active):hover i,
+.dark-scheme.dark-scheme .stec-layout-map-proximity-button:not(.active):hover i {
+  color: var(--reign-colors-theme);
+}
+.dark-mode.dark-mode .stec-layout-map-proximity-range,
+.dark-scheme.dark-scheme .stec-layout-map-proximity-range {
+  background: var(--reign-site-sections-bg-color);
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-layout-map-proximity-range:hover,
+.dark-scheme.dark-scheme .stec-layout-map-proximity-range:hover {
+  background-color: var(--reign-site-secondary-bg-color);
+  color: var(--reign-colors-theme);
+}
+.dark-mode.dark-mode .stec-layout-map-proximity-input input,
+.dark-scheme.dark-scheme .stec-layout-map-proximity-input input {
+  background-color: var(--reign-form-background-color);
+  color: var(--reign-form-text-color);
+}
+.dark-mode.dark-mode .stec-layout-map-proximity-input i,
+.dark-scheme.dark-scheme .stec-layout-map-proximity-input i {
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-builder-toolbar,
+.dark-scheme.dark-scheme .stec-builder-toolbar {
+  background-color: var(--reign-site-secondary-bg-color);
+}
+.dark-mode.dark-mode .stec-builder-workspace,
+.dark-scheme.dark-scheme .stec-builder-workspace {
+  background-color: var(--reign-site-sections-bg-color);
+}
+.dark-mode.dark-mode .stec-builder-toolbar-elements .stec-input-text-wrapper input,
+.dark-scheme.dark-scheme .stec-builder-toolbar-elements .stec-input-text-wrapper input {
+  background: var(--reign-form-background-color);
+  color: var(--reign-form-text-color);
+}
+.dark-mode.dark-mode .stec-builder-toolbar-element,
+.dark-scheme.dark-scheme .stec-builder-toolbar-element {
+  background-color: var(--reign-site-sections-bg-color);
+}
+.dark-mode.dark-mode .stec-builder-toolbar-element i,
+.dark-scheme.dark-scheme .stec-builder-toolbar-element i {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-builder-toolbar-element .stec-builder-toolbar-element-label,
+.dark-scheme.dark-scheme .stec-builder-toolbar-element .stec-builder-toolbar-element-label {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-builder-toolbar-element:hover, .dark-mode.dark-mode .stec-builder-toolbar-element.dragging,
+.dark-scheme.dark-scheme .stec-builder-toolbar-element:hover,
+.dark-scheme.dark-scheme .stec-builder-toolbar-element.dragging {
+  background-color: var(--reign-colors-theme);
+  color: #fff;
+}
+.dark-mode.dark-mode .stec-builder-toolbar-elements-section .stec-builder-toolbar-elements-section-label,
+.dark-scheme.dark-scheme .stec-builder-toolbar-elements-section .stec-builder-toolbar-elements-section-label {
+  background-color: var(--reign-site-secondary-bg-color);
+  color: var(--reign-site-headings-color);
+}
+.dark-mode.dark-mode .stec-builder-toolbar-properties .stec-field-title,
+.dark-mode.dark-mode .stec-builder-toolbar-properties .stec-field-description,
+.dark-scheme.dark-scheme .stec-builder-toolbar-properties .stec-field-title,
+.dark-scheme.dark-scheme .stec-builder-toolbar-properties .stec-field-description {
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-builder-toolbar-properties-wrapper .stec-builder-toolbar-properties-text-align > i,
+.dark-scheme.dark-scheme .stec-builder-toolbar-properties-wrapper .stec-builder-toolbar-properties-text-align > i {
+  background-color: var(--reign-site-sections-bg-color);
+  color: var(--reign-site-body-text-color);
+}
+.dark-mode.dark-mode .stec-builder-toolbar-properties-wrapper .stec-builder-toolbar-properties-text-align > i.active,
+.dark-scheme.dark-scheme .stec-builder-toolbar-properties-wrapper .stec-builder-toolbar-properties-text-align > i.active {
+  background-color: var(--reign-colors-theme);
+  color: #fff;
+}
+.dark-mode.dark-mode .stec-builder-toolbar-content-tab-remove,
+.dark-scheme.dark-scheme .stec-builder-toolbar-content-tab-remove {
+  color: var(--reign-site-body-text-color);
+}
