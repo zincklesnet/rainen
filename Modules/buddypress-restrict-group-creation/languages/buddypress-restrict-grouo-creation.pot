@@ -1,0 +1,173 @@
+#: admin/bp-restrict-group-creation-admin.php:280
+#: bp-restrict-group-creation-loader.php:40
+msgid ""
+"Restrict Group Creation"
+msgstr ""
+
+#: admin/bp-restrict-group-creation-admin.php:282
+msgid "Rule Added."
+msgstr ""
+
+#: admin/bp-restrict-group-creation-admin.php:283
+msgid "Removed rule."
+msgstr ""
+
+#: admin/bp-restrict-group-creation-admin.php:366
+msgid ""
+"WP User Capabilities"
+msgstr ""
+
+#: admin/bp-restrict-group-creation-admin.php:370
+msgid ""
+"User capability level"
+msgstr ""
+
+#: admin/bp-restrict-group-creation-admin.php:381
+msgid ""
+"Member Registered Since "
+"(Days)"
+msgstr ""
+
+#: admin/bp-restrict-group-creation-admin.php:385
+msgid ""
+"Enable Days Since "
+"Threshold"
+msgstr ""
+
+#: admin/bp-restrict-group-creation-admin.php:394
+msgid ""
+"Count Threshold Settings"
+msgstr ""
+
+#: admin/bp-restrict-group-creation-admin.php:400
+msgid ""
+"Enable Min Friends Count"
+msgstr ""
+
+#: admin/bp-restrict-group-creation-admin.php:407
+msgid ""
+"Enable Min Status Count"
+msgstr ""
+
+#: admin/bp-restrict-group-creation-admin.php:414
+msgid ""
+"Enable Min Forum Post "
+"Count"
+msgstr ""
+
+#: admin/bp-restrict-group-creation-admin.php:421
+msgid ""
+"Enable Max Groups "
+"Memberships"
+msgstr ""
+
+#: admin/bp-restrict-group-creation-admin.php:426
+msgid ""
+"Enable Max Groups Admin"
+msgstr ""
+
+#: admin/bp-restrict-group-creation-admin.php:431
+msgid ""
+"Enable Max Groups Mod"
+msgstr ""
+
+#: admin/bp-restrict-group-creation-admin.php:436
+msgid ""
+"Enable Max Groups "
+"Created"
+msgstr ""
+
+#: admin/bp-restrict-group-creation-admin.php:444
+msgid ""
+"Enable Achievement "
+"Member Count Threshold"
+msgstr ""
+
+#: admin/bp-restrict-group-creation-admin.php:449
+msgid ""
+"Enable Achievement "
+"Member Score Threshold"
+msgstr ""
+
+#: admin/bp-restrict-group-creation-admin.php:461
+msgid ""
+"Display error message/"
+"reason on group "
+"directory page"
+msgstr ""
+
+#: bp-restrict-group-creation-loader.php:40
+msgid ""
+"Restrict Group Creation "
+"Admin"
+msgstr ""
+
+#: bp-restrict-group-creation-loader.php:55
+msgid "Settings"
+msgstr ""
+
+#: bp-restrict-group-creation.php:34
+#: bp-restrict-group-creation.php:41
+#: bp-restrict-group-creation.php:48
+#: bp-restrict-group-creation.php:55
+#: bp-restrict-group-creation.php:63
+#: bp-restrict-group-creation.php:70
+#: bp-restrict-group-creation.php:78
+#: bp-restrict-group-creation.php:85
+#: bp-restrict-group-creation.php:95
+#: bp-restrict-group-creation.php:102
+msgid ""
+"Sorry, you are not "
+"allowed to create "
+"groups."
+msgstr ""
+
+#: bp-restrict-group-creation.php:34
+msgid ""
+"Reason: membership "
+"duration"
+msgstr ""
+
+#: bp-restrict-group-creation.php:41
+msgid ""
+"Reason: friend count"
+msgstr ""
+
+#: bp-restrict-group-creation.php:48
+msgid ""
+"Reason: activity updates"
+msgstr ""
+
+#: bp-restrict-group-creation.php:55
+msgid ""
+"Reason: groups created"
+msgstr ""
+
+#: bp-restrict-group-creation.php:63
+msgid ""
+"Reason: group "
+"adminstrator"
+msgstr ""
+
+#: bp-restrict-group-creation.php:70
+msgid ""
+"Reason: group "
+"memberships"
+msgstr ""
+
+#: bp-restrict-group-creation.php:78
+msgid ""
+"Reason: group moderator"
+msgstr ""
+
+#: bp-restrict-group-creation.php:85
+msgid ""
+"Reason: group forum "
+"posting"
+msgstr ""
+
+#: bp-restrict-group-creation.php:95
+#: bp-restrict-group-creation.php:102
+msgid ""
+"Reason: achievements"
+msgstr ""

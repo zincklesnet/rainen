@@ -1,0 +1,391 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: bp-simple-events\n"
+"POT-Creation-Date: 2020-04-12 10:04-0700\n"
+"PO-Revision-Date: 2015-03-29 06:05-0800\n"
+"Last-Translator: \n"
+"Language-Team: PhiloPress\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.1\n"
+"X-Poedit-KeywordsList: __;gettext;gettext_noop;_e;_n:1,2;_x:1,2c;_\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../inc/admin/pp-events-admin-settings.php:37
+#: ../inc/admin/pp-events-admin-settings.php:41
+msgid "BP Simple Events"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:93
+msgid "Assign User Roles"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:95
+msgid "Which roles can create Events?"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:127
+msgid "Save Roles"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:133
+msgid "Settings"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:140
+msgid "Do NOT Use the Google Maps API"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:142
+msgid "Do NOT use Google Maps"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:143
+msgid ""
+"If selected, the Location field will NOT use Google Maps to create or "
+"validate addresses."
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:147
+msgid "Google Maps API Key"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:148
+msgid "Your Key"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:150
+msgid "A Key is required. If you do not have one, follow these instructions:"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:153
+msgid "Test Your Google API Key"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:154
+msgid "Start typing an address..."
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:155
+msgid ""
+"If Google displays a list of addresses as you type - your Google Maps API "
+"Key is probably <strong>valid</strong>."
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:156
+msgid ""
+"Otherwise there is a <strong>problem</strong> with your key. Open your "
+"browser's javascript console for error info supplied by Google."
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:162
+msgid "Profile"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:165
+msgid "Tab Position <em>Numbers only.</em>"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:169
+msgid "Required Fields"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:170
+msgid "Select fields to be required when creating an Event."
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:184
+#: ../inc/admin/pp-events-admin.php:311 ../inc/pp-events-create-class.php:305
+#: ../templates/events-loop.php:74 ../templates/events-single.php:65
+#: ../templates/members/single/profile-events-archive.php:80
+#: ../templates/members/single/profile-events-create.php:28
+#: ../templates/members/single/profile-events-loop.php:82
+msgid "Date"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:186
+#: ../inc/pp-events-create-class.php:310 ../templates/events-loop.php:78
+#: ../templates/events-single.php:69
+#: ../templates/members/single/profile-events-archive.php:84
+#: ../templates/members/single/profile-events-create.php:33
+#: ../templates/members/single/profile-events-loop.php:86
+msgid "Time"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:188
+#: ../inc/admin/pp-events-admin.php:70 ../inc/admin/pp-events-admin.php:312
+#: ../inc/pp-events-create-class.php:315 ../templates/events-loop.php:82
+#: ../templates/events-single.php:73
+#: ../templates/members/single/profile-events-archive.php:88
+#: ../templates/members/single/profile-events-create.php:38
+#: ../templates/members/single/profile-events-loop.php:90
+msgid "Location"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:190
+#: ../inc/pp-events-create-class.php:320 ../templates/events-loop.php:86
+#: ../templates/events-single.php:77
+#: ../templates/members/single/profile-events-archive.php:92
+#: ../templates/members/single/profile-events-create.php:43
+#: ../templates/members/single/profile-events-loop.php:94
+msgid "Url"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:192
+#: ../inc/pp-events-create-class.php:325
+#: ../templates/members/single/profile-events-create.php:72
+msgid "Categories"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:199
+msgid "Single Event Display"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:201
+msgid "Display featured image, if it exists, on Single Event"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:209
+msgid "Save Settings"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:342
+msgid "User Roles have been updated."
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:347
+msgid "No changes were detected re User Roles."
+msgstr ""
+
+#: ../inc/admin/pp-events-admin-settings.php:411
+msgid "Settings have been updated."
+msgstr ""
+
+#: ../inc/admin/pp-events-admin.php:68
+msgid "Date / Time"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin.php:72
+msgid "URL"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin.php:90
+msgid "Event Date:"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin.php:94
+msgid "Event Time:"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin.php:112
+msgid "Event Url:"
+msgstr ""
+
+#: ../inc/admin/pp-events-admin.php:134 ../inc/admin/pp-events-admin.php:139
+msgid "Event Location:"
+msgstr ""
+
+#: ../inc/pp-events-core.php:9 ../inc/pp-events-core.php:53
+#: ../inc/pp-events-core.php:54 ../inc/pp-events-core.php:182
+#: ../inc/pp-events-widget.php:81 ../loader.php:143 ../loader.php:155
+#: ../loader.php:156
+msgid "Events"
+msgstr ""
+
+#: ../inc/pp-events-core.php:54
+#, php-format
+msgid "Search %s..."
+msgstr ""
+
+#: ../inc/pp-events-core.php:114
+#, php-format
+msgid "Events <span class=\"%s\">%s</span>"
+msgstr ""
+
+#: ../inc/pp-events-core.php:123 ../inc/pp-events-core.php:191
+msgid "Upcoming"
+msgstr ""
+
+#: ../inc/pp-events-core.php:136 ../inc/pp-events-core.php:199
+msgid "Archive"
+msgstr ""
+
+#: ../inc/pp-events-core.php:150
+msgid "Create Event"
+msgstr ""
+
+#: ../inc/pp-events-core.php:207
+msgid "Create"
+msgstr ""
+
+#: ../inc/pp-events-create-class.php:225
+msgid "Please use your own profile to create or edit Events."
+msgstr ""
+
+#: ../inc/pp-events-create-class.php:281
+msgid "Event was saved."
+msgstr ""
+
+#: ../inc/pp-events-create-class.php:294
+#: ../templates/members/single/profile-events-create.php:18
+msgid "Title"
+msgstr ""
+
+#: ../inc/pp-events-create-class.php:298
+#: ../templates/members/single/profile-events-create.php:23
+msgid "Description"
+msgstr ""
+
+#: ../inc/pp-events-screens.php:29 ../loader.php:148
+msgid "Edit Event"
+msgstr ""
+
+#: ../inc/pp-events-screens.php:31
+msgid "Create an Event"
+msgstr ""
+
+#: ../inc/pp-events-widget.php:10
+msgid "BuddyPress Simple Events Widget"
+msgstr ""
+
+#: ../inc/pp-events-widget.php:13
+msgctxt "widget name"
+msgid "Events"
+msgstr ""
+
+#: ../inc/pp-events-widget.php:62 ../templates/events-loop.php:116
+msgid "There are no upcoming Events."
+msgstr ""
+
+#: ../inc/pp-events-widget.php:90
+msgid "Title:"
+msgstr ""
+
+#: ../inc/pp-events-widget.php:92
+msgid "Max Events to show:"
+msgstr ""
+
+#: ../loader.php:45
+msgid ""
+"<strong>BuddyPress Simple Events</strong></a> requires the BuddyPress "
+"plugin or the BuddyBoss Platform plugin. PPlease install one of those "
+"plugins, or <a href=\"plugins.php\">deactivate BuddyPress Simple Events</"
+"a>."
+msgstr ""
+
+#: ../loader.php:144
+msgid "Event"
+msgstr ""
+
+#: ../loader.php:145
+msgid "Add New"
+msgstr ""
+
+#: ../loader.php:146
+msgid "Add New Event"
+msgstr ""
+
+#: ../loader.php:147
+msgid "Edit"
+msgstr ""
+
+#: ../loader.php:149
+msgid "New Event"
+msgstr ""
+
+#: ../loader.php:150
+msgid "View Events"
+msgstr ""
+
+#: ../loader.php:151
+msgid "View Event"
+msgstr ""
+
+#: ../loader.php:152
+msgid "Search Events"
+msgstr ""
+
+#: ../loader.php:153
+msgid "No Events found"
+msgstr ""
+
+#: ../loader.php:154
+msgid "No Events found in Trash"
+msgstr ""
+
+#: ../loader.php:157
+#, php-format
+msgid "%1$s created a new <a href=\"%2$s\">Event</a>"
+msgstr ""
+
+#: ../loader.php:158
+#, php-format
+msgid "%1$s created a new <a href=\"%2$s\">Event</a>, on the site %3$s"
+msgstr ""
+
+#: ../loader.php:159
+msgid "Comments about Events"
+msgstr ""
+
+#: ../loader.php:160
+msgid "Event Comments"
+msgstr ""
+
+#: ../loader.php:161
+#, php-format
+msgid "%1$s commented on the <a href=\"%2$s\">Event</a>"
+msgstr ""
+
+#: ../loader.php:162
+#, php-format
+msgid "%1$s commented on the <a href=\"%2$s\">Event</a>, on the site %3$s"
+msgstr ""
+
+#: ../templates/events-loop.php:98 ../templates/events-single.php:87
+#: ../templates/members/single/profile-events-archive.php:103
+#: ../templates/members/single/profile-events-loop.php:105
+msgid "Category:"
+msgstr ""
+
+#: ../templates/members/single/profile-events-archive.php:122
+msgid "There are no expired Events for this member."
+msgstr ""
+
+#: ../templates/members/single/profile-events-create.php:28
+#: ../templates/members/single/profile-events-create.php:33
+#: ../templates/members/single/profile-events-create.php:38
+#: ../templates/members/single/profile-events-create.php:43
+#: ../templates/members/single/profile-events-create.php:72
+msgid "*"
+msgstr ""
+
+#: ../templates/members/single/profile-events-create.php:29
+msgid "Click to add Date..."
+msgstr ""
+
+#: ../templates/members/single/profile-events-create.php:34
+msgid "Click to add Time..."
+msgstr ""
+
+#: ../templates/members/single/profile-events-create.php:39
+msgid "Start typing location name..."
+msgstr ""
+
+#: ../templates/members/single/profile-events-create.php:44
+msgid "Add an Event-related Url..."
+msgstr ""
+
+#: ../templates/members/single/profile-events-create.php:94
+msgid " SAVE "
+msgstr ""
+
+#: ../templates/members/single/profile-events-loop.php:124
+msgid ""
+"There are no upcoming Events created by this member. There may be Events "
+"in the Archive."
+msgstr ""

@@ -1,0 +1,147 @@
+# Blank WordPress Pot
+# Copyright 2014 ...
+# This file is distributed under the GNU General Public License v3 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: ProfileGrid POT v1.0.0\n"
+"POT-Creation-Date: 2019-04-04 00:38+0200\n"
+"PO-Revision-Date: \n"
+"Language-Team: ProfileGrid Support <support@profilegrid.co>\n"
+"Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Textdomain-Support: yesX-Generator: Poedit 1.6.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Generator: Poedit 2.2.1\n"
+"Last-Translator: \n"
+"Language: fr_FR\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin/bp-restrict-group-creation-admin.php:280
+#: bp-restrict-group-creation-loader.php:40
+msgid "Restrict Group Creation"
+msgstr "Restriction de création de groupe"
+
+#: admin/bp-restrict-group-creation-admin.php:282
+msgid "Rule Added."
+msgstr "Règle ajoutée."
+
+#: admin/bp-restrict-group-creation-admin.php:283
+msgid "Removed rule."
+msgstr "Supprimer la règle."
+
+#: admin/bp-restrict-group-creation-admin.php:366
+msgid "WP User Capabilities"
+msgstr "Droits WP de l'utilsateur"
+
+#: admin/bp-restrict-group-creation-admin.php:370
+msgid "User capability level"
+msgstr "Niveau de droits de l'utilisateur"
+
+#: admin/bp-restrict-group-creation-admin.php:381
+msgid "Member Registered Since (Days)"
+msgstr "Membre inscrit depuis (Jours)"
+
+#: admin/bp-restrict-group-creation-admin.php:385
+msgid "Enable Days Since Threshold"
+msgstr "Activer le seuil de jours"
+
+#: admin/bp-restrict-group-creation-admin.php:394
+msgid "Count Threshold Settings"
+msgstr "Paramètres du seuil"
+
+#: admin/bp-restrict-group-creation-admin.php:400
+msgid "Enable Min Friends Count"
+msgstr "Activer le nb minimum d'amis"
+
+#: admin/bp-restrict-group-creation-admin.php:407
+msgid "Enable Min Status Count"
+msgstr "Activer le nb minimum de statuts"
+
+#: admin/bp-restrict-group-creation-admin.php:414
+msgid "Enable Min Forum Post Count"
+msgstr "Activer le nb minimum de publications sur le forum"
+
+#: admin/bp-restrict-group-creation-admin.php:421
+msgid "Enable Max Groups Memberships"
+msgstr "Activer le nb maximal d'adhérents dans les groupes"
+
+#: admin/bp-restrict-group-creation-admin.php:426
+msgid "Enable Max Groups Admin"
+msgstr "Activer le nb maximal d'administrateurs dans les groupes"
+
+#: admin/bp-restrict-group-creation-admin.php:431
+msgid "Enable Max Groups Mod"
+msgstr "Activer le nb maximal de groupes créés"
+
+#: admin/bp-restrict-group-creation-admin.php:436
+msgid "Enable Max Groups Created"
+msgstr "Activer la création de groupe"
+
+#: admin/bp-restrict-group-creation-admin.php:444
+msgid "Enable Achievement Member Count Threshold"
+msgstr "Activer la mesure du seuil pour les membres"
+
+#: admin/bp-restrict-group-creation-admin.php:449
+msgid "Enable Achievement Member Score Threshold"
+msgstr "Activer le plafonnement du seuil pour les membres"
+
+#: admin/bp-restrict-group-creation-admin.php:461
+msgid "Display error message/reason on group directory page"
+msgstr "Afficher un message d'erreur / d'information sur la page de l'annuaire du groupe"
+
+#: bp-restrict-group-creation-loader.php:40
+msgid "Restrict Group Creation Admin"
+msgstr "Restreindre la création d'administrateurs de groupe"
+
+#: bp-restrict-group-creation-loader.php:55
+msgid "Settings"
+msgstr "Paramètres"
+
+#: bp-restrict-group-creation.php:34 bp-restrict-group-creation.php:41
+#: bp-restrict-group-creation.php:48 bp-restrict-group-creation.php:55
+#: bp-restrict-group-creation.php:63 bp-restrict-group-creation.php:70
+#: bp-restrict-group-creation.php:78 bp-restrict-group-creation.php:85
+#: bp-restrict-group-creation.php:95 bp-restrict-group-creation.php:102
+msgid "Sorry, you are not allowed to create groups."
+msgstr "Désolé, vous n'êtes pas autorisé à créer des groupes."
+
+#: bp-restrict-group-creation.php:34
+msgid "Reason: membership duration"
+msgstr "Raison : durée de l'adhésion"
+
+#: bp-restrict-group-creation.php:41
+msgid "Reason: friend count"
+msgstr "Raison : nombre d'amis"
+
+#: bp-restrict-group-creation.php:48
+msgid "Reason: activity updates"
+msgstr "Raison : mise à jour de l'ativité"
+
+#: bp-restrict-group-creation.php:55
+msgid "Reason: groups created"
+msgstr "Raison : groupes créés"
+
+#: bp-restrict-group-creation.php:63
+msgid "Reason: group adminstrator"
+msgstr "Raison : administrateur du groupe"
+
+#: bp-restrict-group-creation.php:70
+msgid "Reason: group memberships"
+msgstr "Raison : adhérents du groupe"
+
+#: bp-restrict-group-creation.php:78
+msgid "Reason: group moderator"
+msgstr "Raison : modérateur du groupe"
+
+#: bp-restrict-group-creation.php:85
+msgid "Reason: group forum posting"
+msgstr "Raison : publication sur le forum du groupe"
+
+#: bp-restrict-group-creation.php:95 bp-restrict-group-creation.php:102
+msgid "Reason: achievements"
+msgstr "Raison : plafond atteint"
