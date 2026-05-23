@@ -29,26 +29,11 @@ class Buddypress_Quotes_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-		
 		$bpquotes_gnrl_settings = get_option( 'bpquotes_gnrl_settings' );
 		if ( ! ( $bpquotes_gnrl_settings ) && empty( $bpquotes_gnrl_settings ) ) {
-			$user_roles            = wp_roles()->get_names();
-			unset($user_roles['administrator']);
-			$user_roles = array_keys($user_roles);
-			
 			$bpquotes_gnrl_settings                       = array();
 			$bpquotes_gnrl_settings['bg_colors']          = array( '#dd3333', '#27aa32', '#1e73be', '#eeee22', '#20606d', '#8224e3', '#20d8d2', '#6ccc06' );
-			$bpquotes_gnrl_settings['bg_inverted_colors'] = array( '#ffffff', '#ffffff', '#ffffff', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff' );
-			$bpquotes_gnrl_settings['bg_allow_quote_icon'] = 'yes';
-			$bpquotes_gnrl_settings['user_role'] = $user_roles;
-			
-			$bpquotes_gnrl_settings['image_url'] = array(
-				BPQUOTES_PLUGIN_URL . 'admin/images/quotes-bg-01.jpg',
-				BPQUOTES_PLUGIN_URL . 'admin/images/quotes-bg-02.jpg',
-				BPQUOTES_PLUGIN_URL . 'admin/images/quotes-bg-03.jpg',
-				BPQUOTES_PLUGIN_URL . 'admin/images/quotes-bg-04.jpg',
-				BPQUOTES_PLUGIN_URL . 'admin/images/quotes-bg-05.jpg',
-			);
+			$bpquotes_gnrl_settings['bg_inverted_colors'] = array( '#22cccc', '#d855cd', '#e18c41', '#1111dd', '#df9f92', '#7ddb1c', '#df272d', '#9333f9' );
 			update_option( 'bpquotes_gnrl_settings', $bpquotes_gnrl_settings );
 		}
 	}

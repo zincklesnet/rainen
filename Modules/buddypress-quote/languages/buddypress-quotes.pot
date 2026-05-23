@@ -1,966 +1,615 @@
-# Copyright (C) 2025 Wbcom Designs
-# This file is distributed under the GPL-2.0+.
+# Copyright (C) 2021
+# This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Wbcom Designs - BuddyPress Quotes 2.4.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/buddypress-quote\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-16 21:02:04+00:00\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-07-10T17:05:53+05:30\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
-"X-Domain: buddypress-quotes\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Varun Dubey\n"
+"Language-Team: Wbcom Designs\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#. Plugin Name of the plugin
-#: buddypress-quotes.php
-msgid "Wbcom Designs - BuddyPress Quotes"
-msgstr ""
-
-#. Plugin URI of the plugin
-#: buddypress-quotes.php
-msgid "https://wbcomdesigns.com/downloads/buddypress-quotes/"
-msgstr ""
-
-#. Description of the plugin
-#: buddypress-quotes.php
-msgid "This plugin lets users select background images and colors set by the admin when posting BuddyPress activity updates."
-msgstr ""
-
-#. Author of the plugin
-#: buddypress-quotes.php
-msgid "Wbcom Designs"
-msgstr ""
-
-#. Author URI of the plugin
-#: buddypress-quotes.php
-msgid "https://wbcomdesigns.com/"
-msgstr ""
-
-#: admin/class-buddypress-quotes-admin.php:165
+#: admin/class-buddypress-quotes-admin.php:130
 msgid "WB Plugins"
 msgstr ""
 
-#: admin/class-buddypress-quotes-admin.php:166
-#: admin/class-buddypress-quotes-admin.php:205
+#: admin/class-buddypress-quotes-admin.php:131
+#: admin/class-buddypress-quotes-admin.php:156
 msgid "General"
 msgstr ""
 
-#: admin/class-buddypress-quotes-admin.php:168
+#: admin/class-buddypress-quotes-admin.php:133
 msgid "BuddyPress Quotes Settings Page"
 msgstr ""
 
-#: admin/class-buddypress-quotes-admin.php:168
-msgid "Quotes"
+#: admin/class-buddypress-quotes-admin.php:133
+msgid "BP Quotes"
 msgstr ""
 
-#: admin/class-buddypress-quotes-admin.php:187
-#: admin/wbcom/templates/wbcom-plugins-page.php:261
-#: buddypress-quotes.php:126
+#: admin/class-buddypress-quotes-admin.php:149
+#: admin/inc/bpquotes-welcome-page.php:21
+#: admin/wbcom/wbcom-admin-settings.php:271 buddypress-quotes.php:122
 msgid "BuddyPress Quotes"
 msgstr ""
 
-#: admin/class-buddypress-quotes-admin.php:188
-msgid "Version %s"
-msgstr ""
-
-#: admin/class-buddypress-quotes-admin.php:196
-msgid "Settings saved."
-msgstr ""
-
-#: admin/class-buddypress-quotes-admin.php:204
+#: admin/class-buddypress-quotes-admin.php:155
 msgid "Welcome"
 msgstr ""
 
-#: admin/inc/bpquotes-setting-general-tab.php:22
-msgid "General Setting"
+#: admin/inc/bpquotes-setting-general-tab.php:28
+msgid "Quotes background images"
 msgstr ""
 
-#: admin/inc/bpquotes-setting-general-tab.php:33
-msgid "Add background image"
-msgstr ""
-
-#: admin/inc/bpquotes-setting-general-tab.php:34
+#: admin/inc/bpquotes-setting-general-tab.php:28
 msgid "( Use 1024 x 512 px images for better experience )"
 msgstr ""
 
-#: admin/inc/bpquotes-setting-general-tab.php:54
-#: admin/inc/bpquotes-setting-general-tab.php:99
-msgid "Text Color"
+#: admin/inc/bpquotes-setting-general-tab.php:50
+msgid "Quotes background color"
 msgstr ""
 
-#: admin/inc/bpquotes-setting-general-tab.php:70
-msgid "Background color"
-msgstr ""
-
-#: admin/inc/bpquotes-setting-general-tab.php:75
+#: admin/inc/bpquotes-setting-general-tab.php:55
 msgid "Background Color"
 msgstr ""
 
-#: admin/inc/bpquotes-setting-general-tab.php:79
+#: admin/inc/bpquotes-setting-general-tab.php:59
 msgid "Quote Text Color"
 msgstr ""
 
-#: admin/inc/bpquotes-setting-general-tab.php:83
+#: admin/inc/bpquotes-setting-general-tab.php:61
 msgid "Add"
 msgstr ""
 
-#: admin/inc/bpquotes-setting-general-tab.php:115
-msgid "Disable Quote Icon on Post Activity"
-msgstr ""
-
-#: admin/inc/bpquotes-setting-general-tab.php:117
-msgid "Enable this option to hide the quote icon from activity posts."
-msgstr ""
-
-#: admin/inc/bpquotes-setting-general-tab.php:132
-msgid "Select User Roles"
-msgstr ""
-
-#: admin/inc/bpquotes-setting-general-tab.php:134
-msgid "Select the user roles that are allowed to publish quote-type activities."
-msgstr ""
-
 #: admin/inc/bpquotes-welcome-page.php:22
-msgid "The BuddyPress Quotes plugin allows users to add interactive backgrounds, such as colors and images, to their activity updates. This feature helps users create more expressive posts, whether they are posting from their timeline, activity feed, or group activity."
+#: admin/wbcom/wbcom-admin-settings.php:272
+msgid ""
+"BuddyPress quotes plugin comes with the feature to let users post their "
+"activity updates with interactive backgrounds selection such as colors and "
+"images set by the site administrator, so they can tell a more expressive "
+"story."
 msgstr ""
 
-#: admin/inc/bpquotes-welcome-page.php:28
+#: admin/inc/bpquotes-welcome-page.php:30
 msgid "Help &amp; Support Resources"
 msgstr ""
 
-#: admin/inc/bpquotes-welcome-page.php:29
-msgid "If you need assistance, here are some helpful resources. Our documentation is a great place to start, and our support team is available if you require further help."
+#: admin/inc/bpquotes-welcome-page.php:31
+msgid ""
+"Here are all the resources you may need to get help from us. Documentation "
+"is usually the best place to start. Should you require help anytime, our "
+"customer care team is available to assist you at the support center."
 msgstr ""
 
-#: admin/inc/bpquotes-welcome-page.php:34
+#: admin/inc/bpquotes-welcome-page.php:37
 msgid "Documentation"
 msgstr ""
 
-#: admin/inc/bpquotes-welcome-page.php:35
-msgid "Explore our detailed guide on BuddyPress Quotes to understand all the features and how to make the most of them."
+#: admin/inc/bpquotes-welcome-page.php:38
+msgid ""
+"We have prepared an extensive guide on BuddyPress Quotes to learn all "
+"aspects of the plugin. You will find most of your answers here."
 msgstr ""
 
-#: admin/inc/bpquotes-welcome-page.php:36
+#: admin/inc/bpquotes-welcome-page.php:39
 msgid "Read Documentation"
 msgstr ""
 
-#: admin/inc/bpquotes-welcome-page.php:42
+#: admin/inc/bpquotes-welcome-page.php:43
 msgid "Support Center"
 msgstr ""
 
-#: admin/inc/bpquotes-welcome-page.php:43
-msgid "Our support team is here to assist you with any questions or issues. Feel free to contact us anytime through our support center."
+#: admin/inc/bpquotes-welcome-page.php:44
+msgid ""
+"We strive to offer the best customer care via our support center. Once your "
+"theme is activated, you can ask us for help anytime."
 msgstr ""
 
-#: admin/inc/bpquotes-welcome-page.php:44
+#: admin/inc/bpquotes-welcome-page.php:45
 msgid "Get Support"
 msgstr ""
 
 #: admin/inc/bpquotes-welcome-page.php:49
-msgid "Share Your Feedback"
+msgid "Got Feedback?"
 msgstr ""
 
 #: admin/inc/bpquotes-welcome-page.php:50
-msgid "We’d love to hear about your experience with the plugin. Your feedback and suggestions help us improve future updates."
+msgid ""
+"We want to hear about your experience with the plugin. We would also love "
+"to hear any suggestions you may for future updates."
 msgstr ""
 
 #: admin/inc/bpquotes-welcome-page.php:51
 msgid "Send Feedback"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-license-page.php:9
-#: admin/wbcom/wbcom-paid-plugin-settings.php:33
-#: admin/wbcom/wbcom-paid-plugin-settings.php:34
-#: admin/wbcom/wbcom-paid-plugin-settings.php:53
-msgid "License"
+#: admin/wbcom/templates/wbcom-license-page.php:5
+msgid "Plugin License Settings"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-license-page.php:14
-msgid "Plugin License"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-license-page.php:20
-#: admin/wbcom/templates/wbcom-license-page.php:32
-#: edd-license/edd-plugin-license.php:383
+#: admin/wbcom/templates/wbcom-license-page.php:10
+#: admin/wbcom/templates/wbcom-license-page.php:22
+#: edd-license/edd-plugin-license.php:332
 msgid "Product"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-license-page.php:21
-#: admin/wbcom/templates/wbcom-license-page.php:33
-#: edd-license/edd-plugin-license.php:384
+#: admin/wbcom/templates/wbcom-license-page.php:11
+#: admin/wbcom/templates/wbcom-license-page.php:23
+#: edd-license/edd-plugin-license.php:333
 msgid "Version"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-license-page.php:22
-#: admin/wbcom/templates/wbcom-license-page.php:34
-#: edd-license/edd-plugin-license.php:385
+#: admin/wbcom/templates/wbcom-license-page.php:12
+#: admin/wbcom/templates/wbcom-license-page.php:24
+#: edd-license/edd-plugin-license.php:334
 msgid "Key"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-license-page.php:23
-#: admin/wbcom/templates/wbcom-license-page.php:35
-#: edd-license/edd-plugin-license.php:386
+#: admin/wbcom/templates/wbcom-license-page.php:13
+#: admin/wbcom/templates/wbcom-license-page.php:25
+#: edd-license/edd-plugin-license.php:335
 msgid "Status"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-license-page.php:24
-#: admin/wbcom/templates/wbcom-license-page.php:36
-#: edd-license/edd-plugin-license.php:387
+#: admin/wbcom/templates/wbcom-license-page.php:14
+#: admin/wbcom/templates/wbcom-license-page.php:26
+#: edd-license/edd-plugin-license.php:336
 msgid "Action"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-plugins-page.php:9
-#: admin/wbcom/wbcom-admin-settings.php:318
-msgid "Themes & Extension"
+#: admin/wbcom/templates/wbcom-plugins-page.php:10
+msgid "Paid Addons"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-plugins-page.php:17
-#: admin/wbcom/templates/wbcom-plugins-page.php:25
-msgid "Paid Extension"
+#: admin/wbcom/templates/wbcom-plugins-page.php:28
+#: admin/wbcom/templates/wbcom-themes-page.php:118
+#: admin/wbcom/templates/wbcom-themes-page.php:139
+msgid "View"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-plugins-page.php:18
-msgid "Free Extension"
+#: admin/wbcom/templates/wbcom-plugins-page.php:37
+msgid "Free Addons"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-plugins-page.php:19
-msgid "LearnDash Extension"
+#: admin/wbcom/templates/wbcom-plugins-page.php:43
+msgid "Install"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-plugins-page.php:20
-#: admin/wbcom/templates/wbcom-plugins-page.php:366
-#: admin/wbcom/wbcom-admin-settings.php:237
-#: admin/wbcom/wbcom-admin-settings.php:238
-msgid "Our Themes"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:26
-#: admin/wbcom/templates/wbcom-plugins-page.php:327
-#: admin/wbcom/templates/wbcom-plugins-page.php:417
-msgid "View More Extensions"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:31
-msgid "Advanced Username Manager"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:32
-msgid "Allow users to change their usernames directly from their profile settings. Enhance flexibility for members while keeping admin-level approval and control over username updates."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:34
-#: admin/wbcom/templates/wbcom-plugins-page.php:44
-#: admin/wbcom/templates/wbcom-plugins-page.php:54
-#: admin/wbcom/templates/wbcom-plugins-page.php:64
-#: admin/wbcom/templates/wbcom-plugins-page.php:74
-#: admin/wbcom/templates/wbcom-plugins-page.php:84
-#: admin/wbcom/templates/wbcom-plugins-page.php:94
-#: admin/wbcom/templates/wbcom-plugins-page.php:104
-#: admin/wbcom/templates/wbcom-plugins-page.php:114
-#: admin/wbcom/templates/wbcom-plugins-page.php:124
-#: admin/wbcom/templates/wbcom-plugins-page.php:134
-#: admin/wbcom/templates/wbcom-plugins-page.php:144
-#: admin/wbcom/templates/wbcom-plugins-page.php:154
-#: admin/wbcom/templates/wbcom-plugins-page.php:164
-#: admin/wbcom/templates/wbcom-plugins-page.php:174
-#: admin/wbcom/templates/wbcom-plugins-page.php:184
-#: admin/wbcom/templates/wbcom-plugins-page.php:194
-#: admin/wbcom/templates/wbcom-plugins-page.php:204
-#: admin/wbcom/templates/wbcom-plugins-page.php:214
-#: admin/wbcom/templates/wbcom-plugins-page.php:224
-#: admin/wbcom/templates/wbcom-plugins-page.php:234
-#: admin/wbcom/templates/wbcom-plugins-page.php:244
-#: admin/wbcom/templates/wbcom-plugins-page.php:254
-#: admin/wbcom/templates/wbcom-plugins-page.php:264
-#: admin/wbcom/templates/wbcom-plugins-page.php:274
-#: admin/wbcom/templates/wbcom-plugins-page.php:284
-#: admin/wbcom/templates/wbcom-plugins-page.php:294
-#: admin/wbcom/templates/wbcom-plugins-page.php:304
-#: admin/wbcom/templates/wbcom-plugins-page.php:314
-#: admin/wbcom/templates/wbcom-plugins-page.php:335
-#: admin/wbcom/templates/wbcom-plugins-page.php:345
-#: admin/wbcom/templates/wbcom-plugins-page.php:355
-#: admin/wbcom/templates/wbcom-plugins-page.php:375
-#: admin/wbcom/templates/wbcom-plugins-page.php:385
-#: admin/wbcom/templates/wbcom-plugins-page.php:395
-#: admin/wbcom/templates/wbcom-plugins-page.php:405
-#: admin/wbcom/templates/wbcom-plugins-page.php:425
-#: admin/wbcom/templates/wbcom-plugins-page.php:435
-#: admin/wbcom/templates/wbcom-plugins-page.php:445
-#: admin/wbcom/templates/wbcom-plugins-page.php:455
-#: admin/wbcom/templates/wbcom-plugins-page.php:465
-#: admin/wbcom/templates/wbcom-plugins-page.php:475
-#: admin/wbcom/templates/wbcom-plugins-page.php:485
-#: admin/wbcom/templates/wbcom-plugins-page.php:495
-#: admin/wbcom/templates/wbcom-plugins-page.php:505
-#: admin/wbcom/templates/wbcom-plugins-page.php:515
-#: admin/wbcom/templates/wbcom-plugins-page.php:525
-#: admin/wbcom/templates/wbcom-plugins-page.php:535
-#: admin/wbcom/templates/wbcom-plugins-page.php:545
-#: admin/wbcom/templates/wbcom-plugins-page.php:555
-#: admin/wbcom/templates/wbcom-plugins-page.php:565
-#: admin/wbcom/templates/wbcom-plugins-page.php:575
-#: admin/wbcom/templates/wbcom-plugins-page.php:585
-#: admin/wbcom/templates/wbcom-plugins-page.php:595
-#: admin/wbcom/templates/wbcom-plugins-page.php:605
-#: admin/wbcom/templates/wbcom-plugins-page.php:615
-msgid "View Details"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:35
-#: admin/wbcom/templates/wbcom-plugins-page.php:45
-#: admin/wbcom/templates/wbcom-plugins-page.php:55
-#: admin/wbcom/templates/wbcom-plugins-page.php:65
-#: admin/wbcom/templates/wbcom-plugins-page.php:75
-#: admin/wbcom/templates/wbcom-plugins-page.php:85
-#: admin/wbcom/templates/wbcom-plugins-page.php:95
-#: admin/wbcom/templates/wbcom-plugins-page.php:105
-#: admin/wbcom/templates/wbcom-plugins-page.php:115
-#: admin/wbcom/templates/wbcom-plugins-page.php:125
-#: admin/wbcom/templates/wbcom-plugins-page.php:135
-#: admin/wbcom/templates/wbcom-plugins-page.php:145
-#: admin/wbcom/templates/wbcom-plugins-page.php:155
-#: admin/wbcom/templates/wbcom-plugins-page.php:165
-#: admin/wbcom/templates/wbcom-plugins-page.php:175
-#: admin/wbcom/templates/wbcom-plugins-page.php:185
-#: admin/wbcom/templates/wbcom-plugins-page.php:195
-#: admin/wbcom/templates/wbcom-plugins-page.php:205
-#: admin/wbcom/templates/wbcom-plugins-page.php:215
-#: admin/wbcom/templates/wbcom-plugins-page.php:225
-#: admin/wbcom/templates/wbcom-plugins-page.php:235
-#: admin/wbcom/templates/wbcom-plugins-page.php:245
-#: admin/wbcom/templates/wbcom-plugins-page.php:255
-#: admin/wbcom/templates/wbcom-plugins-page.php:265
-#: admin/wbcom/templates/wbcom-plugins-page.php:275
-#: admin/wbcom/templates/wbcom-plugins-page.php:285
-#: admin/wbcom/templates/wbcom-plugins-page.php:295
-#: admin/wbcom/templates/wbcom-plugins-page.php:305
-#: admin/wbcom/templates/wbcom-plugins-page.php:315
-#: admin/wbcom/templates/wbcom-plugins-page.php:336
-#: admin/wbcom/templates/wbcom-plugins-page.php:346
-#: admin/wbcom/templates/wbcom-plugins-page.php:356
-#: admin/wbcom/templates/wbcom-plugins-page.php:376
-#: admin/wbcom/templates/wbcom-plugins-page.php:386
-#: admin/wbcom/templates/wbcom-plugins-page.php:396
-#: admin/wbcom/templates/wbcom-plugins-page.php:406
-#: admin/wbcom/templates/wbcom-plugins-page.php:426
-#: admin/wbcom/templates/wbcom-plugins-page.php:436
-#: admin/wbcom/templates/wbcom-plugins-page.php:446
-#: admin/wbcom/templates/wbcom-plugins-page.php:456
-#: admin/wbcom/templates/wbcom-plugins-page.php:466
-#: admin/wbcom/templates/wbcom-plugins-page.php:476
-#: admin/wbcom/templates/wbcom-plugins-page.php:486
-#: admin/wbcom/templates/wbcom-plugins-page.php:496
-#: admin/wbcom/templates/wbcom-plugins-page.php:506
-#: admin/wbcom/templates/wbcom-plugins-page.php:516
-#: admin/wbcom/templates/wbcom-plugins-page.php:526
-#: admin/wbcom/templates/wbcom-plugins-page.php:536
-#: admin/wbcom/templates/wbcom-plugins-page.php:546
-#: admin/wbcom/templates/wbcom-plugins-page.php:556
-#: admin/wbcom/templates/wbcom-plugins-page.php:566
-#: admin/wbcom/templates/wbcom-plugins-page.php:576
-#: admin/wbcom/templates/wbcom-plugins-page.php:586
-#: admin/wbcom/templates/wbcom-plugins-page.php:596
-#: admin/wbcom/templates/wbcom-plugins-page.php:606
-#: admin/wbcom/templates/wbcom-plugins-page.php:616
-msgid "Docs"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:41
-msgid "BuddyLists"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:42
-msgid "Empower users to create personalized lists of friends, follow curated streams, and organize their connections for a better social experience within your community."
+#: admin/wbcom/templates/wbcom-plugins-page.php:47
+#: admin/wbcom/wbcom-admin-settings.php:362
+msgid "Activate"
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-plugins-page.php:51
-msgid "BuddyPress Schedule Activity"
+#: admin/wbcom/wbcom-admin-settings.php:363
+msgid "Deactivate"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-plugins-page.php:52
-msgid "Plan posts and activities in advance with easy scheduling tools. Keep your community active even during off-hours and automate important updates."
+#: admin/wbcom/templates/wbcom-support-page.php:5
+#: admin/wbcom/wbcom-admin-settings.php:390
+#: admin/wbcom/wbcom-admin-settings.php:475
+msgid "Support"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-plugins-page.php:61
-msgid "BuddyPress Anonymous Activity"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:62
-msgid "Enable members to share updates anonymously without revealing their identity, encouraging more honest, open, and candid conversations across your platform."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:71
-msgid "BuddyPress Edit Activity"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:72
-msgid "Let users edit their posted activities anytime. Help members fix mistakes or update their posts, keeping conversations fresh and accurate."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:81
-msgid "WP Stories"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:82
-msgid "Introduce Instagram-style stories where users can share photos and videos. Boost community engagement through visual storytelling and real-time content sharing."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:91
-msgid "BuddyPress Business Profile"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:92
-msgid "Allow businesses to set up profile pages, showcase their services, and directly connect with potential customers through your social network."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:101
-msgid "BuddyPress Moderation Pro"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:102
-msgid "Allow members to flag inappropriate content and maintain a safe, respectful, and welcoming community environment."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:111
-msgid "BuddyPress Resume Manager"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:112
-msgid "Let users upload and display professional resumes right on their profiles. Ideal for building career-focused communities."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:121
-msgid "BuddyPress Polls"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:122
-msgid "Let members create polls and surveys directly inside activity streams to collect opinions, boost participation, and spark discussions easily."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:131
-msgid "BuddyPress Private Community Pro"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:132
-msgid "Restrict access to BuddyPress areas. Protect member profiles and create a fully private, members-only experience."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:141
-msgid "BuddyPress Profile Pro"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:142
-msgid "Add custom repeater fields and groups to member profiles. Collect richer information and enhance profile personalization."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:151
-msgid "BuddyPress Check-ins Pro"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:152
-msgid "Allow users to check in at places like restaurants or events. Encourage social interactions and real-world meetups through your platform."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:161
-msgid "BuddyPress Ideapush Integration"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:162
-msgid "Streamline idea management. Let members submit ideas, provide feedback, and spark innovation directly within their profiles."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:171
-msgid "BuddyPress Contact Me"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:172
-msgid "Add easy-to-use contact forms on member profiles. Enable seamless communication between visitors and users without sharing personal information."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:181
-msgid "BuddyPress Member Blog Pro"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:182
-msgid "Offer personal blogging spaces for members. Let users share articles, stories, and updates, turning your community into a vibrant content hub."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:191
-msgid "BuddyVendor"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:192
-msgid "Combine e-commerce with social networking. Allow users to buy, sell, and interact on a community-driven multi-vendor marketplace."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:201
-msgid "BuddyPress Statistics"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:202
-msgid "Get detailed community analytics. Monitor activities, understand engagement patterns, and make smarter decisions to grow your site."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:211
-msgid "Who viewed my profile"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:212
-msgid "Give users visibility into who has visited their profile. Build curiosity, drive more profile views, and increase member engagement."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:221
-msgid "BuddyPress Friend & Follow Suggestion"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:222
-msgid "Provide personalized friend and follow suggestions based on profile data, boosting connections and community interactions."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:231
-msgid "BuddyPress Giphy"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:232
-msgid "Enable GIF sharing in activities, comments, and private messages. Make conversations more fun, expressive, and visually engaging."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:241
-msgid "Shortcodes for BuddyPress Pro"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:242
-msgid "Add BuddyPress components anywhere on your site with shortcodes and Elementor widgets. Enjoy full design freedom and flexibility."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:251
-msgid "BuddyPress Sticky Post"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:252
-msgid "Highlight important updates by pinning posts to the top of activity streams. Ensure key messages are always seen by members."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:262
-msgid "Let users decorate their posts with vibrant backgrounds and images, making activity updates more expressive and attention-grabbing."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:271
-msgid "BuddyPress Auto Friends"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:272
-msgid "Automatically add specific users as friends to new members, helping them build their network and feel connected from day one."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:281
-msgid "BuddyPress Newsfeed"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:282
-msgid "Organize activity updates into a familiar Facebook-style newsfeed, helping members find new content quickly and engage more."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:291
-msgid "BuddyPress Status"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:292
-msgid "Allow members to post quick status updates and react to activities, making your community more dynamic and lively."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:301
-msgid "BuddyPress Hashtags"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:302
-msgid "Boost discoverability and organize discussions by adding hashtag functionality across activities, posts, and comments."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:311
-msgid "BuddyPress Profanity Filter"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:312
-msgid "Block unwanted words and keep your community safe, family-friendly, and free from offensive language."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:326
-msgid "Extension for LearnDash"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:332
-msgid "LMS Notes"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:333
-msgid "LMS Notes will extend the LMS functionality to create Notes for courses, lessons and topics."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:342
-msgid "Learndash wpForo"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:343
-msgid "The LearnDash wpForo integration allows you to create dedicated discussion channels for your learners and link your courses to multiple forums."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:352
-msgid "LearnDash Dashboard"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:353
-msgid "The LearnDash Dashboard provides admins, instructors, group leaders, and students with personalized dashboards, allowing them to easily manage their courses, lessons, and communication."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:367
-msgid "View More Themes"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:372
-msgid "Reign Theme"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:373
-msgid "Create your social network website for the company, school, sports team, or any niche community using a highly customizable WordPress, Community theme."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:382
-msgid "BuddyX Pro Theme"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:383
-msgid "Build a flexible, code-free online community website with full control. Enjoy unique layouts, clean code, and easy customization for BuddyPress/BossBoss Platform."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:392
-msgid "BuddyX Theme"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:393
-msgid "BuddyX is a free, fast, and responsive WordPress theme for creating social network sites like Facebook. Ideal for BuddyPress and BuddyBoss communities, memberships, eLearning, and marketplaces."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:402
-msgid "KnowX Theme"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:403
-msgid "A Free WordPress Knowledge base Theme. KnowX helps you set up a Knowledge Base in WordPress in less time than it takes to brew a coffee."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:416
-msgid "Our Free Extension"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:422
-msgid "Wbcom Essential"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:423
-msgid "Get dozens of stylish widgets packed inside Wbcom Essential. Enhance your BuddyPress site's design with advanced customizations without needing any technical skills."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:432
-msgid "BuddyPress Member Type"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:433
-msgid "Effortlessly create and manage multiple member types. Personalize user experiences and organize your community more effectively based on user profiles."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:442
-msgid "BuddyPress Advertisement Placements"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:443
-msgid "Add advertisement placements across your BuddyPress community. Increase engagement and generate extra revenue with seamless ad integration."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:452
-msgid "reCaptcha for BuddyPress"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:453
-msgid "Secure your BuddyPress, WordPress, and WooCommerce sites by adding powerful Google reCaptcha protection against bots and spam activities."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:462
-msgid "BuddyPress Member Blog"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:463
-msgid "Allow community members to create and manage their blog posts directly from their BuddyPress profiles, boosting engagement and user-generated content."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:472
-msgid "BuddyPress WooCommerce Integration"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:473
-msgid "Easily integrate WooCommerce with BuddyPress. Showcase WooCommerce activities inside profiles and create a seamless social shopping experience."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:482
-msgid "BuddyPress Activity Link Preview"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:483
-msgid "Automatically generate rich link previews inside the activity feed, displaying title, description, and image to make posts more engaging."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:492
-msgid "BuddyPress Birthday Widget"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:493
-msgid "Celebrate community members' birthdays by displaying upcoming birthdays in a sidebar widget, fostering deeper social interactions."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:502
-msgid "BuddyPress Redirect"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:503
-msgid "Redirect users to custom pages after login or logout, based on their user roles, creating a more personalized navigation experience."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:512
-msgid "BuddyPress Activity Bump"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:513
-msgid "Move the most recent interactions to the top of the activity feed automatically, keeping your BuddyPress newsfeed lively and active."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:522
-msgid "BuddyPress Lock – Private Community"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:523
-msgid "Lock down selected BuddyPress components to create a private, members-only community and protect your site's content from the public."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:532
-msgid "Shortcodes for BuddyPress"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:533
-msgid "Use simple shortcodes to embed BuddyPress components like activity streams, member lists, or groups on any page or post."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:542
-msgid "BuddyPress User Todo List"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:543
-msgid "Allow users to create, organize, and manage personal to-do lists with categories directly from their BuddyPress profiles."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:552
-msgid "BuddyPress Job Manager"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:553
-msgid "Create dedicated job tabs for employers and candidates inside their BuddyPress profiles, enhancing your site's job board functionality."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:562
-msgid "BuddyPress Group Reviews"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:563
-msgid "Enable members to rate and review BuddyPress groups based on multiple criteria, improving group quality and encouraging community feedback."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:572
-msgid "BuddyPress Member Reviews"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:573
-msgid "Allow users to rate and review other member profiles based on customizable criteria, helping build trust and credibility within your community."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:582
-msgid "BuddyPress Check-ins"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:583
-msgid "Allow community members to post activity updates along with their current location, encouraging real-world interactions and meetups."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:592
-msgid "BuddyPress Activity Filter"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:593
-msgid "Display customized activity feeds by applying filters to show specific content types based on your community's needs."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:602
-msgid "BuddyPress Favorite Notification"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:603
-msgid "Send real-time notifications to members when someone favorites their content, boosting engagement and interaction across your community."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:612
-msgid "BuddyPress Activity Social Share"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:613
-msgid "Allow users to share their BuddyPress activity updates easily to external social media platforms, extending their reach. "
+#: admin/wbcom/templates/wbcom-support-page.php:7
+msgid "Having any question or issue ?"
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-support-page.php:9
-#: admin/wbcom/wbcom-admin-settings.php:324
-msgid "Help & Support"
+msgid ""
+"Our team is here to help you out at anytime. If you have any idea about how "
+"we could improve. You can share access to your site on our helpdesk if it "
+"can help getting faster. There are two ways to in touch with us :"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-support-page.php:14
-msgid "How can we help you?"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-support-page.php:15
-msgid "Our team is here to help you out at anytime. If you have any idea about how we could improve. You can share access to your site on our helpdesk if it can help getting faster."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-support-page.php:24
+#: admin/wbcom/templates/wbcom-support-page.php:21
 msgid "Tickets Support"
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-support-page.php:25
-msgid "Open a ticket on our helpdesk, we don't guarantee a fast response but within a week. Except if you've purchased one of our product we'll reply within 24 hours."
+#: admin/wbcom/templates/wbcom-support-page.php:22
+msgid ""
+"Open a ticket on our helpdesk, we don't guarantee a fast response but "
+"within a week. Except if you've purchased one of our product we'll reply "
+"within 24 hours."
 msgstr ""
 
-#: admin/wbcom/templates/wbcom-support-page.php:28
+#: admin/wbcom/templates/wbcom-support-page.php:26
 msgid "Open a ticket"
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-support-page.php:41
-#: admin/wbcom/templates/wbcom-support-page.php:45
+#: admin/wbcom/templates/wbcom-support-page.php:46
 msgid "Contact Us"
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-support-page.php:42
-msgid "Create a new thread on our plugin page, participation is open to anyone from all around the world. We'll be there to help as well but can't guarantee any delay."
+msgid ""
+"Create a new thread on our plugin page, participation is open to anyone "
+"from all around the world. We'll be there to help as well but can't "
+"guarantee any delay."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:199
-msgid "Activate"
+#: admin/wbcom/templates/wbcom-themes-page.php:13
+msgid "Reign Theme"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:200
-msgid "Deactivate"
+#: admin/wbcom/templates/wbcom-themes-page.php:15
+msgid "Multiple Member Directory Layout"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:16
+msgid "Multiple Member Header Layout"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:17
+msgid "Multiple Group Directory Layout"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:18
+msgid "Multiple Group Header Layout"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:19
+msgid "BuddyPress Customization Options"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:20
+msgid "BuddyPress Extra Widgets"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:21
+msgid "Inbuilt Social Profile Module"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:24
+#: admin/wbcom/templates/wbcom-themes-page.php:49
+#: admin/wbcom/templates/wbcom-themes-page.php:72
+#: admin/wbcom/templates/wbcom-themes-page.php:94
+msgid "Purchase"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:25
+#: admin/wbcom/templates/wbcom-themes-page.php:50
+#: admin/wbcom/templates/wbcom-themes-page.php:73
+#: admin/wbcom/templates/wbcom-themes-page.php:95
+msgid "Preview"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:38
+msgid "LearnMate Solution"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:40
+msgid "Add Review to your course"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:41
+msgid "Course Coming Soon"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:42
+#: admin/wbcom/templates/wbcom-themes-page.php:68
+msgid "Grid And List Layout"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:43
+msgid "Learndash/LifterLMS Extra Widgets"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:44
+msgid "Unparalleled Course Layout"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:45
+msgid "Awesome Learndash/LifterLMS Pages"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:46
+msgid "Distraction Free Reading"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:63
+msgid "StoreMate Solution"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:65
+msgid "Dokan Extra Widgets"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:66
+msgid "Unique Single Product Page Customization"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:67
+msgid "Awesome WooCommerce Pages"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:69
+msgid "Automated Mega Menu Support"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:86
+msgid "Jobmate Theme"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:88
+msgid "Simple live searching and filtering"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:89
+msgid "Unique Job listing Page"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:90
+msgid "Awesome Resume list Page"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:91
+msgid "Outstanding all job maanger pagesLayout"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:108
+msgid "BuddyX Theme"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:110
+msgid "Responsive BuddyPress Theme"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:111
+#: admin/wbcom/templates/wbcom-themes-page.php:134
+msgid "Site Ready In One-Click"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:112
+msgid "Members and Groups Layout"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:113
+msgid "WooCommerce Ready"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:114
+msgid "Supported Muitiple Plugins"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:115
+#: admin/wbcom/templates/wbcom-themes-page.php:136
+msgid "Suitable for All Devices"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:131
+msgid "KnowX Theme"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:133
+msgid "Free WordPress Theme"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:135
+msgid "Create Knowledge base"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:179
+msgid "Custom Font Uploader"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:181
+msgid ""
+"It also allows you to upload your own custom font to your site and use them "
+"using custom css."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:187
+msgid "BuddyPress Create Group Type"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:189
+msgid "It will help to create group type for BuddyPress Groups."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:195
+msgid "BuddyPress Member Reviews"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:197
+msgid ""
+"This plugin allows only site members to add reviews to the buddypress "
+"members on the site and even rate the member’s profile out of 5 points with "
+"multiple review criteria."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:203
+msgid "BuddyPress Group Reviews"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:205
+msgid ""
+"This plugin allows the BuddyPress Members to give reviews to the BuddyPress "
+"groups on the site. The review form allows the users to give text review, "
+"even rate the group on the basis of multiple criterias."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:223
+msgid "BuddyPress Moderation Pro"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:224
+msgid ""
+"BuddyPress Community Moderation offers a solution for site owners to keep "
+"their communities straight. With community policing strategy, members of "
+"the community have an option for moderation sitewide by attaching flags to "
+"content created within the various components."
 msgstr ""
 
 #: admin/wbcom/wbcom-admin-settings.php:229
+msgid "BuddyPress Polls"
+msgstr ""
+
 #: admin/wbcom/wbcom-admin-settings.php:230
+msgid ""
+"Use BuddyPress Polls plugin to create polls inside the activity, let your "
+"user response to your polls. Members can create pools like activities, "
+"easily votes on them."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:235
+msgid "BuddyPress Hashtags"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:236
+msgid ""
+"Allows members to use hashtags in BuddyPress activities and bbPress topics "
+"and ready with widgets."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:241
+msgid "BuddyPress Profanity"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:242
+msgid ""
+"Use BuddyPress Profanity plugin to censor content in your community! Easily "
+"Censor all the unwanted words in activities, private messages contents by "
+"specifying a list of keywords to be filtered."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:247
+msgid "BuddyPress Private Community Pro"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:248
+msgid ""
+"This plugin offers a lockdown for BuddyPress Component and will ask users "
+"to log in go further to check profile or any other protected details."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:253
+msgid "BuddyPress Profile Pro"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:254
+msgid ""
+"This plugin gives you the power to extend BuddyPress Profiles with repeater "
+"fields and groups. You can easily add multiple field groups and display "
+"them at member’s profile."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:259
+msgid "BuddyPress Sticky Post"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:260
+msgid ""
+"This will make it easier for the site administrator to make the pinned "
+"activity item recognized first by the community whenever they visit the "
+"site."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:265
+msgid "BuddyPress Auto Friends"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:266
+msgid ""
+"Allow the site admin to select global friends for all his members with "
+"BuddyPress Auto friends plugin."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:384
+#: admin/wbcom/wbcom-admin-settings.php:463
 msgid "Our Plugins"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:245
-#: admin/wbcom/wbcom-admin-settings.php:246
-#: buddypress-quotes.php:169
-msgid "Support"
+#: admin/wbcom/wbcom-admin-settings.php:387
+#: admin/wbcom/wbcom-admin-settings.php:469
+msgid "Our Themes"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:312
-#: buddypress-quotes.php:168
+#: admin/wbcom/wbcom-admin-settings.php:457
 msgid "Settings"
 msgstr ""
 
-#: buddypress-quotes.php:127
-msgid "BuddyPress/BuddyBoss Platform"
+#: admin/wbcom/wbcom-paid-plugin-settings.php:29
+#: admin/wbcom/wbcom-paid-plugin-settings.php:43
+msgid "License"
 msgstr ""
 
+#: buddypress-quotes.php:123
+msgid "BuddyPress"
+msgstr ""
+
+#: buddypress-quotes.php:126
 #. translators: %1$s: BuddyPress Quotes, %2$s: BuddyPress
-#: buddypress-quotes.php:130
-msgid "%1$s is ineffective because it requires %2$s to be installed and active."
+msgid "%1$s is ineffective as it requires %2$s to be installed and active."
 msgstr ""
 
-#: edd-license/edd-plugin-license.php:103
-#: edd-license/edd-plugin-license.php:139
-#: edd-license/edd-plugin-license.php:212
-#: edd-license/edd-plugin-license.php:465
-msgid "An error occurred, please try again."
-msgstr ""
-
-#: edd-license/edd-plugin-license.php:112
-msgid "Your license key expired on %s."
-msgstr ""
-
-#: edd-license/edd-plugin-license.php:118
-msgid "Your license key has been disabled."
-msgstr ""
-
-#: edd-license/edd-plugin-license.php:122
-msgid "Invalid license."
-msgstr ""
-
-#: edd-license/edd-plugin-license.php:127
-msgid "Your license is not active for this URL."
-msgstr ""
-
-#: edd-license/edd-plugin-license.php:131
-msgid "This appears to be an invalid license key for %s."
-msgstr ""
-
-#: edd-license/edd-plugin-license.php:135
-msgid "Your license key has reached its activation limit."
-msgstr ""
-
-#. translators: %1$s: Expire Time
-#: edd-license/edd-plugin-license.php:314
-msgid "Your BuddyPress Quotes plugin license key expired on %s."
-msgstr ""
-
-#: edd-license/edd-plugin-license.php:344
-msgid "Please activate your BuddyPress Quotes plugin license key."
-msgstr ""
-
-#: edd-license/edd-plugin-license.php:408
-msgid "Deactivate License"
-msgstr ""
-
-#: edd-license/edd-plugin-license.php:413
-msgid "Activate License"
-msgstr ""
-
-#: edd-license/edd-plugin-license.php:483
-msgid " Expires %s."
-msgstr ""
-
-#: edd-license/edd-plugin-license.php:486
-msgid "You have %1$s/%2$s-sites activated."
-msgstr ""
-
-#: edd-license/EDD_BPQUOTES_Plugin_Updater.php:203
+#: edd-license/EDD_BPQUOTES_Plugin_Updater.php:206
 msgid "There is a new version of %1$s available. %2$sView version %3$s details%4$s."
 msgstr ""
 
-#: edd-license/EDD_BPQUOTES_Plugin_Updater.php:211
-msgid "There is a new version of %1$s available. %2$sView version %3$s details%4$s or %5$supdate now%6$s."
+#: edd-license/EDD_BPQUOTES_Plugin_Updater.php:214
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
+"or %5$supdate now%6$s."
 msgstr ""
 
-#: edd-license/EDD_BPQUOTES_Plugin_Updater.php:401
+#: edd-license/EDD_BPQUOTES_Plugin_Updater.php:408
 msgid "You do not have permission to install plugin updates"
 msgstr ""
 
-#: edd-license/EDD_BPQUOTES_Plugin_Updater.php:401
+#: edd-license/EDD_BPQUOTES_Plugin_Updater.php:408
 msgid "Error"
 msgstr ""
 
-#: public/class-buddypress-quotes-public.php:165
-#: public/class-buddypress-quotes-public.php:198
-msgid "Add a quote"
+#: edd-license/edd-plugin-license.php:104
+#: edd-license/edd-plugin-license.php:140
+#: edd-license/edd-plugin-license.php:211
+msgid "An error occurred, please try again."
 msgstr ""
 
-#: public/class-buddypress-quotes-public.php:413
-msgid "This is not a quote activity."
+#: edd-license/edd-plugin-license.php:113
+msgid "Your license key expired on %s."
+msgstr ""
+
+#: edd-license/edd-plugin-license.php:119
+msgid "Your license key has been disabled."
+msgstr ""
+
+#: edd-license/edd-plugin-license.php:123
+msgid "Invalid license."
+msgstr ""
+
+#: edd-license/edd-plugin-license.php:128
+msgid "Your license is not active for this URL."
+msgstr ""
+
+#: edd-license/edd-plugin-license.php:132
+msgid "This appears to be an invalid license key for %s."
+msgstr ""
+
+#: edd-license/edd-plugin-license.php:136
+msgid "Your license key has reached its activation limit."
+msgstr ""
+
+#: edd-license/edd-plugin-license.php:354
+msgid "Deactivate License"
+msgstr ""
+
+#: edd-license/edd-plugin-license.php:359
+msgid "Activate License"
 msgstr ""

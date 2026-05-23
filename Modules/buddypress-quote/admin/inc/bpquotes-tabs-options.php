@@ -13,13 +13,12 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-// phpcs:disable
-if ( isset( $_GET['tab'] ) ) {	
-	$bpsts_tab = sanitize_text_field( wp_unslash( $_GET['tab'] ) );
+if ( isset( $_GET['tab'] ) ) {
+	$bpsts_tab = sanitize_text_field( $_GET['tab'] );
 } else {
 	$bpsts_tab = 'welcome';
 }
-// phpcs:enable
+
 bpquotes_include_admin_setting_tabs( $bpsts_tab );
 
 /**

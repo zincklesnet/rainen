@@ -43,8 +43,7 @@
             // Output to the console uploaded_image
             uploaded_image.map( function( attachment ) {
             	attachment = attachment.toJSON();
-            	$(".bpquotes-background-images").append("<div class='bpquotes-single-img-section'><div class='bpquotes-single-img'><a href='javascript:void(0)'' class='bpquotes-remove-img'><i class='fa fa-times' aria-hidden='true'></i></a><img src=" +attachment.url+"><input type='hidden' name='bpquotes_gnrl_settings[image_url][]' class='regular-text bpquotes-hidden-input' value="+attachment.url+"></div><div id='bpquotes-bg-image-text-color1' class='bpquotes-bg-image-text-color' ><label>Text Color</label><input type='hidden' name='bpquotes_gnrl_settings[image_text_color][]' class='regular-text bpquotes-hidden-input bpquotes-color-field-add' value=''></div></div>");
-				$('.bpquotes-color-field-add').wpColorPicker(myOptions);
+            	$(".bpquotes-background-images").append("<div class='bpquotes-single-img'><a href='javascript:void(0)'' class='bpquotes-remove-img'><i class='fa fa-trash' aria-hidden='true'></i></a><img src=" +attachment.url+"><input type='hidden' name='bpquotes_gnrl_settings[image_url][]' class='regular-text bpquotes-hidden-input' value="+attachment.url+"></div>");
             });
         });
 	 	});
@@ -72,7 +71,7 @@
 	 	$('.bpquotes-color-field').wpColorPicker(myOptions);
 
 	 	jQuery(document).on('click','.bpquotes-add-bgcolor', function(){
-	 		if( $('#bpquotes-bg-color').val() != '' ){
+	 		if( $('.bpquotes-color-field').val() != '' ){
 	 			var color = $('#bpquotes-bg-color').val();
 				var inverted = $('#bpquotes-inverted-color').val();
 				/*
@@ -84,10 +83,8 @@
 					inverted = dp_quote_rgbToHex(inverted_channels[0], inverted_channels[1], inverted_channels[2]) ;
 				*/
 					
-	 			$(".bpquotes-background-colors").append("<div class='bpquotes-single-color-section'><div class='bpquotes-single-color' style='background-color:"+color+"'><a href='javascript:void(0)' class='bpquotes-remove-color'><i class='fa fa-times' aria-hidden='true'></i></a></div><div id='bpquotes-edit-color' class='bpquotes-edit-color-section' ><input type='hidden' name='bpquotes_gnrl_settings[bg_colors][]' class='regular-text bpquotes-hidden-input' value='"+color+"'><label>Text Color</label><input type='text' name='bpquotes_gnrl_settings[bg_inverted_colors][]' class='regular-text bpquotes-hidden-input bpquotes-color-field-add' value='"+inverted+"'></div></div>");
-				
-	 			$('.bpquotes-color-columns .wp-picker-clear').trigger('click');
-				$('.bpquotes-color-field-add').wpColorPicker(myOptions);
+	 			$(".bpquotes-background-colors").append("<div class='bpquotes-single-color' style='background-color:"+color+"'><a href='javascript:void(0)'' class='bpquotes-remove-color'><i class='fa fa-trash' aria-hidden='true'></i></a><input type='hidden' name='bpquotes_gnrl_settings[bg_colors][]' class='regular-text bpquotes-hidden-input' value='"+color+"'><input type='hidden' name='bpquotes_gnrl_settings[bg_inverted_colors][]' class='regular-text bpquotes-hidden-input' value='"+inverted+"'></div>");
+	 			$('.wp-picker-clear').trigger('click');
 	 		}
 	 	});
 
@@ -98,18 +95,13 @@
 
 	 	$(document).on('click', '.bpquotes-remove-img', function(){
 	 		$(this).addClass('loading');
-	 		$(this).parent().parent().remove();			
+	 		$(this).parent().remove();
 	 	});
 
 	 	$(document).on('click', '.bpquotes-remove-color', function(){
 	 		$(this).addClass('loading');
-	 		$(this).parent().parent().remove();			
+	 		$(this).parent().remove();
 	 	});
-		
-		$('.bpquotes-multi-selectize').selectize({
-			plugins			: ['remove_button']
-		});		
-		
 	 });
 })( jQuery );
 

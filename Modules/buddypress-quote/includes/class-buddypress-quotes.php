@@ -163,7 +163,6 @@ class Buddypress_Quotes {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'bpquotes_add_admin_menu' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'bpquotes_add_admin_register_setting' );
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'wbcom_hide_all_admin_notices_from_setting_page' );
 	}
 
 	/**
@@ -174,48 +173,19 @@ class Buddypress_Quotes {
 	 * @access   private
 	 */
 	private function define_public_hooks() {
-		global $current_user, $allow_user_role;
-		$current_user 			= wp_get_current_user();
-		$current_user_roles 	= $current_user->roles;
-		$active_template 		= get_option( '_bp_theme_package_id' );	
-		$bpquotes_gnrl_settings = get_option( 'bpquotes_gnrl_settings' );
-		$user_role				= (isset($bpquotes_gnrl_settings['user_role']))? $bpquotes_gnrl_settings['user_role'] : [];
-		$user_role				= array_merge(['administrator'], $user_role);
-		$allow_user_role		= array_intersect($user_role, $current_user_roles);		
-		
+
 		$plugin_public = new Buddypress_Quotes_Public( $this->get_plugin_name(), $this->get_version() );
-		
+
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
-		
-		if( !empty($allow_user_role) ){
-			
-			if ( 'legacy' == $active_template ) {
-				$this->loader->add_action( 'bp_activity_post_form_options', $plugin_public, 'bpquotes_activity_post_form_options', 20 );
-				$this->loader->add_action( 'bp_activity_post_form_options', $plugin_public, 'bpquotes_activity_post_form_option_panel', 60 );
-			} elseif ( 'nouveau' == $active_template ) {
-				$this->loader->add_action( 'bp_activity_post_form_options', $plugin_public, 'bpquotes_activity_post_form_options', 20 );
-				$this->loader->add_action( 'bp_activity_post_form_options', $plugin_public, 'bpquotes_activity_post_form_option_panel', 60 );
-			}
-		
-
-			// Conditionally remove and reassign actions if Youzify is active.
-			add_action(
-				'plugins_loaded',
-				function () use ( $plugin_public ) {
-					if ( class_exists( 'Youzify' ) ) {
-						// Remove existing actions from the 'bp_activity_post_form_options' hook.
-						remove_action( 'bp_activity_post_form_options', array( $plugin_public, 'bpquotes_activity_post_form_options' ), 20 );
-						remove_action( 'bp_activity_post_form_options', array( $plugin_public, 'bpquotes_activity_post_form_option_panel' ), 60 );
-
-						// Add actions to new hooks as per requirements.
-						add_action( 'bp_activity_post_form_tools', array( $plugin_public, 'bpquotes_activity_post_form_options' ), 10 );
-						add_action( 'bp_activity_post_form_after_actions', array( $plugin_public, 'bpquotes_activity_post_form_option_panel' ), 60 );
-					}
-				},
-				20
-			);
+		$active_template = get_option( '_bp_theme_package_id' );
+		if ( 'legacy' == $active_template ) {
+			$this->loader->add_action( 'bp_activity_post_form_options', $plugin_public, 'bpquotes_activity_post_form_options', 20 );
+			$this->loader->add_action( 'bp_activity_post_form_options', $plugin_public, 'bpquotes_activity_post_form_option_panle', 60 );
+		} elseif ( 'nouveau' == $active_template ) {
+			$this->loader->add_action( 'bp_activity_post_form_options', $plugin_public, 'bpquotes_activity_post_form_options', 20 );
+			$this->loader->add_action( 'bp_activity_post_form_options', $plugin_public, 'bpquotes_activity_post_form_option_panle', 60 );
 		}
 		// $this->loader->add_action( 'bp_activity_entry_content', $plugin_public, 'bpquotes_activity_post_form_options'  );
 		/* update poll activity meta */
@@ -225,18 +195,13 @@ class Buddypress_Quotes {
 		/* ypuzer update activity meta */
 		$this->loader->add_action( 'yz_activity_posted_update', $plugin_public, 'bpquotes_update_quotes_activity_meta', 10, 4 );
 		$this->loader->add_action( 'yz_groups_posted_update', $plugin_public, 'bpquotes_update_quotes_activity_meta', 10, 4 );
-		$this->loader->add_action( 'yzea_activity_content', $plugin_public, 'bpquotes_update_yzea_activity_quotes', 10, 2 );
 
 		/* update poll activity content */
 		$this->loader->add_filter( 'bp_get_activity_content_body', $plugin_public, 'bpquotes_update_quotes_activity_content', 10, 2 );
 		$this->loader->add_filter( 'bp_activity_get_embed_excerpt', $plugin_public, 'bpquotes_update_quotes_activity_content', 10, 2 );
 
-		/* Embed quotes activity data in rest api */
-		$this->loader->add_filter( 'bp_rest_activity_prepare_value', $plugin_public, 'bpquotes_activity_data_embed_rest_api', 10, 3 );
-		
-		$this->loader->add_shortcode( 'bp_quotes', $plugin_public, 'bpquotes_rest_api_shortcode' );
-		
-		$this->loader->add_action( 'bp_get_addition_activity_content', $plugin_public, 'bpquotes_get_activity_content' );
+		/* Embed activity */
+		$this->loader->add_action( 'embed_head', $plugin_public, 'bpquotes_activity_embed_add_inline_styles', 20 );
 	}
 
 	/**

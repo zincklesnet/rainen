@@ -14,7 +14,7 @@
  *
  * @param int $activity_id Activity ID.
  */
-function bpquotes_is_quoted_activity( $activity_id ) {
+function is_quoted_activity( $activity_id ) {
 
 	$quoted        = false;
 	$activity_meta = bp_activity_get_meta( $activity_id, 'bpquotes_meta' );

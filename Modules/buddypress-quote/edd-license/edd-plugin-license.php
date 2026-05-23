@@ -1,19 +1,19 @@
 <?php
-// this is the URL our updater / license checker pings. This should be the URL of the site with EDD installed.
+// this is the URL our updater / license checker pings. This should be the URL of the site with EDD installed
 if ( ! defined( 'EDD_BPQUOTES_STORE_URL' ) ) {
-	define( 'EDD_BPQUOTES_STORE_URL', 'https://wbcomdesigns.com/' ); // you should use your own CONSTANT name, and be sure to replace it throughout this file.
+	define( 'EDD_BPQUOTES_STORE_URL', 'https://wbcomdesigns.com/' ); // you should use your own CONSTANT name, and be sure to replace it throughout this file
 }
 
 // the name of your product. This should match the download name in EDD exactly
-// define('EDD_BPQUOTES_ITEM_NAME', 'PeepSo bbPress Integration'); // you should use your own CONSTANT name, and be sure to replace it throughout this file.
-if ( ! defined( 'EDD_BPQUOTES_ITEM_NAME' ) ) {
-	define( 'EDD_BPQUOTES_ITEM_NAME', 'BuddyPress Quotes' ); // you should use your own CONSTANT name, and be sure to replace it throughout this file.
+// define('EDD_BPQUOTES_ITEM_NAME', 'PeepSo bbPress Integration'); // you should use your own CONSTANT name, and be sure to replace it throughout this file
+if( ! defined( 'EDD_BPQUOTES_ITEM_NAME' ) ) {
+    define( 'EDD_BPQUOTES_ITEM_NAME', 'BuddyPress Quotes' ); // you should use your own CONSTANT name, and be sure to replace it throughout this file
 }
 
 
-// the name of the settings page for the license input to be displayed.
-if ( ! defined( 'EDD_BPQUOTES_PLUGIN_LICENSE_PAGE' ) ) {
-	define( 'EDD_BPQUOTES_PLUGIN_LICENSE_PAGE', 'wbcom-license-page' );
+// the name of the settings page for the license input to be displayed
+if( ! defined( 'EDD_BPQUOTES_PLUGIN_LICENSE_PAGE' ) ) {
+    define( 'EDD_BPQUOTES_PLUGIN_LICENSE_PAGE', 'wbcom-license-page' );
 }
 
 if ( ! class_exists( 'EDD_BPQUOTES_Plugin_Updater' ) ) {
@@ -25,7 +25,7 @@ function edd_BPQUOTES_plugin_updater() {
 	// retrieve our license key from the DB.
 	$license_key = trim( get_option( 'edd_wbcom_BPQUOTES_license_key' ) );
 
-	// setup the updater.
+	// setup the updater
 	$edd_updater = new EDD_BPQUOTES_Plugin_Updater(
 		EDD_BPQUOTES_STORE_URL,
 		BPQUOTES_PLUGIN_FILE,
@@ -42,12 +42,13 @@ add_action( 'admin_init', 'edd_BPQUOTES_plugin_updater', 0 );
 
 
 /************************************
- * The code below is just a standard.
+ * the code below is just a standard
  * options page. Substitute with
  * your own.
  *************************************/
-function edd_wbcom_BPQUOTES_register_option() {
-	// creates our settings in the options table.
+
+ function edd_wbcom_BPQUOTES_register_option() {
+	 // creates our settings in the options table
 	register_setting( 'edd_wbcom_BPQUOTES_license', 'edd_wbcom_BPQUOTES_license_key', 'edd_BPQUOTES_sanitize_license' );
 }
 add_action( 'admin_init', 'edd_wbcom_BPQUOTES_register_option' );
@@ -63,25 +64,25 @@ function edd_BPQUOTES_sanitize_license( $new ) {
 
 
 /************************************
- * This illustrates how to activate
+ * this illustrates how to activate
  * a license key
  *************************************/
 function edd_wbcom_BPQUOTES_activate_license_button() {
-	// Listen for our activate button to be clicked.
+	// listen for our activate button to be clicked
 	if ( isset( $_POST['edd_BPQUOTES_license_activate'] ) ) {
-		// run a quick security check.
+		// run a quick security check
 		if ( ! check_admin_referer( 'edd_wbcom_BPQUOTES_nonce', 'edd_wbcom_BPQUOTES_nonce' ) ) {
-			return; // Get out if we didn't click the Activate button.
+			return; // get out if we didn't click the Activate button
 		}
 
 		// retrieve the license from the database
-		// $license = trim( get_option( 'edd_wbcom_BPQUOTES_license_key' ) );.
-		$license = isset( $_POST['edd_wbcom_BPQUOTES_license_key'] ) ? sanitize_text_field( wp_unslash( $_POST['edd_wbcom_BPQUOTES_license_key'] ) ) : '';
-		// Data to send in our API request.
+        // $license = trim( get_option( 'edd_wbcom_BPQUOTES_license_key' ) );        
+        $license = isset( $_POST['edd_wbcom_BPQUOTES_license_key'] ) ? sanitize_text_field( wp_unslash( $_POST['edd_wbcom_BPQUOTES_license_key'] ) ) : '';
+		// data to send in our API request
 		$api_params = array(
 			'edd_action' => 'activate_license',
 			'license'    => $license,
-			'item_name'  => urlencode( EDD_BPQUOTES_ITEM_NAME ), // The name of our product in EDD.
+			'item_name'  => urlencode( EDD_BPQUOTES_ITEM_NAME ), // the name of our product in EDD
 			'url'        => home_url(),
 		);
 
@@ -95,12 +96,12 @@ function edd_wbcom_BPQUOTES_activate_license_button() {
 			)
 		);
 
-		// Make sure the response came back okay.
+		// make sure the response came back okay
 		if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
 			if ( is_wp_error( $response ) ) {
 				$message = $response->get_error_message();
 			} else {
-				$message = esc_html__( 'An error occurred, please try again.', 'buddypress-quotes' );
+				$message = __( 'An error occurred, please try again.', 'buddypress-quotes' );
 			}
 		} else {
 			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
@@ -109,42 +110,40 @@ function edd_wbcom_BPQUOTES_activate_license_button() {
 				switch ( $license_data->error ) {
 					case 'expired':
 						$message = sprintf(
-							esc_html__( 'Your license key expired on %s.', 'buddypress-quotes' ),
+							__( 'Your license key expired on %s.', 'buddypress-quotes' ),
 							date_i18n( get_option( 'date_format' ), strtotime( $license_data->expires, current_time( 'timestamp' ) ) )
 						);
 						break;
 
 					case 'revoked':
-						$message = esc_html__( 'Your license key has been disabled.', 'buddypress-quotes' );
+						$message = __( 'Your license key has been disabled.', 'buddypress-quotes' );
 						break;
 
 					case 'missing':
-						$message = esc_html__( 'Invalid license.', 'buddypress-quotes' );
+						$message = __( 'Invalid license.', 'buddypress-quotes' );
 						break;
 
 					case 'invalid':
 					case 'site_inactive':
-						$message = esc_html__( 'Your license is not active for this URL.', 'buddypress-quotes' );
+						$message = __( 'Your license is not active for this URL.', 'buddypress-quotes' );
 						break;
 
 					case 'item_name_mismatch':
-						$message = sprintf( esc_html__( 'This appears to be an invalid license key for %s.', 'buddypress-quotes' ), EDD_BPQUOTES_ITEM_NAME );
+						$message = sprintf( __( 'This appears to be an invalid license key for %s.', 'buddypress-quotes' ), EDD_BPQUOTES_ITEM_NAME );
 						break;
 
 					case 'no_activations_left':
-						$message = esc_html__( 'Your license key has reached its activation limit.', 'buddypress-quotes' );
+						$message = __( 'Your license key has reached its activation limit.', 'buddypress-quotes' );
 						break;
 
 					default:
-						$message = esc_html__( 'An error occurred, please try again.', 'buddypress-quotes' );
+						$message = __( 'An error occurred, please try again.', 'buddypress-quotes' );
 						break;
 				}
-			} else {
-				set_transient( 'edd_wbcom_BPQUOTES_license_key_data', $license_data, 12 * HOUR_IN_SECONDS );
 			}
 		}
 
-		// Check if anything passed on a message constituting a failure.
+		// Check if anything passed on a message constituting a failure
 		if ( ! empty( $message ) ) {
 			$base_url = admin_url( 'admin.php?page=' . EDD_BPQUOTES_PLUGIN_LICENSE_PAGE );
 			$redirect = add_query_arg(
@@ -176,21 +175,21 @@ add_action( 'admin_init', 'edd_wbcom_BPQUOTES_activate_license_button' );
  * This will decrease the site count
  ***********************************************/
 function edd_wbcom_BPQUOTES_deactivate_license() {
-	// Listen for our activate button to be clicked.
+	// listen for our activate button to be clicked
 	if ( isset( $_POST['edd_BPQUOTES_license_deactivate'] ) ) {
-		// Run a quick security check.
+		// run a quick security check
 		if ( ! check_admin_referer( 'edd_wbcom_BPQUOTES_nonce', 'edd_wbcom_BPQUOTES_nonce' ) ) {
-			return; // Get out if we didn't click the Activate button.
+			return; // get out if we didn't click the Activate button
 		}
 
-		// Retrieve the license from the database.
+		// retrieve the license from the database
 		$license = trim( get_option( 'edd_wbcom_BPQUOTES_license_key' ) );
 
-		// Data to send in our API request.
+		// data to send in our API request
 		$api_params = array(
 			'edd_action' => 'deactivate_license',
 			'license'    => $license,
-			'item_name'  => urlencode( EDD_BPQUOTES_ITEM_NAME ), // The name of our product in EDD.
+			'item_name'  => urlencode( EDD_BPQUOTES_ITEM_NAME ), // the name of our product in EDD
 			'url'        => home_url(),
 		);
 
@@ -204,12 +203,12 @@ function edd_wbcom_BPQUOTES_deactivate_license() {
 			)
 		);
 
-		// Make sure the response came back okay.
+		// make sure the response came back okay
 		if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
 			if ( is_wp_error( $response ) ) {
 				$message = $response->get_error_message();
 			} else {
-				$message = esc_html__( 'An error occurred, please try again.', 'buddypress-quotes' );
+				$message = __( 'An error occurred, please try again.', 'buddypress-quotes' );
 			}
 
 			$base_url = admin_url( 'admin.php?page=' . EDD_BPQUOTES_PLUGIN_LICENSE_PAGE );
@@ -225,12 +224,11 @@ function edd_wbcom_BPQUOTES_deactivate_license() {
 			exit();
 		}
 
-		// Decode the license data.
+		// decode the license data
 		$license_data = json_decode( wp_remote_retrieve_body( $response ) );
-		delete_transient( 'edd_wbcom_BPQUOTES_license_key_data' );
 
 		// $license_data->license will be either "deactivated" or "failed"
-		if ( $license_data->license == 'deactivated' || 'failed' === $license_data->license ) {
+		if ( $license_data->license == 'deactivated' ) {
 			delete_option( 'edd_wbcom_BPQUOTES_license_status' );
 		}
 
@@ -242,51 +240,49 @@ add_action( 'admin_init', 'edd_wbcom_BPQUOTES_deactivate_license' );
 
 
 /************************************
- * This illustrates how to check if
+ * this illustrates how to check if
  * a license key is still valid
  * the updater does this for you,
  * so this is only needed if you
  * want to do something custom
  *************************************/
 
-add_action( 'admin_init', 'edd_wbcom_BPQUOTES_check_license' );
 function edd_wbcom_BPQUOTES_check_license() {
-	global $wp_version, $pagenow;
+	global $wp_version;
 
-	if ( $pagenow === 'plugins.php' || $pagenow === 'index.php' || ( isset( $_GET['page'] ) && $_GET['page'] === 'wbcom-license-page' ) ) {		// phpcs:ignore
+	$license = trim( get_option( 'edd_wbcom_BPQUOTES_license_key' ) );
 
-		$license_data = get_transient( 'edd_wbcom_BPQUOTES_license_key_data' );
-		$license = trim( get_option( 'edd_wbcom_BPQUOTES_license_key' ) );
+	$api_params = array(
+		'edd_action' => 'check_license',
+		'license'    => $license,
+		'item_name'  => urlencode( EDD_BPQUOTES_ITEM_NAME ),
+		'url'        => home_url(),
+	);
 
-		if ( empty( $license_data ) && $license != '' ) {
+	// Call the custom API.
+	$response = wp_remote_post(
+		EDD_BPQUOTES_STORE_URL,
+		array(
+			'timeout'   => 15,
+			'sslverify' => false,
+			'body'      => $api_params,
+		)
+	);
 
-			$api_params = array(
-				'edd_action' => 'check_license',
-				'license'    => $license,
-				'item_name'  => urlencode( EDD_BPQUOTES_ITEM_NAME ),
-				'url'        => home_url(),
-			);
+	if ( is_wp_error( $response ) ) {
+		return false;
+	}
 
-			// Call the custom API.
-			$response = wp_remote_post(
-				EDD_BPQUOTES_STORE_URL,
-				array(
-					'timeout'   => 15,
-					'sslverify' => false,
-					'body'      => $api_params,
-				)
-			);
+	$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
-			if ( is_wp_error( $response ) ) {
-				return false;
-			}
-
-			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
-
-			if ( ! empty( $license_data ) ) {
-				set_transient( 'edd_wbcom_BPQUOTES_license_key_data', $license_data, 12 * HOUR_IN_SECONDS );
-			}
-		}
+	if ( $license_data->license == 'valid' ) {
+		echo 'valid';
+		exit;
+		// this license is still valid
+	} else {
+		echo 'invalid';
+		exit;
+		// this license is no longer valid
 	}
 }
 
@@ -294,37 +290,13 @@ function edd_wbcom_BPQUOTES_check_license() {
  * This is a means of catching errors from the activation method above and displaying it to the customer
  */
 function edd_wbcom_BPQUOTES_admin_notices() {
-	$license_activation = filter_input( INPUT_GET, 'BPQUOTES_activation' ) ? filter_input( INPUT_GET, 'BPQUOTES_activation' ) : '';
-	$error_message      = filter_input( INPUT_GET, 'message' ) ? filter_input( INPUT_GET, 'message' ) : '';
-	$license_data       = get_transient( 'edd_wbcom_BPQUOTES_license_key_data' );
-	$license            = trim( get_option( 'edd_wbcom_BPQUOTES_license_key' ) );
-
-	if ( isset( $license_activation ) && ! empty( $error_message ) || ( ! empty( $license_data ) && $license_data->license == 'expired' ) ) {
-		if ( $license_activation === '' ) {
-			$license_activation = $license_data->license;
-		}
-		switch ( $license_activation ) {
-			case 'expired':
-				?>
-				<div class="notice notice-error is-dismissible">
-				<p>
-				<?php
-				printf(
-							/* translators: %1$s: Expire Time*/
-					esc_html__( 'Your BuddyPress Quotes plugin license key expired on %s.', 'buddypress-quotes' ),
-					esc_html( date_i18n( get_option( 'date_format' ), strtotime( $license_data->expires, current_time( 'timestamp' ) ) ) )
-				);
-				?>
-				</p>
-				</div>
-				<?php
-
-				break;
+	if ( isset( $_GET['BPQUOTES_activation'] ) && ! empty( $_GET['message'] ) ) {
+		switch ( $_GET['BPQUOTES_activation'] ) {
 			case 'false':
-				$message = urldecode( $error_message );
+				$message = urldecode( $_GET['message'] );
 				?>
 				<div class="error">
-					<p><?php echo esc_html( $message ); ?></p>
+					<p><?php echo $message; ?></p>
 				</div>
 				<?php
 				break;
@@ -335,19 +307,6 @@ function edd_wbcom_BPQUOTES_admin_notices() {
 				break;
 		}
 	}
-
-	if ( $license === '' ) {
-		?>
-		<div class="notice notice-error is-dismissible">
-			<p>
-			<?php
-			echo esc_html__( 'Please activate your BuddyPress Quotes plugin license key.', 'buddypress-quotes' );
-			?>
-			</p>			
-		</div>
-		<?php
-	}
-
 }
 add_action( 'admin_notices', 'edd_wbcom_BPQUOTES_admin_notices' );
 
@@ -359,19 +318,9 @@ function wbcom_BPQUOTES_render_license_section() {
 
 	$plugin_data = get_plugin_data( BPQUOTES_PLUGIN_PATH . '/buddypress-quotes.php', $markup = true, $translate = true );
 
-	$license_output = edd_BPQUOTES_active_license_message();
-
-	if ( false !== $status && 'valid' === $status && ! empty( $license_output ) && $license_output['license_data']->license == 'valid' ) {
+	if ( $status !== false && $status == 'valid' ) {
 		$status_class = 'active';
 		$status_text  = 'Active';
-	} else if ( ! empty( $license_output ) && $license_output['license_data']->license != '' && $license_output['license_data']->license == 'expired' ) {
-		$status_class = 'expired';
-		$status_text  = ucfirst( str_replace( '_', ' ', $license_output['license_data']->license ) );
-
-	} else if ( ! empty( $license_output ) && $license_output['license_data']->license != '' && $license_output['license_data']->license == 'invalid' ) {
-		$status_class = 'invalid';
-		$status_text  = ucfirst( str_replace( '_', ' ', $license_output['license_data']->license ) );
-
 	} else {
 		$status_class = 'inactive';
 		$status_text  = 'Inactive';
@@ -393,101 +342,25 @@ function wbcom_BPQUOTES_render_license_section() {
 		<?php settings_fields( 'edd_wbcom_BPQUOTES_license' ); ?>
 		<table class="form-table wb-license-form-table">
 			<tr>
-				<td class="wb-plugin-name"><?php echo esc_html( $plugin_data['Name'] ); ?></td>
-				<td class="wb-plugin-version"><?php echo esc_html( $plugin_data['Version'] ); ?></td>
-				<td class="wb-plugin-license-key">
-					<input id="edd_wbcom_BPQUOTES_license_key" name="edd_wbcom_BPQUOTES_license_key" type="text" class="regular-text" value="<?php echo esc_attr( $license ); ?>" />
-					<p><?php echo esc_html( $license_output['message'] ); ?></p>
-				</td>
-				<td class="wb-license-status <?php echo esc_attr( $status_class ); ?>"><?php echo esc_html( $status_text ); ?></td>
+				<td class="wb-plugin-name"><?php esc_attr_e( $plugin_data['Name'], 'buddypress-quotes' ); ?></td>
+				<td class="wb-plugin-version"><?php esc_attr_e( $plugin_data['Version'], 'buddypress-quotes' ); ?></td>
+				<td class="wb-plugin-license-key"><input id="edd_wbcom_BPQUOTES_license_key" name="edd_wbcom_BPQUOTES_license_key" type="text" class="regular-text" value="<?php esc_attr_e( $license, 'buddypress-quotes' ); ?>" /></td>
+				<td class="wb-license-status <?php echo esc_attr( $status_class ); ?>"><?php esc_attr_e( $status_text, 'buddypress-quotes' ); ?></td>
 				<td class="wb-license-action">
 					<?php
 					if ( $status !== false && $status == 'valid' ) {
 						wp_nonce_field( 'edd_wbcom_BPQUOTES_nonce', 'edd_wbcom_BPQUOTES_nonce' );
 						?>
-						<input type="submit" class="button-secondary" name="edd_BPQUOTES_license_deactivate" value="<?php esc_attr_e( 'Deactivate License', 'buddypress-quotes' ); ?>"/>
+						<input type="submit" class="button-secondary" name="edd_BPQUOTES_license_deactivate" value="<?php _e( 'Deactivate License', 'buddypress-quotes' ); ?>"/>
 						<?php
 					} else {
 						wp_nonce_field( 'edd_wbcom_BPQUOTES_nonce', 'edd_wbcom_BPQUOTES_nonce' );
 						?>
-						<input type="submit" class="button-secondary" name="edd_BPQUOTES_license_activate" value="<?php esc_attr_e( 'Activate License', 'buddypress-quotes' ); ?>"/>
+						<input type="submit" class="button-secondary" name="edd_BPQUOTES_license_activate" value="<?php _e( 'Activate License', 'buddypress-quotes' ); ?>"/>
 					<?php } ?>
 				</td>
 			</tr>
 		</table>
 	</form>
 	<?php
-}
-
-/**
- * License activation message
- *
- * @return array $output store license data.
- */
-function edd_BPQUOTES_active_license_message() {
-	global $wp_version, $pagenow;
-
-	if ( $pagenow === 'plugins.php' || $pagenow === 'index.php' || ( isset( $_GET['page'] ) && $_GET['page'] === 'wbcom-license-page' ) ) {		// phpcs:ignore
-
-		$license_data = get_transient( 'edd_wbcom_BPQUOTES_license_key_data' );
-		$license      = trim( get_option( 'edd_wbcom_BPQUOTES_license_key' ) );
-
-			$api_params = array(
-				'edd_action' => 'check_license',
-				'license'    => $license,
-				'item_name'  => urlencode( EDD_BPQUOTES_ITEM_NAME ),
-				'url'        => home_url(),
-			);
-
-			// Call the custom API.
-			$response = wp_remote_post(
-				EDD_BPQUOTES_STORE_URL,
-				array(
-					'timeout'   => 15,
-					'sslverify' => false,
-					'body'      => $api_params,
-				)
-			);
-
-		if ( is_wp_error( $response ) ) {
-			return false;
-		}
-
-			$output = array();
-			$output['license_data'] = json_decode( wp_remote_retrieve_body( $response ) );
-			$message = '';
-			// make sure the response came back okay
-		if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
-
-			if ( is_wp_error( $response ) ) {
-				$message = $response->get_error_message();
-			} else {
-				$message = __( 'An error occurred, please try again.', 'buddypress-quotes' );
-			}
-		} else {
-			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
-			// Get expire date
-			$expires = false;
-			if ( isset( $license_data->expires ) && 'lifetime' != $license_data->expires ) {
-				$expires    = date_i18n( get_option( 'date_format' ), strtotime( $license_data->expires, current_time( 'timestamp' ) ) );
-			} elseif ( isset( $license_data->expires ) && 'lifetime' == $license_data->expires ) {
-				$expires = 'lifetime';
-			}
-
-			if ( $license_data->license == 'valid' ) {
-				// Get site counts
-				$site_count    = $license_data->site_count;
-				$license_limit = $license_data->license_limit;
-				$message = 'License key is active.';
-				if ( isset( $expires ) && 'lifetime' != $expires ) {
-					$message .= sprintf( __( ' Expires %s.', 'buddypress-quotes' ), $expires ) . ' ';
-				}
-				if ( $license_limit ) {
-					$message .= sprintf( __( 'You have %1$s/%2$s-sites activated.', 'buddypress-quotes' ), $site_count, $license_limit );
-				}
-			}
-		}
-			$output['message'] = $message;
-			return $output;
-	}
 }
