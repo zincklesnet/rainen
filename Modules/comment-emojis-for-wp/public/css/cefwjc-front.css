@@ -1,0 +1,211 @@
+:root {
+    --cefwjc-front-border: #d0d7de;
+    --cefwjc-front-focus: #2271b1;
+    --cefwjc-front-muted: #6b7280;
+    --cefwjc-front-surface: #ffffff;
+    --cefwjc-front-surface-muted: #f8fafc;
+    --cefwjc-front-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
+    --cefwjc-front-shadow-soft: 0 4px 14px rgba(15, 23, 42, 0.08);
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync,
+.comment-form .emojionearea.cefwjc-theme-sync {
+    width: 100%;
+    border: 1px solid var(--cefwjc-theme-border, var(--cefwjc-front-border));
+    border-radius: var(--cefwjc-theme-radius, 12px);
+    background: var(--cefwjc-theme-background, var(--cefwjc-front-surface));
+    color: var(--cefwjc-theme-color, inherit);
+    font-family: var(--cefwjc-theme-font-family, inherit);
+    font-size: var(--cefwjc-theme-font-size, inherit);
+    line-height: var(--cefwjc-theme-line-height, 1.6);
+    box-shadow: var(--cefwjc-front-shadow-soft);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync.focused,
+.comment-form .emojionearea.cefwjc-theme-sync.focused {
+    border-color: var(--cefwjc-front-focus);
+    box-shadow: 0 0 0 3px rgba(34, 113, 177, 0.12), var(--cefwjc-front-shadow-soft);
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync > .emojionearea-editor,
+.comment-form .emojionearea.cefwjc-theme-sync > .emojionearea-editor {
+    min-height: var(--cefwjc-theme-min-height, 120px);
+    padding: 14px 48px 14px 16px;
+    color: inherit;
+    font: inherit;
+    line-height: inherit;
+    background: transparent;
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync > .emojionearea-editor:empty:before,
+.comment-form .emojionearea.cefwjc-theme-sync > .emojionearea-editor:empty:before {
+    color: var(--cefwjc-front-muted);
+    font: inherit;
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-button,
+.comment-form .emojionearea.cefwjc-theme-sync .emojionearea-button {
+    top: 12px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    opacity: 0.78;
+    border-radius: 999px;
+    transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-button:hover,
+.comment-form .emojionearea.cefwjc-theme-sync .emojionearea-button:hover {
+    opacity: 1;
+    background: rgba(15, 23, 42, 0.05);
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-button > div,
+.comment-form .emojionearea.cefwjc-theme-sync .emojionearea-button > div {
+    right: 2px;
+    top: 2px;
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-picker,
+.comment-form .emojionearea.cefwjc-theme-sync .emojionearea-picker {
+    border: 1px solid var(--cefwjc-front-border);
+    border-radius: 16px;
+    background: var(--cefwjc-front-surface);
+    box-shadow: var(--cefwjc-front-shadow);
+    overflow: hidden;
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-wrapper:after,
+.comment-form .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-wrapper:after {
+    display: none;
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-filters,
+.comment-form .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-filters {
+    background: var(--cefwjc-front-surface-muted);
+    border-bottom: 1px solid #e5e7eb;
+    padding-left: 7px;
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-filter,
+.comment-form .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-filter {
+    border-radius: 8px 8px 0 0;
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-filter.active,
+.comment-form .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-filter.active {
+    background: #ffffff;
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-search-panel,
+.comment-form .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-search-panel {
+    padding: 5px 8px;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-search,
+.comment-form .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-search {
+    width: 160px;
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-search > input,
+.comment-form .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-search > input {
+    width: 100%;
+    min-width: 100%;
+    height: 30px;
+    border: 1px solid var(--cefwjc-front-border);
+    border-radius: 999px;
+    padding: 0 14px;
+    background: #ffffff;
+    color: #111827;
+    box-shadow: none;
+    font-size: 13px;
+    text-transform: none;
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-search > input:focus,
+.comment-form .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-search > input:focus {
+    border-color: var(--cefwjc-front-focus);
+    box-shadow: 0 0 0 3px rgba(34, 113, 177, 0.12);
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-tones,
+.comment-form .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-tones {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+    width: auto;
+    max-width: 116px;
+    margin-right: 0;
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-scroll-area,
+.comment-form .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-scroll-area {
+    padding: 10px;
+    background: #ffffff;
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-category-title,
+.comment-form .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-category-title {
+    padding: 8px 2px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--cefwjc-front-muted);
+    text-transform: none;
+    background: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojibtn,
+.comment-form .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojibtn {
+    border-radius: 10px;
+    transition: background-color 0.18s ease, transform 0.18s ease;
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojibtn:hover,
+.comment-form .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojibtn:hover {
+    background: #f3f4f6;
+    transform: scale(1.04);
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-scroll-area::-webkit-scrollbar,
+.comment-form .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-scroll-area::-webkit-scrollbar {
+    width: 8px;
+}
+
+.comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-scroll-area::-webkit-scrollbar-thumb,
+.comment-form .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-scroll-area::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 999px;
+}
+
+@media screen and (max-width: 782px) {
+    .comment-respond .emojionearea.cefwjc-theme-sync > .emojionearea-editor,
+    .comment-form .emojionearea.cefwjc-theme-sync > .emojionearea-editor {
+        padding-right: 42px;
+        min-height: max(104px, var(--cefwjc-theme-min-height, 104px));
+    }
+
+    .comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-button,
+    .comment-form .emojionearea.cefwjc-theme-sync .emojionearea-button {
+        right: 10px;
+    }
+
+    .comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-picker,
+    .comment-form .emojionearea.cefwjc-theme-sync .emojionearea-picker,
+    .comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-wrapper,
+    .comment-form .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-wrapper {
+        width: min(320px, calc(100vw - 32px));
+    }
+
+    .comment-respond .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-search,
+    .comment-form .emojionearea.cefwjc-theme-sync .emojionearea-picker .emojionearea-search {
+        width: calc(100% - 128px);
+    }
+}
