@@ -1,0 +1,976 @@
+/*----------  Tab Icon  ----------*/
+.nav-tab-wrapper ul li.general a.nav-tab:before {
+    content: "\f111";
+}
+
+.nav-tab-wrapper ul li.group_settings a.nav-tab:before {
+    content: "\f307";
+}
+
+.nav-tab-wrapper ul li.gen_settings a.nav-tab:before {
+    content: "\f108";
+}
+
+.nav-tab-wrapper ul li.profile_search a.nav-tab:before {
+    content: "\f179";
+}
+
+.nav-tab-wrapper ul li.support a.nav-tab:before {
+    content: "\f125";
+}
+
+.wbcom-settings-section-options .selectize-input {
+    line-height: 22px;
+    height: unset;
+    padding: 0 8px !important;
+}
+
+.wbcom-dashboard-wrapper-admin .container .form-table th {
+    padding: 20px;
+}
+
+.wbcom-dashboard-wrapper-admin table.form-table tr:last-child {
+    border-bottom: 0;
+}
+
+div#bmpro-hide-resume-user-role,
+div#bmpro-hide-resume-member-type {
+    overflow: inherit;
+}
+
+.bprm-groups-key-field-item label {
+    display: block;
+    font-size: 13px;
+    color: #333;
+    font-weight: 500;
+}
+
+.bprm-groups-key-field-item {
+    margin-bottom: 15px;
+}
+
+.bprm-gp-tabs-link:hover {
+    cursor: move;
+}
+
+.wbcom-admin-title-section.wbcom-heading-title-content h3,
+.wbcom-admin-title-section.wbcom-heading-title-content p {
+    margin: 0;
+}
+
+.bprm-gen-settings-container input[type=text],
+.bprm-gen-settings-container .selectize-input,
+.bprm-gen-settings-container .bprm-groups-key-field-item select {
+    border-radius: 8px;
+    box-shadow: none;
+    height: 40px;
+    padding: 8px;
+    background-color: #F4F5F7;
+    border-color: #e2e2e2;
+    width: 100%;
+    max-width: 100%;
+}
+
+.bprm-gen-settings-container .bprm-groups-key-field-item select {
+    padding: 4px 8px;
+}
+
+.bprm-gen-settings-container .selectize-input,
+.bprm-gen-settings-container .selectize-input input[type="text"] {
+    height: auto !important;
+    line-height: 22px;
+}
+
+.bprm-group-tab-link-container span.bprm-tab-description {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    display: block;
+}
+
+form#bprm-add-new-form .bprm-groups-key-field-item label,
+#bprm-add-new-group-form .bprm-groups-key-field-item label {
+    line-height: 1.2;
+}
+
+.wbcom-admin-option-wrap .form-table .bprm-groups-key-field-item input[type=checkbox] {
+    display: block;
+    margin-top: 5px;
+}
+
+span.bprm-description.bprm-description-full {
+    line-height: 1;
+    display: block;
+    margin: 8px 0 15px;
+}
+
+.bprm-group-availability label {
+    margin-bottom: 15px;
+}
+
+.bprm-group-availability span.bprm-description {
+    margin-right: 15px;
+}
+
+#bprm-add-new-group-form input[type=text],
+.wbcom-tab-content #bprm-add-new-group-form select[name="bprm_gp_display_area"] {
+    height: 40px;
+    background-color: #fff;
+    border: 1px solid #e1e6f4;
+}
+
+.bprm-gen-settings-container #bprm-add-new-group-form .selectize-input {
+    background: #fff;
+}
+
+.bprm-gen-settings-container.bprm-profile-fields-wrap .wbcom-admin-option-wrap {
+    margin-top: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+/*----------  Active tab design  ----------*/
+
+.nav-tab.active {
+    border-bottom: 1px solid #f1f1f1;
+    background: #f1f1f1;
+    color: #000;
+}
+
+
+/*----------  Style tabbed settings  ----------*/
+
+.container {}
+
+ul.bprm-tabs {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+ul.bprm-tabs li {
+    background: none;
+    color: #555;
+    display: inline-block;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+ul.bprm-tabs li.current {
+    background: lightgrey;
+    color: #555;
+    font-weight: bold;
+}
+
+.bprm-tab-content {
+    display: none;
+    background: #fff;
+    padding: 15px;
+    padding-top: 2px;
+}
+
+.bprm-tab-content.current {
+    display: inherit;
+    background-color: lightgrey;
+}
+
+
+/*----------  Style label and checkboxes  ----------*/
+
+.checkbox-inline {
+    display: inline-block;
+    padding-left: 0;
+    margin-bottom: 10px;
+}
+
+
+/*----------  Support Style  ----------*/
+
+.bprm-admin-col-12 {
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.bprm-adming-setting {
+    float: left;
+    width: 100%;
+}
+
+button.bprm-accordion {
+    background-color: #fff;
+    border: medium none;
+    color: hsl(0, 0%, 27%);
+    cursor: pointer;
+    font-size: 15px;
+    margin: 0;
+    font-weight: 500;
+    outline: medium none;
+    padding: 15px 20px;
+    text-align: left;
+    -webkit-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+    width: 100%;
+}
+
+button.bprm-accordion.active,
+button.bprm-accordion:hover {
+    background-color: hsl(207, 90%, 54%);
+    color: white;
+}
+
+div.wbbpp-panel {
+    background-color: white;
+    margin: 0px;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 18px;
+    -webkit-transition: max-height 0.2s ease-out;
+    transition: max-height 0.2s ease-out;
+}
+
+button.bprm-accordion::after {
+    color: hsl(0, 0%, 47%);
+    content: "+";
+    float: right;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+button.bprm-accordion:hover::after {
+    color: white;
+}
+
+button.bprm-accordion.active::after {
+    content: "−";
+    color: white;
+    font-size: 18px;
+}
+
+.bprm-admin-row {
+    clear: both;
+    overflow: hidden;
+}
+
+.bprm-tab-3-title {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.bprm-tab-content .form-table td {
+    padding: 0;
+}
+
+
+/*Dynamic field settings container 11-nov-2017*/
+
+
+/*.bprm-gen-settings-wrap{
+    margin:10px 20px 0 2px;
+}*/
+
+.bprm-gen-settings-container.bprm-profile-fields-wrap {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.bprm-group-field-container {
+    width: -webkit-calc(50% - 3%);
+    width: calc(50% - 3%);
+    margin-right: 2%;
+    float: left;
+}
+
+.bprm-add-new-field-container {
+    width: 50%;
+    float: right;
+}
+
+.clear {
+    clear: both;
+}
+
+.bprm-gp-tabs-link:after {
+    display: table;
+    content: ' ';
+    clear: both;
+}
+
+.bprm-group-field-container input[type=text],
+.bprm-group-field-container textarea {
+    width: 100%;
+}
+
+.bprm-group-tabs textarea {
+    height: 60px;
+    background-color: #F4F5F7;
+    border-color: #e2e2e2;
+    border-radius: 8px;
+    padding: 8px;
+    width: 100%;
+}
+
+.bprm-gp-tabs-link:hover {
+    cursor: move;
+}
+
+/*jquery toggle content css*/
+
+div.bprm-group-tab-link-container {
+    margin-bottom: 15px;
+    border-radius: 8px;
+    background: #f6f7fe;
+    border: 1px solid #e1e6f4;
+    padding: 8px 15px;
+}
+
+div.bprm-group-tabs-content {
+    padding: 0;
+    display: none;
+}
+
+div.bprm-group-tabs-link,
+div.bprm-gp-tabs-link {
+    width: 100%;
+    color: #333;
+    font-size: 14px;
+    /* padding: 12px 18px; */
+    /* background: #fff; */
+    /* border: 1px solid #ddd; */
+    border-radius: 0;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    font-weight: 500;
+    /* text-transform: uppercase; */
+}
+
+div.bprm-group-tabs-link.active {
+    border-bottom: 0;
+}
+
+
+/* extra + icon in admin groups tab */
+
+.pro-fields div.bprm-group-tabs-link::after {
+    font-family: FontAwesome;
+    color: hsl(0, 0%, 47%);
+    content: "\f055";
+    float: right;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.bprm-group-actions {
+    float: right;
+    text-align: right;
+}
+
+.pro-fields div.bprm-group-tabs-link::after:hover {
+    color: white;
+}
+
+.pro-fields div.bprm-group-tabs-link.active::after {
+    content: "\f056";
+}
+
+span.bprm-description {
+    font-size: 12px;
+    color: #999;
+}
+
+span.bprm-description.bprm-description-full {
+    line-height: 1;
+    display: block;
+    margin: 8px 0 15px;
+}
+
+span.bprm-tab-description {
+    margin-left: 1%;
+}
+
+.bprm-add-new-field-container #bprm-add-new-group-form td {
+    margin-bottom: 5px;
+    padding: 5px 10px;
+}
+
+#bprm-add-new-group-form table.form-table {
+    margin: 0;
+}
+
+#bprm-add-new-form .bprm-groups-key-field-item input#bprm_nf_title,
+#bprm-add-new-form .bprm-groups-key-field-item select,
+#bprm-add-new-form .bprm-get-field-type-html input[type="text"] {
+    background-color: #fff;
+}
+
+/*start add new field style*/
+
+.bprm-settings-field-btn {
+    line-height: 50px;
+    padding: 0 45px;
+    font-size: 15px;
+    background: #2a32ef;
+    color: #fff;
+    text-shadow: none;
+    margin-right: 15px;
+    font-weight: 600;
+    border: 0;
+    margin-top: 10px;
+    text-decoration: none;
+    display: inline-block;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    box-shadow: 0px 10px 25px rgba(32, 53, 85, 0.35);
+    border-radius: 10px;
+}
+
+.bprm-settings-field-btn:hover {
+    background: #333;
+    color: #fff;
+}
+
+.bprm-settings-field-btn:active {
+    color: #fff !important;
+}
+
+
+/*end add new field style*/
+
+.bprm-add-new-form-container {
+    background-color: #f6f7fe;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.wbcom-admin-settings-page .bprm-add-new-form-container table.form-table tr {
+    border-bottom: 0;
+}
+
+.bprm-new-form-input {
+    width: 100%;
+}
+
+#bprm-add-new-group-form textarea {
+    border: 1px solid #e1e6f4;
+    border-radius: 8px;
+}
+
+.bprm-add-new-form-container .form-table input[type=radio] {
+    height: 25px;
+    width: 25px;
+    margin-right: 0px;
+}
+
+.bprm-add-new-form-container .form-table input[type=radio]:checked::before {
+    width: 15px;
+    height: 15px;
+    margin: 4px;
+    background-color: #2a32ef;
+}
+
+.bprm-add-new-form-container .form-table th {
+    vertical-align: top;
+    text-align: left;
+    padding: 15px 10px 20px 0;
+    width: 120px;
+    line-height: 1.3;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.wp-core-ui select.bprm-new-form-input {
+    max-width: 100%;
+}
+
+.bprm-add-new-form-container i.fa {
+    color: #2a32ef;
+}
+
+.bprm-add-new-form-container #bprm-add-new-form .bprm-groups-key-field-item i.fa.fa-plus-circle,
+.bprm-add-new-form-container #bprm-add-new-form .bprm-groups-key-field-item i.fa.fa-trash-o {
+    font-size: 18px;
+}
+
+.bprm-radio-text {
+    color: #fff;
+    font-size: 14px;
+    margin-right: 2%;
+}
+
+.bprm-nf-loader {
+    display: none;
+}
+
+.bprm-field-actions {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    display: block;
+}
+
+.bprm-field-zone {
+    background: #fff;
+    padding-top: 10px;
+    margin: 10px 0;
+    border-top: 1px solid #e1e6f4;
+    display: none;
+}
+
+.bprm-field-zone .form-table td {
+    padding: 15px 0px;
+}
+
+.bprm-groups-zone {
+    background: #fff;
+    padding: 20px;
+    margin: 10px 0;
+    border: 1px solid #e1e6f4;
+    position: relative;
+    border-radius: 10px;
+}
+
+.bprm-show-meta-field-zone,
+.bprm-show-meta-field-info {
+    display: none;
+}
+
+.bprm-show-field-zone.active+.bprm-show-meta-field-zone {
+    display: inline;
+}
+
+.ui-sortable {
+    list-style: none;
+}
+
+.bprm-field-li {
+    position: relative;
+    left: 0px;
+    top: 0px;
+    width: auto;
+    width: 100%;
+    min-height: 35px;
+    color: #444;
+    font-size: 12px;
+    padding: 8px 15px;
+    background: #fff;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-weight: 500;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    cursor: move;
+    position: relative;
+    list-style: none;
+}
+
+span.bprm-tab-field-title {
+    font-weight: 500;
+}
+
+.bprm-field-actions a {
+    text-decoration: none;
+    color: #444;
+}
+
+.bprm-group-tab-link-container a {
+    color: #444;
+}
+
+.bprm-fld-onchange-optn-html {
+    display: none;
+}
+
+.border-alert {
+    border: 1px solid red !important;
+}
+
+.bprm-onchange-type-loader {
+    display: none;
+}
+
+.bprm_nf_error {
+    color: red;
+    display: none;
+}
+
+.bprm_gp_error {
+    color: red;
+    display: none;
+}
+
+.bprm_field_section_title,
+.bprm_apprnc_section_field,
+.bprm_field_section_icon {
+    display: none;
+}
+
+.bprm-nf-oth-loader {
+    display: none;
+}
+
+.bprm-field-actions a,
+.bprm-group-actions a {
+    padding: 3px;
+    font-size: 18px;
+}
+
+a.bprm-remove-group-zone {
+    color: red !important;
+}
+
+.bprm-anchor-loader {
+    margin-right: 0 !important;
+}
+
+select.bprm_rs_type_change {
+    border-radius: 8px;
+    box-shadow: none;
+    height: 40px;
+    padding: 8px;
+    background-color: #F4F5F7;
+    border-color: #e2e2e2;
+    width: 100%;
+    max-width: 100%;
+}
+
+.bprm-fld-option-html input[type="text"] {
+    max-width: 70%;
+}
+
+/* Copy Key */
+.bprm-field-zone td.textToCopy {
+    display: flex;
+    gap: 5px;
+}
+
+.bprm-field-zone td.textToCopy input {
+    border: 0;
+    background: transparent;
+    font-family: Consolas, "courier new";
+    color: crimson;
+    background-color: #f1f1f1;
+}
+
+.bprm-field-zone td.textToCopy button.copywbbpText {
+    background: #2a32ef;
+    color: #fff;
+    border: 0;
+    padding: 0 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.bprm-field-zone td.textToCopy button.copywbbpText:hover {
+    background: #333;
+    color: #fff;
+}
+
+/* Start hide repeater group setting for otrhers group */
+
+.bprm_grp_others .tr-repeater-group {
+    display: none;
+}
+
+.wbbpp-resume-display-tr {
+    display: none;
+}
+
+.wbbpp-group-display-area-tr {
+    display: none;
+}
+
+
+/* Profile Search Fields */
+
+.bprm-field-header span,
+.add-bprm-search-field,
+.delete_bprm_field {
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 1em 0;
+}
+
+#add-bprm-search-field {
+    margin-top: 10px;
+    display: inline-block;
+    text-decoration: none;
+    background: #00c37b;
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+#add-bprm-search-field:hover {
+    background: #2a32ef;
+}
+
+.bprm-profile-search-fields select {
+    width: 100%;
+    max-width: 100%;
+    display: block;
+    height: 35px;
+    border-radius: 8px;
+    background-color: #f4f5f7;
+    border-color: #e2e2e2;
+}
+
+.bprm-profile-search-fields input[type="text"] {
+    width: 100%;
+    height: 35px;
+}
+
+.bprm-field-content a {
+    text-decoration: none;
+}
+
+.bprm-col1 {
+    display: inline-block;
+    width: 2%;
+    min-width: 24px;
+    cursor: move;
+}
+
+.bprm-col2 {
+    display: inline-block;
+    width: 20%;
+}
+
+.bprm-col3 {
+    display: inline-block;
+    width: 18%;
+}
+
+.bprm-col4 {
+    display: inline-block;
+    width: 35%;
+}
+
+.bprm-col5 {
+    display: inline-block;
+    width: 16%;
+}
+
+.delete_bprm_field {
+    display: inline-block;
+    color: #fff;
+    margin: 0;
+    margin-left: 5px;
+    font-size: 0;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background: #d30000;
+    border-radius: 100px;
+    position: relative;
+    top: 5px;
+}
+
+a.delete_bprm_field:before {
+    content: "\f335";
+    font-family: dashicons;
+    font-size: 20px;
+}
+
+.delete_bprm_field:hover {
+    color: #fff;
+    background: #aa0000;
+}
+
+.bprm-profile-search-fields-wrap p.description {
+    padding-top: 5px;
+    font-size: 14px;
+}
+
+.bprm-field-content .search_field {
+    margin-bottom: 12px;
+}
+
+label.responsive {
+    display: none;
+}
+
+
+.wbcom-admin-option-wrap th {
+    padding: 0;
+    width: 110px;
+}
+
+.bprm-fld-option-html {
+    margin-bottom: 10px;
+}
+
+.wbcom-wrap .notice.notice-error.is-dismissible.learndash-license-is-dismissible,
+#wpwrap .notice.notice-error {
+    display: none !important;
+}
+
+.wbcom-flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.wbcom-flex .wbcom-docslink {
+    color: #fff;
+    background: #2a32ef;
+    text-decoration: blink;
+    padding: 13px 30px;
+    line-height: 1;
+    border-radius: 12px;
+}
+
+/* End hide repeater group setting for otrhers group */
+
+/* Map API */
+.wbcom-settings-section-options.google-api-key-settings {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.google-api-key-settings button#wbbpp-verify-apikey {
+    border: none;
+    padding: 8px 30px;
+    border-radius: 10px;
+    color: #fff;
+    background: #2a32ef;
+}
+
+.google-api-key-settings button#wbbpp-verify-apikey.verify-api {
+    background: #06c637;
+}
+
+button#wbbpp-verify-apikey.api-error {
+    background: #ee1111;
+}
+
+
+@media screen and (max-width: 767px) and (min-width: 320px) {
+    .brpm_grp_name {
+        width: 60%;
+        display: inline-block;
+    }
+
+    .bprm-group-actions {
+        width: 22% !important;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .bprm-gen-settings-container .bprm-group-field-container {
+        width: auto;
+        margin-right: 0;
+        float: none;
+    }
+
+    .bprm-gen-settings-container .bprm-add-new-field-container {
+        width: auto;
+        float: none;
+    }
+
+    .bprm-profile-search-fields-wrap .bprm-field-header {
+        display: none;
+    }
+
+    .bprm-profile-search-fields-wrap span.bprm-col1.ui-sortable-handle:before,
+    .bprm-profile-search-fields-wrap span.bprm-col6.ui-sortable-handle:before,
+    .bprm-profile-search-fields-wrap span.bprm_spinner.ui-sortable-handle {
+        display: none !important;
+    }
+
+    .bprm-profile-search-fields-wrap span.bprm-col1.ui-sortable-handle {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .bprm-profile-search-fields-wrap .bprm-field-content .search_field {
+        margin-bottom: 12px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 22px;
+        margin-top: 8px;
+    }
+
+    .bprm-profile-search-fields-wrap div#bprm-profile-search-fields {
+        padding-top: 10px;
+    }
+
+    .bprm-groups-zone,
+    .wbcom-admin-option-wrap {
+        padding:15px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .bprm-adming-setting {
+        float: none;
+        width: 100%;
+    }
+
+    .bprm-gen-settings-container,
+    .bprm-gen-settings-container.bprm-profile-fields-wrap {
+        display: block;
+    }
+
+    .bprm-gen-settings-container .bprm-group-field-container {
+        width: auto;
+        margin-right: 0;
+        float: none;
+    }
+
+    .bprm-gen-settings-container .bprm-add-new-field-container {
+        width: auto;
+        float: none;
+    }
+
+    .bprm-group-availability span.bprm-description {
+        margin-right: 0;
+        display: inline-block;
+        width: -webkit-calc(100% - 50px);
+        width: calc(100% - 50px);
+    }
+
+    .bprm-gen-settings-container.bprm-profile-fields-wrap .wbcom-admin-option-wrap {
+        -ms-flex-flow: wrap;
+        flex-flow: wrap;
+    }
+
+    .bprm-field-header {
+        display: none;
+    }
+
+    label.responsive {
+        display: block;
+    }
+
+    .bprm-col1,
+    .bprm-col2,
+    .bprm-col3,
+    .bprm-col4,
+    .bprm-col5 {
+        width: 100%;
+        margin: 0 0 15px;
+    }
+
+    .search_field.wbcom label {
+        font-size: 13px;
+    }
+}
