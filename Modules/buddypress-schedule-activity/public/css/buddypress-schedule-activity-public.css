@@ -1,0 +1,602 @@
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Activity Schedule Post
+# BB Platform
+# Plugin Support
+    # BB Platform
+    # Youzify
+# Theme Support
+    # Reign
+    # BuddyBoss
+    # BuddyX Pro
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# Activity Schedule Post
+--------------------------------------------------------------*/
+#whats-new-options .post-elements-buttons-item {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+@media screen and (min-width: 46.8em) {
+    #whats-new-options .post-elements-buttons-item:first-child {
+        margin-left: 65px;
+    }
+}
+
+.bp-activity-schedule-posts {
+    position: relative;
+}
+
+.bp-activity-schedule-icon,
+.bp-activity-schedule-icon:focus {
+    color: inherit;
+    background: transparent !important;
+    border: 0;
+    outline: none;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 46.8em) {
+    .bp-activity-schedule-icon::after {
+        -webkit-transform: translate(-10px, 0);
+        -ms-transform: translate(-10px, 0);
+        transform: translate(-10px, 0);
+    }
+}
+
+.bp-activity-schedule-icon.is_scheduled .dashicons-clock:before {
+    content: "\f508";
+}
+
+.bp-activity-schedule-icon:focus::before,
+.bp-activity-schedule-icon:focus::after {
+    display: none;
+}
+
+.bp-activity-schedule-post-dropdown-list {
+    display: none;
+    position: absolute;
+    top: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, .06), 0 6px 24px 0 rgba(0, 0, 0, .12);
+    z-index: 10;
+}
+
+body #buddypress div.bp-activity-schedule-post-dropdown-list {
+    border-radius: 8px;
+}
+
+.bp-activity-schedule-post-dropdown-list ul {
+    margin: 0;
+    padding: 0;
+    min-width: 200px;
+}
+
+.bp-activity-schedule-post-dropdown-list ul li {
+    list-style: none;
+}
+
+.bp-activity-schedule-post-dropdown-list ul li>a {
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #555;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-decoration: none;
+    text-wrap: nowrap;
+}
+
+.bp-activity-schedule-post-dropdown-list ul li>a:hover {
+    background-color: rgba(0, 0, 0, .03);
+}
+
+.bp-activity-schedule-post-dropdown-list ul li>a>i {
+    font-size: 20px;
+    color: #737373;
+    margin-right: 8px;
+}
+
+.bp-activity-schedule-post-dropdown-list.selected {
+    display: block;
+}
+
+.bp-activity-schedule-model-wrap {
+    position: fixed;
+    z-index: 999991;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .5);
+    -webkit-transition: opacity .3s ease;
+    transition: opacity .3s ease;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.bp-activity-schedule-model-wrap .modal-wrapper {
+    max-width: 400px;
+    margin: 50px auto;
+    vertical-align: middle;
+    width: 90%;
+}
+
+.bp-activity-schedule-model-wrap .modal-container {
+    width: auto;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #b7b7b7;
+    border-radius: 8px !important;
+    box-shadow: 0 6px 24px 0 rgba(18, 43, 70, .1);
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.bp-activity-schedule-model-wrap .modal-container .bp-model-header {
+    background: #fafafa;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin: -20px -20px 20px;
+    padding: 20px;
+    background-color: transparent;
+    box-shadow: none;
+    border-bottom: 1px solid #b7b7b7;
+}
+
+.bp-activity-schedule-model-wrap .modal-container .bp-model-header h4 {
+    margin: 0;
+}
+
+.bp-activity-schedule-model-wrap .modal-container .bp-model-header .bp-model-close-button .dashicons {
+    font-size: 24px;
+}
+
+.bp-activity-schedule-model-wrap .modal-container .bp-modal-content p.schedule-date {
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.bp-activity-schedule-model-wrap .modal-container .bp-modal-content label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.bp-activity-schedule-model-wrap .modal-container .bp-modal-content .input-field {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.bp-activity-schedule-model-wrap .modal-container .bp-modal-content .input-field input {
+    margin: 0;
+    width: 100%;
+}
+
+.bp-activity-schedule-model-wrap .modal-container .bp-modal-content .input-field input[type="text"] {
+    min-height: 40px;
+}
+
+.bp-activity-schedule-model-wrap .modal-container .bp-modal-content .input-field [class*=dashicons] {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    right: 12px;
+    font-size: 20px;
+    color: #333;
+    opacity: .4;
+    pointer-events: none;
+}
+
+.bp-activity-schedule-model-wrap .modal-container .bp-modal-content .input-field-inline {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.bp-activity-schedule-model-wrap .modal-container .bp-modal-content .input-field.bp-schedule-activity-time-wrap {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.bp-activity-schedule-model-wrap .modal-container .bp-modal-content .bp-schedule-activity-meridian-wrap {
+    position: relative;
+    margin: 0 0 20px 10px;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    gap: 10px;
+}
+
+.bp-activity-schedule-model-wrap .modal-container .bp-modal-content .input-field-inline .bp-schedule-activity-meridian-wrap label {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 400;
+    color: #fff;
+    cursor: pointer;
+}
+
+.bp-activity-schedule-model-wrap .modal-container .bp-modal-content .bp-schedule-activity-meridian-wrap label input {
+    position: absolute;
+    opacity: 0;
+}
+
+.bp-activity-schedule-model-wrap .modal-container .bp-modal-content .input-field-inline .bp-schedule-activity-meridian-wrap label span {
+    background: #fff;
+    border: 1px solid #b7b7b7;
+    border-radius: 6px;
+    width: 42px;
+    height: 42px;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    line-height: 24px;
+}
+
+.bp-activity-schedule-model-wrap .modal-container .bp-modal-content .input-field-inline .bp-schedule-activity-meridian-wrap label input:checked+span {
+    color: #fff;
+    background-color: #555;
+    border-color: #555;
+}
+
+.bp-activity-schedule-model-wrap .modal-container .bp-model-footer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin: 0 -20px -20px;
+    padding: 15px 30px;
+    border-top: 1px solid #b7b7b7;
+    border-radius: 0 0 8px 8px;
+    text-align: right;
+}
+
+
+.bp-activity-schedule-model-wrap .modal-container .bp-model-footer a.bp-schedule-activity-clear {
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.bp-activity-schedule-model-wrap .modal-container .bp-model-footer .button.button-outline {
+    margin-right: 10px;
+}
+
+.bp-activity-schedule-model-wrap .modal-container .bp-model-footer .button[disabled] {
+    opacity: .6;
+    cursor: default;
+    pointer-events: none;
+}
+
+#buddypress .bp-activity-schedule-model-wrap .modal-container .bp-model-footer .button.button-outline,
+#buddypress .bp-activity-schedule-model-wrap .modal-container .bp-model-footer .button.button-outline:hover {
+    background-color: transparent;
+    border: 1px solid currentColor !important;
+    color: #555;
+}
+
+/* Activity Posted Message */
+.bp-schedule-activity-posted {
+    position: fixed;
+    bottom: 25px;
+    right: 35px;
+    max-width: 370px;
+    width: 100%;
+    z-index: 1099;
+}
+
+.bp-schedule-activity-posted .bp-schedule-item-list {
+    background: #fff;
+    box-shadow: 0 2px 7px 1px rgba(0, 0, 0, .05), 0 6px 32px 0 rgba(18, 43, 70, .1);
+    margin: 12px 0;
+    border: solid 1px #b7b7b7;
+    border-left: 4px solid currentColor;
+    border-radius: 4px;
+    -webkit-transition: all linear .2s;
+    transition: all linear .2s;
+    padding: 15px;
+    z-index: 4;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: relative;
+}
+
+.bp-schedule-activity-posted .bp-schedule-item-list.pull-animation {
+    -webkit-animation-name: close-item;
+    animation-name: close-item;
+    -webkit-animation-duration: .6s;
+    animation-duration: .6s;
+}
+
+.bp-schedule-activity-posted .bp-schedule-item-list .bp-schedule-messages-icon {
+    margin-right: 10px;
+    position: relative;
+}
+
+.bp-schedule-activity-posted .bp-schedule-item-list .bp-schedule-messages-content span {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: wrap;
+    flex-flow: wrap;
+    color: #767676;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    width: 100%;
+}
+
+.bp-schedule-activity-posted .bp-schedule-item-list .bp-schedule-messages-content span.title {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #555;
+}
+
+@-webkit-keyframes close-item {
+    0% {
+        -webkit-transform: translate(100%, 0);
+        transform: translate(100%, 0);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes close-item {
+    0% {
+        -webkit-transform: translate(100%, 0);
+        transform: translate(100%, 0);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+
+/* Schedule Activity Details */
+#whats-new-textarea {
+    position: relative;
+}
+
+@media screen and (min-width: 544px) {
+    #bp-schedule-activity-section {
+        position: absolute;
+        right: 0;
+    }
+}
+
+#bp-schedule-activity-section .bp-schedule-activity-details {
+    font-size: 13px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 3px;
+}
+
+#bp-schedule-activity-section .bp-schedule-activity-details .dashicons {
+    font-size: 15px;
+    width: 16px;
+    height: 16px;
+}
+
+.activity-form.focus-in #bp-schedule-activity-section {
+    position: static;
+    margin: auto;
+    margin-right: 0;
+}
+
+@media screen and (max-width: 580px) {
+    .activity-form.focus-in #bp-schedule-activity-section {
+        margin-top: 15px;
+        width: 100%;
+    }
+}
+
+/*--------------------------------------------------------------
+## BB Platform
+--------------------------------------------------------------*/
+.buddypress-schedule-activity-lists.bb-platform .activity-content .activity-meta.action,
+.buddypress-schedule-activity-lists.bb-platform .activity-content .bp-generic-meta.action {
+    display: none !important;
+}
+
+.buddypress-schedule-activity-lists.bb-platform .bb-activity-more-options-wrap .generic-button:not(:has(.delete-activity)) {
+    display: none !important;
+}
+
+.xdsoft_datetimepicker {
+    z-index: 999999;
+}
+
+#buddypress.buddypress-wrap .buddypress-schedule-activity-lists.bb-platform a.view.activity-time-since {
+    display: inline-block !important;
+}
+
+#buddypress.buddypress-wrap .buddypress-schedule-activity-lists.bb-platform .activity-header p.activity-date {
+    display: none !important;
+}
+
+.buddypress-schedule-activity-lists.bb-platform .activity-list .activity-item .activity-header .activity-time-since:before {
+    content: "\00b7 ";
+    color: #767676;
+    display: inline-block;
+    margin-right: 3px;
+    vertical-align: middle;
+}
+
+.buddypress-schedule-activity-lists.bb-platform .bb-media-privacy-wrap:before {
+    content: none;
+}
+
+/*--------------------------------------------------------------
+## Youzify
+--------------------------------------------------------------*/
+.bp-schedule-model-open .youzify-header-cover,
+.bp-schedule-model-open #youzify-profile-navmenu {
+    z-index: 0;
+}
+
+.youzify-wall-actions .bp-activity-schedule-posts {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    line-height: 40px;
+    border-radius: 100%;
+}
+
+.youzify-wall-actions .bp-activity-schedule-posts:hover {
+    background-color: var(--yzfy-card-secondary-bg-color);
+}
+
+.youzify-wall-actions .bp-activity-schedule-icon i {
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    color: #9f9f9f;
+    line-height: 40px;
+}
+
+.youzify-wall-actions .bp-activity-schedule-post-dropdown-list,
+.youzify-wall-actions #bp-schedule-activity-form-modal {
+    line-height: normal;
+}
+
+.youzify-wall-content #bp-schedule-activity-section .bp-schedule-activity-details {
+    margin-left: 25px;
+    margin-bottom: 5px;
+}
+
+.youzify-page-main-content .buddypress-schedule-activity-lists .activity-content {
+    padding-bottom: 20px;
+}
+
+.youzify-page-main-content .buddypress-schedule-activity-lists .activity-content .activity-meta {
+    display: none !important;
+}
+
+.youzify-dialog-msg-content .bp-schedule-activity-posted {
+    position: static;
+}
+
+.youzify-dialog-msg-content .bp-schedule-activity-posted .bp-schedule-item-list {
+    background-color: transparent;
+    border: 0;
+    box-shadow: none;
+    -webkit-animation: none;
+    animation: none;
+}
+
+.youzify-dialog-msg-content .bp-schedule-activity-posted .bp-schedule-item-list .bp-schedule-messages-icon {
+    display: none;
+}
+
+/*--------------------------------------------------------------
+## Reign
+--------------------------------------------------------------*/
+.buddypress-wrap.reign-theme .buddypress-schedule-activity-lists .activity-content .activity-meta.action {
+    display: none !important;
+}
+
+body.wb-reign-theme .youzify .bp-activity-schedule-model-wrap .modal-container .bp-model-footer button.button-outline {
+    color: #333;
+}
+
+/*--------------------------------------------------------------
+## BuddyBoss
+--------------------------------------------------------------*/
+.buddypress-wrap .bb-grid .buddypress-schedule-activity-lists .activity-meta.action,
+.buddypress-wrap .bb-grid .buddypress-schedule-activity-lists .bp-generic-meta.schedule-activity-meta {
+    display: none !important;
+}
+
+#buddypress .activity-list li.load-more.bp-schedule-activty-load-more a {
+    margin: auto;
+}
+
+/*--------------------------------------------------------------
+## BuddyX Pro
+--------------------------------------------------------------*/
+.buddypress-wrap.buddyx-pro .buddypress-schedule-activity-lists .activity-content .activity-meta.action {
+    display: none !important;
+}
+
+.buddypress-wrap.buddyx #whats-new-options .bp-activity-schedule-post_dropdown-html,
+.buddypress-wrap.buddyx-pro #whats-new-options .bp-activity-schedule-post_dropdown-html {
+    margin-top: 8px;
+    display: inline-block;
+}
+
+#bp-schedule-activity-section {
+    position: static;
+}
+
+.buddypress-wrap.buddyx #bp-schedule-activity-section .bp-schedule-activity-details {
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+
+.bb-schedule-post_dropdown_section {
+    display: none;
+}

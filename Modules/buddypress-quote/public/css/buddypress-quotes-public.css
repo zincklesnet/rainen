@@ -1,0 +1,656 @@
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Global
+# Themes Specific
+    # Buddyx
+    # BuddyBoss
+    # Boss
+    # Aardvark
+    # Kleo
+    # Gwangi
+    # OneCommunity
+# Youzify
+# BB Platform
+# RTL Support
+# Shortcode
+--------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------
+# Global
+--------------------------------------------------------------*/
+.quotescolor:after {
+    content: "";
+    background: url(../images/bg-grediant01.png);
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-size: cover;
+    background-position: center;
+}
+
+
+.wb-icons {
+    font-size: 18px;
+    min-width: 24px;
+    height: 24px;
+    line-height: 24px;
+    display: inline-block;
+}
+
+.wb-icons:before {
+    margin: 0;
+}
+
+.bp-nouveau #whats-new-options {
+    opacity: 1;
+    display: block;
+}
+
+#whats-new-options .post-elements-buttons-item {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+
+#whats-new-submit {
+    clear: both;
+}
+
+.bpquotes-content-wrapper {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.bpquotes-content-wrapper .quotescolor {
+    position: relative;
+    overflow: hidden;
+    padding: 25px;
+}
+
+.bpquotes-content-wrapper .quotesimg {
+    padding: 25px;
+    background-size: cover;
+    vertical-align: middle;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: relative;
+}
+
+.bpquotes-content-wrapper .quotesimg:after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgba(0, 0, 0, .3);
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.bpquotes-content-wrapper .bpquotes-content,
+.activity-list .activity-item .activity-content .bpquotes-content-wrapper .bpquotes-content,
+.bp-nouveau .activity-list .activity-item .activity-content .activity-inner .bpquotes-content-wrapper .bpquotes-content {
+    padding: 70px 0 70px;
+    border: none;
+    text-align: left;
+    font-style: inherit;
+    width: 75%;
+    font-size: 18px;
+    line-height: 1.5;
+    font-weight: 500;
+    color: inherit;
+    margin: 0 auto !important;
+    z-index: 1;
+}
+
+.bpquotes-content-wrapper .bpquotes-content p,
+.activity-list .activity-item .activity-content .bpquotes-content-wrapper .bpquotes-content p,
+.bp-nouveau .activity-list .activity-item .activity-content .activity-inner .bpquotes-content-wrapper .bpquotes-content p {
+    border: none;
+    text-align: left;
+    font-style: inherit;
+    font-size: 18px;
+    line-height: 1.5;
+    font-weight: 500;
+    color: inherit;
+    margin: 0 auto !important;
+    z-index: 1;
+}
+
+.bpquotes-content .activity-read-more a {
+    background: transparent !important;
+    color: inherit !important;
+}
+
+.bpquotes-content-wrapper .bpquotes-content {
+    position: relative;
+}
+
+.bpquotes-content-icon::before {
+    content: '';
+    background: url(../../public/images/quote.svg);
+    position: absolute;
+    left: 25px;
+    top: 25px;
+    font-size: 24px;
+    height: 40px;
+    width: 40px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    color: #fff;
+    border-radius: 4px;
+    z-index: 9;
+}
+
+@media screen and (min-width: 46.8em) {
+    #whats-new-options .post-elements-buttons-item:first-child {
+        margin-left: 65px;
+    }
+}
+
+.bp-nouveau .bpquotes-bg-selection-div {
+    margin: 0 5px;
+}
+
+.bpquotes-bg-selection-div {
+    max-width: 100%;
+    clear: both;
+}
+
+.quote-btn {
+    margin: 0;
+    display: inline-block;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 46.8em) {
+    .bp-nouveau .bpquotes-bg-selection-div {
+        margin-left: 65px;
+        margin-right: 5px;
+    }
+}
+
+.bpquotes-color div,
+.remove-bpquotes-selection div {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px !important;
+}
+
+.bpquotes-color,
+.remove-bpquotes-selection {
+    min-width: 50px;
+    width: 50px;
+    height: 50px;
+}
+
+.bpquotes-img,
+.bpquotes-color,
+.remove-bpquotes-selection {
+    max-width: 50px;
+    max-height: 50px;
+    width: 50px;
+    height: 100vh !important;
+    border-radius: 10px !important;
+    overflow: hidden;
+    box-shadow: 0 5px 10px -5px rgb(0 0 0 / 40%);
+}
+
+.bpquotes-bg-selection-div .slick-slide {
+    max-height: 50px;
+    height: 100vh !important;
+}
+
+.bpquotes-bg-selection-div .slick-slide {
+    margin: 0 8px;
+    transition: all 0.3s;
+}
+
+.bpquotes-bg-selection-div .slick-slide:hover,
+.bpquotes-bg-selection-div .slick-slide.current {
+    transform: translateY(-5px);
+}
+
+body .bpquotes-bg-selection-div .slick-list {
+    padding: 10px 0 !important;
+}
+
+.bpquotes-bg-selection-div .slick-slide img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 4px !important;
+}
+
+.bpquotes-bg-selection-div .slick-arrow {
+    width: 25px !important;
+    margin: 0;
+    padding: 0 !important;
+    height: 50px;
+    top: 50%;
+    background: rgb(0 0 0 / 50%) !important;
+    color: #fff !important;
+    z-index: 1;
+    border-radius: 4px !important
+}
+
+.bpquotes-bg-selection-div .slick-prev {
+    left: 0;
+}
+
+.bpquotes-bg-selection-div .slick-next {
+    right: 0;
+    left: auto;
+}
+
+.bpquotes-bg-selection-div .slick-arrow:before {
+    color: #fff !important;
+}
+
+.bpquotes-selection,
+.remove-bpquotes-selection {
+    cursor: pointer;
+}
+
+.bpquotes-selection.current,
+.remove-bpquotes-selection.current {
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); */
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+}
+
+.bpquotes-content-wrapper {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.bpquotes-content-wrapper .quotescolor {
+    position: relative;
+    overflow: hidden;
+    padding: 25px;
+}
+
+.bpquotes-content-wrapper .quotesimg {
+    padding: 25px;
+    background-size: cover;
+    vertical-align: middle;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: relative;
+}
+
+.bpquotes-content-wrapper .quotesimg:after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgba(0, 0, 0, .3);
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.bpquotes-content-wrapper .bpquotes-content,
+.activity-list .activity-item .activity-content .bpquotes-content-wrapper .bpquotes-content,
+.bp-nouveau .activity-list .activity-item .activity-content .activity-inner .bpquotes-content-wrapper .bpquotes-content {
+    padding: 70px 0 70px;
+    border: none;
+    text-align: left;
+    font-style: inherit;
+    width: 75%;
+    font-size: 18px;
+    line-height: 1.5;
+    font-weight: 500;
+    color: inherit;
+    margin: 0 auto !important;
+    z-index: 1;
+}
+
+.bpquotes-content-wrapper .bpquotes-content p,
+.activity-list .activity-item .activity-content .bpquotes-content-wrapper .bpquotes-content p,
+.bp-nouveau .activity-list .activity-item .activity-content .activity-inner .bpquotes-content-wrapper .bpquotes-content p {
+    border: none;
+    text-align: left;
+    font-style: inherit;
+    font-size: 20px;
+    line-height: 1.6;
+    font-weight: 500;
+    color: inherit;
+    margin: 0 auto !important;
+    z-index: 1;
+}
+
+.bpquotes-content .activity-read-more a {
+    background: transparent !important;
+    color: inherit !important;
+}
+
+.bpquotes-content-wrapper .bpquotes-content {
+    position: relative;
+}
+
+.widget .bpquotes-content-wrapper .bpquotes-content {
+    font-size: inherit;
+}
+
+.wb-quote.reign-polls.bp-nouveau .bpolls-html-container {
+    margin-left: 0;
+}
+
+.quotescolors-bg-selected::-webkit-input-placeholder {
+    color: inherit !important;
+}
+
+.quotescolors-bg-selected:-moz-placeholder {
+    /* Firefox 18- */
+    color: inherit !important;
+}
+
+.quotescolors-bg-selected::-moz-placeholder {
+    /* Firefox 19+ */
+    color: inherit !important;
+}
+
+.quotescolors-bg-selected:-ms-input-placeholder {
+    color: inherit !important;
+}
+
+.quotescolors-bg-selected::placeholder {
+    color: inherit !important;
+}
+
+
+/*--------------------------------------------------------------
+## Buddyx
+--------------------------------------------------------------*/
+
+.bp-nouveau .site-wrapper .bpquotes-bg-selection-div {
+    margin-left: 0;
+}
+
+
+/*--------------------------------------------------------------
+## BuddyBoss
+--------------------------------------------------------------*/
+
+[dir=rtl] .bpquotes-bg-selection-div .slick-slide {
+    float: right !important;
+}
+
+.wb-quote .activity-update-form .activity-form.focus-in--empty:not(.focus-in) #whats-new {
+    background-color: transparent !important;
+    color: inherit !important;
+}
+
+.wb-quote .activity-update-form .activity-form.focus-in #whats-new.quotescolors-bg-selected {
+    padding: 10px;
+}
+
+/*--------------------------------------------------------------
+## Boss
+--------------------------------------------------------------*/
+
+#right-panel-inner #buddypress form#whats-new-form #whats-new-additional {
+    display: block;
+}
+
+#right-panel-inner .bpquotes-bg-selection-div .slick-arrow {
+    padding-left: 8px !important;
+}
+
+
+/*--------------------------------------------------------------
+## Aardvark
+--------------------------------------------------------------*/
+
+.gp-theme .quote-btn {
+    margin-left: 0;
+    margin-top: 10px;
+}
+
+.gp-theme.buddypress-giphy-active .quote-btn {
+    margin-left: 10px;
+}
+
+
+/*--------------------------------------------------------------
+## Kleo
+--------------------------------------------------------------*/
+
+.kleo-page .bpquotes-bg-selection-div {
+    display: none;
+}
+
+.kleo-page .bpquotes-bg-selection-div .slick-prev:before,
+.kleo-page .bpquotes-bg-selection-div .slick-next:before {
+    line-height: inherit;
+}
+
+.kleo-page #buddypress #whats-new-content.active #whats-new-options {
+    overflow: visible;
+}
+
+.kleo-page .bpquotes-bg-selection-div .slick-prev,
+.kleo-page .bpquotes-bg-selection-div .slick-next {
+    display: block;
+}
+
+.kleo-page .activity-update-form #whats-new-options {
+    float: none;
+}
+
+@media screen and (min-width: 46.8em) {
+    .kleo-page #whats-new-options .post-elements-buttons-item:first-child {
+        margin-left: 0;
+    }
+}
+
+/*--------------------------------------------------------------
+## Gwangi
+--------------------------------------------------------------*/
+
+.grimlock .quote-btn,
+.grimlock .bpquotes-bg-selection-div {
+    order: 1;
+}
+
+.grimlock .quote-btn {
+    margin-left: 15px;
+}
+
+.grimlock .bpquotes-bg-selection-div {
+    max-width: 160px;
+}
+
+.grimlock #buddypress #item-body form#whats-new-form #whats-new-options #whats-new-submit,
+.grimlock #buddypress form#whats-new-form #whats-new-options #whats-new-submit {
+    order: 5;
+}
+
+
+/*--------------------------------------------------------------
+## OneCommnity
+--------------------------------------------------------------*/
+
+.onecommunity #whats-new-form {
+    display: block;
+}
+
+.onecommunity .quote-btn {
+    margin-left: 0;
+}
+
+@media screen and (min-width: 46.8em) {
+    .bp-nouveau .onecommunity .bpquotes-bg-selection-div {
+        margin: 0;
+    }
+}
+
+.onecommunity #whats-new-options:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+/*--------------------------------------------------------------
+# Youzify
+--------------------------------------------------------------*/
+
+.youzify .quote-btn {
+    margin-left: 0;
+}
+
+.youzify-wall-actions .post-elements-buttons-item.bp-quote-icon-wrapper {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    color: #9f9f9f;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 100%;
+}
+
+.youzify-wall-actions .post-elements-buttons-item.bp-quote-icon-wrapper:hover {
+    background-color: var(--yzfy-card-secondary-bg-color);
+}
+
+.bpquotes-bg-selection-div:not(.slick-initialized) {
+    display: none;
+}
+
+/*--------------------------------------------------------------
+# BB Platform
+--------------------------------------------------------------*/
+
+#whats-new-toolbar .wb-icons {
+    color: rgba(18, 43, 70, .5);
+    font-size: 18px;
+}
+
+#whats-new-toolbar .post-elements-buttons-item {
+    min-width: 24px;
+}
+
+#whats-new-toolbar .post-elements-buttons-item .quote-btn {
+    padding: 0;
+    border: 0;
+    text-align: left;
+}
+
+#whats-new-toolbar .post-elements-buttons-item .quote-btn .dashicons {
+    width: 24px;
+    height: 24px;
+    font-size: 22px;
+    vertical-align: middle;
+    vertical-align: bottom;
+    color: rgba(18, 43, 70, .4);
+}
+
+.bp-nouveau .activity-update-form #whats-new-attachments .bpquotes-bg-selection-div {
+    width: calc(100% - 30px);
+    margin: 15px;
+}
+
+.wb-quote #whats-new-form #whats-new {
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    border-radius: 0;
+}
+
+.activity-update-form .activity-form.focus-in #whats-new,
+.bp-nouveau-activity-form-placeholder- .activity-form.focus-in #whats-new {
+    padding-top: 10px;
+}
+
+.modal-popup #whats-new-textarea .quotescolors-bg-selected[contenteditable=true]:empty:before {
+    color: inherit;
+}
+
+.activity-update-form .activity-form.focus-in #whats-new.quotesimg-bg-selected,
+.bp-nouveau-activity-form-placeholder- .activity-form.focus-in #whats-new.quotesimg-bg-selected {
+    overflow: hidden;
+    position: relative;
+}
+
+#whats-new-textarea .quotesimg-bg-selected[contenteditable=true]:empty:before,
+#whats-new-textarea-placeholder .quotesimg-bg-selected[contenteditable=true]:empty:before,
+#whats-new-textarea div#whats-new.quotesimg-bg-selected p {
+    color: #fff;
+    z-index: 9;
+    position: relative;
+}
+
+#whats-new.quotesimg-bg-selected[style*="color"] p {
+    color: inherit !important;
+}
+
+div#whats-new.quotesimg-bg-selected:after {
+    content: "'";
+    width: 100%;
+    background: #000;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0.4;
+}
+
+
+/*--------------------------------------------------------------
+# RTL Support
+--------------------------------------------------------------*/
+
+[dir='rtl'] .bpquotes-bg-selection-div .slick-prev::before,
+[dir='rtl'] .bpquotes-bg-selection-div .slick-next::before {
+    display: inline-block;
+    transform: rotate(180deg);
+}
+
+
+/*--------------------------------------------------------------
+# Shortcode
+--------------------------------------------------------------*/
+
+.widget .bpquotes-content-wrapper .bpquotes-content,
+.widget .activity-list .activity-item .activity-content .bpquotes-content-wrapper .bpquotes-content,
+.widget .bp-nouveau .activity-list .activity-item .activity-content .activity-inner .bpquotes-content-wrapper .bpquotes-content {
+    padding-bottom: 30px;
+}
+
+.bp_edit_additiona_activity_content .bpquotes-bg-selection-div {
+    display: block !important;
+    margin-left: unset;
+    width: unset;
+}
