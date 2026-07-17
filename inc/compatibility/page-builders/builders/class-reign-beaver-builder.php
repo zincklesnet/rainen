@@ -118,6 +118,7 @@ class Reign_Beaver_Builder extends Reign_Page_Builder_Base {
 		}
 
 		// Check URL parameters
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only page-builder editor-mode detection (presence check only).
 		if ( isset( $_GET['fl_builder'] ) ) {
 			return true;
 		}
@@ -262,15 +263,22 @@ class Reign_Beaver_Builder extends Reign_Page_Builder_Base {
 	 */
 	private function get_dynamic_css() {
 		$css = '';
-		
-		// Get theme content width
-		$content_width = get_theme_mod( 'reign_site_content_width', '1140' );
-		
-		// Apply to BB fixed width rows
+
+		// Get theme content width. The registered setting is
+		// 'site_container_width' (a dimension control storing the value WITH
+		// its unit, e.g. '1170px' or '90%'); bare numbers from legacy saves
+		// get 'px' appended.
+		$content_width = get_theme_mod( 'site_container_width', '1170px' );
+		$content_width = trim( (string) $content_width );
+		if ( ! preg_match( '/^\d+(\.\d+)?(px|%|em|rem|vw)$/', $content_width ) ) {
+			$content_width = absint( $content_width ) ? absint( $content_width ) . 'px' : '1170px';
+		}
+
+		// Apply to BB fixed width rows.
 		$css .= '.fl-builder-content .fl-row-fixed-width {';
-		$css .= 'max-width: ' . absint( $content_width ) . 'px;';
+		$css .= 'max-width: ' . $content_width . ';';
 		$css .= '}';
-		
+
 		return $css;
 	}
 

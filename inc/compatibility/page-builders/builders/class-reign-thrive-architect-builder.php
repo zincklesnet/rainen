@@ -83,7 +83,8 @@ class Reign_Thrive_Architect_Builder extends Reign_Page_Builder_Base {
 	 * @return bool
 	 */
 	public function is_thrive_editor_active() {
-		return isset( $_GET['tve'] ) && $_GET['tve'] === 'true';
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only page-builder editor-mode detection.
+		return isset( $_GET['tve'] ) && 'true' === sanitize_key( wp_unslash( $_GET['tve'] ) );
 	}
 
 	/**
@@ -160,7 +161,7 @@ class Reign_Thrive_Architect_Builder extends Reign_Page_Builder_Base {
 		
 		if ( ! empty( $tve_content ) ) {
 			// Thrive Architect applies its own filters, so we just need to output the content
-			echo apply_filters( 'tve_editor_content', $tve_content );
+			echo apply_filters( 'tve_editor_content', $tve_content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Thrive Architect builder markup, rendered like the_content(); kses/esc would strip the builder's layout HTML.
 		} else {
 			// Fallback to regular content
 			the_content();

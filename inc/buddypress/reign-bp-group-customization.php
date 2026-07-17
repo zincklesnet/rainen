@@ -5,6 +5,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 /**
  * GROUP DIRECTORY CUSTOMIZATION
  */
@@ -41,7 +43,7 @@ if ( ! function_exists( 'reign_render_group_cover_image' ) ) {
 			: 'wbtm-group-directory-type-2';
 
 		// Only render cover image if the group directory type is not 'wbtm-group-directory-type-1'.
-		if ( $group_directory_type !== 'wbtm-group-directory-type-1' ) {
+		if ( 'wbtm-group-directory-type-1' !== $group_directory_type ) {
 			$group_id = bp_get_group_id(); // Get the current group ID.
 
 			// Try to get the cover image URL from the cache.
@@ -164,12 +166,13 @@ if ( ! function_exists( 'reign_render_bp_directory_groups_items' ) ) {
 
 			if ( false === $total_activity_in_grp ) {
 				global $bp, $wpdb;
-				$total_activity_in_grp = $wpdb->get_var( "SELECT COUNT(*) FROM {$bp->activity->table_name} WHERE component = 'groups' AND item_id = '$group_id'" );
+				$total_activity_in_grp = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$bp->activity->table_name} WHERE component = 'groups' AND item_id = %d", $group_id ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name from trusted BP core object; dynamic value is parameterized.
 				wp_cache_set( 'group_activity_count_' . $group_id, $total_activity_in_grp, '', 600 ); // Cache for 10 minutes.
 			}
 
 			// Manage singular and plural for activities.
-			$activity_label = ( $total_activity_in_grp == 1 ) ? __( '1 Activity', 'reign' ) : sprintf( __( '%s Activities', 'reign' ), number_format_i18n( $total_activity_in_grp ) );
+			/* translators: %s: number of activities in the group. */
+			$activity_label = ( 1 === $total_activity_in_grp ) ? __( '1 Activity', 'reign' ) : sprintf( __( '%s Activities', 'reign' ), number_format_i18n( $total_activity_in_grp ) );
 
 			$info_array['activity_post_count'] = array(
 				'tooltip_text' => $activity_label,
@@ -187,6 +190,7 @@ if ( ! function_exists( 'reign_render_bp_directory_groups_items' ) ) {
 			: 0;
 
 		// Manage singular and plural for members.
+		/* translators: %s: number of group members. */
 		$member_label = sprintf( _n( '%s Member', '%s Members', $member_count, 'reign' ), number_format_i18n( $member_count ) );
 
 		$info_array['member_count'] = array(
@@ -270,7 +274,7 @@ if ( ! function_exists( 'reign_render_extra_group_info' ) ) {
 
 			if ( false === $total_activity_in_grp ) {
 				global $bp, $wpdb;
-				$total_activity_in_grp = $wpdb->get_var( "SELECT COUNT(*) FROM {$bp->activity->table_name} WHERE component = 'groups' AND item_id = '$group_id'" );
+				$total_activity_in_grp = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$bp->activity->table_name} WHERE component = 'groups' AND item_id = %d", $group_id ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name from trusted BP core object; dynamic value is parameterized.
 				wp_cache_set( 'group_activity_count_' . $group_id, $total_activity_in_grp, '', 600 ); // Cache for 10 minutes
 			}
 

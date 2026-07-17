@@ -116,12 +116,14 @@ class Reign_Visual_Composer_Builder extends Reign_Page_Builder_Base {
 		}
 
 		// Check if we're in VC backend editor
-		if ( isset( $_GET['vc_editable'] ) && 'true' === $_GET['vc_editable'] ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only page-builder editor-mode detection.
+		if ( isset( $_GET['vc_editable'] ) && 'true' === sanitize_key( wp_unslash( $_GET['vc_editable'] ) ) ) {
 			return true;
 		}
 
 		// Check for VC frontend editor mode
-		if ( isset( $_GET['vc_action'] ) && 'vc_inline' === $_GET['vc_action'] ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only page-builder editor-mode detection.
+		if ( isset( $_GET['vc_action'] ) && 'vc_inline' === sanitize_key( wp_unslash( $_GET['vc_action'] ) ) ) {
 			return true;
 		}
 

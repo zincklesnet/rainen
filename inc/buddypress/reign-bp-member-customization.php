@@ -5,6 +5,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 /**
  * MEMBER DIRECTORY CUSTOMIZATION
  */
@@ -108,10 +110,12 @@ if ( ! function_exists( 'reign_render_bp_directory_members_item' ) ) {
 			// Check if BuddyBoss is active to use 'Connections' instead of 'Friends'.
 			if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
 				// BuddyBoss Platform: 'Connections'.
-				$friends_label = ( $friends_count == 1 ) ? __( '1 Connection', 'reign' ) : sprintf( __( '%s Connections', 'reign' ), number_format_i18n( $friends_count ) );
+				/* translators: %s: number of connections. */
+				$friends_label = ( 1 === $friends_count ) ? __( '1 Connection', 'reign' ) : sprintf( __( '%s Connections', 'reign' ), number_format_i18n( $friends_count ) );
 			} else {
 				// Default BuddyPress: 'Friends'.
-				$friends_label = ( $friends_count == 1 ) ? __( '1 Friend', 'reign' ) : sprintf( __( '%s Friends', 'reign' ), number_format_i18n( $friends_count ) );
+				/* translators: %s: number of friends. */
+				$friends_label = ( 1 === $friends_count ) ? __( '1 Friend', 'reign' ) : sprintf( __( '%s Friends', 'reign' ), number_format_i18n( $friends_count ) );
 			}
 
 			// Add to the info array.
@@ -153,8 +157,10 @@ if ( ! function_exists( 'reign_render_bp_directory_members_item' ) ) {
 			$url_to_following = esc_url( $base_url . 'following' );
 
 			// Handle singular/plural for followers and following.
-			$followers_label = ( $followers_count === 1 ) ? __( '1 Follower', 'reign' ) : sprintf( __( '%s Followers', 'reign' ), $followers_count );
-			$following_label = ( $following_count === 1 ) ? __( '1 Following', 'reign' ) : sprintf( __( '%s Following', 'reign' ), $following_count );
+			/* translators: %s: number of followers. */
+			$followers_label = ( 1 === $followers_count ) ? __( '1 Follower', 'reign' ) : sprintf( __( '%s Followers', 'reign' ), $followers_count );
+			/* translators: %s: number of accounts the member is following. */
+			$following_label = ( 1 === $following_count ) ? __( '1 Following', 'reign' ) : sprintf( __( '%s Following', 'reign' ), $following_count );
 
 			$info_array['followers'] = array(
 				'tooltip_text' => $followers_label,
@@ -202,8 +208,10 @@ if ( ! function_exists( 'reign_render_bp_directory_members_item' ) ) {
 				$url_to_following = esc_url( $base_url . 'following' );
 
 				// Handle singular/plural for followers and following.
-				$followers_label = ( $followers_count === 1 ) ? __( '1 Follower', 'reign' ) : sprintf( __( '%s Followers', 'reign' ), $followers_count );
-				$following_label = ( $following_count === 1 ) ? __( '1 Following', 'reign' ) : sprintf( __( '%s Followings', 'reign' ), $following_count );
+				/* translators: %s: number of followers. */
+				$followers_label = ( 1 === $followers_count ) ? __( '1 Follower', 'reign' ) : sprintf( __( '%s Followers', 'reign' ), $followers_count );
+				/* translators: %s: number of accounts the member is following. */
+				$following_label = ( 1 === $following_count ) ? __( '1 Following', 'reign' ) : sprintf( __( '%s Followings', 'reign' ), $following_count );
 
 				$info_array['followers'] = array(
 					'tooltip_text' => $followers_label,
@@ -508,7 +516,7 @@ if ( ! function_exists( 'reign_render_extra_usermeta_info' ) ) {
 
 			if ( function_exists( 'bp_is_activity_follow_active' ) && bp_is_activity_follow_active() ) {
 				if ( $is_enabled_followers ) {
-					$followers = bp_get_followers();
+					$followers               = bp_get_followers();
 					$info_array['followers'] = array(
 						'value' => count( $followers ),
 						'label' => __( 'Followers', 'reign' ),
@@ -516,7 +524,7 @@ if ( ! function_exists( 'reign_render_extra_usermeta_info' ) ) {
 				}
 
 				if ( $is_enabled_following ) {
-					$following = bp_get_following();
+					$following               = bp_get_following();
 					$info_array['following'] = array(
 						'value' => count( $following ),
 						'label' => __( 'Following', 'reign' ),
@@ -537,11 +545,10 @@ if ( ! function_exists( 'reign_render_extra_usermeta_info' ) ) {
 		}
 
 		if ( class_exists( 'myCRED_Core' ) ) {
-			global $mycred, $mycred_modules;
-			$myCRED_BuddyPress_Module_Obj = $mycred_modules['type']['mycred_default']['buddypress'];
-			$users_balance                = $mycred->get_users_balance( $user_id );
-			$users_balance                = $mycred->format_creds( $users_balance );
-			$info_array['mycred_points']  = array(
+			global $mycred;
+			$users_balance               = $mycred->get_users_balance( $user_id );
+			$users_balance               = $mycred->format_creds( $users_balance );
+			$info_array['mycred_points'] = array(
 				'value' => $users_balance,
 				'label' => __( 'Points', 'reign' ),
 			);
@@ -558,7 +565,7 @@ if ( ! function_exists( 'reign_render_extra_usermeta_info' ) ) {
 			);
 
 			if ( ! empty( $visitor_count ) ) {
-				$visitor_label = $visitor_count == 1 ? __( 'Visitor', 'reign' ) : __( 'Visitors', 'reign' );
+				$visitor_label = 1 === $visitor_count ? __( 'Visitor', 'reign' ) : __( 'Visitors', 'reign' );
 
 				$info_array['visitors'] = array(
 					'value' => $visitor_count,
@@ -591,7 +598,8 @@ if ( ! function_exists( 'reign_render_extra_usermeta_info' ) ) {
 if ( ! function_exists( 'reign_remove_mycred_bp_profile_header' ) ) {
 	add_filter( 'mycred_bp_profile_header', 'reign_remove_mycred_bp_profile_header', 10, 3 );
 
-	function reign_remove_mycred_bp_profile_header( $output, $myCRED_buddypress_bal_template, $myCRED_BuddyPress_Module_Obj ) {
+	function reign_remove_mycred_bp_profile_header( $output, $mycred_buddypress_bal_template, $mycred_buddypress_module_obj ) {
+		unset( $mycred_buddypress_bal_template, $mycred_buddypress_module_obj );
 		$output = '';
 		return $output;
 	}

@@ -1,24 +1,29 @@
-<?php
+<?php // phpcs:disable WordPress.Files.FileName.InvalidClassFileName -- Legacy filename referenced by theme includes; renaming would break load paths.
+// phpcs:disable Universal.Files.SeparateFunctionsFromOO.Mixed -- Legacy mixed file kept intact to preserve include behavior.
 /**
  * This is rtMedia functions file.
  *
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 if ( class_exists( 'RTMediaActivity' ) ) {
 
-	class reign_RTMediaActivity extends RTMediaActivity {
+	class Reign_RTMediaActivity extends RTMediaActivity {
 
-		var $media         = array();
-		var $activity_text = '';
-		var $privacy;
+		public $media         = array();
+		public $activity_text = '';
+		public $privacy;
 
 		/**
-		 * @param $media
-		 * @param int   $privacy
-		 * @param bool  $activity_text
+		 * Constructor.
+		 *
+		 * @param mixed $media         Media item or array of media items.
+		 * @param int   $privacy       Privacy level.
+		 * @param bool  $activity_text Activity text.
 		 */
-		function __construct( $media, $privacy = 0, $activity_text = false ) {
+		public function __construct( $media, $privacy = 0, $activity_text = false ) {
 			if ( ! isset( $media ) ) {
 				return false;
 			}
@@ -31,7 +36,7 @@ if ( class_exists( 'RTMediaActivity' ) ) {
 			$this->privacy       = $privacy;
 		}
 
-		function create_activity_html( $type = 'activity' ) {
+		public function create_activity_html( $type = 'activity' ) {
 			$activity_container_start = sprintf( '<div class="rtmedia-%s-container">', esc_attr( $type ) );
 			$activity_container_end   = '</div>';
 
@@ -207,7 +212,7 @@ function rtm_rtmedia_bp_activity_content_before_save( $content ) {
 
 	$rtmedia_attached_files = filter_input( INPUT_POST, 'rtMedia_attached_files', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 	if ( ( ! empty( $rtmedia_attached_files ) ) && is_array( $rtmedia_attached_files ) ) {
-		$obj_activity = new reign_RTMediaActivity( $rtmedia_attached_files, 0, $content );
+		$obj_activity = new Reign_RTMediaActivity( $rtmedia_attached_files, 0, $content );
 
 		// Remove action to fix duplication issue of comment content.
 		remove_action( 'bp_activity_content_before_save', 'rtmedia_bp_activity_comment_content_callback', 1001, 1 );
@@ -239,7 +244,7 @@ function reign_custom_rtmedia_filter( $html, $media ) {
 	}
 
 	// Check if the media type is 'photo' and the context is correct.
-	if ( $media->media_type === 'photo' && ( bp_is_activity_component() || ( function_exists( 'bp_is_group' ) && bp_is_group() ) ) ) {
+	if ( 'photo' === $media->media_type && ( bp_is_activity_component() || ( function_exists( 'bp_is_group' ) && bp_is_group() ) ) ) {
 		$image_src = wp_get_attachment_image_src( $media->media_id, 'custom_rtmedia_size' );
 
 		// Replace image URL if valid.

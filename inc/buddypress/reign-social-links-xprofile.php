@@ -5,6 +5,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 if ( ! function_exists( 'reign_user_social_fields' ) ) {
 	add_action( 'after_switch_theme', 'reign_rtm_set_default_social_fields' );
 
@@ -68,18 +70,23 @@ if ( ! function_exists( 'reign_user_social_fields_save' ) ) {
 			$socials = array();
 		}
 
-		if ( isset( $_POST['wbtm_user_social_links'] ) && '1' === $_POST['wbtm_user_social_links'] ) {
+		// Nonce is verified by BuddyPress core before the `xprofile_updated_profile` action fires.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$social_links_flag = isset( $_POST['wbtm_user_social_links'] ) ? sanitize_text_field( wp_unslash( $_POST['wbtm_user_social_links'] ) ) : '';
+
+		if ( '1' === $social_links_flag ) {
 			foreach ( reign_get_user_social_array() as $field_slug => $social ) {
-				$url                    = isset( $_POST[ 'wbcom_social_' . $field_slug ] ) ? reign_sanitize_social_link_url( $_POST[ 'wbcom_social_' . $field_slug ] ) : '';
+				// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified by BP core above.
+				$url                    = isset( $_POST[ 'wbcom_social_' . $field_slug ] ) ? reign_sanitize_social_link_url( wp_unslash( $_POST[ 'wbcom_social_' . $field_slug ] ) ) : '';
 				$socials[ $field_slug ] = $url;
 				update_user_meta( $user_id, $field_slug, $url );
 			}
 			update_user_meta( $user_id, 'wbtm_user_social_links', $socials );
-			
+
 			// Clear caches to ensure social links display immediately
 			wp_cache_delete( "wbtm_user_social_links_{$user_id}", 'user_meta' );
 			wp_cache_delete( $user_id, 'user_meta' );
-			
+
 			// Clear BuddyPress cache if available
 			if ( function_exists( 'bp_core_reset_cache' ) ) {
 				bp_core_reset_cache( $user_id );

@@ -96,11 +96,13 @@ class Reign_Elementor_Builder extends Reign_Page_Builder_Base {
 		// Add page title hiding functionality like Hello Elementor
 		add_filter( 'reign_display_page_title', array( $this, 'check_hide_title' ) );
 
-		// Remove the page header action
-		if ( class_exists( 'Reign_Theme_Structure' ) ) {
-			$Reign_Theme_Structure_OBJ = Reign_Theme_Structure::instance();
-			remove_action( 'reign_before_content', array( $Reign_Theme_Structure_OBJ, 'render_page_header' ) );
-		}
+		// NOTE: the page header (sub header) is intentionally NOT removed here.
+		// A blanket remove_action() at init ran for every request whenever
+		// Elementor was active, stripping the sub header site-wide and
+		// overriding the per-page / per-CPT "Hide Sub Header" customizer toggle
+		// (which never got a chance to run). The only case that legitimately
+		// needs the header removed is the Elementor Canvas (blank) template -
+		// that is handled, template-scoped, in handle_elementor_template().
 	}
 
 	/**

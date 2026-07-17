@@ -1,9 +1,12 @@
-<?php
+<?php // phpcs:disable WordPress.Files.FileName.InvalidClassFileName -- Legacy filename referenced by theme includes; renaming would break load paths.
+// phpcs:disable Universal.Files.SeparateFunctionsFromOO.Mixed -- Legacy mixed file kept intact to preserve include behavior.
 /**
  * BuddyPress Functions File
  *
  * @package Reign
  */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 
 /**
  * Show avatars of user who liked a particular activity on activity directory
@@ -49,12 +52,12 @@ if ( ! function_exists( 'reign_show_activity_like_avatars' ) ) {
 			return;
 		}
 
-		$num_of_avatar_count   = (int) apply_filters( 'reign_show_activity_like_avatars_count', 3 );
-		$num_of_listing_count  = (int) apply_filters( 'reign_show_activity_like_listing_count', 5 );
-		$total_users           = count( $users );
-		$shown_avatars         = min( $num_of_avatar_count, $total_users );
-		$remaining_users       = max( 0, $total_users - $shown_avatars );
-		$remaining_to_show     = min( $num_of_listing_count, $remaining_users );
+		$num_of_avatar_count  = (int) apply_filters( 'reign_show_activity_like_avatars_count', 3 );
+		$num_of_listing_count = (int) apply_filters( 'reign_show_activity_like_listing_count', 5 );
+		$total_users          = count( $users );
+		$shown_avatars        = min( $num_of_avatar_count, $total_users );
+		$remaining_users      = max( 0, $total_users - $shown_avatars );
+		$remaining_to_show    = min( $num_of_listing_count, $remaining_users );
 
 		echo '<div class="wbtm_fav_avatar_listing">';
 
@@ -110,6 +113,7 @@ if ( ! function_exists( 'reign_show_activity_like_avatars' ) ) {
 			'<span class="wbtm-likes-this">%s</span>',
 			esc_html(
 				sprintf(
+					/* translators: %d: number of users who liked the activity. */
 					_n( '%d like', '%d likes', $total_users, 'reign' ),
 					$total_users
 				)
@@ -316,6 +320,7 @@ if ( ! function_exists( 'reign_bp_group_list_admins' ) ) {
 								echo bp_core_fetch_avatar(
 									array(
 										'item_id' => $admin->user_id,
+										/* translators: %s: member display name. */
 										'alt'     => sprintf( __( 'Profile picture of %s', 'reign' ), bp_core_get_user_displayname( $admin->user_id ) ),
 									)
 								);
@@ -339,7 +344,8 @@ if ( ! function_exists( 'reign_bp_group_list_admins' ) ) {
 			}
 
 			if ( $echo ) {
-				echo $admin_list_html;
+				// $admin_list_html is assembled above from escaped values inside an output buffer.
+				echo $admin_list_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Pre-escaped buffered HTML.
 			} else {
 				return $admin_list_html;
 			}
@@ -376,7 +382,7 @@ add_filter( 'bp_nouveau_get_container_classes', 'reign_bp_nouveau_get_container_
 function reign_bp_nouveau_get_container_classes( $class, $classes ) {
 	$component = bp_current_component();
 
-	if ( $component == 'activity' && bp_is_directory() && ! bp_is_user() && ! bp_is_group() ) {
+	if ( 'activity' === $component && bp_is_directory() && ! bp_is_user() && ! bp_is_group() ) {
 		$class  = str_replace( 'bp-dir-vert-nav', '', $class );
 		$class  = str_replace( 'bp-vertical-navs', '', $class );
 		$class .= ' bp-dir-hori-nav ';
@@ -398,11 +404,11 @@ function reign_filter_activity_content() {
 		$activity_id   = $activities_template->activity->id;
 		$activity_type = $activities_template->activity->type;
 
-		if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) && $activity_type == 'new_avatar' ) {
+		if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) && 'new_avatar' === $activity_type ) {
 			return;
 		}
 
-		if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '10.0.0', '>=' ) && ! isset( buddypress()->buddyboss ) && $activity_type != 'new_group_avatar' && $activity_type != 'new_group_cover_photo' && $activity_type != 'new_cover_photo' ) {
+		if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '10.0.0', '>=' ) && ! isset( buddypress()->buddyboss ) && 'new_group_avatar' !== $activity_type && 'new_group_cover_photo' !== $activity_type && 'new_cover_photo' !== $activity_type ) {
 			return;
 		}
 
@@ -562,19 +568,24 @@ add_action( 'bp_register_activity_actions', 'reign_register_activity_actions' );
  * @param object $activity Activity object.
  * @return string
  */
-function bp_members_format_activity_action_new_cover_photo( $action, $activity ) {
-	$userlink = bp_core_get_userlink( $activity->user_id );
+// `bp_members_format_activity_action_new_cover_photo` matches BuddyPress's
+// own activity-action-formatter naming. function_exists() guard so a
+// future BP version (or BuddyBoss) that adds the same symbol coexists.
+if ( ! function_exists( 'bp_members_format_activity_action_new_cover_photo' ) ) :
+	function bp_members_format_activity_action_new_cover_photo( $action, $activity ) {
+		$userlink = bp_core_get_userlink( $activity->user_id );
 
-	/* translators: %s: user link */
-	$action = sprintf( esc_html__( '%s updated their cover photo', 'reign' ), $userlink );
+		/* translators: %s: user link */
+		$action = sprintf( esc_html__( '%s updated their cover photo', 'reign' ), $userlink );
 
-	// Legacy filter - pass $user_id instead of $activity.
-	if ( has_filter( 'bp_xprofile_new_avatar_action' ) ) {
-		$action = apply_filters( 'bp_xprofile_new_avatar_action', $action, $activity->user_id );
+		// Legacy filter - pass $user_id instead of $activity.
+		if ( has_filter( 'bp_xprofile_new_avatar_action' ) ) {
+			$action = apply_filters( 'bp_xprofile_new_avatar_action', $action, $activity->user_id );
+		}
+
+		return apply_filters( 'bp_members_format_activity_action_new_cover_photo', $action, $activity );
 	}
-
-	return apply_filters( 'bp_members_format_activity_action_new_cover_photo', $action, $activity );
-}
+endif;
 
 
 /**
@@ -588,22 +599,25 @@ function bp_members_format_activity_action_new_cover_photo( $action, $activity )
  */
 
 
-function bp_groups_format_activity_action_new_group_avatar( $action, $activity ) {
-	$userlink = bp_core_get_userlink( $activity->user_id );
+// Same BP-namespace collision risk as the cover-photo formatter above.
+if ( ! function_exists( 'bp_groups_format_activity_action_new_group_avatar' ) ) :
+	function bp_groups_format_activity_action_new_group_avatar( $action, $activity ) {
+		$userlink = bp_core_get_userlink( $activity->user_id );
 
-	$group = groups_get_group( array( 'group_id' => $activity->item_id ) );
-	if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
-		$group_link = bp_get_group_url( $group );
-	} else {
-		$group_link = bp_get_group_permalink( $group );
+		$group = groups_get_group( array( 'group_id' => $activity->item_id ) );
+		if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
+			$group_link = bp_get_group_url( $group );
+		} else {
+			$group_link = bp_get_group_permalink( $group );
+		}
+		$grouplink = '<a href="' . esc_url( $group_link ) . '">' . $group->name . '</a>';
+
+		/* translators: 1: user link, 2: group link. */
+		$action = sprintf( esc_html__( '%1$s updated %2$s group photo', 'reign' ), $userlink, $grouplink );
+
+		return apply_filters( 'bp_groups_format_activity_action_new_group_avatar', $action, $activity );
 	}
-	$grouplink = '<a href="' . esc_url( $group_link ) . '">' . $group->name . '</a>';
-
-	/* translators: %s: user link */
-	$action = sprintf( esc_html__( '%1$s updated %2$s group photo', 'reign' ), $userlink, $grouplink );
-
-	return apply_filters( 'bp_groups_format_activity_action_new_group_avatar', $action, $activity );
-}
+endif;
 
 
 /**
@@ -615,24 +629,24 @@ function bp_groups_format_activity_action_new_group_avatar( $action, $activity )
  * @param object $activity Activity object.
  * @return string
  */
+if ( ! function_exists( 'bp_groups_format_activity_action_new_group_cover_photo' ) ) :
+	function bp_groups_format_activity_action_new_group_cover_photo( $action, $activity ) {
+		$userlink = bp_core_get_userlink( $activity->user_id );
 
+		$group = groups_get_group( array( 'group_id' => $activity->item_id ) );
+		if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
+			$group_link = bp_get_group_url( $group );
+		} else {
+			$group_link = bp_get_group_permalink( $group );
+		}
+		$grouplink = '<a href="' . esc_url( $group_link ) . '">' . $group->name . '</a>';
 
-function bp_groups_format_activity_action_new_group_cover_photo( $action, $activity ) {
-	$userlink = bp_core_get_userlink( $activity->user_id );
+		/* translators: 1: user link, 2: group link. */
+		$action = sprintf( esc_html__( '%1$s changed %2$s group cover photo', 'reign' ), $userlink, $grouplink );
 
-	$group = groups_get_group( array( 'group_id' => $activity->item_id ) );
-	if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
-		$group_link = bp_get_group_url( $group );
-	} else {
-		$group_link = bp_get_group_permalink( $group );
+		return apply_filters( 'bp_groups_format_activity_action_new_group_cover_photo', $action, $activity );
 	}
-	$grouplink = '<a href="' . esc_url( $group_link ) . '">' . $group->name . '</a>';
-
-	/* translators: %s: user link */
-	$action = sprintf( esc_html__( '%1$s changed %2$s group cover photo', 'reign' ), $userlink, $grouplink );
-
-	return apply_filters( 'bp_groups_format_activity_action_new_group_cover_photo', $action, $activity );
-}
+endif;
 
 /**
  * Handles the event of a member uploading a new cover image and creates an activity entry in BuddyPress.
@@ -662,13 +676,18 @@ function reign_members_cover_image_uploaded( $item_id, $name, $cover_url, $feedb
 
 	// Generate a unique filename for the cover image.
 	$file_extension = pathinfo( $cover_url, PATHINFO_EXTENSION );
-	$date           = date( 'Y-m-d' );
+	$date           = gmdate( 'Y-m-d' );
 	$unique_id      = uniqid();
 	$file_name      = "cover-image-{$date}-{$unique_id}.{$file_extension}";
 
 	// Define the upload path for the cover image.
-	$upload_dir_array = bp_attachments_cover_image_upload_dir( array( 'object_dir' => 'members', 'item_id' => $user_id ) );
-	$upload_dir = isset( $upload_dir_array['path'] ) ? $upload_dir_array['path'] : $upload_dir_array['basedir'] . '/' . $user_id . '/cover-image';
+	$upload_dir_array = bp_attachments_cover_image_upload_dir(
+		array(
+			'object_dir' => 'members',
+			'item_id'    => $user_id,
+		)
+	);
+	$upload_dir       = isset( $upload_dir_array['path'] ) ? $upload_dir_array['path'] : $upload_dir_array['basedir'] . '/' . $user_id . '/cover-image';
 
 	// Ensure the directory exists.
 	if ( ! file_exists( $upload_dir ) ) {
@@ -679,7 +698,7 @@ function reign_members_cover_image_uploaded( $item_id, $name, $cover_url, $feedb
 	$file_path = $upload_dir . '/' . $file_name;
 
 	// Download the cover image from the provided URL and save it to the specified path.
-	$image_data = wp_remote_get( $cover_url );
+	$image_data = wp_remote_get( $cover_url, array( 'timeout' => 15 ) );
 
 	if ( is_wp_error( $image_data ) ) {
 		return false; // Return if the download failed.
@@ -773,7 +792,7 @@ function reign_groups_cover_image_uploaded( $item_id, $name, $cover_url, $feedba
 	);
 
 	$type                = pathinfo( $cover_url, PATHINFO_EXTENSION );
-	$data                = wp_remote_get( $cover_url );
+	$data                = wp_remote_get( $cover_url, array( 'timeout' => 15 ) );
 	$data                = wp_remote_retrieve_body( $data );
 	$avatar_image_base64 = 'data:image/' . $type . ';base64,' . base64_encode( $data );
 	bp_activity_update_meta( $activity_id, 'group_cover_image', $avatar_image_base64 );
@@ -852,7 +871,7 @@ function reign_groups_avatar_uploaded( $item_id, $type ) {
 	);
 	$title               = basename( $avatar_url );
 	$type                = pathinfo( $avatar_url, PATHINFO_EXTENSION );
-	$data                = wp_remote_get( $avatar_url );
+	$data                = wp_remote_get( $avatar_url, array( 'timeout' => 15 ) );
 	$data                = wp_remote_retrieve_body( $data );
 	$avatar_image_base64 = 'data:image/' . $type . ';base64,' . base64_encode( $data );
 	bp_activity_update_meta( $activity_id, 'group_avatar_image', $avatar_image_base64 );
@@ -865,7 +884,7 @@ add_action( 'groups_avatar_uploaded', 'reign_groups_avatar_uploaded', 20, 2 );
 add_filter( 'bp_get_activity_action_pre_meta', 'reign_group_activity_secondary_avatars', 20, 2 );
 function reign_group_activity_secondary_avatars( $action, $activity ) {
 
-	if ( $activity->type == 'new_group_avatar' || $activity->type == 'new_group_cover_photo' ) {
+	if ( 'new_group_avatar' === $activity->type || 'new_group_cover_photo' === $activity->type ) {
 		switch ( $activity->component ) {
 			case 'groups':
 				global $activities_template;
@@ -893,7 +912,7 @@ function reign_bp_avatar_activity_add( $args, $activity_id ) {
 		return;
 	}
 
-	if ( $args['type'] == 'new_avatar' && ( $args['component'] == 'members' || $args['component'] == 'profile' ) ) {
+	if ( 'new_avatar' === $args['type'] && ( 'members' === $args['component'] || 'profile' === $args['component'] ) ) {
 
 		// Fetch the current avatar URL.
 		$avatar_url = bp_core_fetch_avatar(
@@ -907,7 +926,7 @@ function reign_bp_avatar_activity_add( $args, $activity_id ) {
 		);
 
 		// Generate a unique identifier for the avatar file.
-		$date           = date( 'm-d' );
+		$date           = gmdate( 'm-d' );
 		$unique_id      = uniqid();
 		$file_extension = pathinfo( $avatar_url, PATHINFO_EXTENSION );
 		$file_name      = "avatar-{$date}-{$unique_id}.{$file_extension}";
@@ -925,7 +944,7 @@ function reign_bp_avatar_activity_add( $args, $activity_id ) {
 		$file_path = "{$base_path}/{$file_name}";
 
 		// Fetch the avatar image data.
-		$image_data = wp_remote_get( $avatar_url );
+		$image_data = wp_remote_get( $avatar_url, array( 'timeout' => 15 ) );
 		$image_data = wp_remote_retrieve_body( $image_data );
 
 		// Save the avatar image to the custom path.
@@ -1004,7 +1023,11 @@ add_filter( 'bp_get_activity_content_body', 'reign_bp_blogs_activity_content_wit
  *
  * @since 3.4.0
  */
-function reign_bp_blogs_activity_content_with_read_more( $content, $activity ) {
+function reign_bp_blogs_activity_content_with_read_more( $content, $activity = null ) {
+
+	if ( ! is_object( $activity ) || empty( $activity->id ) ) {
+		return $content;
+	}
 
 	if ( function_exists( 'buddypress' ) && ! isset( buddypress()->buddyboss ) ) {
 
@@ -1145,82 +1168,110 @@ function reign_activity_embed_add_inline_styles() {
 
 add_action( 'embed_head', 'reign_activity_embed_add_inline_styles', 20 );
 
-function bp_nouveau_reign_signup_terms_privacy() {
-	$page_ids             = bp_core_get_directory_page_ids();
-	$show_legal_agreement = bb_register_legal_agreement();
+// `bp_nouveau_*` is the BuddyPress Nouveau template-function namespace.
+// BuddyBoss Platform / other Nouveau-based plugins may define the same.
+if ( ! function_exists( 'bp_nouveau_reign_signup_terms_privacy' ) ) :
+	function bp_nouveau_reign_signup_terms_privacy() {
+		$page_ids             = bp_core_get_directory_page_ids();
+		$show_legal_agreement = bb_register_legal_agreement();
 
-	$terms   = isset( $page_ids['terms'] ) ? $page_ids['terms'] : false;
-	$privacy = isset( $page_ids['privacy'] ) ? $page_ids['privacy'] : (int) get_option( 'wp_page_for_privacy_policy' );
+		$terms   = isset( $page_ids['terms'] ) ? $page_ids['terms'] : false;
+		$privacy = isset( $page_ids['privacy'] ) ? $page_ids['privacy'] : (int) get_option( 'wp_page_for_privacy_policy' );
 
-	// Do not show the page if page is not published.
-	if ( false !== $terms && 'publish' !== get_post_status( $terms ) ) {
-		$terms = false;
-	}
+		// Do not show the page if page is not published.
+		if ( false !== $terms && 'publish' !== get_post_status( $terms ) ) {
+			$terms = false;
+		}
 
-	// Do not show the page if page is not published.
-	if ( false !== $privacy && 'publish' !== get_post_status( $privacy ) ) {
-		$privacy = false;
-	}
+		// Do not show the page if page is not published.
+		if ( false !== $privacy && 'publish' !== get_post_status( $privacy ) ) {
+			$privacy = false;
+		}
 
-	if ( ! $terms && ! $privacy ) {
-		return false;
-	}
+		if ( ! $terms && ! $privacy ) {
+			return false;
+		}
 
-	if ( ! empty( $terms ) && ! empty( $privacy ) ) {
-		$terms_link   = '<a class="popup-modal-register popup-terms" href="' . esc_url( get_permalink( $terms ) ) . '" target="_blank">' . get_the_title( $terms ) . '</a>';
-		$privacy_link = '<a class="popup-modal-register popup-privacy" href="' . esc_url( get_permalink( $privacy ) ) . '" target="_blank">' . get_the_title( $privacy ) . '</a>';
-		?>
-		<?php if ( $show_legal_agreement ) { ?>
+		if ( ! empty( $terms ) && ! empty( $privacy ) ) {
+			$terms_link   = '<a class="popup-modal-register popup-terms" href="' . esc_url( get_permalink( $terms ) ) . '" target="_blank">' . esc_html( get_the_title( $terms ) ) . '</a>';
+			$privacy_link = '<a class="popup-modal-register popup-privacy" href="' . esc_url( get_permalink( $privacy ) ) . '" target="_blank">' . esc_html( get_the_title( $privacy ) ) . '</a>';
+			?>
+			<?php if ( $show_legal_agreement ) { ?>
 			<div class="input-options checkbox-options">
 				<div class="bp-checkbox-wrap">
 					<input type="checkbox" name="legal_agreement" id="legal_agreement" value="1" class="bs-styled-checkbox">
-					<label for="legal_agreement" class="option-label"><?php printf( __( 'I agree to the %1$s and %2$s.', 'reign' ), $terms_link, $privacy_link ); ?></label>
+					<label for="legal_agreement" class="option-label">
+						<?php
+						/* translators: 1: link to the terms of service page, 2: link to the privacy policy page. */
+						echo wp_kses_post( sprintf( __( 'I agree to the %1$s and %2$s.', 'reign' ), $terms_link, $privacy_link ) );
+						?>
+					</label>
 				</div>
 			</div>
 		<?php } else { ?>
 			<p class="register-privacy-info">
-				<?php printf( __( 'By creating an account, you agree to the %1$s and %2$s.', 'reign' ), $terms_link, $privacy_link ); ?>
+				<?php
+					/* translators: 1: link to the terms of service page, 2: link to the privacy policy page. */
+					echo wp_kses_post( sprintf( __( 'By creating an account, you agree to the %1$s and %2$s.', 'reign' ), $terms_link, $privacy_link ) );
+				?>
 			</p>
-			<?php
+				<?php
 		}
-	} elseif ( empty( $terms ) && ! empty( $privacy ) ) {
-		$privacy_link = '<a class="popup-modal-register popup-privacy" href="' . esc_url( get_permalink( $privacy ) ) . '" target="_blank">' . get_the_title( $privacy ) . '</a>';
-		?>
-		<?php if ( $show_legal_agreement ) { ?>
+		} elseif ( empty( $terms ) && ! empty( $privacy ) ) {
+			$privacy_link = '<a class="popup-modal-register popup-privacy" href="' . esc_url( get_permalink( $privacy ) ) . '" target="_blank">' . esc_html( get_the_title( $privacy ) ) . '</a>';
+			?>
+			<?php if ( $show_legal_agreement ) { ?>
 			<div class="input-options checkbox-options">
 				<div class="bp-checkbox-wrap">
 					<input type="checkbox" name="legal_agreement" id="legal_agreement" value="1" class="bs-styled-checkbox">
-					<label for="legal_agreement" class="option-label"><?php printf( __( 'I agree to the %s.', 'reign' ), $privacy_link ); ?></label>
+					<label for="legal_agreement" class="option-label">
+					<?php
+						/* translators: %s: link to the privacy policy page. */
+						echo wp_kses_post( sprintf( __( 'I agree to the %s.', 'reign' ), $privacy_link ) );
+					?>
+						</label>
 				</div>
 			</div>
 		<?php } else { ?>
 			<p class="register-privacy-info">
-				<?php printf( __( 'By creating an account, you agree to the %s.', 'reign' ), $privacy_link ); ?>
+				<?php
+					/* translators: %s: link to the privacy policy page. */
+					echo wp_kses_post( sprintf( __( 'By creating an account, you agree to the %s.', 'reign' ), $privacy_link ) );
+				?>
 			</p>
-			<?php
+				<?php
 		}
-	} elseif ( ! empty( $terms ) && empty( $privacy ) ) {
-		$terms_link = '<a class="popup-modal-register popup-terms" href="' . esc_url( get_permalink( $terms ) ) . '" target="_blank">' . get_the_title( $terms ) . '</a>';
-		?>
-		<?php if ( $show_legal_agreement ) { ?>
+		} elseif ( ! empty( $terms ) && empty( $privacy ) ) {
+			$terms_link = '<a class="popup-modal-register popup-terms" href="' . esc_url( get_permalink( $terms ) ) . '" target="_blank">' . esc_html( get_the_title( $terms ) ) . '</a>';
+			?>
+			<?php if ( $show_legal_agreement ) { ?>
 			<div class="input-options checkbox-options">
 				<div class="bp-checkbox-wrap">
 					<input type="checkbox" name="legal_agreement" id="legal_agreement" value="1" class="bs-styled-checkbox">
-					<label for="legal_agreement" class="option-label"><?php printf( __( 'I agree to the %s.', 'reign' ), $terms_link ); ?></label>
+					<label for="legal_agreement" class="option-label">
+					<?php
+						/* translators: %s: link to the terms of service page. */
+						echo wp_kses_post( sprintf( __( 'I agree to the %s.', 'reign' ), $terms_link ) );
+					?>
+						</label>
 				</div>
 			</div>
 		<?php } else { ?>
 			<p class="register-privacy-info">
-				<?php printf( __( 'By creating an account, you agree to the %s.', 'reign' ), $terms_link ); ?>
+				<?php
+					/* translators: %s: link to the terms of service page. */
+					echo wp_kses_post( sprintf( __( 'By creating an account, you agree to the %s.', 'reign' ), $terms_link ) );
+				?>
 			</p>
-			<?php
+				<?php
 		}
-	}
+		}
 
-	if ( $show_legal_agreement ) {
-		do_action( 'bp_legal_agreement_errors' );
+		if ( $show_legal_agreement ) {
+			do_action( 'bp_legal_agreement_errors' );
+		}
 	}
-}
+endif;
 
 if ( ! function_exists( 'reign_notifications_avatar' ) ) {
 
@@ -1261,16 +1312,16 @@ function reign_theme_bp_nouveau_get_activity_entry_buttons( $buttons, $activity_
 add_filter( 'gettext', 'reign_bp_string_translate', 10, 3 );
 function reign_bp_string_translate( $translation, $text, $domain ) {
 
-	if ( $domain == 'buddypress' ) {
-		if ( $text == 'Remove Favorite' ) {
+	if ( 'buddypress' === $domain ) {
+		if ( 'Remove Favorite' === $text ) {
 			$translation = esc_html__( 'Unlike', 'reign' );
 		}
 
-		if ( $text == 'Mark as Favorite' ) {
+		if ( 'Mark as Favorite' === $text ) {
 			$translation = esc_html__( 'Like', 'reign' );
 		}
 
-		if ( $text == 'My Favorites' ) {
+		if ( 'My Favorites' === $text ) {
 			$translation = esc_html__( 'Likes', 'reign' );
 		}
 	}
@@ -1279,229 +1330,239 @@ function reign_bp_string_translate( $translation, $text, $domain ) {
 }
 
 
-function bp_nouveau_activity_entry_dropdown_toggle_buttons( $args = array() ) {
-	$output = join( ' ', bb_nouveau_get_activity_entry_dropdown_toggle_buttons( $args ) );
+// `bp_nouveau_*` namespace collision — see sibling guards above.
+if ( ! function_exists( 'bp_nouveau_activity_entry_dropdown_toggle_buttons' ) ) :
+	function bp_nouveau_activity_entry_dropdown_toggle_buttons( $args = array() ) {
+		$output = join( ' ', bb_nouveau_get_activity_entry_dropdown_toggle_buttons( $args ) );
 
-	ob_start();
+		ob_start();
 
-	do_action( 'bp_activity_entry_dropdown_toggle_meta' );
+		do_action( 'bp_activity_entry_dropdown_toggle_meta' );
 
-	$output .= ob_get_clean();
+		$output .= ob_get_clean();
 
-	$has_content = trim( $output, ' ' );
-	if ( ! $has_content ) {
-		return;
-	}
-
-	if ( ! $args ) {
-		$args = array( 'container_classes' => array( 'bp-activity-more-options-wrap', 'activity-meta' ) );
-	}
-
-	$output = sprintf( '<span class="bp-activity-more-options-action activity-meta action" data-balloon-pos="up" data-balloon="%s"><i class="fa fa-ellipsis-h"></i></span><div class="bp-activity-more-options">%s</div>', esc_html__( 'More Options', 'reign' ), $output );
-
-	bp_nouveau_wrapper( array_merge( $args, array( 'output' => $output ) ) );
-}
-
-function bb_nouveau_get_activity_entry_dropdown_toggle_buttons( $args ) {
-	$buttons = array();
-	if ( ! isset( $GLOBALS['activities_template'] ) ) {
-		return $buttons;
-	}
-
-	$activity_id    = bp_get_activity_id();
-	$activity_type  = bp_get_activity_type();
-	$parent_element = '';
-	$button_element = 'a';
-
-	if ( ! $activity_id ) {
-		return $buttons;
-	}
-
-	/*
-	 * If the container is set to 'ul' force the $parent_element to 'li',
-	 * else use parent_element args if set.
-	 *
-	 * This will render li elements around anchors/buttons.
-	 */
-	if ( isset( $args['container'] ) && 'ul' === $args['container'] ) {
-		$parent_element = 'li';
-	} elseif ( ! empty( $args['parent_element'] ) ) {
-		$parent_element = $args['parent_element'];
-	}
-
-	$parent_attr = ( ! empty( $args['parent_attr'] ) ) ? $args['parent_attr'] : array();
-
-	/*
-	 * If we have an arg value for $button_element passed through
-	 * use it to default all the $buttons['button_element'] values
-	 * otherwise default to 'a' (anchor)
-	 * Or override & hardcode the 'element' string on $buttons array.
-	 *
-	 */
-	if ( ! empty( $args['button_element'] ) ) {
-		$button_element = $args['button_element'];
-	}
-
-	// The delete button is always created, and removed later on if needed.
-	$delete_args = array();
-
-	/*
-	 * As the delete link is filterable we need this workaround
-	 * to try to intercept the edits the filter made and build
-	 * a button out of it.
-	 */
-	if ( has_filter( 'bp_get_activity_delete_link' ) ) {
-		preg_match( '/<a\s[^>]*>(.*)<\/a>/siU', bp_get_activity_delete_link(), $link );
-
-		if ( ! empty( $link[0] ) && ! empty( $link[1] ) ) {
-			$delete_args['link_text'] = $link[1];
-			$subject                  = str_replace( $delete_args['link_text'], '', $link[0] );
+		$has_content = trim( $output, ' ' );
+		if ( ! $has_content ) {
+			return;
 		}
 
-		preg_match_all( '/([\w\-]+)=([^"\'> ]+|([\'"]?)(?:[^\3]|\3+)+?\3)/', $subject, $attrs );
+		if ( ! $args ) {
+			$args = array( 'container_classes' => array( 'bp-activity-more-options-wrap', 'activity-meta' ) );
+		}
 
-		if ( ! empty( $attrs[1] ) && ! empty( $attrs[2] ) ) {
-			foreach ( $attrs[1] as $key_attr => $key_value ) {
-				$delete_args[ 'link_' . $key_value ] = trim( $attrs[2][ $key_attr ], '"' );
+		$output = sprintf( '<span class="bp-activity-more-options-action activity-meta action" data-balloon-pos="up" data-balloon="%s"><i class="fa fa-ellipsis-h"></i></span><div class="bp-activity-more-options">%s</div>', esc_html__( 'More Options', 'reign' ), $output );
+
+		bp_nouveau_wrapper( array_merge( $args, array( 'output' => $output ) ) );
+	}
+endif;
+
+// `bb_*` is BuddyBoss Platform's own global namespace. Any Reign site
+// with BuddyBoss Platform active would fatal at theme-load when the
+// platform pre-declared the same name. function_exists() guard makes
+// the two coexist: if BuddyBoss already defines the function, we leave
+// it alone (our renderer was a Nouveau-targeted helper anyway).
+if ( ! function_exists( 'bb_nouveau_get_activity_entry_dropdown_toggle_buttons' ) ) :
+	function bb_nouveau_get_activity_entry_dropdown_toggle_buttons( $args ) {
+		$buttons = array();
+		if ( ! isset( $GLOBALS['activities_template'] ) ) {
+			return $buttons;
+		}
+
+		$activity_id    = bp_get_activity_id();
+		$activity_type  = bp_get_activity_type();
+		$parent_element = '';
+		$button_element = 'a';
+
+		if ( ! $activity_id ) {
+			return $buttons;
+		}
+
+		/*
+		 * If the container is set to 'ul' force the $parent_element to 'li',
+		 * else use parent_element args if set.
+		 *
+		 * This will render li elements around anchors/buttons.
+		 */
+		if ( isset( $args['container'] ) && 'ul' === $args['container'] ) {
+			$parent_element = 'li';
+		} elseif ( ! empty( $args['parent_element'] ) ) {
+			$parent_element = $args['parent_element'];
+		}
+
+		$parent_attr = ( ! empty( $args['parent_attr'] ) ) ? $args['parent_attr'] : array();
+
+		/*
+		 * If we have an arg value for $button_element passed through
+		 * use it to default all the $buttons['button_element'] values
+		 * otherwise default to 'a' (anchor)
+		 * Or override & hardcode the 'element' string on $buttons array.
+		 *
+		 */
+		if ( ! empty( $args['button_element'] ) ) {
+			$button_element = $args['button_element'];
+		}
+
+		// The delete button is always created, and removed later on if needed.
+		$delete_args = array();
+
+		/*
+		 * As the delete link is filterable we need this workaround
+		 * to try to intercept the edits the filter made and build
+		 * a button out of it.
+		 */
+		if ( has_filter( 'bp_get_activity_delete_link' ) ) {
+			preg_match( '/<a\s[^>]*>(.*)<\/a>/siU', bp_get_activity_delete_link(), $link );
+
+			if ( ! empty( $link[0] ) && ! empty( $link[1] ) ) {
+				$delete_args['link_text'] = $link[1];
+				$subject                  = str_replace( $delete_args['link_text'], '', $link[0] );
+			}
+
+			preg_match_all( '/([\w\-]+)=([^"\'> ]+|([\'"]?)(?:[^\3]|\3+)+?\3)/', $subject, $attrs );
+
+			if ( ! empty( $attrs[1] ) && ! empty( $attrs[2] ) ) {
+				foreach ( $attrs[1] as $key_attr => $key_value ) {
+					$delete_args[ 'link_' . $key_value ] = trim( $attrs[2][ $key_attr ], '"' );
+				}
+			}
+
+			$delete_args = bp_parse_args(
+				$delete_args,
+				array(
+					'link_text'   => '',
+					'button_attr' => array(
+						'link_id'         => '',
+						'link_href'       => '',
+						'link_class'      => '',
+						'link_rel'        => 'nofollow',
+						'data_bp_tooltip' => '',
+					),
+				),
+				'nouveau_get_activity_entry_buttons'
+			);
+		}
+
+		if ( empty( $delete_args['link_href'] ) ) {
+			$delete_args = array(
+				'button_element'  => $button_element,
+				'link_id'         => '',
+				'link_class'      => 'button item-button bp-secondary-action bp-tooltip delete-activity confirm',
+				'link_rel'        => 'nofollow',
+				'data_bp_tooltip' => _x( 'Delete', 'button', 'reign' ),
+				'link_text'       => _x( 'Delete', 'button', 'reign' ),
+				'link_href'       => bp_get_activity_delete_url(),
+			);
+
+			// If button element set add nonce link to data-attr attr
+			if ( 'button' === $button_element ) {
+				$delete_args['data-attr'] = bp_get_activity_delete_url();
+				$delete_args['link_href'] = '';
+			} else {
+				$delete_args['link_href'] = bp_get_activity_delete_url();
+				$delete_args['data-attr'] = '';
 			}
 		}
 
-		$delete_args = bp_parse_args(
-			$delete_args,
-			array(
-				'link_text'   => '',
-				'button_attr' => array(
-					'link_id'         => '',
-					'link_href'       => '',
-					'link_class'      => '',
-					'link_rel'        => 'nofollow',
-					'data_bp_tooltip' => '',
-				),
-			),
-			'nouveau_get_activity_entry_buttons'
-		);
-	}
-
-	if ( empty( $delete_args['link_href'] ) ) {
-		$delete_args = array(
-			'button_element'  => $button_element,
-			'link_id'         => '',
-			'link_class'      => 'button item-button bp-secondary-action bp-tooltip delete-activity confirm',
-			'link_rel'        => 'nofollow',
-			'data_bp_tooltip' => _x( 'Delete', 'button', 'reign' ),
-			'link_text'       => _x( 'Delete', 'button', 'reign' ),
-			'link_href'       => bp_get_activity_delete_url(),
-		);
-
-		// If button element set add nonce link to data-attr attr
-		if ( 'button' === $button_element ) {
-			$delete_args['data-attr'] = bp_get_activity_delete_url();
-			$delete_args['link_href'] = '';
-		} else {
-			$delete_args['link_href'] = bp_get_activity_delete_url();
-			$delete_args['data-attr'] = '';
-		}
-	}
-
-	$buttons['activity_delete'] = array(
-		'id'                => 'activity_delete',
-		'position'          => 35,
-		'component'         => 'activity',
-		'parent_element'    => $parent_element,
-		'parent_attr'       => $parent_attr,
-		'must_be_logged_in' => true,
-		'button_element'    => $button_element,
-		'button_attr'       => array(
-			'id'              => $delete_args['link_id'],
-			'href'            => $delete_args['link_href'],
-			'class'           => $delete_args['link_class'],
-			'data-bp-tooltip' => $delete_args['data_bp_tooltip'],
-			'data-bp-nonce'   => $delete_args['data-attr'],
-		),
-		'link_text'         => sprintf( '<span class="bp-screen-reader-text">%s</span>', esc_html( $delete_args['data_bp_tooltip'] ) ),
-	);
-
-	// Add the Spam Button if supported
-	if ( bp_is_akismet_active() && isset( buddypress()->activity->akismet ) && bp_activity_user_can_mark_spam() ) {
-		$buttons['activity_spam'] = array(
-			'id'                => 'activity_spam',
-			'position'          => 45,
+		$buttons['activity_delete'] = array(
+			'id'                => 'activity_delete',
+			'position'          => 35,
 			'component'         => 'activity',
 			'parent_element'    => $parent_element,
 			'parent_attr'       => $parent_attr,
 			'must_be_logged_in' => true,
 			'button_element'    => $button_element,
 			'button_attr'       => array(
-				'class'           => 'bp-secondary-action spam-activity confirm button item-button bp-tooltip',
-				'id'              => 'activity_make_spam_' . $activity_id,
-				'data-bp-tooltip' => _x( 'Spam', 'button', 'reign' ),
+				'id'              => $delete_args['link_id'],
+				'href'            => $delete_args['link_href'],
+				'class'           => $delete_args['link_class'],
+				'data-bp-tooltip' => $delete_args['data_bp_tooltip'],
+				'data-bp-nonce'   => $delete_args['data-attr'],
 			),
-			'link_text'         => sprintf(
-				/** @todo: use a specific css rule for this */
-				'<span class="dashicons dashicons-flag" style="color:#a00;vertical-align:baseline;width:18px;height:18px" aria-hidden="true"></span><span class="bp-screen-reader-text">%s</span>',
-				esc_html_x( 'Spam', 'button', 'reign' )
-			),
+			'link_text'         => sprintf( '<span class="bp-screen-reader-text">%s</span>', esc_html( $delete_args['data_bp_tooltip'] ) ),
 		);
 
-		// If button element, add nonce link to data attribute.
-		if ( 'button' === $button_element ) {
-			$data_element = 'data-bp-nonce';
-		} else {
-			$data_element = 'href';
+		// Add the Spam Button if supported
+		if ( bp_is_akismet_active() && isset( buddypress()->activity->akismet ) && bp_activity_user_can_mark_spam() ) {
+			$buttons['activity_spam'] = array(
+				'id'                => 'activity_spam',
+				'position'          => 45,
+				'component'         => 'activity',
+				'parent_element'    => $parent_element,
+				'parent_attr'       => $parent_attr,
+				'must_be_logged_in' => true,
+				'button_element'    => $button_element,
+				'button_attr'       => array(
+					'class'           => 'bp-secondary-action spam-activity confirm button item-button bp-tooltip',
+					'id'              => 'activity_make_spam_' . $activity_id,
+					'data-bp-tooltip' => _x( 'Spam', 'button', 'reign' ),
+				),
+				'link_text'         => sprintf(
+					/** @todo: use a specific css rule for this */
+					'<span class="dashicons dashicons-flag" style="color:#a00;vertical-align:baseline;width:18px;height:18px" aria-hidden="true"></span><span class="bp-screen-reader-text">%s</span>',
+					esc_html_x( 'Spam', 'button', 'reign' )
+				),
+			);
+
+			// If button element, add nonce link to data attribute.
+			if ( 'button' === $button_element ) {
+				$data_element = 'data-bp-nonce';
+			} else {
+				$data_element = 'href';
+			}
+
+			if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
+				$buttons['activity_spam']['button_attr'][ $data_element ] = wp_nonce_url(
+					bp_get_root_url() . '/' . bp_nouveau_get_component_slug( 'activity' ) . '/spam/' . $activity_id . '/',
+					'bp_activity_akismet_spam_' . $activity_id
+				);
+			} else {
+				$buttons['activity_spam']['button_attr'][ $data_element ] = wp_nonce_url(
+					bp_get_root_domain() . '/' . bp_nouveau_get_component_slug( 'activity' ) . '/spam/' . $activity_id . '/',
+					'bp_activity_akismet_spam_' . $activity_id
+				);
+			}
+		}
+		/**
+		 * Filter to add your buttons, use the position argument to choose where to insert it.
+		 *
+		 * @since BuddyBoss 1.7.2
+		 *
+		 * @param array $buttons     The list of buttons.
+		 * @param int   $activity_id The current activity ID.
+		 */
+		$buttons_group = apply_filters( 'bb_nouveau_get_activity_entry_dropdown_toggle_buttons', $buttons, $activity_id );
+
+		if ( ! $buttons_group ) {
+			return $buttons;
 		}
 
-		if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
-			$buttons['activity_spam']['button_attr'][ $data_element ] = wp_nonce_url(
-				bp_get_root_url() . '/' . bp_nouveau_get_component_slug( 'activity' ) . '/spam/' . $activity_id . '/',
-				'bp_activity_akismet_spam_' . $activity_id
-			);
+		// It's the first entry of the loop, so build the Group and sort it.
+		if ( ! isset( bp_nouveau()->activity->entry_buttons ) || ! is_a( bp_nouveau()->activity->entry_buttons, 'BP_Buttons_Reign_Group' ) ) {
+			$sort                                 = true;
+			bp_nouveau()->activity->entry_buttons = new BP_Buttons_Reign_Group( $buttons_group );
+
+			// It's not the first entry, the order is set, we simply need to update the Buttons Group.
 		} else {
-			$buttons['activity_spam']['button_attr'][ $data_element ] = wp_nonce_url(
-				bp_get_root_domain() . '/' . bp_nouveau_get_component_slug( 'activity' ) . '/spam/' . $activity_id . '/',
-				'bp_activity_akismet_spam_' . $activity_id
-			);
+			$sort = false;
+			bp_nouveau()->activity->entry_buttons->update( $buttons_group );
 		}
+
+		$return = bp_nouveau()->activity->entry_buttons->get( $sort );
+
+		if ( ! $return ) {
+			return array();
+		}
+
+		// Remove the Delete button if the user can't delete.
+		if ( ! bp_activity_user_can_delete() ) {
+			unset( $return['activity_delete'] );
+		}
+
+		do_action_ref_array( 'bb_nouveau_return_activity_entry_dropdown_toggle_buttons', array( &$return, $activity_id ) );
+
+		return $return;
 	}
-	/**
-	 * Filter to add your buttons, use the position argument to choose where to insert it.
-	 *
-	 * @since BuddyBoss 1.7.2
-	 *
-	 * @param array $buttons     The list of buttons.
-	 * @param int   $activity_id The current activity ID.
-	 */
-	$buttons_group = apply_filters( 'bb_nouveau_get_activity_entry_dropdown_toggle_buttons', $buttons, $activity_id );
-
-	if ( ! $buttons_group ) {
-		return $buttons;
-	}
-
-	// It's the first entry of the loop, so build the Group and sort it.
-	if ( ! isset( bp_nouveau()->activity->entry_buttons ) || ! is_a( bp_nouveau()->activity->entry_buttons, 'BP_Buttons_Reign_Group' ) ) {
-		$sort                                 = true;
-		bp_nouveau()->activity->entry_buttons = new BP_Buttons_Reign_Group( $buttons_group );
-
-		// It's not the first entry, the order is set, we simply need to update the Buttons Group.
-	} else {
-		$sort = false;
-		bp_nouveau()->activity->entry_buttons->update( $buttons_group );
-	}
-
-	$return = bp_nouveau()->activity->entry_buttons->get( $sort );
-
-	if ( ! $return ) {
-		return array();
-	}
-
-	// Remove the Delete button if the user can't delete.
-	if ( ! bp_activity_user_can_delete() ) {
-		unset( $return['activity_delete'] );
-	}
-
-	do_action_ref_array( 'bb_nouveau_return_activity_entry_dropdown_toggle_buttons', array( &$return, $activity_id ) );
-
-	return $return;
-}
+endif;
 
 class BP_Buttons_Reign_Group {
 
@@ -1528,7 +1589,7 @@ class BP_Buttons_Reign_Group {
 				$sorted_keys = array_keys( $sorted );
 
 				do {
-					$position += 1;
+					++$position;
 				} while ( in_array( $position, $sorted_keys, true ) );
 			}
 
@@ -1619,33 +1680,40 @@ class BP_Buttons_Reign_Group {
 	}
 }
 
-function bp_activity_get_share_count( $post_id, $is_bp = false ) {
-	$share_count = 0;
+// `bp_activity_get_*` is a well-known BuddyPress naming pattern.
+// function_exists() guards in case a future BP/BB update declares
+// these names first.
+if ( ! function_exists( 'bp_activity_get_share_count' ) ) :
+	function bp_activity_get_share_count( $post_id, $is_bp = false ) {
+		$share_count = 0;
 
-	if ( empty( $post_id ) ) {
+		if ( empty( $post_id ) ) {
+			return $share_count;
+		}
+
+		if ( ( function_exists( 'bp_is_activity_directory' ) && bp_is_activity_directory() ) || true === $is_bp ) {
+			$share_count = bp_activity_get_meta( $post_id, 'share_count', true );
+		} elseif ( is_single() ) {
+			$share_count = bp_activity_get_meta( $post_id, 'share_count', true );
+		}
+
+		if ( empty( $share_count ) ) {
+			$share_count = 0;
+		}
+
 		return $share_count;
 	}
+endif;
 
-	if ( ( function_exists( 'bp_is_activity_directory' ) && bp_is_activity_directory() ) || $is_bp == true ) {
-		$share_count = bp_activity_get_meta( $post_id, 'share_count', true );
-	} elseif ( is_single() ) {
-		$share_count = bp_activity_get_meta( $post_id, 'share_count', true );
+if ( ! function_exists( 'bp_activity_get_post_comment_count' ) ) :
+	function bp_activity_get_post_comment_count( $post_id ) {
+		$comment_count = get_comments_number( $post_id );
+		if ( empty( $comment_count ) ) {
+			$comment_count = 0;
+		}
+		return $comment_count;
 	}
-
-	if ( empty( $share_count ) ) {
-		$share_count = 0;
-	}
-
-	return $share_count;
-}
-
-function bp_activity_get_post_comment_count( $post_id ) {
-	$comment_count = get_comments_number( $post_id );
-	if ( empty( $comment_count ) ) {
-		$comment_count = 0;
-	}
-	return $comment_count;
-}
+endif;
 
 if ( ! function_exists( 'reign_theme_set_unread_notification' ) ) {
 
@@ -1655,7 +1723,7 @@ if ( ! function_exists( 'reign_theme_set_unread_notification' ) ) {
 	 * @since 6.6.0
 	 */
 	function reign_theme_set_unread_notification() {
-		if ( ! isset( $_POST['_ajax_nonce'] ) || ! wp_verify_nonce( $_POST['_ajax_nonce'], 'reign_notification_nonce' ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) ), 'reign_notification_nonce' ) ) {
 			wp_send_json_error(
 				array(
 					'message' => esc_html__( 'Security check failed. Please refresh the page and try again.', 'reign' ),
@@ -1757,9 +1825,11 @@ function bp_xprofile_field_edit_checkbox_acceptance( $r ) {
 	$field_id = $r['name'];
 
 	// Check if the 'class' key exists in the $r array.
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only registration-form prefill from URL parameters.
 	if ( isset( $r['class'] ) && ! empty( $_GET[ $field_id ] ) && strpos( $r['class'], 'checkbox-acceptance' ) !== false ) {
 		// Convert the GET parameter to an integer.
-		$new_checkbox_acceptance = (int) wp_unslash( $_GET[ $field_id ] );
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only registration-form prefill from URL parameters.
+		$new_checkbox_acceptance = absint( wp_unslash( $_GET[ $field_id ] ) );
 
 		// If the value is 1, mark the checkbox as checked, make it readonly, and prevent onclick events.
 		if ( 1 === $new_checkbox_acceptance ) {
@@ -1872,7 +1942,7 @@ function reign_recaptcha_display( $action = '' ) {
 				}
 			}
 			?>
-			<div id="reign_recaptcha_v2_element" class="bb_recaptcha_v2_element_content <?php echo esc_attr( $v2_class ); ?>" data-sitekey="<?php echo $site_key; ?>"></div>
+			<div id="reign_recaptcha_v2_element" class="bb_recaptcha_v2_element_content <?php echo esc_attr( $v2_class ); ?>" data-sitekey="<?php echo esc_attr( $site_key ); ?>"></div>
 			<?php
 		}
 
@@ -2171,7 +2241,8 @@ if ( ! function_exists( 'reign_profile_achievements' ) ) {
 				endwhile;
 
 				wp_reset_postdata();
-				$post = $old_post;
+				// Restore the original global $post after the custom achievement loop.
+				$post = $old_post; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Intentional restoration of the saved global.
 			}
 
 			$output  = '<div class="ps-badgeos__list-wrapper">';
@@ -2186,7 +2257,7 @@ if ( ! function_exists( 'reign_profile_achievements' ) ) {
 			 * @param int    $achievement_count Number of achievements found.
 			 * @param int    $user_id           Displayed user ID.
 			 */
-			echo apply_filters( 'reign_profile_achievements_output', $output, $achievement_count, $user_id );
+			echo wp_kses_post( apply_filters( 'reign_profile_achievements_output', $output, $achievement_count, $user_id ) );
 		}
 	}
 }
@@ -2197,7 +2268,7 @@ if ( ! function_exists( 'reign_profile_achievements' ) ) {
  * @since 7.0.3
  */
 function reign_ajax_addremove_friend() {
-	if ( ! isset( $_POST['_ajax_nonce'] ) || ! wp_verify_nonce( $_POST['_ajax_nonce'], 'reign_friendship_nonce' ) ) {
+	if ( ! isset( $_POST['_ajax_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) ), 'reign_friendship_nonce' ) ) {
 		wp_send_json_error(
 			array(
 				'feedback' => sprintf(
@@ -2229,7 +2300,7 @@ function reign_ajax_addremove_friend() {
 		$friend_id = (int) $_POST['friendship_id'];
 
 		// Check if the user exists only when the Friend ID is not a Frienship ID.
-		if ( isset( $_POST['data_action'] ) && $_POST['data_action'] !== 'friends_accept_friendship' && $_POST['data_action'] !== 'friends_reject_friendship' ) {
+		if ( isset( $_POST['data_action'] ) && 'friends_accept_friendship' !== $_POST['data_action'] && 'friends_reject_friendship' !== $_POST['data_action'] ) {
 			$user = get_user_by( 'id', $friend_id );
 			if ( ! $user ) {
 				wp_send_json_error(
@@ -2295,8 +2366,11 @@ function reign_ajax_addremove_friend() {
 }
 
 // custom ajax friend request accept/reject.
+// Friendship actions require an authenticated user (BuddyPress relies on
+// bp_loggedin_user_id()), so this handler is registered for logged-in
+// users only. The nopriv variant was removed - it exposed the endpoint to
+// unauthenticated visitors with no legitimate use case.
 add_action( 'wp_ajax_reign_ajax_addremove_friend', 'reign_ajax_addremove_friend' );
-add_action( 'wp_ajax_nopriv_reign_ajax_addremove_friend', 'reign_ajax_addremove_friend' );
 
 /* remove action for bb platform to show the current page content on register popup*/
 remove_action( 'bp_before_register_page', 'bp_register_page_content' );
@@ -2305,15 +2379,25 @@ if ( ! function_exists( 'reign_override_bp_legal_modals' ) ) {
 	function reign_override_bp_legal_modals() {
 		$reign_signin_popup = get_theme_mod( 'reign_signin_popup', false );
 
-		if ( $reign_signin_popup && function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
+		if ( reign_is_truthy( $reign_signin_popup ) && function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
 
-			add_filter( 'bp_term_of_service_content', function( $content, $original ) {
-				return $original;
-			}, 10, 2 );
+			add_filter(
+				'bp_term_of_service_content',
+				function ( $content, $original ) {
+					return $original;
+				},
+				10,
+				2
+			);
 
-			add_filter( 'bp_privacy_policy_content', function( $content, $original ) {
-				return $original;
-			}, 10, 2 );
+			add_filter(
+				'bp_privacy_policy_content',
+				function ( $content, $original ) {
+					return $original;
+				},
+				10,
+				2
+			);
 		}
 	}
 
@@ -2333,7 +2417,7 @@ if ( ! function_exists( 'reign_override_bp_legal_modals' ) ) {
  * @return string Modified avatar or original.
  */
 function reign_check_get_avatar_moderation( $avatar, $id_or_email, $size, $default, $alt, $args ) {
-	if ( is_object( $id_or_email ) || $id_or_email === '' ) {
+	if ( is_object( $id_or_email ) || '' === $id_or_email ) {
 		return $avatar;
 	}
 
@@ -2399,3 +2483,148 @@ function reign_check_get_avatar_moderation( $avatar, $id_or_email, $size, $defau
 }
 
 add_filter( 'get_avatar', 'reign_check_get_avatar_moderation', 1000, 6 );
+
+/**
+ * Heartbeat: push unread counts so the header badge stays current without a page reload.
+ */
+if ( ! function_exists( 'reign_theme_heartbeat_notification_count' ) ) {
+	function reign_theme_heartbeat_notification_count( $response, $data ) {
+		if ( ! is_user_logged_in() || ! function_exists( 'buddypress' ) ) {
+			return $response;
+		}
+
+		$count_data = array(
+			'notification'         => 0,
+			'unread_message'       => 0,
+			'friend_request'       => 0,
+			'notification_content' => array(),
+		);
+
+		if ( bp_is_active( 'notifications' ) ) {
+			$count_data['notification'] = (int) bp_notifications_get_unread_notification_count( bp_loggedin_user_id() );
+		}
+
+		if ( bp_is_active( 'messages' ) ) {
+			if ( class_exists( 'BP_Better_Messages' ) && function_exists( 'Better_Messages' ) ) {
+				$count_data['unread_message'] = (int) Better_Messages()->functions->get_total_threads_for_user( get_current_user_id(), 'unread' );
+			} elseif ( function_exists( 'bp_get_total_unread_messages_count' ) ) {
+				$count_data['unread_message'] = (int) bp_get_total_unread_messages_count( bp_loggedin_user_id() );
+			}
+		}
+
+		if ( bp_is_active( 'friends' ) && function_exists( 'friends_get_requests_for_user' ) ) {
+			$requests                     = friends_get_requests_for_user( bp_loggedin_user_id() );
+			$count_data['friend_request'] = is_array( $requests ) ? count( $requests ) : 0;
+		}
+
+		$response['reign_notification_count'] = $count_data;
+		return $response;
+	}
+	add_filter( 'heartbeat_received', 'reign_theme_heartbeat_notification_count', 11, 2 );
+}
+
+/**
+ * AJAX: mark a single BP message thread as read, return updated unread count.
+ */
+if ( ! function_exists( 'reign_theme_mark_message_thread_read' ) ) {
+	function reign_theme_mark_message_thread_read() {
+		if ( ! isset( $_POST['_ajax_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) ), 'reign_message_nonce' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'Security check failed. Please refresh the page.', 'reign' ) ) );
+			return;
+		}
+
+		if ( ! is_user_logged_in() || ! function_exists( 'buddypress' ) || ! bp_is_active( 'messages' ) ) {
+			wp_send_json_error();
+			return;
+		}
+
+		$thread_id = isset( $_POST['thread_id'] ) ? absint( $_POST['thread_id'] ) : 0;
+
+		if ( $thread_id > 0 && class_exists( 'BP_Messages_Thread' ) ) {
+			BP_Messages_Thread::mark_as_read( $thread_id );
+		}
+
+		$unread_count = function_exists( 'bp_get_total_unread_messages_count' )
+			? (int) bp_get_total_unread_messages_count( bp_loggedin_user_id() )
+			: 0;
+
+		wp_send_json_success( array( 'unread_count' => $unread_count ) );
+	}
+	add_action( 'wp_ajax_reign_theme_mark_message_thread_read', 'reign_theme_mark_message_thread_read' );
+}
+
+/**
+ * AJAX: mark all unread BP message threads as read, return zero count.
+ */
+if ( ! function_exists( 'reign_theme_mark_all_messages_read' ) ) {
+	function reign_theme_mark_all_messages_read() {
+		if ( ! isset( $_POST['_ajax_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) ), 'reign_message_nonce' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'Security check failed. Please refresh the page.', 'reign' ) ) );
+			return;
+		}
+
+		if ( ! is_user_logged_in() || ! function_exists( 'buddypress' ) || ! bp_is_active( 'messages' ) ) {
+			wp_send_json_error();
+			return;
+		}
+
+		$user_id = bp_loggedin_user_id();
+
+		if ( bp_has_message_threads(
+			array(
+				'user_id'  => $user_id,
+				'type'     => 'unread',
+				'per_page' => 100,
+				'max'      => 100,
+			)
+		) ) {
+			global $messages_template;
+			while ( bp_message_threads() ) {
+				bp_message_thread();
+				$thread_id = bp_get_message_thread_id();
+				if ( $thread_id > 0 && class_exists( 'BP_Messages_Thread' ) ) {
+					BP_Messages_Thread::mark_as_read( $thread_id );
+				}
+			}
+		}
+
+		wp_send_json_success( array( 'unread_count' => 0 ) );
+	}
+	add_action( 'wp_ajax_reign_theme_mark_all_messages_read', 'reign_theme_mark_all_messages_read' );
+}
+
+/**
+ * AJAX: return fresh messages dropdown inner HTML (used when badge count and DOM are out of sync).
+ */
+if ( ! function_exists( 'reign_theme_get_messages_dropdown' ) ) {
+	function reign_theme_get_messages_dropdown() {
+		if ( ! isset( $_POST['_ajax_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) ), 'reign_message_nonce' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'Security check failed. Please refresh the page.', 'reign' ) ) );
+			return;
+		}
+
+		if ( ! is_user_logged_in() || ! function_exists( 'buddypress' ) || ! bp_is_active( 'messages' ) ) {
+			wp_send_json_error();
+			return;
+		}
+
+		ob_start();
+		get_template_part( 'template-parts/header-icons/messages-dropdown-inner' );
+		$contents = ob_get_clean();
+
+		$unread_count = 0;
+		if ( class_exists( 'BP_Better_Messages' ) && function_exists( 'Better_Messages' ) ) {
+			$unread_count = (int) Better_Messages()->functions->get_total_threads_for_user( get_current_user_id(), 'unread' );
+		} elseif ( function_exists( 'bp_get_total_unread_messages_count' ) ) {
+			$unread_count = (int) bp_get_total_unread_messages_count( bp_loggedin_user_id() );
+		}
+
+		wp_send_json_success(
+			array(
+				'contents'     => $contents,
+				'unread_count' => $unread_count,
+			)
+		);
+	}
+	add_action( 'wp_ajax_reign_theme_get_messages_dropdown', 'reign_theme_get_messages_dropdown' );
+}

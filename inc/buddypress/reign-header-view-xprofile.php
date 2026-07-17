@@ -5,6 +5,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 if ( ! function_exists( 'reign_rth_manage_member_header_pos_from_frontend' ) ) {
 
 	/**
@@ -96,8 +98,18 @@ if ( ! function_exists( 'reign_rtm_save_header_view_info' ) ) {
 			return;
 		}
 
-		if ( isset( $_POST['wbtm_user_header_view']['identifier'] ) && '1' === $_POST['wbtm_user_header_view']['identifier'] ) {
-			update_user_meta( $user_id, 'wbtm_user_header_view', $_POST['wbtm_user_header_view'] );
+		// Nonce is verified by BuddyPress core before the `xprofile_updated_profile` action fires.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Nonce verified by BP core; each array element is sanitized individually below.
+		$header_view_raw = isset( $_POST['wbtm_user_header_view'] ) ? wp_unslash( $_POST['wbtm_user_header_view'] ) : array();
+
+		if ( is_array( $header_view_raw ) && isset( $header_view_raw['identifier'] ) && '1' === $header_view_raw['identifier'] ) {
+			$header_view = array(
+				'identifier' => '1',
+				'position'   => isset( $header_view_raw['position'] ) ? sanitize_text_field( $header_view_raw['position'] ) : '',
+				'type'       => isset( $header_view_raw['type'] ) ? sanitize_text_field( $header_view_raw['type'] ) : '',
+			);
+
+			update_user_meta( $user_id, 'wbtm_user_header_view', $header_view );
 
 			// Invalidate the cache after updating user meta.
 			wp_cache_delete( 'wbtm_user_header_view_' . $user_id );
@@ -134,7 +146,7 @@ if ( ! function_exists( 'reign_rtm_header_view_mgmt_section' ) ) {
 		$header_view = (array) get_user_meta( $user_id, 'wbtm_user_header_view', true );
 		$header_view = apply_filters( 'reign_get_user_social_array', $header_view, $user_id );
 
-		if ( 'edit' == bp_current_action() && isset( $wbtm_reign_settings['reign_buddyextender']['enable_profile_header_view'] ) && $wbtm_reign_settings['reign_buddyextender']['enable_profile_header_view'] == 'on' ) {
+		if ( 'edit' == bp_current_action() && isset( $wbtm_reign_settings['reign_buddyextender']['enable_profile_header_view'] ) && 'on' === $wbtm_reign_settings['reign_buddyextender']['enable_profile_header_view'] ) {
 			?>
 			<div class="editfield field_name required-field visibility-public field_type_textbox">
 				<fieldset>

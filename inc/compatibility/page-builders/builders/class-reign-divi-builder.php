@@ -112,7 +112,8 @@ class Reign_Divi_Builder extends Reign_Page_Builder_Base {
 	 * @return bool
 	 */
 	public function is_builder_preview() {
-		return isset( $_GET['et_fb'] ) && $_GET['et_fb'] == '1';
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only page-builder editor-mode detection.
+		return isset( $_GET['et_fb'] ) && '1' === sanitize_key( wp_unslash( $_GET['et_fb'] ) );
 	}
 
 	/**
