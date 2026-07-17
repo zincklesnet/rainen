@@ -19,10 +19,17 @@
   color: var(--reign-site-button-text-color);
   border: 1px solid var(--reign-site-button-bg-color);
 }
-.roadmap-btn.roadmap-btn-icon:hover, .roadmap-btn.roadmap-btn-icon:focus {
+.roadmap-btn.roadmap-btn-icon:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
   border: 1px solid var(--reign-site-button-bg-hover-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  .roadmap-btn.roadmap-btn-icon:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border: 1px solid var(--reign-site-button-bg-hover-color);
+  }
 }
 
 .roadmap-btn-primary.roadmap-btn-primary {
@@ -30,10 +37,17 @@
   color: var(--reign-site-button-text-color);
   border: 1px solid var(--reign-site-button-bg-color);
 }
-.roadmap-btn-primary.roadmap-btn-primary:hover, .roadmap-btn-primary.roadmap-btn-primary:focus {
+.roadmap-btn-primary.roadmap-btn-primary:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
   border: 1px solid var(--reign-site-button-bg-hover-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  .roadmap-btn-primary.roadmap-btn-primary:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border: 1px solid var(--reign-site-button-bg-hover-color);
+  }
 }
 
 .roadmap-btn-secondary.roadmap-btn-secondary {
@@ -42,27 +56,36 @@
   border-color: var(--reign-site-border-color);
 }
 
-.roadmap-btn-primary.roadmap-btn-primary:hover:not(:disabled),
-.roadmap-btn-secondary.roadmap-btn-secondary:hover:not(:disabled),
-.roadmap-btn-secondary.roadmap-btn-secondary:hover {
-  background-color: var(--reign-site-button-bg-hover-color);
-  color: var(--reign-site-button-text-hover-color);
-  border: 1px solid var(--reign-site-button-bg-hover-color);
+@media (hover: hover) and (pointer: fine) {
+  .roadmap-btn-primary.roadmap-btn-primary:hover:not(:disabled),
+  .roadmap-btn-secondary.roadmap-btn-secondary:hover:not(:disabled),
+  .roadmap-btn-secondary.roadmap-btn-secondary:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border: 1px solid var(--reign-site-button-bg-hover-color);
+  }
 }
-
 .roadmap-form-control.roadmap-form-control.roadmap-form-control,
 .roadmap-filters .roadmap-sort-control.roadmap-sort-control.roadmap-sort-control {
   background-color: var(--reign-form-background-color);
   color: var(--reign-form-text-color);
   border: 1px solid var(--reign-form-border-color);
 }
-.roadmap-form-control.roadmap-form-control.roadmap-form-control:hover, .roadmap-form-control.roadmap-form-control.roadmap-form-control:focus,
-.roadmap-filters .roadmap-sort-control.roadmap-sort-control.roadmap-sort-control:hover,
+.roadmap-form-control.roadmap-form-control.roadmap-form-control:focus,
 .roadmap-filters .roadmap-sort-control.roadmap-sort-control.roadmap-sort-control:focus {
   background-color: var(--reign-form-focus-background-color);
   color: var(--reign-form-focus-text-color);
   border: 1px solid var(--reign-form-focus-border-color);
   box-shadow: 0 0 0 2px rgba(var(--reign-colors-theme-rgb), 0.1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .roadmap-form-control.roadmap-form-control.roadmap-form-control:hover,
+  .roadmap-filters .roadmap-sort-control.roadmap-sort-control.roadmap-sort-control:hover {
+    background-color: var(--reign-form-focus-background-color);
+    color: var(--reign-form-focus-text-color);
+    border: 1px solid var(--reign-form-focus-border-color);
+    box-shadow: 0 0 0 2px rgba(var(--reign-colors-theme-rgb), 0.1);
+  }
 }
 
 .roadmap-minimal-item-description,
@@ -86,8 +109,10 @@
   color: var(--reign-site-headings-color);
   border: 1px solid var(--reign-site-border-color);
 }
-.roadmap-minimal-filter.roadmap-minimal-filter.roadmap-minimal-filter:hover {
-  background: var(--reign-site-sections-bg-color);
+@media (hover: hover) and (pointer: fine) {
+  .roadmap-minimal-filter.roadmap-minimal-filter.roadmap-minimal-filter:hover {
+    background: var(--reign-site-sections-bg-color);
+  }
 }
 .roadmap-minimal-filter.roadmap-minimal-filter.roadmap-minimal-filter.active {
   background: var(--reign-colors-theme);
@@ -124,10 +149,17 @@
   color: var(--reign-site-button-text-color) !important;
   border: 1px solid var(--reign-site-button-bg-color) !important;
 }
-.roadmap-app + div:has(form#test-submit) button[type=submit]:hover, .roadmap-app + div:has(form#test-submit) button[type=submit]:focus {
+.roadmap-app + div:has(form#test-submit) button[type=submit]:focus {
   background-color: var(--reign-site-button-bg-hover-color) !important;
   color: var(--reign-site-button-text-hover-color) !important;
   border: 1px solid var(--reign-site-button-bg-hover-color) !important;
+}
+@media (hover: hover) and (pointer: fine) {
+  .roadmap-app + div:has(form#test-submit) button[type=submit]:hover {
+    background-color: var(--reign-site-button-bg-hover-color) !important;
+    color: var(--reign-site-button-text-hover-color) !important;
+    border: 1px solid var(--reign-site-button-bg-hover-color) !important;
+  }
 }
 
 /*--------------------------------------------------------------
@@ -212,17 +244,23 @@
   color: var(--reign-site-link-color);
 }
 
-.changelog-back-link:hover {
-  color: var(--reign-site-link-hover-color);
+@media (hover: hover) and (pointer: fine) {
+  .changelog-back-link:hover {
+    color: var(--reign-site-link-hover-color);
+  }
 }
-
 .changelog-product-dropdown {
   background-color: var(--reign-site-sections-bg-color);
   color: var(--reign-site-body-text-color);
   border-color: var(--reign-site-border-color);
 }
-.changelog-product-dropdown:hover, .changelog-product-dropdown:focus {
+.changelog-product-dropdown:focus {
   border-color: var(--reign-site-border-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  .changelog-product-dropdown:hover {
+    border-color: var(--reign-site-border-color);
+  }
 }
 
 .changelog-entry-header .changelog-breadcrumb {
@@ -232,11 +270,18 @@
 /*--------------------------------------------------------------
 # Common Colors
 --------------------------------------------------------------*/
-.roadmap-minimal-item:hover .roadmap-minimal-item-title.roadmap-minimal-item-title.roadmap-minimal-item-title,
+/*--------------------------------------------------------------
+# Common Colors
+--------------------------------------------------------------*/
 .roadmap-range-value.roadmap-range-value {
   color: var(--reign-colors-theme);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .roadmap-minimal-item:hover .roadmap-minimal-item-title.roadmap-minimal-item-title.roadmap-minimal-item-title {
+    color: var(--reign-colors-theme);
+  }
+}
 .roadmap-ideabox-tab.active.roadmap-ideabox-tab.active {
   background-color: var(--reign-colors-theme);
 }
@@ -253,17 +298,21 @@
   background: var(--reign-site-sections-bg-color);
 }
 
-.roadmap-minimal-item:hover .roadmap-minimal-item-content.roadmap-minimal-item-content.roadmap-minimal-item-content,
 .roadmap-minimal-category.roadmap-minimal-category.roadmap-minimal-category,
 .roadmap-timeline-section.roadmap-timeline-section.roadmap-timeline-section,
 .roadmap-card-votes.roadmap-card-votes.roadmap-card-votes,
 .roadmap-list-group-header.roadmap-list-group-header.roadmap-list-group-header,
 .roadmap-ideabox-header.roadmap-ideabox-header,
-.roadmap-ideabox-item.roadmap-ideabox-item:hover,
 .roadmap-ideabox-vote-btn.roadmap-ideabox-vote-btn {
   background: var(--reign-site-secondary-bg-color);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .roadmap-minimal-item:hover .roadmap-minimal-item-content.roadmap-minimal-item-content.roadmap-minimal-item-content,
+  .roadmap-ideabox-item.roadmap-ideabox-item:hover {
+    background: var(--reign-site-secondary-bg-color);
+  }
+}
 .roadmap-minimal-footer.roadmap-minimal-footer.roadmap-minimal-footer,
 .roadmap-minimal-item-description.roadmap-minimal-item-description.roadmap-minimal-item-description,
 .roadmap-minimal-item-meta.roadmap-minimal-item-meta.roadmap-minimal-item-meta,

@@ -293,29 +293,9 @@ body .rtmedia-activity-container ul.rtm-activity-media-list {
   object-fit: cover;
 }
 
-.media .rtmedia-list.rtmedia-list-media > li.rtmedia-list-item:hover .rtmedia-item-thumbnail > img {
-  opacity: 0.4;
-  animation: lightBlur 0.5s forwards;
-}
-
-@-webkit-keyframes lightBlur {
-  0% {
-    -webkit-filter: blur(0px);
-    filter: blur(0px);
-  }
-  100% {
-    -webkit-filter: blur(4px);
-    filter: blur(4px);
-  }
-}
-@keyframes lightBlur {
-  0% {
-    -webkit-filter: blur(0px);
-    filter: blur(0px);
-  }
-  100% {
-    -webkit-filter: blur(4px);
-    filter: blur(4px);
+@media (hover: hover) and (pointer: fine) {
+  .media .rtmedia-list.rtmedia-list-media > li.rtmedia-list-item:hover .rtmedia-item-thumbnail > img {
+    opacity: 0.85;
   }
 }
 .media .rtmedia-gallery-item-actions {
@@ -351,10 +331,11 @@ body .rtmedia-activity-container ul.rtm-activity-media-list {
   margin-top: 0.5rem;
 }
 
-.media .rtmedia-list.rtmedia-list-media > li.rtmedia-list-item .rtmedia-gallery-item-actions .rtm-delete-media:hover {
-  color: #f00;
+@media (hover: hover) and (pointer: fine) {
+  .media .rtmedia-list.rtmedia-list-media > li.rtmedia-list-item .rtmedia-gallery-item-actions .rtm-delete-media:hover {
+    color: #f00;
+  }
 }
-
 /*--------------------------------------------------------------
 # Edit Media
 --------------------------------------------------------------*/
@@ -475,9 +456,11 @@ body .rtmedia-activity-container ul.rtm-activity-media-list {
 .rtm-lightbox-container a {
   color: var(--reign-site-link-color);
 }
-.bp-nouveau .rtm-lightbox-container a:hover,
-.rtm-lightbox-container a:hover {
-  color: var(--reign-site-link-hover-color);
+@media (hover: hover) and (pointer: fine) {
+  .bp-nouveau .rtm-lightbox-container a:hover,
+  .rtm-lightbox-container a:hover {
+    color: var(--reign-site-link-hover-color);
+  }
 }
 
 .rtmedia-like-info {
@@ -549,8 +532,10 @@ body .rtmedia-activity-container ul.rtm-activity-media-list {
   color: var(--reign-color-white);
   padding: 8px 15px;
 }
-.media.bp-nouveau #buddypress .rt_media_comment_submit:hover {
-  color: var(--reign-site-alternate-text-color);
+@media (hover: hover) and (pointer: fine) {
+  .media.bp-nouveau #buddypress .rt_media_comment_submit:hover {
+    color: var(--reign-site-alternate-text-color);
+  }
 }
 .media.bp-nouveau #rtSelectPrivacy {
   margin: 0;

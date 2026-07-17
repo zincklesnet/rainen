@@ -672,12 +672,19 @@ span#subscription-toggle {
   text-shadow: none;
   font-family: inherit;
 }
-.favorite-toggle:hover, .favorite-toggle:focus,
-.subscription-toggle:hover,
+.favorite-toggle:focus,
 .subscription-toggle:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
   border: 1px solid var(--reign-site-button-bg-hover-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  .favorite-toggle:hover,
+  .subscription-toggle:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border: 1px solid var(--reign-site-button-bg-hover-color);
+  }
 }
 
 span#favorite-toggle a:before,
@@ -693,10 +700,11 @@ span#favorite-toggle .is-favorite a:before {
   font-weight: 900;
 }
 
-#bbpress-forums div.bbp-the-content-wrapper input[type=button]:hover {
-  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+@media (hover: hover) and (pointer: fine) {
+  #bbpress-forums div.bbp-the-content-wrapper input[type=button]:hover {
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  }
 }
-
 /*--------------------------------------------------------------
 # Topic Lead
 --------------------------------------------------------------*/
@@ -842,6 +850,9 @@ span#favorite-toggle .is-favorite a:before {
 #bbpress-forums ul.bbp-forums,
 #bbpress-forums ul.bbp-replies,
 #bbpress-forums ul.bbp-search-results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   font-size: inherit;
   border-color: var(--reign-site-border-color);
   border-radius: var(--reign-global-border-radius);
@@ -922,8 +933,10 @@ span.bbp-reply-post-date:before {
   border-radius: 3px !important;
   border: 1px solid !important;
 }
-#bbpress-forums .bbp-pagination-links .page-numbers:hover {
-  box-shadow: 0 1.5px 15px 0 rgba(0, 0, 0, 0.17);
+@media (hover: hover) and (pointer: fine) {
+  #bbpress-forums .bbp-pagination-links .page-numbers:hover {
+    box-shadow: 0 1.5px 15px 0 rgba(0, 0, 0, 0.17);
+  }
 }
 
 #bbpress-forums .bbp-pagination-links span.current {
@@ -932,14 +945,15 @@ span.bbp-reply-post-date:before {
   border-color: var(--reign-color-white);
 }
 
-#bbpress-forums .bbp-topic-pagination a:hover,
-#bbpress-forums .bbp-pagination-links a:hover {
-  color: var(--reign-colors-theme);
-  background: transparent;
-  opacity: 1;
-  border-color: var(--reign-colors-theme);
+@media (hover: hover) and (pointer: fine) {
+  #bbpress-forums .bbp-topic-pagination a:hover,
+  #bbpress-forums .bbp-pagination-links a:hover {
+    color: var(--reign-colors-theme);
+    background: transparent;
+    opacity: 1;
+    border-color: var(--reign-colors-theme);
+  }
 }
-
 /*--------------------------------------------------------------
 # Search Results
 --------------------------------------------------------------*/
@@ -1097,12 +1111,16 @@ span.bbp-reply-post-date:before {
   top: 250px;
 }
 
-.wp-core-ui .button.hover,
-.wp-core-ui .button:hover,
-.wp-core-ui .button-secondary:hover {
+.wp-core-ui .button.hover {
   border: 1px solid #016087 !important;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .wp-core-ui .button:hover,
+  .wp-core-ui .button-secondary:hover {
+    border: 1px solid #016087 !important;
+  }
+}
 /*--------------------------------------------------------------
 # User Profile
 --------------------------------------------------------------*/
@@ -1299,11 +1317,12 @@ span.bbp-reply-post-date:before {
   color: var(--reign-accent-color);
 }
 
-.bbp-forum-content a:hover,
-.bbp-reply-content a:hover {
-  color: var(--reign-accent-hover-color);
+@media (hover: hover) and (pointer: fine) {
+  .bbp-forum-content a:hover,
+  .bbp-reply-content a:hover {
+    color: var(--reign-accent-hover-color);
+  }
 }
-
 /* Border Color */
 #bbpress-forums fieldset.bbp-form {
   border-color: var(--reign-site-border-color);
@@ -1320,14 +1339,15 @@ span.bbp-reply-post-date:before {
   border: 0;
 }
 
-#buddypress .generic-button .bp-activity-react-button:hover,
-.bbp-reply-footer .bbp-meta .bp-activity-react-btn a.bp-activity-react-button:hover,
-#bbpress-forums ul.bbp-lead-topic .bbp-body .bbp-topic-footer .bbp-meta .bp-activity-react-btn a.bp-activity-react-button:hover {
-  padding: 0;
-  color: var(--reign-site-link-hover-color) !important;
-  border: 0;
+@media (hover: hover) and (pointer: fine) {
+  #buddypress .generic-button .bp-activity-react-button:hover,
+  .bbp-reply-footer .bbp-meta .bp-activity-react-btn a.bp-activity-react-button:hover,
+  #bbpress-forums ul.bbp-lead-topic .bbp-body .bbp-topic-footer .bbp-meta .bp-activity-react-btn a.bp-activity-react-button:hover {
+    padding: 0;
+    color: var(--reign-site-link-hover-color) !important;
+    border: 0;
+  }
 }
-
 /*--------------------------------------------------------------
 # BB Platform
 --------------------------------------------------------------*/
@@ -1342,37 +1362,45 @@ span.bbp-reply-post-date:before {
   text-transform: uppercase;
   text-decoration: none;
 }
-#buddypress span.bbp-admin-links a:focus, #buddypress span.bbp-admin-links a:hover,
-#buddypress span.bbp-admin-links a.report-content:focus,
-#buddypress span.bbp-admin-links a.report-content:hover {
+#buddypress span.bbp-admin-links a:focus,
+#buddypress span.bbp-admin-links a.report-content:focus {
   background: transparent;
   color: var(--reign-site-link-hover-color);
   border: 0;
   padding: 0;
 }
+@media (hover: hover) and (pointer: fine) {
+  #buddypress span.bbp-admin-links a:hover,
+  #buddypress span.bbp-admin-links a.report-content:hover {
+    background: transparent;
+    color: var(--reign-site-link-hover-color);
+    border: 0;
+    padding: 0;
+  }
+}
 
-.dark-mode #bbpress-forums .status-spam.even,
-.dark-mode #bbpress-forums .status-trash.even,
-.dark-mode #bbpress-forums .status-spam.odd,
-.dark-mode #bbpress-forums .status-trash.odd,
+[data-bx-mode=dark] #bbpress-forums .status-spam.even,
+[data-bx-mode=dark] #bbpress-forums .status-trash.even,
+[data-bx-mode=dark] #bbpress-forums .status-spam.odd,
+[data-bx-mode=dark] #bbpress-forums .status-trash.odd,
 .dark-scheme #bbpress-forums .status-spam.even,
 .dark-scheme #bbpress-forums .status-trash.even,
 .dark-scheme #bbpress-forums .status-spam.odd,
 .dark-scheme #bbpress-forums .status-trash.odd {
   background-color: var(--reign-site-secondary-bg-color);
 }
-.dark-mode #bbpress-forums .status-spam.even div.bbp-forum-header,
-.dark-mode #bbpress-forums .status-spam.even div.bbp-reply-header,
-.dark-mode #bbpress-forums .status-spam.even div.bbp-topic-header,
-.dark-mode #bbpress-forums .status-trash.even div.bbp-forum-header,
-.dark-mode #bbpress-forums .status-trash.even div.bbp-reply-header,
-.dark-mode #bbpress-forums .status-trash.even div.bbp-topic-header,
-.dark-mode #bbpress-forums .status-spam.odd div.bbp-forum-header,
-.dark-mode #bbpress-forums .status-spam.odd div.bbp-reply-header,
-.dark-mode #bbpress-forums .status-spam.odd div.bbp-topic-header,
-.dark-mode #bbpress-forums .status-trash.odd div.bbp-forum-header,
-.dark-mode #bbpress-forums .status-trash.odd div.bbp-reply-header,
-.dark-mode #bbpress-forums .status-trash.odd div.bbp-topic-header,
+[data-bx-mode=dark] #bbpress-forums .status-spam.even div.bbp-forum-header,
+[data-bx-mode=dark] #bbpress-forums .status-spam.even div.bbp-reply-header,
+[data-bx-mode=dark] #bbpress-forums .status-spam.even div.bbp-topic-header,
+[data-bx-mode=dark] #bbpress-forums .status-trash.even div.bbp-forum-header,
+[data-bx-mode=dark] #bbpress-forums .status-trash.even div.bbp-reply-header,
+[data-bx-mode=dark] #bbpress-forums .status-trash.even div.bbp-topic-header,
+[data-bx-mode=dark] #bbpress-forums .status-spam.odd div.bbp-forum-header,
+[data-bx-mode=dark] #bbpress-forums .status-spam.odd div.bbp-reply-header,
+[data-bx-mode=dark] #bbpress-forums .status-spam.odd div.bbp-topic-header,
+[data-bx-mode=dark] #bbpress-forums .status-trash.odd div.bbp-forum-header,
+[data-bx-mode=dark] #bbpress-forums .status-trash.odd div.bbp-reply-header,
+[data-bx-mode=dark] #bbpress-forums .status-trash.odd div.bbp-topic-header,
 .dark-scheme #bbpress-forums .status-spam.even div.bbp-forum-header,
 .dark-scheme #bbpress-forums .status-spam.even div.bbp-reply-header,
 .dark-scheme #bbpress-forums .status-spam.even div.bbp-topic-header,
@@ -1386,4 +1414,82 @@ span.bbp-reply-post-date:before {
 .dark-scheme #bbpress-forums .status-trash.odd div.bbp-reply-header,
 .dark-scheme #bbpress-forums .status-trash.odd div.bbp-topic-header {
   background-color: var(--reign-site-secondary-bg-color);
+}
+[data-bx-mode=dark] .ac-reply-toolbar .bb-icon, [data-bx-mode=dark] .ac-reply-toolbar [class*=" bb-icon-"],
+[data-bx-mode=dark] #whats-new-toolbar .bb-icon, [data-bx-mode=dark] #whats-new-toolbar [class*=" bb-icon-"],
+[data-bx-mode=dark] #whats-new-messages-toolbar .bb-icon,
+[data-bx-mode=dark] #whats-new-messages-toolbar [class*=" bb-icon-"],
+[data-bx-mode=dark] #whats-new-formatting-toolbar .bb-icon,
+[data-bx-mode=dark] #whats-new-formatting-toolbar [class*=" bb-icon-"],
+.dark-scheme .ac-reply-toolbar .bb-icon,
+.dark-scheme .ac-reply-toolbar [class*=" bb-icon-"],
+.dark-scheme #whats-new-toolbar .bb-icon,
+.dark-scheme #whats-new-toolbar [class*=" bb-icon-"],
+.dark-scheme #whats-new-messages-toolbar .bb-icon,
+.dark-scheme #whats-new-messages-toolbar [class*=" bb-icon-"],
+.dark-scheme #whats-new-formatting-toolbar .bb-icon,
+.dark-scheme #whats-new-formatting-toolbar [class*=" bb-icon-"] {
+  color: var(--reign-site-body-text-color);
+}
+[data-bx-mode=dark] .bbp-reply-form #whats-new-toolbar .medium-editor-toolbar,
+[data-bx-mode=dark] .bbp-topic-form #whats-new-toolbar .medium-editor-toolbar,
+.dark-scheme .bbp-reply-form #whats-new-toolbar .medium-editor-toolbar,
+.dark-scheme .bbp-topic-form #whats-new-toolbar .medium-editor-toolbar {
+  background: var(--reign-site-sections-bg-color);
+  border: 1px solid var(--reign-site-border-color);
+}
+[data-bx-mode=dark] .medium-editor-toolbar .medium-editor-toolbar-actions button,
+[data-bx-mode=dark] .buddypress .medium-editor-toolbar .medium-editor-toolbar-actions button,
+.dark-scheme .medium-editor-toolbar .medium-editor-toolbar-actions button,
+.dark-scheme .buddypress .medium-editor-toolbar .medium-editor-toolbar-actions button {
+  color: var(--reign-site-body-text-color);
+}
+[data-bx-mode=dark] .medium-editor-toolbar .medium-editor-toolbar-actions button.medium-editor-button-active, [data-bx-mode=dark] .buddypress .medium-editor-toolbar .medium-editor-toolbar-actions button.medium-editor-button-active,
+.dark-scheme .medium-editor-toolbar .medium-editor-toolbar-actions button.medium-editor-button-active,
+.dark-scheme .buddypress .medium-editor-toolbar .medium-editor-toolbar-actions button.medium-editor-button-active {
+  color: var(--reign-site-headings-color);
+}
+
+.bbp-the-content-wrapper .medium-editor-element {
+  min-height: 130px;
+  padding: 10px 15px;
+  background: var(--reign-form-background-color);
+  color: var(--reign-form-text-color);
+  border: 1px solid var(--reign-form-border-color);
+  border-radius: 6px;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.bbp-the-content-wrapper .medium-editor-element:focus {
+  background: var(--reign-form-focus-background-color);
+  color: var(--reign-form-focus-text-color);
+  border: 1px solid var(--reign-form-focus-border-color);
+  box-shadow: 0 0 0 2px rgba(var(--reign-colors-theme-rgb), 0.1);
+  outline: none;
+}
+.bbp-the-content-wrapper .medium-editor-element:focus-visible {
+  outline: 2px solid var(--reign-site-link-color, #0073aa);
+  outline-offset: 2px;
+}
+
+/* Emoji */
+.emojionearea .emojionearea-picker,
+.emojionearea .emojionearea-picker .emojionearea-scroll-area .emojionearea-category-title {
+  background-color: var(--reign-site-body-bg-color);
+}
+
+.emojionearea .emojionearea-picker .emojionearea-filters {
+  background-color: var(--reign-site-sections-bg-color);
+  border-color: var(--reign-site-border-color);
+}
+
+.emojionearea .emojionearea-picker .emojionearea-filters .emojionearea-filter.active {
+  background-color: var(--reign-site-secondary-bg-color);
+}
+
+/* Feedback */
+.bp-feedback {
+  background-color: var(--reign-site-sections-bg-color);
+  border: 1px solid var(--reign-site-border-color);
+  color: inherit;
 }

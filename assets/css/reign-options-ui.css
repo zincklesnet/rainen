@@ -1,0 +1,792 @@
+/**
+ * Reign options page - UI vocabulary.
+ *
+ * Single source-of-truth stylesheet for the Reign Settings admin page surfaces
+ * (Getting Started + Build More tabs + the "More from Wbcom" sidebar). Follows
+ * the shared Wbcom design system: a Layer-2 token block that falls back to the
+ * host theme.json presets (then a brand hex), no raw hex/px in component rules,
+ * Lucide icons (masked SVG), and exactly two bottom-anchored @media blocks.
+ */
+
+.reign-gs,
+.reign-side {
+	/* Layer 2 semantic tokens -> Layer 1 theme.json -> brand hex fallback. */
+	--reign-accent: var(--wp--preset--color--primary, #157dfd);
+	--reign-accent-strong: #0957cf;
+	--reign-on-accent: #ffffff;
+	--reign-ink: var(--wp--preset--color--contrast, #1e1e1e);
+	--reign-ink-soft: #3e5566;
+	--reign-muted: #6a6a6a;
+	--reign-border: #dfe6ed;
+	--reign-border-strong: #c6d4e2;
+	--reign-surface: var(--wp--preset--color--base, #ffffff);
+	--reign-tint: #f2f8ff;
+	--reign-tint-soft: #f5f7f9;
+	--reign-success: #1a8754;
+	--reign-success-bg: #e6f4ec;
+	--reign-success-border: #cfe3cf;
+	--reign-danger: #b3261e;
+
+	/* Spacing scale (xs 4 -> 4xl 48). */
+	--reign-space-xs: 4px;
+	--reign-space-sm: 8px;
+	--reign-space-md: 12px;
+	--reign-space-lg: 16px;
+	--reign-space-xl: 20px;
+	--reign-space-2xl: 24px;
+	--reign-space-3xl: 32px;
+	--reign-space-4xl: 48px;
+
+	/* Radius, shadow, control sizing, motion. */
+	--reign-radius-sm: 8px;
+	--reign-radius: 12px;
+	--reign-radius-lg: 20px;
+	--reign-radius-pill: 999px;
+	--reign-shadow: 0 10px 25px rgba(143, 163, 184, 0.12);
+	--reign-shadow-sm: 0 8px 20px rgba(143, 163, 184, 0.12);
+	--reign-control-h: 40px;
+	--reign-transition: 0.2s ease;
+
+	/* Lucide icons (stroke 1.75), consumed via mask so they take currentColor. */
+	--reign-ic-arrow-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3Cpath d='m12 5 7 7-7 7'/%3E%3C/svg%3E");
+	--reign-ic-arrow-up-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 7h10v10'/%3E%3Cpath d='M7 17 17 7'/%3E%3C/svg%3E");
+	--reign-ic-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+}
+
+.reign-gs {
+	display: block;
+	padding: var(--reign-space-3xl);
+	color: var(--reign-ink);
+	box-sizing: border-box;
+}
+
+.reign-gs *,
+.reign-gs *::before,
+.reign-gs *::after {
+	box-sizing: border-box;
+}
+
+/* Shared masked-icon primitive. */
+.reign-ic {
+	flex: 0 0 auto;
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	background: currentColor;
+	-webkit-mask: var(--reign-ic) center / contain no-repeat;
+	mask: var(--reign-ic) center / contain no-repeat;
+}
+
+/* ---------------------------------------------------------------- Hero */
+
+.reign-gs-hero {
+	display: flex;
+	align-items: center;
+	gap: var(--reign-space-2xl);
+	padding: var(--reign-space-3xl);
+	border: 1px solid var(--reign-border);
+	border-radius: var(--reign-radius);
+	background: radial-gradient(120% 140% at 100% 0%, var(--reign-tint) 0%, var(--reign-surface) 55%);
+	margin-bottom: var(--reign-space-4xl);
+}
+
+.reign-gs-hero-mark {
+	flex: 0 0 auto;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 84px;
+	height: 84px;
+	border-radius: var(--reign-radius-lg);
+	background: var(--reign-surface);
+	border: 1px solid var(--reign-border);
+	box-shadow: var(--reign-shadow);
+}
+
+.reign-gs-hero-mark img {
+	width: 56px;
+	height: 56px;
+	display: block;
+}
+
+.reign-gs-hero-body {
+	min-width: 0;
+}
+
+.reign-gs-hero-title {
+	margin: 0;
+	font-size: 26px;
+	line-height: 1.2;
+	font-weight: 700;
+	color: var(--reign-ink);
+}
+
+.reign-gs-hero-text {
+	margin: var(--reign-space-sm) 0 0;
+	font-size: 15px;
+	line-height: 1.6;
+	color: var(--reign-ink-soft);
+	max-width: 64ch;
+}
+
+.reign-gs-hero-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--reign-space-md);
+	margin-top: var(--reign-space-lg);
+}
+
+/* -------------------------------------------------------------- Buttons */
+
+.reign-gs-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--reign-space-sm);
+	height: var(--reign-control-h);
+	padding: 0 var(--reign-space-lg);
+	border-radius: var(--reign-radius-sm);
+	border: 1px solid transparent;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 1;
+	text-decoration: none;
+	cursor: pointer;
+	transition: all var(--reign-transition);
+}
+
+.reign-gs-btn--primary {
+	background: var(--reign-accent);
+	border-color: var(--reign-accent-strong);
+	color: var(--reign-on-accent);
+}
+
+.reign-gs-btn--primary:hover,
+.reign-gs-btn--primary:focus {
+	background: var(--reign-accent-strong);
+	color: var(--reign-on-accent);
+}
+
+.reign-gs-btn--ghost {
+	background: var(--reign-surface);
+	border-color: var(--reign-border);
+	color: var(--reign-accent);
+}
+
+.reign-gs-btn--ghost:hover,
+.reign-gs-btn--ghost:focus {
+	border-color: var(--reign-accent);
+	color: var(--reign-accent-strong);
+}
+
+.reign-gs-btn--done {
+	background: var(--reign-success-bg);
+	border-color: transparent;
+	color: var(--reign-success);
+	cursor: default;
+}
+
+.reign-gs-btn--done::before {
+	content: "";
+	width: 16px;
+	height: 16px;
+	background: currentColor;
+	-webkit-mask: var(--reign-ic-check) center / contain no-repeat;
+	mask: var(--reign-ic-check) center / contain no-repeat;
+}
+
+/* -------------------------------------------------------------- Sections */
+
+.reign-gs-section {
+	margin-bottom: var(--reign-space-4xl);
+}
+
+.reign-gs-section:last-child {
+	margin-bottom: 0;
+}
+
+.reign-gs-section-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: var(--reign-space-md) var(--reign-space-2xl);
+	margin-bottom: var(--reign-space-lg);
+}
+
+.reign-gs-section-head-text {
+	min-width: 0;
+}
+
+.reign-gs-section-title {
+	margin: 0;
+	font-size: 19px;
+	font-weight: 700;
+	color: var(--reign-ink);
+}
+
+.reign-gs-section-sub {
+	margin: var(--reign-space-xs) 0 0;
+	font-size: 14px;
+	line-height: 1.6;
+	color: var(--reign-muted);
+	max-width: 70ch;
+}
+
+.reign-gs-link {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--reign-space-xs);
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--reign-accent);
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.reign-gs-link::after {
+	content: "";
+	width: 16px;
+	height: 16px;
+	background: currentColor;
+	-webkit-mask: var(--reign-ic-arrow-right) center / contain no-repeat;
+	mask: var(--reign-ic-arrow-right) center / contain no-repeat;
+	transition: transform var(--reign-transition);
+}
+
+.reign-gs-link:hover {
+	color: var(--reign-accent-strong);
+}
+
+.reign-gs-link:hover::after {
+	transform: translateX(3px);
+}
+
+/* ----------------------------------------------------------------- Grids */
+
+.reign-gs-grid {
+	display: grid;
+	gap: var(--reign-space-lg);
+}
+
+.reign-gs-grid--family {
+	grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+}
+
+.reign-gs-grid--tiles {
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.reign-gs-grid--res {
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.reign-gs-grid--foot {
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+}
+
+/* --------------------------------------------------------- Family cards */
+
+.reign-gs-product {
+	display: flex;
+	flex-direction: column;
+	padding: var(--reign-space-xl);
+	background: var(--reign-surface);
+	border: 1px solid var(--reign-border);
+	border-radius: var(--reign-radius);
+	transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.reign-gs-product:hover {
+	border-color: var(--reign-border-strong);
+	box-shadow: var(--reign-shadow);
+	transform: translateY(-2px);
+}
+
+.reign-gs-product.is-active {
+	border-color: var(--reign-success-border);
+	background: linear-gradient(0deg, var(--reign-success-bg) 0%, var(--reign-surface) 60%);
+}
+
+.reign-gs-product-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--reign-space-sm);
+	margin-bottom: var(--reign-space-md);
+}
+
+.reign-gs-product-logo {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 48px;
+	height: 48px;
+	border-radius: var(--reign-radius);
+	background: var(--reign-tint);
+	border: 1px solid var(--reign-border);
+}
+
+.reign-gs-product-logo img {
+	width: 30px;
+	height: 30px;
+	display: block;
+}
+
+.reign-gs-product-name {
+	margin: 0 0 var(--reign-space-xs);
+	font-size: 16px;
+	font-weight: 700;
+	color: var(--reign-ink);
+}
+
+.reign-gs-product-desc {
+	margin: 0 0 var(--reign-space-lg);
+	font-size: 13.5px;
+	line-height: 1.55;
+	color: var(--reign-muted);
+	flex: 1 1 auto;
+}
+
+.reign-gs-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--reign-space-xs);
+	padding: var(--reign-space-xs) var(--reign-space-sm);
+	border-radius: var(--reign-radius-pill);
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 1;
+}
+
+.reign-gs-pill--active {
+	background: var(--reign-success-bg);
+	color: var(--reign-success);
+}
+
+.reign-gs-pill--active::before {
+	content: "";
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--reign-success);
+}
+
+.reign-gs-product-cta {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--reign-space-xs);
+	align-self: flex-start;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--reign-accent);
+	text-decoration: none;
+}
+
+.reign-gs-product-cta-arrow {
+	width: 15px;
+	height: 15px;
+	background: currentColor;
+	-webkit-mask: var(--reign-ic-arrow-right) center / contain no-repeat;
+	mask: var(--reign-ic-arrow-right) center / contain no-repeat;
+	transition: transform var(--reign-transition);
+}
+
+.reign-gs-product-cta:hover {
+	color: var(--reign-accent-strong);
+}
+
+.reign-gs-product-cta:hover .reign-gs-product-cta-arrow {
+	transform: translateX(3px);
+}
+
+/* ----------------------------------------------------------- Setup tiles */
+
+.reign-gs-tile {
+	display: flex;
+	align-items: center;
+	gap: var(--reign-space-md);
+	padding: var(--reign-space-lg);
+	background: var(--reign-surface);
+	border: 1px solid var(--reign-border);
+	border-radius: var(--reign-radius);
+	text-decoration: none;
+	transition: border-color var(--reign-transition), box-shadow var(--reign-transition), background var(--reign-transition);
+}
+
+.reign-gs-tile:hover {
+	border-color: var(--reign-accent);
+	box-shadow: var(--reign-shadow);
+}
+
+.reign-gs-tile-icon {
+	flex: 0 0 auto;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 38px;
+	height: 38px;
+	border-radius: var(--reign-radius-sm);
+	background: var(--reign-tint);
+	color: var(--reign-accent);
+}
+
+.reign-gs-tile-icon svg {
+	width: 20px;
+	height: 20px;
+	display: block;
+}
+
+.reign-gs-tile-body {
+	display: block;
+	min-width: 0;
+	flex: 1 1 auto;
+}
+
+.reign-gs-tile-title {
+	display: block;
+	font-size: 15px;
+	font-weight: 600;
+	color: var(--reign-ink);
+}
+
+.reign-gs-tile-desc {
+	display: block;
+	margin-top: 3px;
+	font-size: 13px;
+	line-height: 1.5;
+	color: var(--reign-muted);
+}
+
+.reign-gs-tile-arrow {
+	flex: 0 0 auto;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 30px;
+	height: 30px;
+	border-radius: var(--reign-radius-sm);
+	background: var(--reign-tint-soft);
+	color: var(--reign-accent);
+	transition: background var(--reign-transition), color var(--reign-transition), transform var(--reign-transition);
+}
+
+.reign-gs-tile-arrow::before {
+	content: "";
+	width: 16px;
+	height: 16px;
+	background: currentColor;
+	-webkit-mask: var(--reign-ic-arrow-right) center / contain no-repeat;
+	mask: var(--reign-ic-arrow-right) center / contain no-repeat;
+}
+
+.reign-gs-tile:hover .reign-gs-tile-arrow {
+	background: var(--reign-accent);
+	color: var(--reign-on-accent);
+	transform: translateX(2px);
+}
+
+/* ------------------------------------------------------- Resource cards */
+
+.reign-gs-card {
+	display: flex;
+	flex-direction: column;
+	padding: var(--reign-space-2xl);
+	background: var(--reign-surface);
+	border: 1px solid var(--reign-border);
+	border-radius: var(--reign-radius);
+}
+
+.reign-gs-card-title {
+	margin: 0 0 var(--reign-space-sm);
+	font-size: 16px;
+	font-weight: 700;
+	color: var(--reign-ink);
+}
+
+.reign-gs-card-desc {
+	margin: 0;
+	font-size: 13.5px;
+	line-height: 1.6;
+	color: var(--reign-muted);
+	flex: 1 1 auto;
+}
+
+.reign-gs-card-note {
+	margin: var(--reign-space-sm) 0 0;
+	font-size: 12.5px;
+	font-style: italic;
+	color: var(--reign-success);
+}
+
+.reign-gs-card-cta {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	align-self: flex-start;
+	height: 38px;
+	margin-top: var(--reign-space-lg);
+	padding: 0 var(--reign-space-lg);
+	border-radius: var(--reign-radius-sm);
+	background: var(--reign-accent);
+	border: 1px solid var(--reign-accent-strong);
+	color: var(--reign-on-accent);
+	font-size: 14px;
+	font-weight: 600;
+	text-decoration: none;
+	transition: background var(--reign-transition);
+}
+
+.reign-gs-card-cta:hover,
+.reign-gs-card-cta:focus {
+	background: var(--reign-accent-strong);
+	color: var(--reign-on-accent);
+}
+
+.reign-gs-card-cta.is-done {
+	background: var(--reign-success-bg);
+	border-color: transparent;
+	color: var(--reign-success);
+	cursor: default;
+	gap: var(--reign-space-xs);
+}
+
+.reign-gs-card-cta.is-done::before {
+	content: "";
+	width: 16px;
+	height: 16px;
+	background: currentColor;
+	-webkit-mask: var(--reign-ic-check) center / contain no-repeat;
+	mask: var(--reign-ic-check) center / contain no-repeat;
+}
+
+/* ------------------------------------------------------- Help and video */
+
+.reign-gs-help-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--reign-space-md);
+	margin-top: var(--reign-space-lg);
+}
+
+.reign-gs-video {
+	padding: 0;
+	overflow: hidden;
+}
+
+.reign-gs-video-frame {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	background: #000;
+}
+
+.reign-gs-video-frame iframe {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
+
+.reign-gs-video-body {
+	padding: var(--reign-space-xl) var(--reign-space-2xl);
+}
+
+.reign-gs-video-body .reign-gs-card-desc {
+	margin-bottom: var(--reign-space-md);
+}
+
+/* ---------------------------------------------------- Install buttons */
+
+.reign-gs-product-install {
+	align-self: flex-start;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 34px;
+	padding: 0 var(--reign-space-lg);
+	border-radius: var(--reign-radius-sm);
+	background: var(--reign-accent);
+	border: 1px solid var(--reign-accent-strong);
+	color: var(--reign-on-accent);
+	font-size: 13.5px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background var(--reign-transition);
+}
+
+.reign-gs-product-install:hover,
+.reign-gs-product-install:focus {
+	background: var(--reign-accent-strong);
+	color: var(--reign-on-accent);
+}
+
+.reign-gs-install.is-loading {
+	opacity: 0.7;
+	cursor: default;
+	pointer-events: none;
+}
+
+.reign-gs-install-error {
+	margin: var(--reign-space-sm) 0 0;
+	font-size: 12.5px;
+	line-height: 1.5;
+	color: var(--reign-danger);
+}
+
+/* ------------------------------------------------------------ Build More */
+
+.reign-bm .reign-gs-grid--res {
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+/* ------------------------------------------- "More from Wbcom" sidebar */
+
+.reign-side {
+	background: var(--reign-surface);
+	border: 1px solid var(--reign-border);
+	border-radius: var(--reign-radius);
+	padding: var(--reign-space-2xl);
+	box-sizing: border-box;
+	color: var(--reign-ink);
+}
+
+.reign-side-title {
+	margin: 0;
+	font-size: 16px;
+	font-weight: 700;
+	color: var(--reign-ink);
+}
+
+.reign-side-sub {
+	margin: var(--reign-space-xs) 0 var(--reign-space-lg);
+	font-size: 13px;
+	line-height: 1.5;
+	color: var(--reign-muted);
+}
+
+.reign-side-list {
+	display: flex;
+	flex-direction: column;
+	gap: var(--reign-space-sm);
+}
+
+.reign-side-card {
+	display: block;
+	padding: var(--reign-space-md) var(--reign-space-lg);
+	border: 1px solid var(--reign-border);
+	border-radius: var(--reign-radius-sm);
+	background: var(--reign-surface);
+	text-decoration: none;
+	transition: border-color var(--reign-transition), box-shadow var(--reign-transition), transform var(--reign-transition);
+}
+
+.reign-side-card:hover {
+	border-color: var(--reign-accent);
+	box-shadow: var(--reign-shadow-sm);
+	transform: translateY(-1px);
+}
+
+.reign-side-card-name {
+	display: flex;
+	align-items: center;
+	gap: var(--reign-space-xs);
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--reign-ink);
+}
+
+.reign-side-card-name::after {
+	content: "";
+	width: 14px;
+	height: 14px;
+	background: var(--reign-accent);
+	-webkit-mask: var(--reign-ic-arrow-up-right) center / contain no-repeat;
+	mask: var(--reign-ic-arrow-up-right) center / contain no-repeat;
+}
+
+.reign-side-card-desc {
+	display: block;
+	margin-top: var(--reign-space-xs);
+	font-size: 12.5px;
+	line-height: 1.5;
+	color: var(--reign-muted);
+}
+
+/* ------------------------------------------------ Focus accessibility */
+
+.reign-gs a:focus-visible,
+.reign-gs .reign-gs-btn:focus-visible,
+.reign-gs .reign-gs-product-install:focus-visible,
+.reign-side-card:focus-visible {
+	outline: 2px solid var(--reign-accent);
+	outline-offset: 2px;
+}
+
+/* Hide the legacy Customizer form wrapper only on the panel tabs that render a
+   .reign-gs surface (Getting Started, Build More). Other tabs keep their forms. */
+
+.reign-theme-admin-content:has(.reign-gs) #rg-poststuff {
+	display: none;
+}
+
+/* ---- Rule 16: suppress third-party admin notices on the Reign page ---- */
+
+body.reign-settings_page_reign-options .notice:not(.reign-keep),
+body.reign-settings_page_reign-options .update-nag,
+body.reign-settings_page_reign-options .updated:not(.reign-keep) {
+	display: none;
+}
+
+/* -------------------------------------------------------- Responsive */
+
+@media (max-width: 1024px) {
+	.reign-gs-grid--foot {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 782px) {
+	.reign-gs {
+		padding: var(--reign-space-xl);
+	}
+
+	.reign-gs-hero {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--reign-space-lg);
+		padding: var(--reign-space-2xl);
+	}
+
+	.reign-gs-hero-title {
+		font-size: 22px;
+	}
+
+	.reign-gs-grid--family,
+	.reign-gs-grid--tiles,
+	.reign-gs-grid--res {
+		grid-template-columns: 1fr;
+	}
+
+	.reign-gs-hero-actions .reign-gs-btn,
+	.reign-gs-help-actions .reign-gs-btn {
+		flex: 1 1 auto;
+	}
+}
+
+/* ---------------------------------------------------------------- RTL */
+
+.rtl .reign-gs-link::after,
+.rtl .reign-gs-product-cta-arrow,
+.rtl .reign-gs-tile-arrow::before {
+	transform: scaleX(-1);
+}
+
+.rtl .reign-gs-link:hover::after {
+	transform: scaleX(-1) translateX(3px);
+}
+
+.rtl .reign-gs-product-cta:hover .reign-gs-product-cta-arrow {
+	transform: scaleX(-1) translateX(3px);
+}

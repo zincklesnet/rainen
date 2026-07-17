@@ -1,0 +1,106 @@
+/**
+ * Thrive Architect Compatibility Styles
+ */
+
+/* General compatibility */
+.reign-builder-active.reign-builder-thrive-architect #content {
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.reign-builder-active.reign-builder-thrive-architect .site-content {
+    padding: 0;
+}
+
+.reign-builder-active.reign-builder-thrive-architect .container,
+.reign-builder-active.reign-builder-thrive-architect .reign-container {
+    max-width: 100%;
+    padding: 0;
+}
+
+/* Thrive Architect content wrapper */
+.reign-builder-active.reign-builder-thrive-architect .entry-content {
+    margin: 0;
+    padding: 0;
+}
+
+/* Remove default margins and paddings */
+.reign-builder-active.reign-builder-thrive-architect article {
+    margin: 0;
+    padding: 0;
+}
+
+.reign-builder-active.reign-builder-thrive-architect .post,
+.reign-builder-active.reign-builder-thrive-architect .page {
+    margin: 0;
+    padding: 0;
+}
+
+/* Thrive Architect editor mode */
+body.reign-thrive-editor-active {
+    background: #fff;
+}
+
+.reign-thrive-editor-wrapper {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Ensure Thrive content takes full width */
+.reign-builder-active.reign-builder-thrive-architect .tcb-style-wrap,
+.reign-builder-active.reign-builder-thrive-architect .thrv_wrapper {
+    max-width: 100%;
+}
+
+/* Landing page styles */
+.reign-builder-active.reign-builder-thrive-architect.tve-landing-page {
+    background: #fff;
+}
+
+/* Comments section styling when Thrive Architect is used */
+.reign-builder-active.reign-builder-thrive-architect .comments-area {
+    max-width: 1140px;
+    margin: 50px auto 0;
+    padding: 0 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .reign-builder-active.reign-builder-thrive-architect .comments-area {
+        padding: 0 15px;
+    }
+}
+
+/* Fix for Thrive Architect sections */
+.reign-builder-active.reign-builder-thrive-architect .thrv_page_section {
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    width: 100vw;
+    max-width: 100vw;
+}
+
+/* Ensure proper z-index for Thrive elements */
+.reign-builder-active.reign-builder-thrive-architect .thrv_wrapper {
+    position: relative;
+    z-index: 1;
+}
+
+/* Hide theme elements in Thrive landing pages */
+body.tve-landing-page .site-header,
+body.tve-landing-page .site-footer,
+body.tve-landing-page .reign-page-header,
+body.tve-landing-page #secondary {
+    display: none !important;
+}
+
+/* Editor preview mode adjustments */
+.reign-thrive-editor-active .site-content {
+    min-height: 100vh;
+}
+
+/* Thrive Architect content animations */
+.reign-builder-active.reign-builder-thrive-architect [data-css] {
+    opacity: 1 !important;
+}

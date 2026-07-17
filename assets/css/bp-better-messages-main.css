@@ -19,11 +19,11 @@ body.bp-messages {
   box-shadow: none;
 }
 
-.dark-mode body.bm-messages-theme-scheme,
+[data-bx-mode=dark] body.bm-messages-theme-scheme,
 body.bm-messages-theme-scheme.dark-scheme {
   --bm-text-color: var(--reign-site-body-text-color);
 }
-.dark-mode body.bm-messages-theme-scheme veepn-lock-screen > div,
+[data-bx-mode=dark] body.bm-messages-theme-scheme veepn-lock-screen > div,
 body.bm-messages-theme-scheme.dark-scheme veepn-lock-screen > div {
   background: var(--reign-site-sections-bg-color);
 }
@@ -32,9 +32,11 @@ body.bm-messages-theme-scheme .bp-messages-wrap *,
 body.bm-messages-theme-scheme .bp-messages-wrap {
   color: var(--reign-site-body-text-color);
 }
-body.bm-messages-theme-scheme .bp-messages-wrap .threads-list .thread:hover > * {
-  background: rgba(0, 0, 0, 0.1);
-  border-color: var(--reign-site-border-color);
+@media (hover: hover) and (pointer: fine) {
+  body.bm-messages-theme-scheme .bp-messages-wrap .threads-list .thread:hover > * {
+    background: rgba(0, 0, 0, 0.1);
+    border-color: var(--reign-site-border-color);
+  }
 }
 body.bm-messages-theme-scheme .bp-messages-wrap .bp-messages-side-threads {
   border-color: var(--reign-site-border-color);
@@ -53,8 +55,10 @@ body.bm-messages-theme-scheme .bp-messages-wrap .empty {
 body.bm-messages-theme-scheme .bp-messages-wrap .threads-list .thread .bm-info h4 {
   color: var(--reign-site-headings-color);
 }
-body.bm-messages-theme-scheme .bp-messages-wrap:not(.bp-messages-mobile) .threads-list .thread:hover > * {
-  background: var(--reign-site-body-bg-color);
+@media (hover: hover) and (pointer: fine) {
+  body.bm-messages-theme-scheme .bp-messages-wrap:not(.bp-messages-mobile) .threads-list .thread:hover > * {
+    background: var(--reign-site-body-bg-color);
+  }
 }
 body.bm-messages-theme-scheme .bpbm-empty-link a,
 body.bm-messages-theme-scheme .bp-messages-wrap .chat-header > a,
@@ -142,8 +146,10 @@ body.bm-messages-theme-scheme .bp-messages-wrap .bpbm-empty-text {
 body.bm-messages-theme-scheme .bp-messages-wrap .threads-list .thread {
   border-radius: var(--reign-global-border-radius);
 }
-body.bm-messages-theme-scheme .bp-messages-wrap:not(.bp-messages-mobile) .threads-list .thread:hover > * {
-  background: var(--reign-site-secondary-bg-color) !important;
+@media (hover: hover) and (pointer: fine) {
+  body.bm-messages-theme-scheme .bp-messages-wrap:not(.bp-messages-mobile) .threads-list .thread:hover > * {
+    background: var(--reign-site-secondary-bg-color) !important;
+  }
 }
 body.bm-messages-theme-scheme .bp-messages-wrap .threads-list .thread > * {
   background: var(--reign-site-sections-bg-color) !important;
@@ -194,9 +200,11 @@ body.bm-messages-theme-scheme .bp-messages-wrap .threads-list .thread .bm-info .
 body.bm-messages-theme-scheme .bp-messages-user-list .user {
   color: var(--reign-site-headings-color);
 }
-body.bm-messages-theme-scheme .bp-messages-group-list .group:hover,
-body.bm-messages-theme-scheme .bp-messages-user-list .user:not(.not-clickable):hover {
-  background: var(--reign-site-sections-bg-color) !important;
+@media (hover: hover) and (pointer: fine) {
+  body.bm-messages-theme-scheme .bp-messages-group-list .group:hover,
+  body.bm-messages-theme-scheme .bp-messages-user-list .user:not(.not-clickable):hover {
+    background: var(--reign-site-sections-bg-color) !important;
+  }
 }
 body.bm-messages-theme-scheme .bp-messages-user-list .user .pic img,
 body.bm-messages-theme-scheme .bp-messages-group-list .group .pic img {
@@ -360,10 +368,15 @@ body.bm-messages-theme-scheme .contexify_item:not(.contexify_item-disabled) > .c
 body.bm-messages-theme-scheme .contexify_item:not(.contexify_item-disabled) > .contexify_itemContent {
   color: var(--reign-site-body-text-color);
 }
-body.bm-messages-theme-scheme .contexify_item:not(.contexify_item-disabled):hover > .contexify_itemContent,
 body.bm-messages-theme-scheme .contexify_item:not(.contexify_item-disabled):focus > .contexify_itemContent {
   color: var(--reign-colors-theme);
   background: transparent;
+}
+@media (hover: hover) and (pointer: fine) {
+  body.bm-messages-theme-scheme .contexify_item:not(.contexify_item-disabled):hover > .contexify_itemContent {
+    color: var(--reign-colors-theme);
+    background: transparent;
+  }
 }
 body.bm-messages-theme-scheme .bp-messages-wrap .bm-messages-list .bpbm-scroll-down {
   background: var(--reign-colors-theme);
@@ -488,8 +501,10 @@ body.bm-messages-theme-scheme .bp-messages-wrap a:not(.bm-no-link-style) {
 body.bm-messages-theme-scheme .bp-messages-wrap .bpbm-user-options .bpbm-user-option-description {
   color: var(--reign-site-body-text-color);
 }
-body.bm-messages-theme-scheme .header-messages .bp-messages-wrap:not(.bp-messages-mobile) .threads-list .thread:hover > * {
-  background: var(--reign-site-body-bg-color) !important;
+@media (hover: hover) and (pointer: fine) {
+  body.bm-messages-theme-scheme .header-messages .bp-messages-wrap:not(.bp-messages-mobile) .threads-list .thread:hover > * {
+    background: var(--reign-site-body-bg-color) !important;
+  }
 }
 body.bm-messages-theme-scheme .bp-messages-wrap .threads-list .thread .bm-info .name + h4 {
   color: var(--reign-site-body-text-color);
@@ -527,8 +542,10 @@ body.bm-messages-theme-scheme .uppy-Dashboard-inner {
 body.bm-messages-theme-scheme .uppy-Dashboard-close {
   color: var(--reign-site-headings-color) !important;
 }
-body.bm-messages-theme-scheme .uppy-Dashboard-Item-action:hover {
-  color: var(--reign-colors-theme);
+@media (hover: hover) and (pointer: fine) {
+  body.bm-messages-theme-scheme .uppy-Dashboard-Item-action:hover {
+    color: var(--reign-colors-theme);
+  }
 }
 body.bm-messages-theme-scheme .uppy-Dashboard--modal .uppy-Dashboard-AddFiles {
   border-color: var(--reign-site-border-color);
@@ -542,9 +559,11 @@ body.bm-messages-theme-scheme .uppy-Dashboard-browse {
 body.bm-messages-theme-scheme .uppy-DashboardTab-btn {
   color: var(--reign-site-body-text-color);
 }
-body.bm-messages-theme-scheme .uppy-DashboardTab-btn:hover {
-  background-color: var(--reign-site-body-bg-color);
-  color: var(--reign-site-body-text-color);
+@media (hover: hover) and (pointer: fine) {
+  body.bm-messages-theme-scheme .uppy-DashboardTab-btn:hover {
+    background-color: var(--reign-site-body-bg-color);
+    color: var(--reign-site-body-text-color);
+  }
 }
 body.bm-messages-theme-scheme .uppy-DashboardContent-panel {
   background: var(--reign-site-sections-bg-color);
@@ -665,7 +684,8 @@ body.bm-messages-theme-scheme .bp-better-messages-list .tabs > div.active {
   background: var(--reign-colors-theme);
   color: var(--reign-color-white);
 }
-body.bm-messages-theme-scheme .bp-better-messages-list .tabs > div {
+body.bm-messages-theme-scheme .bp-better-messages-list .tabs > div,
+body.bm-messages-theme-scheme .bp-better-messages-list .tabs > div > span {
   color: var(--reign-color-white);
 }
 body.bm-messages-theme-scheme .bp-better-messages-list .tabs > div > svg {
@@ -766,10 +786,15 @@ body.bm-messages-theme-scheme .bp-messages-wrap .bm-thread-info-container .bm-th
 body.bm-messages-theme-scheme .bp-messages-wrap .bm-thread-info-container .bm-thread-info-tabs,
 body.bm-messages-theme-scheme .bp-messages-wrap .bm-thread-info-container .bm-thread-info-tabs .bp-messages-user-list,
 body.bm-messages-theme-scheme .bm-sidebar-toggle,
-body.bm-messages-theme-scheme .bp-messages-wrap.bm-side-compact .bp-messages-side-threads > .bm-side-content .threads-list .thread:hover,
 body.bm-messages-theme-scheme .bp-messages-wrap .bm-thread-options {
   background: var(--reign-site-secondary-bg-color);
   border-color: var(--reign-site-border-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  body.bm-messages-theme-scheme .bp-messages-wrap.bm-side-compact .bp-messages-side-threads > .bm-side-content .threads-list .thread:hover {
+    background: var(--reign-site-secondary-bg-color);
+    border-color: var(--reign-site-border-color);
+  }
 }
 body.bm-messages-theme-scheme .bp-messages-wrap .bm-thread-info-container .bm-thread-info-tabs .bm-thread-info-tabs-head .bm-thread-info-tab {
   color: var(--reign-site-body-text-color);
@@ -806,8 +831,15 @@ body.bm-messages-theme-scheme .bm-button {
   color: var(--reign-site-button-text-color) !important;
   border: 1px solid var(--reign-site-button-bg-color) !important;
 }
-body.bm-messages-theme-scheme .bm-button:hover, body.bm-messages-theme-scheme .bm-button:focus {
+body.bm-messages-theme-scheme .bm-button:focus {
   background-color: var(--reign-site-button-bg-hover-color) !important;
   color: var(--reign-site-button-text-hover-color) !important;
   border: 1px solid var(--reign-site-button-bg-hover-color) !important;
+}
+@media (hover: hover) and (pointer: fine) {
+  body.bm-messages-theme-scheme .bm-button:hover {
+    background-color: var(--reign-site-button-bg-hover-color) !important;
+    color: var(--reign-site-button-text-hover-color) !important;
+    border: 1px solid var(--reign-site-button-bg-hover-color) !important;
+  }
 }

@@ -25,20 +25,28 @@ div a {
   color: var(--reign-site-link-color);
 }
 
-div a:hover {
-  color: var(--reign-site-link-hover-color);
+@media (hover: hover) and (pointer: fine) {
+  div a:hover {
+    color: var(--reign-site-link-hover-color);
+  }
 }
-
 .mvx_regi_main .button.button {
   background-color: var(--reign-site-button-bg-color);
   color: var(--reign-site-button-text-color);
   border: 1px solid var(--reign-site-button-bg-color);
   border-radius: var(--reign-global-button-radius);
 }
-.mvx_regi_main .button.button:hover, .mvx_regi_main .button.button:focus {
+.mvx_regi_main .button.button:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
   border: 1px solid var(--reign-site-button-bg-hover-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  .mvx_regi_main .button.button:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border: 1px solid var(--reign-site-button-bg-hover-color);
+  }
 }
 
 .mvx_regi_main .mvx_regi_form_box input[type=email],

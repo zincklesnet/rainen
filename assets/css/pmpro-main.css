@@ -21,7 +21,7 @@
 /*--------------------------------------------------------------
 # Global
 --------------------------------------------------------------*/
-.dark-mode .pmpro_message a,
+[data-bx-mode=dark] .pmpro_message a,
 .pmpro_message a {
   color: #245269;
   text-decoration: underline;
@@ -34,10 +34,11 @@
   text-decoration: none;
 }
 
-#pmpro_form .pmpro_btn.pmpro_btn-cancel:hover {
-  color: var(--reign-color-white);
+@media (hover: hover) and (pointer: fine) {
+  #pmpro_form .pmpro_btn.pmpro_btn-cancel:hover {
+    color: var(--reign-color-white);
+  }
 }
-
 #pmpro_invoices_table th,
 #pmpro_invoices_table td {
   padding: 10px;
@@ -78,20 +79,33 @@ body.pmpro-variation_high_contrast .pmpro .pmpro_section #loginform .login-submi
   --pmpro--color--base: var(--reign-site-button-text-color);
   border-radius: var(--reign-global-button-radius);
 }
-body.pmpro-variation_high_contrast .pmpro .pmpro_btn:hover, body.pmpro-variation_high_contrast .pmpro .pmpro_btn:focus,
-body.pmpro-variation_high_contrast .pmpro .pmpro_section #loginform .login-submit .button:hover,
+body.pmpro-variation_high_contrast .pmpro .pmpro_btn:focus,
 body.pmpro-variation_high_contrast .pmpro .pmpro_section #loginform .login-submit .button:focus {
   --pmpro--color--accent--variation: var(--reign-site-button-bg-hover-color);
   --pmpro--color--base: var(--reign-site-button-text-hover-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  body.pmpro-variation_high_contrast .pmpro .pmpro_btn:hover,
+  body.pmpro-variation_high_contrast .pmpro .pmpro_section #loginform .login-submit .button:hover {
+    --pmpro--color--accent--variation: var(--reign-site-button-bg-hover-color);
+    --pmpro--color--base: var(--reign-site-button-text-hover-color);
+  }
 }
 body.pmpro-variation_high_contrast .pmpro .pmpro_btn-cancel {
   --pmpro--color--border--variation: var(--reign-site-button-bg-color);
   --pmpro--color--contrast: var(--reign-site-button-bg-color);
 }
-body.pmpro-variation_high_contrast .pmpro .pmpro_btn-cancel:hover, body.pmpro-variation_high_contrast .pmpro .pmpro_btn-cancel:focus {
+body.pmpro-variation_high_contrast .pmpro .pmpro_btn-cancel:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   border-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  body.pmpro-variation_high_contrast .pmpro .pmpro_btn-cancel:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    border-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+  }
 }
 body.pmpro-variation_high_contrast .pmpro .pmpro_form_input {
   --pmpro--color--base: var(--reign-form-background-color);
@@ -127,20 +141,33 @@ body.pmpro-variation_1 .pmpro .pmpro_section #loginform .login-submit .button {
   --pmpro--color--base: var(--reign-site-button-text-color);
   border-radius: var(--reign-global-button-radius);
 }
-body.pmpro-variation_1 .pmpro .pmpro_btn:hover, body.pmpro-variation_1 .pmpro .pmpro_btn:focus,
-body.pmpro-variation_1 .pmpro .pmpro_section #loginform .login-submit .button:hover,
+body.pmpro-variation_1 .pmpro .pmpro_btn:focus,
 body.pmpro-variation_1 .pmpro .pmpro_section #loginform .login-submit .button:focus {
   --pmpro--color--accent--variation: var(--reign-site-button-bg-hover-color) !important;
   --pmpro--color--base: var(--reign-site-button-text-hover-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  body.pmpro-variation_1 .pmpro .pmpro_btn:hover,
+  body.pmpro-variation_1 .pmpro .pmpro_section #loginform .login-submit .button:hover {
+    --pmpro--color--accent--variation: var(--reign-site-button-bg-hover-color) !important;
+    --pmpro--color--base: var(--reign-site-button-text-hover-color);
+  }
 }
 body.pmpro-variation_1 .pmpro .pmpro_btn-cancel {
   --pmpro--color--border: var(--reign-site-button-bg-color);
   --pmpro--color--contrast: var(--reign-site-button-bg-color);
 }
-body.pmpro-variation_1 .pmpro .pmpro_btn-cancel:hover, body.pmpro-variation_1 .pmpro .pmpro_btn-cancel:focus {
+body.pmpro-variation_1 .pmpro .pmpro_btn-cancel:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   border-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  body.pmpro-variation_1 .pmpro .pmpro_btn-cancel:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    border-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+  }
 }
 body.pmpro-variation_1 .pmpro .pmpro_form_input {
   --pmpro--color--base: var(--reign-form-background-color);
@@ -201,8 +228,13 @@ body.pmpro-variation_minimal .pmpro_form_field-password-toggle button {
   min-height: 1px;
   padding: 0;
 }
-body.pmpro-variation_minimal .pmpro_form_field-password-toggle button:hover, body.pmpro-variation_minimal .pmpro_form_field-password-toggle button:focus, body.pmpro-variation_minimal .pmpro_form_field-password-toggle button:active {
+body.pmpro-variation_minimal .pmpro_form_field-password-toggle button:focus, body.pmpro-variation_minimal .pmpro_form_field-password-toggle button:active {
   color: var(--reign-colors-theme);
+}
+@media (hover: hover) and (pointer: fine) {
+  body.pmpro-variation_minimal .pmpro_form_field-password-toggle button:hover {
+    color: var(--reign-colors-theme);
+  }
 }
 
 /*--------------------------------------------------------------
@@ -222,8 +254,10 @@ body.pmpro-variation_minimal .pmpro_form_field-password-toggle button:hover, bod
   border-radius: var(--reign-global-border-radius) !important;
   transition: all 0.3s;
 }
-#pmpro_levels_table .rtm_pmpro_levels_plan .rtm_pmpro_levels_section:hover {
-  box-shadow: 15px 15px 20px rgba(58, 46, 68, 0.08);
+@media (hover: hover) and (pointer: fine) {
+  #pmpro_levels_table .rtm_pmpro_levels_plan .rtm_pmpro_levels_section:hover {
+    box-shadow: 15px 15px 20px rgba(58, 46, 68, 0.08);
+  }
 }
 #pmpro_levels_table .rtm_pmpro_levels_plan .rtm_pmpro_levels_section.price_table_column_3,
 #pmpro_levels_table .rtm_pmpro_levels_plan .rtm_pmpro_levels_section.price_table_column_4 {
@@ -341,10 +375,12 @@ body.pmpro-variation_minimal .pmpro_form_field-password-toggle button:hover, bod
   border-radius: var(--reign-global-button-radius);
   border: 1px solid transparent;
 }
-#pmpro_levels_table .rtm_pmpro_levels_plan .rtm_levels_table_button .pmpro_btn:hover {
-  background-color: var(--reign-site-button-bg-hover-color);
-  color: var(--reign-site-button-text-hover-color);
-  border-radius: var(--reign-global-button-radius);
+@media (hover: hover) and (pointer: fine) {
+  #pmpro_levels_table .rtm_pmpro_levels_plan .rtm_levels_table_button .pmpro_btn:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border-radius: var(--reign-global-button-radius);
+  }
 }
 #pmpro_levels_table .rtm_pmpro_levels_plan::after {
   content: "";

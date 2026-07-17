@@ -1,0 +1,132 @@
+/**
+ * Elementor Page Builder Compatibility Styles
+ * 
+ * @package Reign
+ */
+
+/* General Elementor Compatibility */
+.elementor-page .site-header,
+.elementor-page .site-footer {
+	z-index: 99;
+}
+
+/* Full Width Template */
+.page-template-elementor .site-content,
+.elementor-page.elementor-template-full-width .site-content {
+	padding: 0;
+	max-width: 100%;
+	width: 100%;
+}
+
+.elementor-page.elementor-template-full-width .site-content .content-wrapper {
+	max-width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+/* Canvas Template - Hide all theme elements */
+.elementor-page.elementor-template-canvas #masthead,
+.elementor-page.elementor-template-canvas #colophon,
+.elementor-page.elementor-template-canvas .site-header,
+.elementor-page.elementor-template-canvas .site-footer,
+.elementor-page.elementor-template-canvas .reign-page-header,
+.elementor-page.elementor-template-canvas .sidebar {
+	display: none;
+}
+
+.elementor-page.elementor-template-canvas #page {
+	padding: 0;
+	margin: 0;
+}
+
+.elementor-page.elementor-template-canvas .site-content {
+	padding: 0;
+	margin: 0;
+}
+
+/* Elementor Editor Compatibility */
+/* Header/footer now controlled by PHP logic, not CSS */
+
+/* Container Width Adjustments */
+.elementor-section.elementor-section-boxed > .elementor-container {
+	max-width: var(--reign-content-width, 1140px);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+	.elementor-page .elementor-section {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+}
+
+/* BuddyPress Compatibility with Elementor */
+.elementor-page.buddypress .site-content {
+	padding-top: 0;
+}
+
+/* WooCommerce Compatibility with Elementor */
+.elementor-page.woocommerce .site-content {
+	padding-top: 0;
+}
+
+/* Preview Mode Styles */
+.elementor-preview-mode .site-header {
+	pointer-events: none;
+}
+
+.reign-elementor-preview .site-content {
+	min-height: 400px;
+}
+
+/* Sticky Header Compatibility */
+.elementor-page .reign-header-sticky {
+	z-index: 9999;
+}
+
+/* Elementor Widgets in Reign Theme */
+.reign-theme .elementor-widget-container {
+	width: 100%;
+}
+
+/* Fix spacing issues */
+.elementor-page .reign-page-header + .site-content {
+	padding-top: 0;
+}
+
+/* Canvas Wrapper */
+.reign-elementor-canvas-wrapper {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+/* Elementor Location Based Styles */
+.elementor-location-header + .site-content,
+.elementor-theme-builder-header + .site-content {
+	padding-top: 0;
+}
+
+/* Archive Template Support */
+.elementor-page.elementor-archive-posts .site-content {
+	padding: 0;
+}
+
+/* Single Post Template Support */
+.elementor-page.elementor-single-post .entry-header {
+	display: none;
+}
+
+/* Fix z-index conflicts */
+.elementor-z-index {
+	z-index: 1;
+}
+
+/* Elementor Pro Theme Builder Support */
+/* Only hide header/footer for canvas template */
+body.elementor-template-canvas #masthead,
+body.elementor-template-canvas #colophon {
+	display: none;
+}
+
+/* For full-width template, let PHP logic handle header/footer visibility */

@@ -170,19 +170,24 @@ body nav.job-manager-pagination ul li span {
   font-size: 12px;
 }
 body #content nav.job-manager-pagination ul li a:focus,
-body #content nav.job-manager-pagination ul li a:hover,
 body #content nav.job-manager-pagination ul li span.current,
 body #content nav.job-manager-pagination ul li a:focus,
-body #content nav.job-manager-pagination ul li a:hover,
 body #content nav.job-manager-pagination ul li span.current,
 body nav.job-manager-pagination ul li a:focus,
-body nav.job-manager-pagination ul li a:hover,
 body nav.job-manager-pagination ul li span.current,
 body nav.job-manager-pagination ul li a:focus,
-body nav.job-manager-pagination ul li a:hover,
 body nav.job-manager-pagination ul li span.current {
   background: var(--reign-colors-theme);
   color: #fff;
+}
+@media (hover: hover) and (pointer: fine) {
+  body #content nav.job-manager-pagination ul li a:hover,
+  body #content nav.job-manager-pagination ul li a:hover,
+  body nav.job-manager-pagination ul li a:hover,
+  body nav.job-manager-pagination ul li a:hover {
+    background: var(--reign-colors-theme);
+    color: #fff;
+  }
 }
 
 .rg-sticky-header div#jobmate-map-header {
@@ -400,13 +405,21 @@ div.job_listings.job_listings .load_more_jobs.loding,
 div.resumes.resumes .load_more_resumes.loding {
   background: #fff !important;
 }
-div.job_listings.job_listings .load_more_jobs:hover, div.job_listings.job_listings .load_more_jobs:focus,
-div.resumes.resumes .load_more_resumes:hover,
+div.job_listings.job_listings .load_more_jobs:focus,
 div.resumes.resumes .load_more_resumes:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
   border-bottom: 0;
   box-shadow: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  div.job_listings.job_listings .load_more_jobs:hover,
+  div.resumes.resumes .load_more_resumes:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border-bottom: 0;
+    box-shadow: none;
+  }
 }
 
 /* Jobs Sorting */
@@ -499,21 +512,28 @@ div.job_listings .job-manager-pagination {
 /*--------------------------------------------------------------
 # Job listing List
 --------------------------------------------------------------*/
+/*--------------------------------------------------------------
+# Job listing List
+--------------------------------------------------------------*/
 .rp4wp-related-job_listing > ul li.job_listing.job_position_featured a,
 .rp4wp-related-job_listing > ul li.no_job_listings_found.job_position_featured a,
 ul.job_listings li.job_listing.job_position_featured a,
 ul.job_listings li.no_job_listings_found.job_position_featured a,
 .rp4wp-related-job_listing > ul li.job_listing.job_position_featured a:focus,
-.rp4wp-related-job_listing > ul li.job_listing.job_position_featured a:hover,
 .rp4wp-related-job_listing > ul li.no_job_listings_found.job_position_featured a:focus,
-.rp4wp-related-job_listing > ul li.no_job_listings_found.job_position_featured a:hover,
 ul.job_listings li.job_listing.job_position_featured a:focus,
-ul.job_listings li.job_listing.job_position_featured a:hover,
-ul.job_listings li.no_job_listings_found.job_position_featured a:focus,
-ul.job_listings li.no_job_listings_found.job_position_featured a:hover {
+ul.job_listings li.no_job_listings_found.job_position_featured a:focus {
   background: transparent;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .rp4wp-related-job_listing > ul li.job_listing.job_position_featured a:hover,
+  .rp4wp-related-job_listing > ul li.no_job_listings_found.job_position_featured a:hover,
+  ul.job_listings li.job_listing.job_position_featured a:hover,
+  ul.job_listings li.no_job_listings_found.job_position_featured a:hover {
+    background: transparent;
+  }
+}
 .rp4wp-related-job_listing > ul li:focus,
 .rp4wp-related-job_listing > ul li:focus,
 ul.job_listings li.job_listing:focus,
@@ -568,14 +588,19 @@ ul.job_listings li.no_job_listings_found a {
   padding: 0;
   overflow: initial;
 }
-.rp4wp-related-job_listing > ul li.job_listing a:hover, .rp4wp-related-job_listing > ul li.job_listing a:focus,
-.rp4wp-related-job_listing > ul li.no_job_listings_found a:hover,
+.rp4wp-related-job_listing > ul li.job_listing a:focus,
 .rp4wp-related-job_listing > ul li.no_job_listings_found a:focus,
-ul.job_listings li.job_listing a:hover,
 ul.job_listings li.job_listing a:focus,
-ul.job_listings li.no_job_listings_found a:hover,
 ul.job_listings li.no_job_listings_found a:focus {
   background: transparent;
+}
+@media (hover: hover) and (pointer: fine) {
+  .rp4wp-related-job_listing > ul li.job_listing a:hover,
+  .rp4wp-related-job_listing > ul li.no_job_listings_found a:hover,
+  ul.job_listings li.job_listing a:hover,
+  ul.job_listings li.no_job_listings_found a:hover {
+    background: transparent;
+  }
 }
 
 .rp4wp-related-job_listing > ul,
@@ -623,10 +648,11 @@ ul.job_listings li.no_job_listings_found {
   border-top: 0;
 }
 
-.job_listings .job-details-wrapper:hover {
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+@media (hover: hover) and (pointer: fine) {
+  .job_listings .job-details-wrapper:hover {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  }
 }
-
 .job_listings .job-details-wrapper,
 .job_listings.job-list-default-view .job-details-wrapper {
   margin: 0;
@@ -863,14 +889,16 @@ ul.job-listing-meta li.application-deadline {
   border-color: currentColor;
   min-width: 110px;
 }
-.single_job_listing .meta .job-type:hover,
-.job-manager .job-type:hover,
-.job-types .job-type:hover,
-.job_listing .job-type:hover,
-.job-type:hover {
-  color: #fff;
-  background: var(--reign-colors-theme);
-  border-color: var(--reign-colors-theme);
+@media (hover: hover) and (pointer: fine) {
+  .single_job_listing .meta .job-type:hover,
+  .job-manager .job-type:hover,
+  .job-types .job-type:hover,
+  .job_listing .job-type:hover,
+  .job-type:hover {
+    color: #fff;
+    background: var(--reign-colors-theme);
+    border-color: var(--reign-colors-theme);
+  }
 }
 
 @media (max-width: 767.98px) {
@@ -881,11 +909,15 @@ ul.job-listing-meta li.application-deadline {
     margin: auto;
   }
 }
-.job-type:hover,
 .job-type:focus {
   text-decoration: none;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .job-type:hover {
+    text-decoration: none;
+  }
+}
 .job-type:focus,
 .job-type.focus {
   outline: 0;
@@ -939,13 +971,14 @@ ul.job-listing-meta li.application-deadline {
   border-color: #007bff;
 }
 
-.single_job_listing .meta .part-time:hover,
-.job-type.part-time:hover {
-  color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
+@media (hover: hover) and (pointer: fine) {
+  .single_job_listing .meta .part-time:hover,
+  .job-type.part-time:hover {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
 }
-
 .single_job_listing .meta .part-time:focus,
 .job-type.part-time:focus,
 .job-type.part-time.focus {
@@ -980,13 +1013,14 @@ ul.job-listing-meta li.application-deadline {
   border-color: #3d9cd2;
 }
 
-.single_job_listing .meta .freelance:hover,
-.job-type.freelance:hover {
-  color: #fff;
-  background-color: #3d9cd2;
-  border-color: #3d9cd2;
+@media (hover: hover) and (pointer: fine) {
+  .single_job_listing .meta .freelance:hover,
+  .job-type.freelance:hover {
+    color: #fff;
+    background-color: #3d9cd2;
+    border-color: #3d9cd2;
+  }
 }
-
 .single_job_listing .meta .freelance:focus,
 .job-type.freelance:focus,
 .job-type.freelance.focus {
@@ -1021,13 +1055,14 @@ ul.job-listing-meta li.application-deadline {
   border-color: #0f834d;
 }
 
-.single_job_listing .meta .full-time:hover,
-.job-type.full-time:hover {
-  color: #fff;
-  background-color: #0f834d;
-  border-color: #0f834d;
+@media (hover: hover) and (pointer: fine) {
+  .single_job_listing .meta .full-time:hover,
+  .job-type.full-time:hover {
+    color: #fff;
+    background-color: #0f834d;
+    border-color: #0f834d;
+  }
 }
-
 .single_job_listing .meta .job-type .single_job_listing .meta .full-time:focus,
 .job-type.full-time:focus,
 .job-type.full-time.focus {
@@ -1062,13 +1097,14 @@ ul.job-listing-meta li.application-deadline {
   border-color: #6033cc;
 }
 
-.single_job_listing .meta .internship:hover,
-.job-type.internship:hover {
-  color: #fff;
-  background-color: #6033cc;
-  border-color: #6033cc;
+@media (hover: hover) and (pointer: fine) {
+  .single_job_listing .meta .internship:hover,
+  .job-type.internship:hover {
+    color: #fff;
+    background-color: #6033cc;
+    border-color: #6033cc;
+  }
 }
-
 .single_job_listing .meta .internship:focus,
 .job-type.internship:focus,
 .job-type.internship.focus {
@@ -1103,13 +1139,14 @@ ul.job-listing-meta li.application-deadline {
   border-color: #dc3545;
 }
 
-.single_job_listing .meta .temporary:hover,
-.job-type.temporary:hover {
-  color: #fff;
-  background-color: #dc3545;
-  border-color: #dc3545;
+@media (hover: hover) and (pointer: fine) {
+  .single_job_listing .meta .temporary:hover,
+  .job-type.temporary:hover {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
 }
-
 .single_job_listing .meta .temporary:focus,
 .job-type.temporary:focus,
 .job-type.temporary.focus {
@@ -1595,11 +1632,13 @@ ul.resumes.resumes li.resume .resume-details-wrapper {
   width: 100%;
   transition: all 0.4s ease 0s;
 }
-body.post-type-archive-resume ul.resumes.resumes.resumes.resumes li.no_resumes_found .resume-details-wrapper:hover,
-body.post-type-archive-resume ul.resumes.resumes.resumes.resumes li.resume .resume-details-wrapper:hover,
-ul.resumes.resumes li.no_resumes_found .resume-details-wrapper:hover,
-ul.resumes.resumes li.resume .resume-details-wrapper:hover {
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+@media (hover: hover) and (pointer: fine) {
+  body.post-type-archive-resume ul.resumes.resumes.resumes.resumes li.no_resumes_found .resume-details-wrapper:hover,
+  body.post-type-archive-resume ul.resumes.resumes.resumes.resumes li.resume .resume-details-wrapper:hover,
+  ul.resumes.resumes li.no_resumes_found .resume-details-wrapper:hover,
+  ul.resumes.resumes li.resume .resume-details-wrapper:hover {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  }
 }
 @media only screen and (max-width: 767px) {
   body.post-type-archive-resume ul.resumes.resumes.resumes.resumes li.no_resumes_found .resume-details-wrapper,
@@ -1736,16 +1775,20 @@ ul.resumes.resume_listing_layout_grid li.resume:last-child .resume-details-wrapp
 ul.resumes li.no_resumes_found.resume_featured a,
 ul.resumes li.resume.resume_featured a,
 ul.resumes li.no_resumes_found.resume_featured a:focus,
-ul.resumes li.no_resumes_found.resume_featured a:hover,
 ul.resumes li.resume.resume_featured a:focus,
-ul.resumes li.resume.resume_featured a:hover,
 ul.resumes li.no_resumes_found a:focus,
-ul.resumes li.no_resumes_found a:hover,
-ul.resumes li.resume a:focus,
-ul.resumes li.resume a:hover {
+ul.resumes li.resume a:focus {
   background: transparent;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  ul.resumes li.no_resumes_found.resume_featured a:hover,
+  ul.resumes li.resume.resume_featured a:hover,
+  ul.resumes li.no_resumes_found a:hover,
+  ul.resumes li.resume a:hover {
+    background: transparent;
+  }
+}
 /*--------------------------------------------------------------
 # Single Resume
 --------------------------------------------------------------*/
@@ -1798,7 +1841,7 @@ ul.resumes li.resume a:hover {
   background-color: #fff;
 }
 
-.dark-mode .single-resume-head::after,
+[data-bx-mode=dark] .single-resume-head::after,
 .dark-scheme .single-resume-head::after {
   background-color: #141414;
 }
@@ -2118,11 +2161,15 @@ ul.resumes li.resume a:hover {
   align-items: center;
 }
 
-.single-resume-inner .single-candidate-head-left .categories li a:hover,
 .single-resume-inner .single-candidate-head-left .categories li a:focus {
   text-decoration: none;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .single-resume-inner .single-candidate-head-left .categories li a:hover {
+    text-decoration: none;
+  }
+}
 .single-resume-inner .single-candidate-head-left .categories li a:focus,
 .single-resume-inner .single-candidate-head-left .categories li a.focus {
   outline: 0;
@@ -2150,11 +2197,15 @@ ul.resumes li.resume a:hover {
     background-image: none;
     border-color: #070d37;
   }
+}
+@media (min-width: 991.98px) and (hover: hover) and (pointer: fine) {
   .single-resume-inner .single-candidate-head-left .categories li:nth-child(n+4) a:hover {
     color: #fff;
     background-color: #070d37;
     border-color: #070d37;
   }
+}
+@media (min-width: 991.98px) {
   .single-resume-inner .single-candidate-head-left .categories li:nth-child(n+4) a:focus,
   .single-resume-inner .single-candidate-head-left .categories li:nth-child(n+4) a.focus {
     box-shadow: 0 0 0 0.2rem rgba(7, 13, 55, 0.5);
@@ -2880,9 +2931,11 @@ span#select2-job_region-container {
   font-size: 15px;
   font-weight: 600;
 }
-#resume-manager-candidate-dashboard table.resume-manager-resumes tbody tr:hover {
-  background-color: rgba(227, 228, 211, 0.1);
-  box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+@media (hover: hover) and (pointer: fine) {
+  #resume-manager-candidate-dashboard table.resume-manager-resumes tbody tr:hover {
+    background-color: rgba(227, 228, 211, 0.1);
+    box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  }
 }
 #resume-manager-candidate-dashboard table.resume-manager-resumes tfoot td {
   padding: 10px;
@@ -2898,10 +2951,17 @@ span#select2-job_region-container {
   color: var(--reign-site-button-text-color);
   border-radius: var(--reign-global-button-radius);
 }
-#resume-manager-candidate-dashboard table.resume-manager-resumes tfoot td a:hover, #resume-manager-candidate-dashboard table.resume-manager-resumes tfoot td a:focus {
+#resume-manager-candidate-dashboard table.resume-manager-resumes tfoot td a:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
   border: 0 !important;
+}
+@media (hover: hover) and (pointer: fine) {
+  #resume-manager-candidate-dashboard table.resume-manager-resumes tfoot td a:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border: 0 !important;
+  }
 }
 
 /*--------------------------------------------------------------
@@ -2986,10 +3046,17 @@ span#select2-job_region-container {
   color: var(--reign-site-button-text-color);
   border-radius: var(--reign-global-button-radius);
 }
-#job-manager-job-dashboard table.job-manager-jobs tfoot td a:hover, #job-manager-job-dashboard table.job-manager-jobs tfoot td a:focus {
+#job-manager-job-dashboard table.job-manager-jobs tfoot td a:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
   border: 0 !important;
+}
+@media (hover: hover) and (pointer: fine) {
+  #job-manager-job-dashboard table.job-manager-jobs tfoot td a:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border: 0 !important;
+  }
 }
 #job-manager-job-dashboard ul.job-dashboard-actions li a:before {
   content: "\f02b";
@@ -3021,9 +3088,11 @@ span#select2-job_region-container {
   font-size: 15px;
   font-weight: 600;
 }
-#job-manager-job-dashboard table.job-manager-jobs tbody tr:hover {
-  background-color: rgba(227, 228, 211, 0.1);
-  box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+@media (hover: hover) and (pointer: fine) {
+  #job-manager-job-dashboard table.job-manager-jobs tbody tr:hover {
+    background-color: rgba(227, 228, 211, 0.1);
+    box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  }
 }
 
 #job-manager-job-dashboard table ul.job-dashboard-actions li {
@@ -3053,10 +3122,17 @@ div.job-applications ul.job-applications li.job-application {
   border-color: var(--reign-site-button-bg-color);
   border-radius: var(--reign-global-button-radius);
 }
-.jm-dashboard__actions .jm-ui-button:hover, .jm-dashboard__actions .jm-ui-button:focus {
+.jm-dashboard__actions .jm-ui-button:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
   border-color: var(--reign-site-button-bg-hover-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  .jm-dashboard__actions .jm-ui-button:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border-color: var(--reign-site-button-bg-hover-color);
+  }
 }
 
 .jm-form.jm-form input[type].jm-ui-input--search-icon {
@@ -3064,7 +3140,7 @@ div.job-applications ul.job-applications li.job-application {
   background-size: 16px;
 }
 
-.dark-mode .jm-form input[type].jm-ui-input--search-icon,
+[data-bx-mode=dark] .jm-form input[type].jm-ui-input--search-icon,
 .dark-scheme .jm-form input[type].jm-ui-input--search-icon {
   background: transparent url(../img/svg/search-white.svg) no-repeat center left 14px;
   background-size: 16px;
@@ -3150,9 +3226,11 @@ div.job-applications ul.job-applications li.job-application {
 #job-manager-alerts table.job-manager-alerts tbody tr {
   box-shadow: 0 0 1px #eee;
 }
-#job-manager-alerts table.job-manager-alerts tbody tr:hover {
-  background-color: rgba(227, 228, 211, 0.1);
-  box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+@media (hover: hover) and (pointer: fine) {
+  #job-manager-alerts table.job-manager-alerts tbody tr:hover {
+    background-color: rgba(227, 228, 211, 0.1);
+    box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  }
 }
 #job-manager-alerts table.job-manager-alerts tfoot td {
   padding: 10px;
@@ -3184,10 +3262,17 @@ div.job-applications ul.job-applications li.job-application {
   border-color: var(--reign-site-button-bg-color);
   border-radius: var(--reign-global-button-radius);
 }
-.jm-ui-button.jm-ui-button:hover, .jm-ui-button.jm-ui-button:focus {
+.jm-ui-button.jm-ui-button:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
   border-color: var(--reign-site-button-bg-hover-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  .jm-ui-button.jm-ui-button:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border-color: var(--reign-site-button-bg-hover-color);
+  }
 }
 
 /*--------------------------------------------------------------
@@ -3208,15 +3293,17 @@ table.job-manager-past-applications ul.candidate-dashboard-actions {
   visibility: visible;
 }
 
-table.job-manager-past-applications tbody tr:hover {
-  background-color: rgba(227, 228, 211, 0.1);
-  box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+@media (hover: hover) and (pointer: fine) {
+  table.job-manager-past-applications tbody tr:hover {
+    background-color: rgba(227, 228, 211, 0.1);
+    box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  }
 }
-
-table.job-manager-past-applications tbody tr:hover:first-child {
-  box-shadow: none;
+@media (hover: hover) and (pointer: fine) {
+  table.job-manager-past-applications tbody tr:hover:first-child {
+    box-shadow: none;
+  }
 }
-
 table.job-manager-past-applications.job-manager-past-applications td:last-child,
 table.job-manager-past-applications.job-manager-past-applications th:last-child {
   padding: 15px 10px;
@@ -3247,8 +3334,10 @@ div.job-applications ul.job-applications li.job-application footer ul.meta li {
   margin-bottom: 10px;
   border: 1px solid var(--reign-site-border-color);
 }
-.widget-area .widget ul.resumes li.resume:hover {
-  box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.16);
+@media (hover: hover) and (pointer: fine) {
+  .widget-area .widget ul.resumes li.resume:hover {
+    box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.16);
+  }
 }
 .widget-area .widget ul.resumes li.resume .candidate h3 {
   font-size: 15px;
@@ -3337,18 +3426,23 @@ body.single-resume .resume-manager-experience h3:before,
 #job-manager-alerts table.job-manager-alerts thead,
 #job-manager-alerts table.job-manager-alerts tfoot td a,
 table.job-manager-past-applications tbody tr:first-child,
-table.job-manager-past-applications tbody tr:hover:first-child,
 .jm-listing-tabs.elementor-tabs-view-horizontal.elementor-widget-tabs .elementor-tabs-wrapper .elementor-tab-desktop-title.elementor-active,
 #job-manager-bookmarks table.job-manager-bookmarks thead {
   background: var(--reign-colors-theme);
 }
 
-.single-job_listing .single_job_listing .company a:hover:before,
-.single-resume .single-resume-content .resume-aside.resume-aside .resume-links a:hover:before,
-.company-letters a:hover {
-  border-color: var(--reign-colors-theme);
+@media (hover: hover) and (pointer: fine) {
+  table.job-manager-past-applications tbody tr:hover:first-child {
+    background: var(--reign-colors-theme);
+  }
 }
-
+@media (hover: hover) and (pointer: fine) {
+  .single-job_listing .single_job_listing .company a:hover:before,
+  .single-resume .single-resume-content .resume-aside.resume-aside .resume-links a:hover:before,
+  .company-letters a:hover {
+    border-color: var(--reign-colors-theme);
+  }
+}
 /* Border Color */
 .job_filters .job_types,
 .job_filters .job_types li,
@@ -3429,7 +3523,6 @@ ul.job_listings.loading {
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default,
 .ui-button,
-html .ui-button.ui-state-disabled:hover,
 html .ui-button.ui-state-disabled:active {
   border: 1px solid var(--reign-site-border-color) !important;
   background: var(--reign-site-secondary-bg-color) !important;
@@ -3437,6 +3530,14 @@ html .ui-button.ui-state-disabled:active {
   color: var(--reign-site-alternate-text-color) !important;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  html .ui-button.ui-state-disabled:hover {
+    border: 1px solid var(--reign-site-border-color) !important;
+    background: var(--reign-site-secondary-bg-color) !important;
+    font-weight: normal !important;
+    color: var(--reign-site-alternate-text-color) !important;
+  }
+}
 .ui-state-default a,
 .ui-state-default a:link,
 .ui-state-default a:visited,
@@ -3454,7 +3555,6 @@ a:visited.ui-button,
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus,
-.ui-button:hover,
 .ui-button:focus {
   border: 1px solid var(--reign-colors-theme) !important;
   background: var(--reign-site-button-bg-hover-color) !important;
@@ -3462,20 +3562,33 @@ a:visited.ui-button,
   color: var(--reign-site-button-text-hover-color) !important;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .ui-button:hover {
+    border: 1px solid var(--reign-colors-theme) !important;
+    background: var(--reign-site-button-bg-hover-color) !important;
+    font-weight: normal !important;
+    color: var(--reign-site-button-text-hover-color) !important;
+  }
+}
 .ui-state-hover a,
-.ui-state-hover a:hover,
 .ui-state-hover a:link,
 .ui-state-hover a:visited,
 .ui-state-focus a,
-.ui-state-focus a:hover,
 .ui-state-focus a:link,
 .ui-state-focus a:visited,
-a.ui-button:hover,
 a.ui-button:focus {
   color: var(--reign-site-button-text-hover-color) !important;
   text-decoration: none !important;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .ui-state-hover a:hover,
+  .ui-state-focus a:hover,
+  a.ui-button:hover {
+    color: var(--reign-site-button-text-hover-color) !important;
+    text-decoration: none !important;
+  }
+}
 .ui-visual-focus {
   box-shadow: 0 0 3px 1px var(--reign-colors-theme) !important;
 }
@@ -3484,14 +3597,21 @@ a.ui-button:focus {
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active,
 a.ui-button:active,
-.ui-button:active,
-.ui-button.ui-state-active:hover {
+.ui-button:active {
   border: 1px solid var(--reign-colors-theme) !important;
   background: var(--reign-site-button-bg-color) !important;
   font-weight: normal !important;
   color: var(--reign-site-button-text-color) !important;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .ui-button.ui-state-active:hover {
+    border: 1px solid var(--reign-colors-theme) !important;
+    background: var(--reign-site-button-bg-color) !important;
+    font-weight: normal !important;
+    color: var(--reign-site-button-text-color) !important;
+  }
+}
 .ui-icon-background,
 .ui-state-active .ui-icon-background {
   border: var(--reign-colors-theme) !important;
@@ -3558,35 +3678,42 @@ a.ui-button:active,
   color: var(--reign-site-alternate-text-color) !important;
 }
 
-.ui-datepicker .ui-datepicker-prev:hover,
-.ui-datepicker .ui-datepicker-next:hover {
-  color: var(--reign-colors-theme) !important;
+@media (hover: hover) and (pointer: fine) {
+  .ui-datepicker .ui-datepicker-prev:hover,
+  .ui-datepicker .ui-datepicker-next:hover {
+    color: var(--reign-colors-theme) !important;
+  }
 }
-
 .ui-dialog .ui-dialog-titlebar {
   background-color: var(--reign-site-secondary-bg-color) !important;
   color: var(--reign-site-headings-color) !important;
 }
 
-.ui-dialog .ui-dialog-titlebar-close:hover {
-  color: var(--reign-colors-theme) !important;
+@media (hover: hover) and (pointer: fine) {
+  .ui-dialog .ui-dialog-titlebar-close:hover {
+    color: var(--reign-colors-theme) !important;
+  }
 }
-
-.ui-checkboxradio-radio-label.ui-checkboxradio-checked .ui-icon,
-.ui-checkboxradio-radio-label.ui-checkboxradio-checked:hover .ui-icon {
+.ui-checkboxradio-radio-label.ui-checkboxradio-checked .ui-icon {
   border-color: var(--reign-colors-theme) !important;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .ui-checkboxradio-radio-label.ui-checkboxradio-checked:hover .ui-icon {
+    border-color: var(--reign-colors-theme) !important;
+  }
+}
 .ui-selectmenu-button.ui-button {
   background-color: var(--reign-site-sections-bg-color) !important;
   border-color: var(--reign-site-border-color) !important;
 }
 
-.ui-selectmenu-button.ui-button:hover {
-  background-color: var(--reign-site-secondary-bg-color) !important;
-  border-color: var(--reign-colors-theme) !important;
+@media (hover: hover) and (pointer: fine) {
+  .ui-selectmenu-button.ui-button:hover {
+    background-color: var(--reign-site-secondary-bg-color) !important;
+    border-color: var(--reign-colors-theme) !important;
+  }
 }
-
 .ui-spinner-input {
   background-color: var(--reign-site-sections-bg-color) !important;
   color: var(--reign-site-body-text-color) !important;
@@ -3597,11 +3724,12 @@ a.ui-button:active,
   color: var(--reign-site-alternate-text-color) !important;
 }
 
-.ui-spinner-button:hover {
-  background-color: var(--reign-site-button-bg-color) !important;
-  color: var(--reign-site-button-text-color) !important;
+@media (hover: hover) and (pointer: fine) {
+  .ui-spinner-button:hover {
+    background-color: var(--reign-site-button-bg-color) !important;
+    color: var(--reign-site-button-text-color) !important;
+  }
 }
-
 /* Application Note */
 div.job-applications ul.job-applications li.job-application section.job-application-content ul.job-application-notes-list li.job-application-note,
 div.job-applications ul.job-applications li.job-application section.job-application-edit ul.job-application-notes-list li.job-application-note,

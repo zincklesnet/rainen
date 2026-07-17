@@ -35,29 +35,35 @@ header.my-events-header a.tribe-button {
   text-shadow: none;
   font-family: inherit;
 }
-.tribe_community_edit .button:hover, .tribe_community_edit .button:focus,
-.tribe_community_edit #tribe-add-exclusion:hover,
+.tribe_community_edit .button:focus,
 .tribe_community_edit #tribe-add-exclusion:focus,
-.tribe_community_edit .tribe-add-recurrence.tribe-button:hover,
 .tribe_community_edit .tribe-add-recurrence.tribe-button:focus,
-.tribe_community_edit .tribe-button:hover,
 .tribe_community_edit .tribe-button:focus,
-.tribe_community_edit .button-secondary:hover,
 .tribe_community_edit .button-secondary:focus,
-.tribe_community_edit .button-primary:hover,
 .tribe_community_edit .button-primary:focus,
-.tribe_community_list #tribe-add-exclusion:hover,
 .tribe_community_list #tribe-add-exclusion:focus,
-.tribe_community_list .tribe-add-recurrence.tribe-button:hover,
 .tribe_community_list .tribe-add-recurrence.tribe-button:focus,
-.tribe_community_list .button-secondary:hover,
 .tribe_community_list .button-secondary:focus,
-.tribe_community_list .button-primary:hover,
 .tribe_community_list .button-primary:focus,
-header.my-events-header a.tribe-button:hover,
 header.my-events-header a.tribe-button:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  .tribe_community_edit .button:hover,
+  .tribe_community_edit #tribe-add-exclusion:hover,
+  .tribe_community_edit .tribe-add-recurrence.tribe-button:hover,
+  .tribe_community_edit .tribe-button:hover,
+  .tribe_community_edit .button-secondary:hover,
+  .tribe_community_edit .button-primary:hover,
+  .tribe_community_list #tribe-add-exclusion:hover,
+  .tribe_community_list .tribe-add-recurrence.tribe-button:hover,
+  .tribe_community_list .button-secondary:hover,
+  .tribe_community_list .button-primary:hover,
+  header.my-events-header a.tribe-button:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+  }
 }
 
 .tribe-community-events input[type=text],
@@ -81,7 +87,6 @@ header.my-events-header a.tribe-button:focus {
 .tribe-common--breakpoint-medium.tribe-events .tribe-events-calendar-list__event-datetime-featured-text,
 .tribe-common a:active,
 .tribe-common a:focus,
-.tribe-common a:hover,
 .tribe-events .tribe-events-c-ical__link,
 .tribe-events-schedule .recurringinfo a,
 .tribe-related-event-info .recurringinfo a,
@@ -89,7 +94,6 @@ header.my-events-header a.tribe-button:focus {
 .tribe-events-cal-links .tribe-events-ical,
 .tribe-events-event-meta a,
 .tribe-events-event-meta a:focus,
-.tribe-events-event-meta a:hover,
 .tribe-events-event-meta a:visited,
 .tribe-events-single ul.tribe-related-events li .tribe-related-events-title a,
 .tribe-events-pro .tribe-events-pro-organizer__meta-email-link,
@@ -100,51 +104,61 @@ header.my-events-header a.tribe-button:focus {
 .tribe-common--breakpoint-medium.tribe-events-pro .tribe-events-pro-map__event-datetime-featured-text,
 .tribe-common .tribe-common-cta--thin-alt:active,
 .tribe-common .tribe-common-cta--thin-alt:focus,
-.tribe-common .tribe-common-cta--thin-alt:hover,
 .tribe-events-widget.tribe-events-widget .tribe-events-widget-events-list__view-more-link,
 .tribe-events-widget.tribe-events-widget .tribe-events-widget-featured-venue__view-more-link,
 .tribe-events-widget.tribe-events-widget .tribe-events-widget-featured-venue__view-more-link:active,
 .tribe-events-widget.tribe-events-widget .tribe-events-widget-featured-venue__view-more-link:focus,
-.tribe-events-widget.tribe-events-widget .tribe-events-widget-featured-venue__view-more-link:hover,
 .tribe-events-pro .tribe-events-pro-week-grid__header-column--current .tribe-events-pro-week-grid__header-column-daynum,
 .tribe-events-pro .tribe-events-pro-week-grid__header-column--current .tribe-events-pro-week-grid__header-column-daynum-link {
   color: var(--reign-site-link-hover-color);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .tribe-common a:hover,
+  .tribe-events-event-meta a:hover,
+  .tribe-common .tribe-common-cta--thin-alt:hover,
+  .tribe-events-widget.tribe-events-widget .tribe-events-widget-featured-venue__view-more-link:hover {
+    color: var(--reign-site-link-hover-color);
+  }
+}
 .tribe-common .tribe-common-anchor-thin:active,
 .tribe-common .tribe-common-anchor-thin:focus,
-.tribe-common .tribe-common-anchor-thin:hover,
 .tribe-events-widget.tribe-events-widget .tribe-events-widget-featured-venue__view-more-link:active,
-.tribe-events-widget.tribe-events-widget .tribe-events-widget-featured-venue__view-more-link:focus,
-.tribe-events-widget.tribe-events-widget .tribe-events-widget-featured-venue__view-more-link:hover {
+.tribe-events-widget.tribe-events-widget .tribe-events-widget-featured-venue__view-more-link:focus {
   border-bottom-color: var(--reign-site-link-hover-color);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .tribe-common .tribe-common-anchor-thin:hover,
+  .tribe-events-widget.tribe-events-widget .tribe-events-widget-featured-venue__view-more-link:hover {
+    border-bottom-color: var(--reign-site-link-hover-color);
+  }
+}
 .tribe-events .tribe-events-c-ical__link,
 .tribe-events-pro .tribe-events-pro-map__event-card-wrapper--active .tribe-events-pro-map__event-card-button,
 .tribe-common .tribe-common-cta--thin-alt,
 .tribe-common .tribe-common-cta--thin-alt:active,
 .tribe-common .tribe-common-cta--thin-alt:focus,
-.tribe-common .tribe-common-cta--thin-alt:hover,
 .tribe-events-pro .tribe-events-pro-week-day-selector__day--active {
   border-color: var(--reign-site-link-hover-color);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .tribe-common .tribe-common-cta--thin-alt:hover {
+    border-color: var(--reign-site-link-hover-color);
+  }
+}
 .tribe-events .datepicker .day.active,
 .tribe-events .datepicker .day.active.focused,
 .tribe-events .datepicker .day.active:focus,
-.tribe-events .datepicker .day.active:hover,
 .tribe-events .datepicker .month.active,
 .tribe-events .datepicker .month.active.focused,
 .tribe-events .datepicker .month.active:focus,
-.tribe-events .datepicker .month.active:hover,
 .tribe-events .datepicker .year.active,
 .tribe-events .datepicker .year.active.focused,
 .tribe-events .datepicker .year.active:focus,
-.tribe-events .datepicker .year.active:hover,
 .tribe-events .tribe-events-calendar-month__day-cell--selected,
 .tribe-events .tribe-events-calendar-month__day-cell--selected:focus,
-.tribe-events .tribe-events-calendar-month__day-cell--selected:hover,
 .tribe-events .tribe-events-c-events-bar__search-button:before,
 .tribe-events .tribe-events-c-events-bar__filter-button:before,
 .tribe-events .tribe-events-c-view-selector__button:before,
@@ -152,15 +166,27 @@ header.my-events-header a.tribe-button:focus {
   background: var(--reign-site-link-hover-color);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .tribe-events .datepicker .day.active:hover,
+  .tribe-events .datepicker .month.active:hover,
+  .tribe-events .datepicker .year.active:hover,
+  .tribe-events .tribe-events-calendar-month__day-cell--selected:hover {
+    background: var(--reign-site-link-hover-color);
+  }
+}
 .tribe-events .tribe-events-calendar-list__event-row--featured .tribe-events-calendar-list__event-date-tag-datetime:after,
 .tribe-events-pro .tribe-events-pro-week-day-selector__events-icon,
 .tribe-events .tribe-events-c-ical__link:active,
 .tribe-events .tribe-events-c-ical__link:focus,
-.tribe-events .tribe-events-c-ical__link:hover,
 .widget .tribe-events-widget .tribe-events-widget-events-list__event-row--featured .tribe-events-widget-events-list__event-date-tag-datetime:after {
   background-color: var(--reign-site-link-hover-color);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .tribe-events .tribe-events-c-ical__link:hover {
+    background-color: var(--reign-site-link-hover-color);
+  }
+}
 .tribe-common .tribe-common-c-btn,
 .tribe-common a.tribe-common-c-btn {
   background-color: var(--reign-site-button-bg-color);
@@ -168,13 +194,18 @@ header.my-events-header a.tribe-button:focus {
 }
 
 .tribe-common .tribe-common-c-btn:focus,
-.tribe-common .tribe-common-c-btn:hover,
-.tribe-common a.tribe-common-c-btn:focus,
-.tribe-common a.tribe-common-c-btn:hover {
+.tribe-common a.tribe-common-c-btn:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   border-color: var(--reign-site-button-bg-hover-color);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .tribe-common .tribe-common-c-btn:hover,
+  .tribe-common a.tribe-common-c-btn:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    border-color: var(--reign-site-button-bg-hover-color);
+  }
+}
 .tribe-common .tribe-common-c-btn-border,
 .tribe-common a.tribe-common-c-btn-border {
   color: var(--reign-site-button-bg-color);
@@ -184,28 +215,37 @@ header.my-events-header a.tribe-button:focus {
 .single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button.tribe-events-c-subscribe-dropdown__button--active,
 .single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button:focus,
 .single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button:focus-within,
-.single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button:hover,
 .tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button.tribe-events-c-subscribe-dropdown__button--active,
 .tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button:focus,
-.tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button:focus-within,
-.tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button:hover {
+.tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button:focus-within {
   background-color: var(--reign-site-button-bg-hover-color);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button:hover,
+  .tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+  }
+}
 .tribe_community_edit .tribe-button.submit.submit,
 .tribe_community_list .tribe-button.submit.submit {
   background-color: var(--reign-site-button-bg-color);
   border-color: var(--reign-site-button-bg-color);
 }
 
-.tribe_community_edit .tribe-button.submit.submit:hover,
 .tribe_community_edit .tribe-button.submit.submit:focus,
-.tribe_community_list .tribe-button.submit.submit:hover,
 .tribe_community_list .tribe-button.submit.submit:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   border-color: var(--reign-site-button-bg-hover-color);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .tribe_community_edit .tribe-button.submit.submit:hover,
+  .tribe_community_list .tribe-button.submit.submit:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    border-color: var(--reign-site-button-bg-hover-color);
+  }
+}
 .tribe_community_edit .tribe-button.tribe-button-primary.tribe-button-primary,
 .tribe_community_edit .button-primary.button-primary,
 .tribe_community_list .tribe-button.tribe-button-primary.tribe-button-primary,
@@ -221,29 +261,33 @@ header.my-events-header a.tribe-button:focus {
   background-color: var(--reign-site-button-bg-color);
 }
 
-.tribe_community_edit .tribe-button.tribe-button-primary.tribe-button-primary:hover,
 .tribe_community_edit .tribe-button.tribe-button-primary.tribe-button-primary:focus,
-.tribe_community_edit .button-primary.button-primary:hover,
 .tribe_community_edit .button-primary.button-primary:focus,
-.tribe_community_list .tribe-button.tribe-button-primary.tribe-button-primary:hover,
 .tribe_community_list .tribe-button.tribe-button-primary.tribe-button-primary:focus,
-.tribe_community_list .button-primary.button-primary:hover,
 .tribe_community_list .button-primary.button-primary:focus,
 .tribe-common.tribe-common .tribe-common-c-btn:focus,
-.tribe-common.tribe-common .tribe-common-c-btn:hover,
 .tribe-common.tribe-common a.tribe-common-c-btn:focus,
-.tribe-common.tribe-common a.tribe-common-c-btn:hover,
 .event-tickets .tribe-tickets__attendee__fields__footer_checkout-button.tribe-common-c-btn:focus,
-.event-tickets .tribe-tickets__attendee__fields__footer_checkout-button.tribe-common-c-btn:hover,
 .event-tickets .tribe-tickets__tickets-buy.tribe-common-c-btn:focus,
-.event-tickets .tribe-tickets__tickets-buy.tribe-common-c-btn:hover,
 .entry .entry-content .event-tickets .tribe-tickets__attendee__fields__footer_checkout-button.tribe-common-c-btn:focus,
-.entry .entry-content .event-tickets .tribe-tickets__attendee__fields__footer_checkout-button.tribe-common-c-btn:hover,
-.entry .entry-content .event-tickets .tribe-tickets__tickets-buy.tribe-common-c-btn:focus,
-.entry .entry-content .event-tickets .tribe-tickets__tickets-buy.tribe-common-c-btn:hover {
+.entry .entry-content .event-tickets .tribe-tickets__tickets-buy.tribe-common-c-btn:focus {
   background-color: var(--reign-site-button-bg-hover-color);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .tribe_community_edit .tribe-button.tribe-button-primary.tribe-button-primary:hover,
+  .tribe_community_edit .button-primary.button-primary:hover,
+  .tribe_community_list .tribe-button.tribe-button-primary.tribe-button-primary:hover,
+  .tribe_community_list .button-primary.button-primary:hover,
+  .tribe-common.tribe-common .tribe-common-c-btn:hover,
+  .tribe-common.tribe-common a.tribe-common-c-btn:hover,
+  .event-tickets .tribe-tickets__attendee__fields__footer_checkout-button.tribe-common-c-btn:hover,
+  .event-tickets .tribe-tickets__tickets-buy.tribe-common-c-btn:hover,
+  .entry .entry-content .event-tickets .tribe-tickets__attendee__fields__footer_checkout-button.tribe-common-c-btn:hover,
+  .entry .entry-content .event-tickets .tribe-tickets__tickets-buy.tribe-common-c-btn:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+  }
+}
 .form.tribe-community-events input[type=text],
 .form.tribe-community-events input[type=password],
 .form.tribe-community-events input[type=color],
@@ -401,23 +445,35 @@ script {
 .site-content .tribe-common a,
 .site-content .tribe-common a:active,
 .site-content .tribe-common a:focus,
-.site-content .tribe-common a:hover,
 .site-content .tribe-common a:visited {
   color: var(--reign-site-link-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  .site-content .tribe-common a:hover {
+    color: var(--reign-site-link-color);
+  }
 }
 .site-content .tribe-events .tribe-events-calendar-list__event-title,
 .site-content .tribe-events .tribe-events-calendar-list__event-title-link:visited {
   color: var(--reign-site-link-color);
 }
 .site-content .tribe-events .tribe-events-c-ical__link:active,
-.site-content .tribe-events .tribe-events-c-ical__link:focus,
-.site-content .tribe-events .tribe-events-c-ical__link:hover {
+.site-content .tribe-events .tribe-events-c-ical__link:focus {
   color: #fff;
 }
+@media (hover: hover) and (pointer: fine) {
+  .site-content .tribe-events .tribe-events-c-ical__link:hover {
+    color: #fff;
+  }
+}
 .site-content .tribe-common .tribe-common-anchor-thin:active,
-.site-content .tribe-common .tribe-common-anchor-thin:focus,
-.site-content .tribe-common .tribe-common-anchor-thin:hover {
+.site-content .tribe-common .tribe-common-anchor-thin:focus {
   border-color: var(--reign-colors-theme);
+}
+@media (hover: hover) and (pointer: fine) {
+  .site-content .tribe-common .tribe-common-anchor-thin:hover {
+    border-color: var(--reign-colors-theme);
+  }
 }
 .site-content .tribe-common .tribe-common-c-btn,
 .site-content .tribe-common a.tribe-common-c-btn {
@@ -426,12 +482,18 @@ script {
   border-radius: var(--reign-global-button-radius);
 }
 .site-content .tribe-common .tribe-common-c-btn:focus,
-.site-content .tribe-common .tribe-common-c-btn:hover,
-.site-content .tribe-common a.tribe-common-c-btn:focus,
-.site-content .tribe-common a.tribe-common-c-btn:hover {
+.site-content .tribe-common a.tribe-common-c-btn:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
   border-radius: var(--reign-global-button-radius);
+}
+@media (hover: hover) and (pointer: fine) {
+  .site-content .tribe-common .tribe-common-c-btn:hover,
+  .site-content .tribe-common a.tribe-common-c-btn:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border-radius: var(--reign-global-button-radius);
+  }
 }
 .site-content .tribe-events .datepicker .day.active,
 .site-content .tribe-events .datepicker .month.active,
@@ -443,18 +505,26 @@ script {
   border-color: var(--reign-colors-theme);
 }
 .site-content .tribe-events .tribe-events-c-ical__link:active,
-.site-content .tribe-events .tribe-events-c-ical__link:focus,
-.site-content .tribe-events .tribe-events-c-ical__link:hover {
+.site-content .tribe-events .tribe-events-c-ical__link:focus {
   background: var(--reign-colors-theme);
+}
+@media (hover: hover) and (pointer: fine) {
+  .site-content .tribe-events .tribe-events-c-ical__link:hover {
+    background: var(--reign-colors-theme);
+  }
 }
 .site-content .tribe-events .tribe-events-c-ical__link:before {
   display: none;
 }
 .site-content .tribe-events .tribe-events-c-nav__next:focus,
-.site-content .tribe-events .tribe-events-c-nav__next:hover,
-.site-content .tribe-events .tribe-events-c-nav__prev:focus,
-.site-content .tribe-events .tribe-events-c-nav__prev:hover {
+.site-content .tribe-events .tribe-events-c-nav__prev:focus {
   color: var(--reign-colors-theme);
+}
+@media (hover: hover) and (pointer: fine) {
+  .site-content .tribe-events .tribe-events-c-nav__next:hover,
+  .site-content .tribe-events .tribe-events-c-nav__prev:hover {
+    color: var(--reign-colors-theme);
+  }
 }
 .site-content .tribe-events .tribe-events-c-small-cta__stock {
   color: var(--reign-site-body-text-color);
@@ -867,8 +937,10 @@ script {
   padding-top: 0;
   height: 100%;
 }
-.tribe-common.tribe-common .rg-tribe-events-calendar-photo-event-wrapper:hover {
-  box-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.12);
+@media (hover: hover) and (pointer: fine) {
+  .tribe-common.tribe-common .rg-tribe-events-calendar-photo-event-wrapper:hover {
+    box-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.12);
+  }
 }
 @media screen and (max-width: 797px) {
   .tribe-common.tribe-common .rg-tribe-events-calendar-photo-event-wrapper {
@@ -930,24 +1002,35 @@ script {
 /*--------------------------------------------------------------
 # Month View
 --------------------------------------------------------------*/
+/*--------------------------------------------------------------
+# Month View
+--------------------------------------------------------------*/
 .tribe-events.tribe-events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-date,
 .tribe-events.tribe-events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-date-link,
 .tribe-events.tribe-events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-date-link:focus,
-.tribe-events.tribe-events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-date-link:hover,
-.tribe-events.tribe-events .tribe-events-calendar-month__day-date-link:focus,
-.tribe-events.tribe-events .tribe-events-calendar-month__day-date-link:hover {
+.tribe-events.tribe-events .tribe-events-calendar-month__day-date-link:focus {
   color: var(--reign-colors-theme);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .tribe-events.tribe-events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-date-link:hover,
+  .tribe-events.tribe-events .tribe-events-calendar-month__day-date-link:hover {
+    color: var(--reign-colors-theme);
+  }
+}
 .tribe-events.tribe-events .tribe-events-calendar-month__mobile-events-icon--event {
   background: var(--reign-colors-theme);
 }
 
-.tribe-events.tribe-events .tribe-events-calendar-month__day-cell--selected,
-.tribe-events.tribe-events .tribe-events-calendar-month__day-cell--selected:hover {
+.tribe-events.tribe-events .tribe-events-calendar-month__day-cell--selected {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .tribe-events.tribe-events .tribe-events-calendar-month__day-cell--selected:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+}
 /*--------------------------------------------------------------
 # Week View
 --------------------------------------------------------------*/
@@ -957,11 +1040,15 @@ script {
 
 .tribe-events-pro .tribe-events-pro-week-grid__header-column--current .tribe-events-pro-week-grid__header-column-daynum,
 .tribe-events-pro .tribe-events-pro-week-grid__header-column--current .tribe-events-pro-week-grid__header-column-daynum-link,
-.tribe-events-pro .tribe-events-pro-week-grid__header-column--current .tribe-events-pro-week-grid__header-column-daynum-link:focus,
-.tribe-events-pro .tribe-events-pro-week-grid__header-column--current .tribe-events-pro-week-grid__header-column-daynum-link:hover {
+.tribe-events-pro .tribe-events-pro-week-grid__header-column--current .tribe-events-pro-week-grid__header-column-daynum-link:focus {
   color: var(--reign-colors-theme);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .tribe-events-pro .tribe-events-pro-week-grid__header-column--current .tribe-events-pro-week-grid__header-column-daynum-link:hover {
+    color: var(--reign-colors-theme);
+  }
+}
 .tribe-events-pro .tribe-events-pro-week-mobile-events__event {
   padding-left: 0;
 }
@@ -992,11 +1079,15 @@ script {
   font-size: 14px;
 }
 
-.tribe-events .tribe-events-c-nav__today:focus,
-.tribe-events .tribe-events-c-nav__today:hover {
+.tribe-events .tribe-events-c-nav__today:focus {
   color: var(--reign-colors-theme);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .tribe-events .tribe-events-c-nav__today:hover {
+    color: var(--reign-colors-theme);
+  }
+}
 /*--------------------------------------------------------------
 # Map View
 --------------------------------------------------------------*/
@@ -1004,22 +1095,31 @@ script {
   border-color: var(--reign-colors-theme);
 }
 
-.tribe-events-pro .tribe-events-pro-map__event-card-button:focus,
-.tribe-events-pro .tribe-events-pro-map__event-card-button:hover {
+.tribe-events-pro .tribe-events-pro-map__event-card-button:focus {
   border: 1px solid #d5d5d5 !important;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .tribe-events-pro .tribe-events-pro-map__event-card-button:hover {
+    border: 1px solid #d5d5d5 !important;
+  }
+}
 .tribe-common .tribe-common-cta--thin-alt {
   border-bottom-color: var(--reign-colors-theme);
 }
 
 .tribe-common .tribe-common-cta--thin-alt:active,
-.tribe-common .tribe-common-cta--thin-alt:focus,
-.tribe-common .tribe-common-cta--thin-alt:hover {
+.tribe-common .tribe-common-cta--thin-alt:focus {
   color: var(--reign-colors-theme);
   border-bottom-color: var(--reign-colors-theme);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .tribe-common .tribe-common-cta--thin-alt:hover {
+    color: var(--reign-colors-theme);
+    border-bottom-color: var(--reign-colors-theme);
+  }
+}
 /*--------------------------------------------------------------
 # Community Events Tickets
 --------------------------------------------------------------*/
@@ -1166,11 +1266,12 @@ script {
   color: var(--reign-site-link-color);
 }
 
-.tribe-community-events .tribe-section .tribe-delete-this.tribe-delete-this:hover:hover,
-.tribe-community-events .tribe-section .tribe-delete-this.tribe-delete-this.hover-state:hover {
-  color: var(--reign-site-link-hover-color);
+@media (hover: hover) and (pointer: fine) {
+  .tribe-community-events .tribe-section .tribe-delete-this.tribe-delete-this:hover:hover,
+  .tribe-community-events .tribe-section .tribe-delete-this.tribe-delete-this.hover-state:hover {
+    color: var(--reign-site-link-hover-color);
+  }
 }
-
 .tribe-dropdown.tribe-dropdown .select2-selection--single .select2-selection__rendered,
 .tribe-ea-dropdown.tribe-ea-dropdown .select2-selection--single .select2-selection__rendered {
   line-height: 32px;
@@ -1313,22 +1414,24 @@ header.my-events-header .tribe-button {
   border-color: var(--reign-site-border-color);
 }
 
-.tribe-community-events-list.tribe-community-events-list.hover tbody tr:hover,
-.tribe-community-events-list.tribe-community-events-list.display tbody tr:hover {
-  background-color: rgba(0, 0, 0, 0.075);
+@media (hover: hover) and (pointer: fine) {
+  .tribe-community-events-list.tribe-community-events-list.hover tbody tr:hover,
+  .tribe-community-events-list.tribe-community-events-list.display tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+  }
 }
-
 .tribe-community-events-list.tribe-community-events-list a,
 .tribe-community-events-list td .row-actions.row-actions a:visited,
 .tribe-community-events-list td .row-actions.row-actions a:active {
   color: var(--reign-site-link-color);
 }
 
-.tribe-community-events-list.tribe-community-events-list a:hover,
-.tribe-community-events-list td .row-actions.row-actions a:hover {
-  color: var(--reign-site-link-hover-color);
+@media (hover: hover) and (pointer: fine) {
+  .tribe-community-events-list.tribe-community-events-list a:hover,
+  .tribe-community-events-list td .row-actions.row-actions a:hover {
+    color: var(--reign-site-link-hover-color);
+  }
 }
-
 /*--------------------------------------------------------------
 # Community Events Tickets
 --------------------------------------------------------------*/
@@ -1496,13 +1599,17 @@ body.page-tribe-attendee-registration .event-tickets.event-tickets .tribe-ticket
 
 body.page-tribe-attendee-registration .tribe-common.tribe-common .tribe-tickets__mini-cart a.tribe-tickets__tickets-footer-back-link:active,
 body.page-tribe-attendee-registration .tribe-common.tribe-common .tribe-tickets__mini-cart a.tribe-tickets__tickets-footer-back-link:focus,
-body.page-tribe-attendee-registration .tribe-common.tribe-common .tribe-tickets__mini-cart a.tribe-tickets__tickets-footer-back-link:hover,
 body.page-tribe-attendee-registration .event-tickets.event-tickets .tribe-tickets__mini-cart a.tribe-tickets__tickets-footer-back-link:active,
-body.page-tribe-attendee-registration .event-tickets.event-tickets .tribe-tickets__mini-cart a.tribe-tickets__tickets-footer-back-link:focus,
-body.page-tribe-attendee-registration .event-tickets.event-tickets .tribe-tickets__mini-cart a.tribe-tickets__tickets-footer-back-link:hover {
+body.page-tribe-attendee-registration .event-tickets.event-tickets .tribe-tickets__mini-cart a.tribe-tickets__tickets-footer-back-link:focus {
   color: var(--reign-site-link-hover-color);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  body.page-tribe-attendee-registration .tribe-common.tribe-common .tribe-tickets__mini-cart a.tribe-tickets__tickets-footer-back-link:hover,
+  body.page-tribe-attendee-registration .event-tickets.event-tickets .tribe-tickets__mini-cart a.tribe-tickets__tickets-footer-back-link:hover {
+    color: var(--reign-site-link-hover-color);
+  }
+}
 #tribe-community-events.venue form {
   background: var(--reign-site-sections-bg-color);
   margin: 15px 0;
@@ -1686,12 +1793,14 @@ body .tribe-events-button.tribe-events-button {
   color: var(--reign-site-button-text-color);
   border-radius: var(--reign-global-button-radius);
 }
-body #tribe-events .tribe-events-button.tribe-events-button:hover,
-body .tribe-events-button.tribe-events-button:hover {
-  padding: 10px 15px;
-  background-color: var(--reign-site-button-bg-hover-color);
-  color: var(--reign-site-button-text-hover-color);
-  border-radius: var(--reign-global-button-radius);
+@media (hover: hover) and (pointer: fine) {
+  body #tribe-events .tribe-events-button.tribe-events-button:hover,
+  body .tribe-events-button.tribe-events-button:hover {
+    padding: 10px 15px;
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border-radius: var(--reign-global-button-radius);
+  }
 }
 
 .tickets-unavailable {
@@ -1713,10 +1822,17 @@ body .tribe-events-button.tribe-events-button:hover {
 .accordion-header {
   color: var(--reign-site-body-text-color);
 }
-.accordion-header:hover, .accordion-header:focus {
+.accordion-header:focus {
   background: transparent;
   color: var(--reign-site-headings-color);
   border: 0;
+}
+@media (hover: hover) and (pointer: fine) {
+  .accordion-header:hover {
+    background: transparent;
+    color: var(--reign-site-headings-color);
+    border: 0;
+  }
 }
 
 .accordion-header:focus {
@@ -1775,11 +1891,18 @@ h2.tribe-events-related-events-title,
 /*--------------------------------------------------------------
 # Events Filter
 --------------------------------------------------------------*/
-.tribe-filter-bar .tribe-filter-bar-c-pill__pill:focus,
-.tribe-filter-bar .tribe-filter-bar-c-pill__pill:hover {
+/*--------------------------------------------------------------
+# Events Filter
+--------------------------------------------------------------*/
+.tribe-filter-bar .tribe-filter-bar-c-pill__pill:focus {
   border: 1px solid #d5d5d5 !important;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .tribe-filter-bar .tribe-filter-bar-c-pill__pill:hover {
+    border: 1px solid #d5d5d5 !important;
+  }
+}
 #tribe_events_filters_wrapper label input[type=checkbox]:focus,
 #tribe_events_filters_wrapper button:focus,
 #tribe_events_filters_wrapper label input[type=radio] {
@@ -1810,8 +1933,10 @@ h2.tribe-events-related-events-title,
   background: var(--reign-site-sections-bg-color);
   border: 0;
 }
-#tribe_events_filters_wrapper.tribe-events-filters-horizontal .tribe_events_filter_control button:hover {
-  color: var(--reign-colors-theme);
+@media (hover: hover) and (pointer: fine) {
+  #tribe_events_filters_wrapper.tribe-events-filters-horizontal .tribe_events_filter_control button:hover {
+    color: var(--reign-colors-theme);
+  }
 }
 #tribe_events_filters_wrapper.tribe-events-filters-horizontal .tribe-js-filters-toggle,
 #tribe_events_filters_wrapper.tribe-events-filters-horizontal .tribe_events_filters_toggle,
@@ -1846,9 +1971,13 @@ h2.tribe-events-related-events-title,
 #tribe_events_filters_wrapper .ui-slider-horizontal .ui-slider-handle {
   top: -0.5em;
 }
-#tribe_events_filters_wrapper .tribe_events_filters_reset:hover,
 #tribe_events_filters_wrapper .tribe_events_filters_reset:focus {
   color: var(--reign-colors-theme);
+}
+@media (hover: hover) and (pointer: fine) {
+  #tribe_events_filters_wrapper .tribe_events_filters_reset:hover {
+    color: var(--reign-colors-theme);
+  }
 }
 #tribe_events_filters_wrapper input[type=submit] {
   margin: 15px auto;
@@ -1960,32 +2089,36 @@ aside .tribe-events-widget {
 .tribe-events .datepicker .day.active.focused,
 .tribe-events .datepicker .month.active.focused,
 .tribe-events .datepicker .month.active:focus,
-.tribe-events .datepicker .month.active:hover,
 .tribe-events .datepicker .year.active,
 .tribe-events .datepicker .year.active.focused,
-.tribe-events .datepicker .year.active:focus,
-.tribe-events .datepicker .year.active:hover {
+.tribe-events .datepicker .year.active:focus {
   background: var(--reign-colors-theme);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .tribe-events .datepicker .month.active:hover,
+  .tribe-events .datepicker .year.active:hover {
+    background: var(--reign-colors-theme);
+  }
+}
 /*--------------------------------------------------------------
 # Dark Mode
 --------------------------------------------------------------*/
-.dark-mode .tribe-common--breakpoint-medium .tribe-filter-bar.tribe-filter-bar--horizontal,
-.dark-mode .tribe-common--breakpoint-medium .tribe-filter-bar.tribe-filter-bar--vertical,
+[data-bx-mode=dark] .tribe-common--breakpoint-medium .tribe-filter-bar.tribe-filter-bar--horizontal,
+[data-bx-mode=dark] .tribe-common--breakpoint-medium .tribe-filter-bar.tribe-filter-bar--vertical,
 .dark-scheme .tribe-common--breakpoint-medium .tribe-filter-bar.tribe-filter-bar--horizontal,
 .dark-scheme .tribe-common--breakpoint-medium .tribe-filter-bar.tribe-filter-bar--vertical {
   background-color: transparent !important;
 }
 
-.dark-mode .tribe-common .tribe-common-c-btn-border-small,
-.dark-mode .tribe-common a.tribe-common-c-btn-border-small,
-.dark-mode .tribe-events .tribe-events-c-events-bar__search-container,
-.dark-mode .tribe-filter-bar .tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill,
-.dark-mode .tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__container,
-.dark-mode .tribe-common--breakpoint-medium.tribe-events .tribe-events-header--has-event-search .tribe-events-c-events-bar,
-.dark-mode .tribe-filter-bar.tribe-filter-bar--horizontal,
-.dark-mode .tribe-filter-bar.tribe-filter-bar--vertical,
+[data-bx-mode=dark] .tribe-common .tribe-common-c-btn-border-small,
+[data-bx-mode=dark] .tribe-common a.tribe-common-c-btn-border-small,
+[data-bx-mode=dark] .tribe-events .tribe-events-c-events-bar__search-container,
+[data-bx-mode=dark] .tribe-filter-bar .tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill,
+[data-bx-mode=dark] .tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__container,
+[data-bx-mode=dark] .tribe-common--breakpoint-medium.tribe-events .tribe-events-header--has-event-search .tribe-events-c-events-bar,
+[data-bx-mode=dark] .tribe-filter-bar.tribe-filter-bar--horizontal,
+[data-bx-mode=dark] .tribe-filter-bar.tribe-filter-bar--vertical,
 .dark-scheme .tribe-common .tribe-common-c-btn-border-small,
 .dark-scheme .tribe-common a.tribe-common-c-btn-border-small,
 .dark-scheme .tribe-events .tribe-events-c-events-bar__search-container,
@@ -1997,83 +2130,91 @@ aside .tribe-events-widget {
   background-color: var(--reign-site-sections-bg-color);
 }
 
-.dark-mode .tribe-filter-bar .tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:hover,
-.dark-mode .tribe-filter-bar .tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:focus,
-.dark-mode .tribe-filter-bar .tribe-filter-bar-c-pill--has-selections.tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:hover,
-.dark-mode .tribe-filter-bar .tribe-filter-bar-c-pill--has-selections.tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:focus,
-.dark-mode .single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:active,
-.dark-mode .single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:focus,
-.dark-mode .single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:focus-within,
-.dark-mode .single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:hover,
-.dark-mode .tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:active,
-.dark-mode .tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:focus,
-.dark-mode .tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:focus-within,
-.dark-mode .tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:hover,
-.dark-mode .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-view-selector__list-item:focus,
-.dark-mode .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-view-selector__list-item:focus-within,
-.dark-mode .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-view-selector__list-item:hover,
-.dark-mode .tribe-events-pro .tribe-events-pro-week-grid__multiday-event-bar,
-.dark-mode .tribe-events .tribe-events-calendar-month__multiday-event-bar,
-.dark-mode .tribe_community_edit .tribe-button-tertiary:hover,
-.dark-mode .tribe_community_edit .tribe-button-tertiary:focus,
-.dark-mode .tribe_community_list .tribe-button-tertiary:hover,
-.dark-mode .tribe_community_list .tribe-button-tertiary:focus,
-.dark-scheme .tribe-filter-bar .tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:hover,
+[data-bx-mode=dark] .tribe-filter-bar .tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:focus,
+[data-bx-mode=dark] .tribe-filter-bar .tribe-filter-bar-c-pill--has-selections.tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:focus,
+[data-bx-mode=dark] .single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:active,
+[data-bx-mode=dark] .single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:focus,
+[data-bx-mode=dark] .single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:focus-within,
+[data-bx-mode=dark] .tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:active,
+[data-bx-mode=dark] .tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:focus,
+[data-bx-mode=dark] .tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:focus-within,
+[data-bx-mode=dark] .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-view-selector__list-item:focus,
+[data-bx-mode=dark] .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-view-selector__list-item:focus-within,
+[data-bx-mode=dark] .tribe-events-pro .tribe-events-pro-week-grid__multiday-event-bar,
+[data-bx-mode=dark] .tribe-events .tribe-events-calendar-month__multiday-event-bar,
+[data-bx-mode=dark] .tribe_community_edit .tribe-button-tertiary:focus,
+[data-bx-mode=dark] .tribe_community_list .tribe-button-tertiary:focus,
 .dark-scheme .tribe-filter-bar .tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:focus,
-.dark-scheme .tribe-filter-bar .tribe-filter-bar-c-pill--has-selections.tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:hover,
 .dark-scheme .tribe-filter-bar .tribe-filter-bar-c-pill--has-selections.tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:focus,
 .dark-scheme .single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:active,
 .dark-scheme .single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:focus,
 .dark-scheme .single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:focus-within,
-.dark-scheme .single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:hover,
 .dark-scheme .tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:active,
 .dark-scheme .tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:focus,
 .dark-scheme .tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:focus-within,
-.dark-scheme .tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:hover,
 .dark-scheme .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-view-selector__list-item:focus,
 .dark-scheme .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-view-selector__list-item:focus-within,
-.dark-scheme .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-view-selector__list-item:hover,
 .dark-scheme .tribe-events-pro .tribe-events-pro-week-grid__multiday-event-bar,
 .dark-scheme .tribe-events .tribe-events-calendar-month__multiday-event-bar,
-.dark-scheme .tribe_community_edit .tribe-button-tertiary:hover,
 .dark-scheme .tribe_community_edit .tribe-button-tertiary:focus,
-.dark-scheme .tribe_community_list .tribe-button-tertiary:hover,
 .dark-scheme .tribe_community_list .tribe-button-tertiary:focus {
   background-color: rgba(0, 0, 0, 0.075);
+}
+@media (hover: hover) and (pointer: fine) {
+  [data-bx-mode=dark] .tribe-filter-bar .tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:hover,
+  [data-bx-mode=dark] .tribe-filter-bar .tribe-filter-bar-c-pill--has-selections.tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:hover,
+  [data-bx-mode=dark] .single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:hover,
+  [data-bx-mode=dark] .tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:hover,
+  [data-bx-mode=dark] .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-view-selector__list-item:hover,
+  [data-bx-mode=dark] .tribe_community_edit .tribe-button-tertiary:hover,
+  [data-bx-mode=dark] .tribe_community_list .tribe-button-tertiary:hover,
+  .dark-scheme .tribe-filter-bar .tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:hover,
+  .dark-scheme .tribe-filter-bar .tribe-filter-bar-c-pill--has-selections.tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:hover,
+  .dark-scheme .single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:hover,
+  .dark-scheme .tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:hover,
+  .dark-scheme .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-view-selector__list-item:hover,
+  .dark-scheme .tribe_community_edit .tribe-button-tertiary:hover,
+  .dark-scheme .tribe_community_list .tribe-button-tertiary:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+  }
 }
 
 .dark-scheme.single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:active,
 .dark-scheme.single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:focus,
-.dark-scheme.single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:focus-within,
-.dark-scheme.single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:hover {
+.dark-scheme.single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:focus-within {
   background-color: rgba(0, 0, 0, 0.075);
 }
 
-.dark-mode .tribe-common .tribe-common-h7,
-.dark-mode .tribe-common .tribe-common-h8,
-.dark-mode .tribe-events .tribe-events-calendar-list__event-datetime,
-.dark-mode .tribe-common .tribe-common-b1,
-.dark-mode .tribe-common .tribe-common-b2,
-.dark-mode .tribe-common .tribe-common-b3,
-.dark-mode .tribe-common .tribe-common-b4,
-.dark-mode .tribe-common .tribe-common-b5,
-.dark-mode .tribe-common .tribe-common-b6,
-.dark-mode .single-tribe_events .tribe-events-single .tribe-events-event-meta .tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-results__option,
-.dark-mode .tribe-common .tribe-common-form-control-checkbox__label,
-.dark-mode .tribe-common .tribe-common-form-control-radio__label,
-.dark-mode .tribe-events .tribe-events-c-view-selector__list-item-text,
-.dark-mode .tribe-events .tribe-events-c-events-bar .tribe-common-form-control-text__input,
-.dark-mode .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-nav__next,
-.dark-mode .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-nav__prev,
-.dark-mode .tooltipster-sidetip .tribe-event-date-start,
-.dark-mode .tribe-events .tribe-events-calendar-day__event-datetime,
-.dark-mode .tribe-events-pro .tribe-events-pro-summary__event-datetime,
-.dark-mode .tribe-events-pro .tribe-events-pro-week-grid__events-time-tag,
-.dark-mode .tribe-events-content,
-.dark-mode .tribe-community-events .events-community-post-title label,
-.dark-mode .tribe-community-events .events-community-post-content label,
-.dark-mode .tribe-community-events-content .tribe-nav .my-events-display-options a.tribe-button-tertiary,
-.dark-mode .tribe-community-events-content .tribe-nav .table-menu-wrapper a.tribe-button-tertiary,
+@media (hover: hover) and (pointer: fine) {
+  .dark-scheme.single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list-item:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+  }
+}
+[data-bx-mode=dark] .tribe-common .tribe-common-h7,
+[data-bx-mode=dark] .tribe-common .tribe-common-h8,
+[data-bx-mode=dark] .tribe-events .tribe-events-calendar-list__event-datetime,
+[data-bx-mode=dark] .tribe-common .tribe-common-b1,
+[data-bx-mode=dark] .tribe-common .tribe-common-b2,
+[data-bx-mode=dark] .tribe-common .tribe-common-b3,
+[data-bx-mode=dark] .tribe-common .tribe-common-b4,
+[data-bx-mode=dark] .tribe-common .tribe-common-b5,
+[data-bx-mode=dark] .tribe-common .tribe-common-b6,
+[data-bx-mode=dark] .single-tribe_events .tribe-events-single .tribe-events-event-meta .tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-results__option,
+[data-bx-mode=dark] .tribe-common .tribe-common-form-control-checkbox__label,
+[data-bx-mode=dark] .tribe-common .tribe-common-form-control-radio__label,
+[data-bx-mode=dark] .tribe-events .tribe-events-c-view-selector__list-item-text,
+[data-bx-mode=dark] .tribe-events .tribe-events-c-events-bar .tribe-common-form-control-text__input,
+[data-bx-mode=dark] .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-nav__next,
+[data-bx-mode=dark] .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-nav__prev,
+[data-bx-mode=dark] .tooltipster-sidetip .tribe-event-date-start,
+[data-bx-mode=dark] .tribe-events .tribe-events-calendar-day__event-datetime,
+[data-bx-mode=dark] .tribe-events-pro .tribe-events-pro-summary__event-datetime,
+[data-bx-mode=dark] .tribe-events-pro .tribe-events-pro-week-grid__events-time-tag,
+[data-bx-mode=dark] .tribe-events-content,
+[data-bx-mode=dark] .tribe-community-events .events-community-post-title label,
+[data-bx-mode=dark] .tribe-community-events .events-community-post-content label,
+[data-bx-mode=dark] .tribe-community-events-content .tribe-nav .my-events-display-options a.tribe-button-tertiary,
+[data-bx-mode=dark] .tribe-community-events-content .tribe-nav .table-menu-wrapper a.tribe-button-tertiary,
 .dark-scheme .tribe-common .tribe-common-h7,
 .dark-scheme .tribe-common .tribe-common-h8,
 .dark-scheme .tribe-events .tribe-events-calendar-list__event-datetime,
@@ -2102,77 +2243,85 @@ aside .tribe-events-widget {
   color: var(--reign-site-body-text-color);
 }
 
-.dark-mode .tribe-events-single .tribe-events-event-meta,
+[data-bx-mode=dark] .tribe-events-single .tribe-events-event-meta,
 .dark-scheme .tribe-events-single .tribe-events-event-meta {
   color: var(--reign-site-body-text-color) !important;
 }
-.dark-mode .tribe-common a,
-.dark-mode .tribe-common a:active,
-.dark-mode .tribe-common a:focus,
-.dark-mode .tribe-common a:hover,
-.dark-mode .tribe-common a:visited,
-.dark-mode .tribe-events .tribe-events-calendar-list__event-title-link,
-.dark-mode .tribe-common .tribe-common-c-btn-border--alt,
-.dark-mode .tribe-common a.tribe-common-c-btn-border--alt,
-.dark-mode .tribe-events .tribe-events-c-view-selector__list-item-link:focus .tribe-events-c-view-selector__list-item-text,
-.dark-mode .tribe-events .tribe-events-c-view-selector__list-item-link:hover .tribe-events-c-view-selector__list-item-text,
-.dark-mode .tribe-events-back a,
-.dark-mode .tribe-events-back a:visited,
-.dark-mode .tribe-events-single .tribe-events-sub-nav .tribe-events-nav-next a,
-.dark-mode .tribe-events-single .tribe-events-sub-nav .tribe-events-nav-previous a,
+[data-bx-mode=dark] .tribe-common a,
+[data-bx-mode=dark] .tribe-common a:active,
+[data-bx-mode=dark] .tribe-common a:focus,
+[data-bx-mode=dark] .tribe-common a:visited,
+[data-bx-mode=dark] .tribe-events .tribe-events-calendar-list__event-title-link,
+[data-bx-mode=dark] .tribe-common .tribe-common-c-btn-border--alt,
+[data-bx-mode=dark] .tribe-common a.tribe-common-c-btn-border--alt,
+[data-bx-mode=dark] .tribe-events .tribe-events-c-view-selector__list-item-link:focus .tribe-events-c-view-selector__list-item-text,
+[data-bx-mode=dark] .tribe-events-back a,
+[data-bx-mode=dark] .tribe-events-back a:visited,
+[data-bx-mode=dark] .tribe-events-single .tribe-events-sub-nav .tribe-events-nav-next a,
+[data-bx-mode=dark] .tribe-events-single .tribe-events-sub-nav .tribe-events-nav-previous a,
 .dark-scheme .tribe-common a,
 .dark-scheme .tribe-common a:active,
 .dark-scheme .tribe-common a:focus,
-.dark-scheme .tribe-common a:hover,
 .dark-scheme .tribe-common a:visited,
 .dark-scheme .tribe-events .tribe-events-calendar-list__event-title-link,
 .dark-scheme .tribe-common .tribe-common-c-btn-border--alt,
 .dark-scheme .tribe-common a.tribe-common-c-btn-border--alt,
 .dark-scheme .tribe-events .tribe-events-c-view-selector__list-item-link:focus .tribe-events-c-view-selector__list-item-text,
-.dark-scheme .tribe-events .tribe-events-c-view-selector__list-item-link:hover .tribe-events-c-view-selector__list-item-text,
 .dark-scheme .tribe-events-back a,
 .dark-scheme .tribe-events-back a:visited,
 .dark-scheme .tribe-events-single .tribe-events-sub-nav .tribe-events-nav-next a,
 .dark-scheme .tribe-events-single .tribe-events-sub-nav .tribe-events-nav-previous a {
   color: var(--reign-site-link-color);
 }
-
-.dark-mode .tribe-events .tribe-events-calendar-list__event-title-link:active,
-.dark-mode .tribe-events .tribe-events-calendar-list__event-title-link:focus,
-.dark-mode .tribe-events .tribe-events-calendar-list__event-title-link:hover,
-.dark-mode .tribe-common .tribe-common-c-btn-border--alt:focus,
-.dark-mode .tribe-common .tribe-common-c-btn-border--alt:hover,
-.dark-mode .tribe-common a.tribe-common-c-btn-border--alt:focus,
-.dark-mode .tribe-common a.tribe-common-c-btn-border--alt:hover,
-.dark-scheme .tribe-events .tribe-events-calendar-list__event-title-link:active,
-.dark-scheme .tribe-events .tribe-events-calendar-list__event-title-link:focus,
-.dark-scheme .tribe-events .tribe-events-calendar-list__event-title-link:hover,
-.dark-scheme .tribe-common .tribe-common-c-btn-border--alt:focus,
-.dark-scheme .tribe-common .tribe-common-c-btn-border--alt:hover,
-.dark-scheme .tribe-common a.tribe-common-c-btn-border--alt:focus,
-.dark-scheme .tribe-common a.tribe-common-c-btn-border--alt:hover {
-  color: var(--reign-site-link-hover-color);
+@media (hover: hover) and (pointer: fine) {
+  [data-bx-mode=dark] .tribe-common a:hover,
+  [data-bx-mode=dark] .tribe-events .tribe-events-c-view-selector__list-item-link:hover .tribe-events-c-view-selector__list-item-text,
+  .dark-scheme .tribe-common a:hover,
+  .dark-scheme .tribe-events .tribe-events-c-view-selector__list-item-link:hover .tribe-events-c-view-selector__list-item-text {
+    color: var(--reign-site-link-color);
+  }
 }
 
-.dark-mode .tribe-events .tribe-events-calendar-list__event-title-link:visited,
-.dark-mode .tribe-common .tribe-common-h1,
-.dark-mode .tribe-common .tribe-common-h2,
-.dark-mode .tribe-common .tribe-common-h3,
-.dark-mode .tribe-common .tribe-common-h4,
-.dark-mode .tribe-common .tribe-common-h5,
-.dark-mode .tribe-common .tribe-common-h6,
-.dark-mode .tribe-common .tribe-common-h7,
-.dark-mode .tribe-common .tribe-common-h8,
-.dark-mode .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-view-selector--labels .tribe-events-c-view-selector__button-text,
-.dark-mode .tribe-events .tribe-events-header--has-event-search .tribe-events-c-events-bar__filter-button-text,
-.dark-mode .tribe-events .tribe-events-calendar-month__day-date-daynum,
-.dark-mode .tribe-events-single-event-title,
-.dark-mode .tribe-events-meta-group .tribe-events-single-section-title,
-.dark-mode .tribe-events-schedule .recurringinfo,
-.dark-mode .tribe-events-schedule .tribe-events-cost,
-.dark-mode .tribe-events-related-events-title,
-.dark-mode .tribe-events-single ul.tribe-related-events li,
-.dark-mode .tribe-events-single ul.tribe-related-events li .tribe-related-events-title,
+[data-bx-mode=dark] .tribe-events .tribe-events-calendar-list__event-title-link:active,
+[data-bx-mode=dark] .tribe-events .tribe-events-calendar-list__event-title-link:focus,
+[data-bx-mode=dark] .tribe-common .tribe-common-c-btn-border--alt:focus,
+[data-bx-mode=dark] .tribe-common a.tribe-common-c-btn-border--alt:focus,
+.dark-scheme .tribe-events .tribe-events-calendar-list__event-title-link:active,
+.dark-scheme .tribe-events .tribe-events-calendar-list__event-title-link:focus,
+.dark-scheme .tribe-common .tribe-common-c-btn-border--alt:focus,
+.dark-scheme .tribe-common a.tribe-common-c-btn-border--alt:focus {
+  color: var(--reign-site-link-hover-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  [data-bx-mode=dark] .tribe-events .tribe-events-calendar-list__event-title-link:hover,
+  [data-bx-mode=dark] .tribe-common .tribe-common-c-btn-border--alt:hover,
+  [data-bx-mode=dark] .tribe-common a.tribe-common-c-btn-border--alt:hover,
+  .dark-scheme .tribe-events .tribe-events-calendar-list__event-title-link:hover,
+  .dark-scheme .tribe-common .tribe-common-c-btn-border--alt:hover,
+  .dark-scheme .tribe-common a.tribe-common-c-btn-border--alt:hover {
+    color: var(--reign-site-link-hover-color);
+  }
+}
+
+[data-bx-mode=dark] .tribe-events .tribe-events-calendar-list__event-title-link:visited,
+[data-bx-mode=dark] .tribe-common .tribe-common-h1,
+[data-bx-mode=dark] .tribe-common .tribe-common-h2,
+[data-bx-mode=dark] .tribe-common .tribe-common-h3,
+[data-bx-mode=dark] .tribe-common .tribe-common-h4,
+[data-bx-mode=dark] .tribe-common .tribe-common-h5,
+[data-bx-mode=dark] .tribe-common .tribe-common-h6,
+[data-bx-mode=dark] .tribe-common .tribe-common-h7,
+[data-bx-mode=dark] .tribe-common .tribe-common-h8,
+[data-bx-mode=dark] .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-view-selector--labels .tribe-events-c-view-selector__button-text,
+[data-bx-mode=dark] .tribe-events .tribe-events-header--has-event-search .tribe-events-c-events-bar__filter-button-text,
+[data-bx-mode=dark] .tribe-events .tribe-events-calendar-month__day-date-daynum,
+[data-bx-mode=dark] .tribe-events-single-event-title,
+[data-bx-mode=dark] .tribe-events-meta-group .tribe-events-single-section-title,
+[data-bx-mode=dark] .tribe-events-schedule .recurringinfo,
+[data-bx-mode=dark] .tribe-events-schedule .tribe-events-cost,
+[data-bx-mode=dark] .tribe-events-related-events-title,
+[data-bx-mode=dark] .tribe-events-single ul.tribe-related-events li,
+[data-bx-mode=dark] .tribe-events-single ul.tribe-related-events li .tribe-related-events-title,
 .dark-scheme .tribe-events .tribe-events-calendar-list__event-title-link:visited,
 .dark-scheme .tribe-common .tribe-common-h1,
 .dark-scheme .tribe-common .tribe-common-h2,
@@ -2195,24 +2344,22 @@ aside .tribe-events-widget {
   color: var(--reign-site-headings-color);
 }
 
-.dark-mode .tribe-filter-bar .tribe-filter-bar__filters,
-.dark-mode .tribe-filter-bar .tribe-filter-bar-c-filter,
-.dark-mode .tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__container,
-.dark-mode .tribe-filter-bar .tribe-filter-bar-c-pill__pill,
-.dark-mode .tribe-events .tribe-events-calendar-list-nav,
-.dark-mode .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-events-bar--border,
-.dark-mode .tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal.tribe-events .tribe-events-header--has-event-search .tribe-events-c-events-bar__filter-button-container,
-.dark-mode .tribe-common .tribe-common-c-btn-border-small,
-.dark-mode .tribe-common a.tribe-common-c-btn-border-small,
-.dark-mode .tribe-events .tribe-events-c-nav,
-.dark-mode .tribe-events-pro .tribe-events-pro-map__event-card-button,
-.dark-mode .tribe-events-pro .tribe-events-pro-map__map,
-.dark-mode .tribe-events-related-events-title,
-.dark-mode .tribe-community-events-content .tribe-nav .tribe-past,
-.dark-mode .tribe_community_edit .tribe-button-tertiary:hover,
-.dark-mode .tribe_community_edit .tribe-button-tertiary:focus,
-.dark-mode .tribe_community_list .tribe-button-tertiary:hover,
-.dark-mode .tribe_community_list .tribe-button-tertiary:focus,
+[data-bx-mode=dark] .tribe-filter-bar .tribe-filter-bar__filters,
+[data-bx-mode=dark] .tribe-filter-bar .tribe-filter-bar-c-filter,
+[data-bx-mode=dark] .tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__container,
+[data-bx-mode=dark] .tribe-filter-bar .tribe-filter-bar-c-pill__pill,
+[data-bx-mode=dark] .tribe-events .tribe-events-calendar-list-nav,
+[data-bx-mode=dark] .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-events-bar--border,
+[data-bx-mode=dark] .tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal.tribe-events .tribe-events-header--has-event-search .tribe-events-c-events-bar__filter-button-container,
+[data-bx-mode=dark] .tribe-common .tribe-common-c-btn-border-small,
+[data-bx-mode=dark] .tribe-common a.tribe-common-c-btn-border-small,
+[data-bx-mode=dark] .tribe-events .tribe-events-c-nav,
+[data-bx-mode=dark] .tribe-events-pro .tribe-events-pro-map__event-card-button,
+[data-bx-mode=dark] .tribe-events-pro .tribe-events-pro-map__map,
+[data-bx-mode=dark] .tribe-events-related-events-title,
+[data-bx-mode=dark] .tribe-community-events-content .tribe-nav .tribe-past,
+[data-bx-mode=dark] .tribe_community_edit .tribe-button-tertiary:focus,
+[data-bx-mode=dark] .tribe_community_list .tribe-button-tertiary:focus,
 .dark-scheme .tribe-filter-bar .tribe-filter-bar__filters,
 .dark-scheme .tribe-filter-bar .tribe-filter-bar-c-filter,
 .dark-scheme .tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__container,
@@ -2227,19 +2374,25 @@ aside .tribe-events-widget {
 .dark-scheme .tribe-events-pro .tribe-events-pro-map__map,
 .dark-scheme .tribe-events-related-events-title,
 .dark-scheme .tribe-community-events-content .tribe-nav .tribe-past,
-.dark-scheme .tribe_community_edit .tribe-button-tertiary:hover,
 .dark-scheme .tribe_community_edit .tribe-button-tertiary:focus,
-.dark-scheme .tribe_community_list .tribe-button-tertiary:hover,
 .dark-scheme .tribe_community_list .tribe-button-tertiary:focus {
   border-color: var(--reign-site-border-color);
 }
+@media (hover: hover) and (pointer: fine) {
+  [data-bx-mode=dark] .tribe_community_edit .tribe-button-tertiary:hover,
+  [data-bx-mode=dark] .tribe_community_list .tribe-button-tertiary:hover,
+  .dark-scheme .tribe_community_edit .tribe-button-tertiary:hover,
+  .dark-scheme .tribe_community_list .tribe-button-tertiary:hover {
+    border-color: var(--reign-site-border-color);
+  }
+}
 
-.dark-mode .tribe-events-pro .tribe-events-pro-summary__month-separator:after,
-.dark-mode .tribe-events-pro .tribe-events-pro-summary__date-separator,
-.dark-mode .tribe-events-pro .tribe-events-pro-map__event-column:after,
-.dark-mode .tribe-events-pro .tribe-events-pro-map__event-column:before,
-.dark-mode .tribe-events-pro .tribe-events-pro-map__event-cards-wrapper:after,
-.dark-mode .tribe-events-pro .tribe-events-pro-map__event-cards-wrapper:before,
+[data-bx-mode=dark] .tribe-events-pro .tribe-events-pro-summary__month-separator:after,
+[data-bx-mode=dark] .tribe-events-pro .tribe-events-pro-summary__date-separator,
+[data-bx-mode=dark] .tribe-events-pro .tribe-events-pro-map__event-column:after,
+[data-bx-mode=dark] .tribe-events-pro .tribe-events-pro-map__event-column:before,
+[data-bx-mode=dark] .tribe-events-pro .tribe-events-pro-map__event-cards-wrapper:after,
+[data-bx-mode=dark] .tribe-events-pro .tribe-events-pro-map__event-cards-wrapper:before,
 .dark-scheme .tribe-events-pro .tribe-events-pro-summary__month-separator:after,
 .dark-scheme .tribe-events-pro .tribe-events-pro-summary__date-separator,
 .dark-scheme .tribe-events-pro .tribe-events-pro-map__event-column:after,
@@ -2249,18 +2402,18 @@ aside .tribe-events-widget {
   background-color: var(--reign-site-border-color);
 }
 
-.dark-mode .tribe-filter-bar .tribe-filter-bar-c-range__label,
-.dark-mode .tribe-events-pro .tribe-events-pro-summary__event-date-tag-weekday,
-.dark-mode .tribe-events-pro .tribe-events-pro-map__event-date-tag-month,
+[data-bx-mode=dark] .tribe-filter-bar .tribe-filter-bar-c-range__label,
+[data-bx-mode=dark] .tribe-events-pro .tribe-events-pro-summary__event-date-tag-weekday,
+[data-bx-mode=dark] .tribe-events-pro .tribe-events-pro-map__event-date-tag-month,
 .dark-scheme .tribe-filter-bar .tribe-filter-bar-c-range__label,
 .dark-scheme .tribe-events-pro .tribe-events-pro-summary__event-date-tag-weekday,
 .dark-scheme .tribe-events-pro .tribe-events-pro-map__event-date-tag-month {
   color: var(--reign-site-body-text-color);
 }
 
-.dark-mode .tribe-events .tribe-events-c-view-selector__content,
-.dark-mode .single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list,
-.dark-mode .tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list,
+[data-bx-mode=dark] .tribe-events .tribe-events-c-view-selector__content,
+[data-bx-mode=dark] .single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list,
+[data-bx-mode=dark] .tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list,
 .dark-scheme .tribe-events .tribe-events-c-view-selector__content,
 .dark-scheme .single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list,
 .dark-scheme .tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list {
@@ -2273,58 +2426,66 @@ aside .tribe-events-widget {
   border-color: var(--reign-site-border-color);
 }
 
-.dark-mode .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-view-selector--labels .tribe-events-c-view-selector__button-icon-caret-svg,
-.dark-mode .tribe-events .tribe-events-c-events-bar__filter-button-icon path,
-.dark-mode .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-nav__next-icon-svg path,
-.dark-mode .tribe-events .tribe-events-c-nav__next:focus .tribe-events-c-nav__next-icon-svg path,
-.dark-mode .tribe-events .tribe-events-c-nav__next:hover .tribe-events-c-nav__next-icon-svg path,
-.dark-mode .tribe-events .tribe-events-c-nav__prev:focus .tribe-events-c-nav__prev-icon-svg path,
-.dark-mode .tribe-events .tribe-events-c-nav__prev:hover .tribe-events-c-nav__prev-icon-svg path,
-.dark-mode .tribe-common .tribe-common-c-svgicon__svg-fill,
+[data-bx-mode=dark] .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-view-selector--labels .tribe-events-c-view-selector__button-icon-caret-svg,
+[data-bx-mode=dark] .tribe-events .tribe-events-c-events-bar__filter-button-icon path,
+[data-bx-mode=dark] .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-nav__next-icon-svg path,
+[data-bx-mode=dark] .tribe-events .tribe-events-c-nav__next:focus .tribe-events-c-nav__next-icon-svg path,
+[data-bx-mode=dark] .tribe-events .tribe-events-c-nav__prev:focus .tribe-events-c-nav__prev-icon-svg path,
+[data-bx-mode=dark] .tribe-common .tribe-common-c-svgicon__svg-fill,
 .dark-scheme .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-view-selector--labels .tribe-events-c-view-selector__button-icon-caret-svg,
 .dark-scheme .tribe-events .tribe-events-c-events-bar__filter-button-icon path,
 .dark-scheme .tribe-common--breakpoint-medium.tribe-events .tribe-events-c-nav__next-icon-svg path,
 .dark-scheme .tribe-events .tribe-events-c-nav__next:focus .tribe-events-c-nav__next-icon-svg path,
-.dark-scheme .tribe-events .tribe-events-c-nav__next:hover .tribe-events-c-nav__next-icon-svg path,
 .dark-scheme .tribe-events .tribe-events-c-nav__prev:focus .tribe-events-c-nav__prev-icon-svg path,
-.dark-scheme .tribe-events .tribe-events-c-nav__prev:hover .tribe-events-c-nav__prev-icon-svg path,
 .dark-scheme .tribe-common .tribe-common-c-svgicon__svg-fill {
   fill: var(--reign-site-headings-color);
 }
+@media (hover: hover) and (pointer: fine) {
+  [data-bx-mode=dark] .tribe-events .tribe-events-c-nav__next:hover .tribe-events-c-nav__next-icon-svg path,
+  [data-bx-mode=dark] .tribe-events .tribe-events-c-nav__prev:hover .tribe-events-c-nav__prev-icon-svg path,
+  .dark-scheme .tribe-events .tribe-events-c-nav__next:hover .tribe-events-c-nav__next-icon-svg path,
+  .dark-scheme .tribe-events .tribe-events-c-nav__prev:hover .tribe-events-c-nav__prev-icon-svg path {
+    fill: var(--reign-site-headings-color);
+  }
+}
 
-.dark-mode .tribe-filter-bar .tribe-filter-bar-c-clear-button__reset-icon path,
-.dark-mode .tribe-filter-bar .tribe-filter-bar-c-pill__remove-button-icon path,
+[data-bx-mode=dark] .tribe-filter-bar .tribe-filter-bar-c-clear-button__reset-icon path,
+[data-bx-mode=dark] .tribe-filter-bar .tribe-filter-bar-c-pill__remove-button-icon path,
 .dark-scheme .tribe-filter-bar .tribe-filter-bar-c-clear-button__reset-icon path,
 .dark-scheme .tribe-filter-bar .tribe-filter-bar-c-pill__remove-button-icon path {
   stroke: var(--reign-site-headings-color);
 }
 
-.dark-mode .tribe-filter-bar .tribe-filter-bar-c-clear-button:focus .tribe-filter-bar-c-clear-button__reset-icon path,
-.dark-mode .tribe-filter-bar .tribe-filter-bar-c-clear-button:hover .tribe-filter-bar-c-clear-button__reset-icon path,
-.dark-mode .tribe-filter-bar .tribe-filter-bar-c-pill__remove-button:hover path,
-.dark-mode .tribe-filter-bar .tribe-filter-bar-c-pill__remove-button:focus path,
+[data-bx-mode=dark] .tribe-filter-bar .tribe-filter-bar-c-clear-button:focus .tribe-filter-bar-c-clear-button__reset-icon path,
+[data-bx-mode=dark] .tribe-filter-bar .tribe-filter-bar-c-pill__remove-button:focus path,
 .dark-scheme .tribe-filter-bar .tribe-filter-bar-c-clear-button:focus .tribe-filter-bar-c-clear-button__reset-icon path,
-.dark-scheme .tribe-filter-bar .tribe-filter-bar-c-clear-button:hover .tribe-filter-bar-c-clear-button__reset-icon path,
-.dark-scheme .tribe-filter-bar .tribe-filter-bar-c-pill__remove-button:hover path,
 .dark-scheme .tribe-filter-bar .tribe-filter-bar-c-pill__remove-button:focus path {
   stroke: var(--reign-site-link-hover-color);
 }
+@media (hover: hover) and (pointer: fine) {
+  [data-bx-mode=dark] .tribe-filter-bar .tribe-filter-bar-c-clear-button:hover .tribe-filter-bar-c-clear-button__reset-icon path,
+  [data-bx-mode=dark] .tribe-filter-bar .tribe-filter-bar-c-pill__remove-button:hover path,
+  .dark-scheme .tribe-filter-bar .tribe-filter-bar-c-clear-button:hover .tribe-filter-bar-c-clear-button__reset-icon path,
+  .dark-scheme .tribe-filter-bar .tribe-filter-bar-c-pill__remove-button:hover path {
+    stroke: var(--reign-site-link-hover-color);
+  }
+}
 
-.dark-mode .tooltipster-sidetip,
+[data-bx-mode=dark] .tooltipster-sidetip,
 .dark-scheme .tooltipster-sidetip {
   background: var(--reign-site-sections-bg-color);
 }
 
-.dark-mode .dark-mode .tribe-common .tribe-common-c-btn-border,
-.dark-mode .dark-mode .tribe-common a.tribe-common-c-btn-border,
-.dark-scheme .dark-mode .tribe-common .tribe-common-c-btn-border,
-.dark-scheme .dark-mode .tribe-common a.tribe-common-c-btn-border {
+[data-bx-mode=dark] [data-bx-mode=dark] .tribe-common .tribe-common-c-btn-border,
+[data-bx-mode=dark] [data-bx-mode=dark] .tribe-common a.tribe-common-c-btn-border,
+.dark-scheme [data-bx-mode=dark] .tribe-common .tribe-common-c-btn-border,
+.dark-scheme [data-bx-mode=dark] .tribe-common a.tribe-common-c-btn-border {
   background-color: var(--reign-site-sections-bg-color);
 }
 
-.dark-mode .table-menu,
-.dark-mode .tribe_community_edit .tribe-button-tertiary,
-.dark-mode .tribe_community_list .tribe-button-tertiary,
+[data-bx-mode=dark] .table-menu,
+[data-bx-mode=dark] .tribe_community_edit .tribe-button-tertiary,
+[data-bx-mode=dark] .tribe_community_list .tribe-button-tertiary,
 .dark-scheme .table-menu,
 .dark-scheme .tribe_community_edit .tribe-button-tertiary,
 .dark-scheme .tribe_community_list .tribe-button-tertiary {
@@ -2332,27 +2493,27 @@ aside .tribe-events-widget {
   border-color: var(--reign-site-border-color);
 }
 
-.dark-mode .tribe-community-events-list td .event-status .icon,
+[data-bx-mode=dark] .tribe-community-events-list td .event-status .icon,
 .dark-scheme .tribe-community-events-list td .event-status .icon {
   -webkit-filter: invert(100%);
   filter: invert(100%);
 }
 
 /* Datepicker */
-.dark-mode .tribe-events .datepicker,
-.dark-mode .tribe-ui-datepicker.ui-datepicker,
+[data-bx-mode=dark] .tribe-events .datepicker,
+[data-bx-mode=dark] .tribe-ui-datepicker.ui-datepicker,
 .dark-scheme .tribe-events .datepicker,
 .dark-scheme .tribe-ui-datepicker.ui-datepicker {
   background-color: var(--reign-site-sections-bg-color);
   border: 1px solid var(--reign-site-border-color);
 }
 
-.dark-mode .tribe-events .datepicker .datepicker-switch,
-.dark-mode .tribe-events .datepicker .day,
-.dark-mode .tribe-events .datepicker .dow,
-.dark-mode .tribe-events .datepicker .month,
-.dark-mode .tribe-events .datepicker .year,
-.dark-mode .ui-widget-header,
+[data-bx-mode=dark] .tribe-events .datepicker .datepicker-switch,
+[data-bx-mode=dark] .tribe-events .datepicker .day,
+[data-bx-mode=dark] .tribe-events .datepicker .dow,
+[data-bx-mode=dark] .tribe-events .datepicker .month,
+[data-bx-mode=dark] .tribe-events .datepicker .year,
+[data-bx-mode=dark] .ui-widget-header,
 .dark-scheme .tribe-events .datepicker .datepicker-switch,
 .dark-scheme .tribe-events .datepicker .day,
 .dark-scheme .tribe-events .datepicker .dow,
@@ -2362,112 +2523,124 @@ aside .tribe-events-widget {
   color: var(--reign-site-headings-color);
 }
 
-.dark-mode .tribe-events .datepicker .past,
+[data-bx-mode=dark] .tribe-events .datepicker .past,
 .dark-scheme .tribe-events .datepicker .past {
   color: var(--reign-site-body-text-color);
 }
 
-.dark-mode .tribe-events .datepicker .datepicker-switch:active,
-.dark-mode .tribe-events .datepicker .datepicker-switch:focus,
-.dark-mode .tribe-events .datepicker .datepicker-switch:hover,
-.dark-mode .tribe-events .datepicker .next:active,
-.dark-mode .tribe-events .datepicker .next:focus,
-.dark-mode .tribe-events .datepicker .next:hover,
-.dark-mode .tribe-events .datepicker .prev:active,
-.dark-mode .tribe-events .datepicker .prev:focus,
-.dark-mode .tribe-events .datepicker .prev:hover,
-.dark-mode .tribe-events .datepicker .day.focused,
-.dark-mode .tribe-events .datepicker .day:focus,
-.dark-mode .tribe-events .datepicker .day:hover,
-.dark-mode .tribe-events .datepicker .month.focused,
-.dark-mode .tribe-events .datepicker .month:focus,
-.dark-mode .tribe-events .datepicker .month:hover,
-.dark-mode .tribe-events .datepicker .year.focused,
-.dark-mode .tribe-events .datepicker .year:focus,
-.dark-mode .tribe-events .datepicker .year:hover,
+[data-bx-mode=dark] .tribe-events .datepicker .datepicker-switch:active,
+[data-bx-mode=dark] .tribe-events .datepicker .datepicker-switch:focus,
+[data-bx-mode=dark] .tribe-events .datepicker .next:active,
+[data-bx-mode=dark] .tribe-events .datepicker .next:focus,
+[data-bx-mode=dark] .tribe-events .datepicker .prev:active,
+[data-bx-mode=dark] .tribe-events .datepicker .prev:focus,
+[data-bx-mode=dark] .tribe-events .datepicker .day.focused,
+[data-bx-mode=dark] .tribe-events .datepicker .day:focus,
+[data-bx-mode=dark] .tribe-events .datepicker .month.focused,
+[data-bx-mode=dark] .tribe-events .datepicker .month:focus,
+[data-bx-mode=dark] .tribe-events .datepicker .year.focused,
+[data-bx-mode=dark] .tribe-events .datepicker .year:focus,
 .dark-scheme .tribe-events .datepicker .datepicker-switch:active,
 .dark-scheme .tribe-events .datepicker .datepicker-switch:focus,
-.dark-scheme .tribe-events .datepicker .datepicker-switch:hover,
 .dark-scheme .tribe-events .datepicker .next:active,
 .dark-scheme .tribe-events .datepicker .next:focus,
-.dark-scheme .tribe-events .datepicker .next:hover,
 .dark-scheme .tribe-events .datepicker .prev:active,
 .dark-scheme .tribe-events .datepicker .prev:focus,
-.dark-scheme .tribe-events .datepicker .prev:hover,
 .dark-scheme .tribe-events .datepicker .day.focused,
 .dark-scheme .tribe-events .datepicker .day:focus,
-.dark-scheme .tribe-events .datepicker .day:hover,
 .dark-scheme .tribe-events .datepicker .month.focused,
 .dark-scheme .tribe-events .datepicker .month:focus,
-.dark-scheme .tribe-events .datepicker .month:hover,
 .dark-scheme .tribe-events .datepicker .year.focused,
-.dark-scheme .tribe-events .datepicker .year:focus,
-.dark-scheme .tribe-events .datepicker .year:hover {
+.dark-scheme .tribe-events .datepicker .year:focus {
   background-color: rgba(0, 0, 0, 0.075);
 }
+@media (hover: hover) and (pointer: fine) {
+  [data-bx-mode=dark] .tribe-events .datepicker .datepicker-switch:hover,
+  [data-bx-mode=dark] .tribe-events .datepicker .next:hover,
+  [data-bx-mode=dark] .tribe-events .datepicker .prev:hover,
+  [data-bx-mode=dark] .tribe-events .datepicker .day:hover,
+  [data-bx-mode=dark] .tribe-events .datepicker .month:hover,
+  [data-bx-mode=dark] .tribe-events .datepicker .year:hover,
+  .dark-scheme .tribe-events .datepicker .datepicker-switch:hover,
+  .dark-scheme .tribe-events .datepicker .next:hover,
+  .dark-scheme .tribe-events .datepicker .prev:hover,
+  .dark-scheme .tribe-events .datepicker .day:hover,
+  .dark-scheme .tribe-events .datepicker .month:hover,
+  .dark-scheme .tribe-events .datepicker .year:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+  }
+}
 
-.dark-mode .tribe-events-pro.tribe-events-view--week .datepicker .day.current:before,
-.dark-mode .tribe-events .datepicker .day.active,
-.dark-mode .tribe-events .datepicker .day.active.focused,
-.dark-mode .tribe-events .datepicker .day.active:focus,
-.dark-mode .tribe-events .datepicker .day.active:hover,
-.dark-mode .tribe-events .datepicker .month.active,
-.dark-mode .tribe-events .datepicker .month.active.focused,
-.dark-mode .tribe-events .datepicker .month.active:focus,
-.dark-mode .tribe-events .datepicker .month.active:hover,
-.dark-mode .tribe-events .datepicker .year.active,
-.dark-mode .tribe-events .datepicker .year.active.focused,
-.dark-mode .tribe-events .datepicker .year.active:focus,
-.dark-mode .tribe-events .datepicker .year.active:hover,
-.dark-mode .tribe-events .tribe-events-c-events-bar__filter-button:before,
-.dark-mode .tribe-events .tribe-events-c-events-bar__search-button:before,
-.dark-mode .tribe-events .tribe-events-c-view-selector__button:before,
-.dark-mode .tribe-events .tribe-events-calendar-month__day-cell--selected,
-.dark-mode .tribe-events .tribe-events-calendar-month__day-cell--selected:focus,
-.dark-mode .tribe-events .tribe-events-calendar-month__day-cell--selected:hover,
+[data-bx-mode=dark] .tribe-events-pro.tribe-events-view--week .datepicker .day.current:before,
+[data-bx-mode=dark] .tribe-events .datepicker .day.active,
+[data-bx-mode=dark] .tribe-events .datepicker .day.active.focused,
+[data-bx-mode=dark] .tribe-events .datepicker .day.active:focus,
+[data-bx-mode=dark] .tribe-events .datepicker .month.active,
+[data-bx-mode=dark] .tribe-events .datepicker .month.active.focused,
+[data-bx-mode=dark] .tribe-events .datepicker .month.active:focus,
+[data-bx-mode=dark] .tribe-events .datepicker .year.active,
+[data-bx-mode=dark] .tribe-events .datepicker .year.active.focused,
+[data-bx-mode=dark] .tribe-events .datepicker .year.active:focus,
+[data-bx-mode=dark] .tribe-events .tribe-events-c-events-bar__filter-button:before,
+[data-bx-mode=dark] .tribe-events .tribe-events-c-events-bar__search-button:before,
+[data-bx-mode=dark] .tribe-events .tribe-events-c-view-selector__button:before,
+[data-bx-mode=dark] .tribe-events .tribe-events-calendar-month__day-cell--selected,
+[data-bx-mode=dark] .tribe-events .tribe-events-calendar-month__day-cell--selected:focus,
 .dark-scheme .tribe-events-pro.tribe-events-view--week .datepicker .day.current:before,
 .dark-scheme .tribe-events .datepicker .day.active,
 .dark-scheme .tribe-events .datepicker .day.active.focused,
 .dark-scheme .tribe-events .datepicker .day.active:focus,
-.dark-scheme .tribe-events .datepicker .day.active:hover,
 .dark-scheme .tribe-events .datepicker .month.active,
 .dark-scheme .tribe-events .datepicker .month.active.focused,
 .dark-scheme .tribe-events .datepicker .month.active:focus,
-.dark-scheme .tribe-events .datepicker .month.active:hover,
 .dark-scheme .tribe-events .datepicker .year.active,
 .dark-scheme .tribe-events .datepicker .year.active.focused,
 .dark-scheme .tribe-events .datepicker .year.active:focus,
-.dark-scheme .tribe-events .datepicker .year.active:hover,
 .dark-scheme .tribe-events .tribe-events-c-events-bar__filter-button:before,
 .dark-scheme .tribe-events .tribe-events-c-events-bar__search-button:before,
 .dark-scheme .tribe-events .tribe-events-c-view-selector__button:before,
 .dark-scheme .tribe-events .tribe-events-calendar-month__day-cell--selected,
-.dark-scheme .tribe-events .tribe-events-calendar-month__day-cell--selected:focus,
-.dark-scheme .tribe-events .tribe-events-calendar-month__day-cell--selected:hover {
+.dark-scheme .tribe-events .tribe-events-calendar-month__day-cell--selected:focus {
   background: var(--reign-site-link-hover-color);
 }
+@media (hover: hover) and (pointer: fine) {
+  [data-bx-mode=dark] .tribe-events .datepicker .day.active:hover,
+  [data-bx-mode=dark] .tribe-events .datepicker .month.active:hover,
+  [data-bx-mode=dark] .tribe-events .datepicker .year.active:hover,
+  [data-bx-mode=dark] .tribe-events .tribe-events-calendar-month__day-cell--selected:hover,
+  .dark-scheme .tribe-events .datepicker .day.active:hover,
+  .dark-scheme .tribe-events .datepicker .month.active:hover,
+  .dark-scheme .tribe-events .datepicker .year.active:hover,
+  .dark-scheme .tribe-events .tribe-events-calendar-month__day-cell--selected:hover {
+    background: var(--reign-site-link-hover-color);
+  }
+}
 
-html.dark-mode .tribe-ui-datepicker .ui-button,
-html.dark-mode .tribe-ui-datepicker .ui-state-default,
-html.dark-mode .tribe-ui-datepicker.ui-widget-content .ui-state-default,
-html.dark-mode .tribe-ui-datepicker .ui-widget-header .ui-state-default,
-html.dark-mode .tribe-ui-datepicker .ui-button.ui-state-disabled:active,
-html.dark-mode .tribe-ui-datepicker .ui-button.ui-state-disabled:hover,
+html[data-bx-mode=dark] .tribe-ui-datepicker .ui-button,
+html[data-bx-mode=dark] .tribe-ui-datepicker .ui-state-default,
+html[data-bx-mode=dark] .tribe-ui-datepicker.ui-widget-content .ui-state-default,
+html[data-bx-mode=dark] .tribe-ui-datepicker .ui-widget-header .ui-state-default,
+html[data-bx-mode=dark] .tribe-ui-datepicker .ui-button.ui-state-disabled:active,
 .dark-scheme .tribe-ui-datepicker .ui-button,
 .dark-scheme .tribe-ui-datepicker .ui-state-default,
 .dark-scheme .tribe-ui-datepicker.ui-widget-content .ui-state-default,
 .dark-scheme .tribe-ui-datepicker .ui-widget-header .ui-state-default,
-.dark-scheme .tribe-ui-datepicker .ui-button.ui-state-disabled:active,
-.dark-scheme .tribe-ui-datepicker .ui-button.ui-state-disabled:hover {
+.dark-scheme .tribe-ui-datepicker .ui-button.ui-state-disabled:active {
   color: var(--reign-site-headings-color);
 }
+@media (hover: hover) and (pointer: fine) {
+  html[data-bx-mode=dark] .tribe-ui-datepicker .ui-button.ui-state-disabled:hover,
+  .dark-scheme .tribe-ui-datepicker .ui-button.ui-state-disabled:hover {
+    color: var(--reign-site-headings-color);
+  }
+}
 
-.dark-mode .tribe-ui-datepicker.ui-datepicker .ui-datepicker-calendar td,
+[data-bx-mode=dark] .tribe-ui-datepicker.ui-datepicker .ui-datepicker-calendar td,
 .dark-scheme .tribe-ui-datepicker.ui-datepicker .ui-datepicker-calendar td {
   border-color: var(--reign-site-border-color);
 }
-.dark-mode .tribe_community_edit .tribe-button-tertiary,
-.dark-mode .tribe_community_list .tribe-button-tertiary,
+[data-bx-mode=dark] .tribe_community_edit .tribe-button-tertiary,
+[data-bx-mode=dark] .tribe_community_list .tribe-button-tertiary,
 .dark-scheme .tribe_community_edit .tribe-button-tertiary,
 .dark-scheme .tribe_community_list .tribe-button-tertiary {
   background-color: var(--reign-site-sections-bg-color);

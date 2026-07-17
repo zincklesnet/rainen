@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /**
  * Micro clearfix, as per: http://cssmojo.com/latest_new_clearfix_so_far/
  * Extend the clearfix class with Sass to avoid the `.clearfix` class appearing
@@ -6,7 +7,19 @@
 /*--------------------------------------------------------------
 # Button Style
 --------------------------------------------------------------*/
-button {
+/* Brand-fill is OPT-IN, not applied to the bare <button> element. Styling the
+   bare element painted every plugin/component <button> on the page with the
+   accent (WPMediaVerse flat controls, BuddyNext's header caret
+   .bn-header-user__caret, the BuddyX .bx-color-mode-toggle__btn light/dark
+   toggle, etc.) and forced an ever-growing :not([class*="…"]) exclusion list
+   that always missed the next component. A positive allow-list ends that:
+   components keep their own look via their own tokens without us enumerating
+   prefixes. Generic .button / a.btn / input[type=submit] / .wp-block-button__link
+   are already filled by components/_form.scss; this rule only adds the <button>
+   primary actions those anchor/input selectors miss — the login, 2FA, magic-link
+   and WooCommerce cart submits, which render as <button class="btn|button">. */
+button.btn,
+button.button {
   float: none;
   display: inline-block;
   background-color: var(--reign-site-button-bg-color);
@@ -23,9 +36,28 @@ button {
   font-weight: 400;
   text-shadow: none;
   font-family: inherit;
+  /* Use :focus-visible, not :focus, for the accent fill. Plain :focus also
+     fires on mouse/touch click and STAYS until blur, so a clicked button (the
+     theme's own and any plugin <button>, e.g. media-lightbox actions) sticks
+     filled with the accent. :focus-visible limits the fill to keyboard focus,
+     which is the only place it belongs. */
 }
-button:hover, button:focus {
+button.btn:focus-visible,
+button.button:focus-visible {
   background-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
   border: 1px solid var(--reign-site-button-bg-hover-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  button.btn:hover,
+  button.button:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border: 1px solid var(--reign-site-button-bg-hover-color);
+  }
+}
+button.btn:focus-visible,
+button.button:focus-visible {
+  outline: 2px solid var(--reign-site-button-bg-hover-color); /* accessible contrast color */
+  outline-offset: 2px;
 }

@@ -1,0 +1,135 @@
+/**
+ * Visitor color-mode toggle.
+ *
+ * Single button cycles light → dark → auto. The three SVG icons live
+ * inside the button; data-mode controls which one is visible.
+ */
+
+.bx-color-mode-toggle {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 6px;
+}
+
+.bx-color-mode-toggle__btn.bx-color-mode-toggle__btn {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--reign-header-main-menu-text-color, var(--color-menu, currentColor));
+    border-radius: 50%;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    position: relative;
+}
+
+.bx-color-mode-toggle__btn.bx-color-mode-toggle__btn:hover,
+.bx-color-mode-toggle__btn.bx-color-mode-toggle__btn:focus-visible {
+    color: var(--reign-header-main-menu-text-hover-color, var(--color-menu-hover, currentColor));
+    background-color: rgba(0, 0, 0, 0.04);
+    outline: 0;
+}
+
+.bx-color-mode-toggle__btn.bx-color-mode-toggle__btn:focus-visible {
+    box-shadow: 0 0 0 2px var(--reign-colors-theme, currentColor);
+}
+
+/* Default: hide all 3 icons, then unhide based on data-mode. Reserves layout
+ * space at all times so CLS stays 0. */
+.bx-color-mode-toggle__btn .bx-icon {
+    display: none;
+    pointer-events: none;
+}
+
+.bx-color-mode-toggle__btn[data-mode="light"] .bx-icon-sun,
+.bx-color-mode-toggle__btn[data-mode="dark"] .bx-icon-moon,
+.bx-color-mode-toggle__btn[data-mode="auto"] .bx-icon-monitor {
+    display: inline-block;
+}
+
+/* Mobile placement: compact icon button that sits inline with the other
+ * mobile header icons (search / cart / notifications), matching their size
+ * and alignment. The label stays in the accessible name (aria-label +
+ * .screen-reader-text); no visible text row in the header. */
+.bx-color-mode-toggle-mobile {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 6px;
+}
+
+.bx-color-mode-toggle-mobile .bx-color-mode-toggle__btn {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: 50%;
+    justify-content: center;
+    gap: 0;
+}
+
+.bx-color-mode-toggle-mobile .bx-color-mode-toggle__btn::after {
+    /* No visible text label in the header icon row. */
+    content: none;
+}
+
+/* Dark mode subtle adjustment: hover background flips. */
+:root[data-bx-mode="dark"] .bx-color-mode-toggle__btn:hover,
+:root[data-bx-mode="dark"] .bx-color-mode-toggle__btn:focus-visible {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root[data-bx-mode="auto"] .bx-color-mode-toggle__btn:hover,
+    :root[data-bx-mode="auto"] .bx-color-mode-toggle__btn:focus-visible {
+        background-color: rgba(255, 255, 255, 0.08);
+    }
+}
+
+/* RTL: margin uses logical property already, nothing to mirror. */
+
+/* Reduced motion: drop the 200ms transition. */
+@media (prefers-reduced-motion: reduce) {
+    .bx-color-mode-toggle__btn {
+        transition: none;
+    }
+}
+
+/* Mobile viewport (matches Reign's mobile header breakpoint of 960px, where
+ * the .reign-navbar-mobile fallback header takes over from the desktop header).
+ *
+ * Card 9947838033: the header-context toggle (reign_after_header_icons) renders
+ * inside .reign-user-toggler (next to avatar/hamburger) on header-v1 mobile and
+ * inside .reign-navbar-user on header-v2 mobile, while the mobile-context toggle
+ * (reign_after_mobile_header_icons) renders inside .reign-navbar-user. On mobile
+ * both mount, so the header instance lands in the wrong cluster. Hide the header
+ * instance in the mobile clusters so only the mobile toggle shows, and align that
+ * mobile toggle with the sibling header icons (search / message / notification),
+ * which are laid out as flex:1 centered items 50px tall in .reign-navbar-user.
+ *
+ * Scoped to the mobile container selectors AND the mobile media query so desktop
+ * headers v1-v4 (which also use reign_after_header_icons) are untouched. */
+@media (max-width: 960px) {
+    /* a. Hide the header-context toggle wherever it lands in a mobile cluster. */
+    .reign-user-toggler .bx-color-mode-toggle-header,
+    .reign-navbar-user .bx-color-mode-toggle-header {
+        display: none;
+    }
+
+    /* b. Align the remaining mobile toggle with the sibling header icons. The
+     * navbar-user lays children out as flex:1 / text-align:center, 50px tall. */
+    .reign-navbar-user .bx-color-mode-toggle-mobile {
+        flex: 1;
+        height: 50px;
+        margin: 0;
+        justify-content: center;
+    }
+
+    .reign-navbar-user .bx-color-mode-toggle-mobile .bx-color-mode-toggle__btn {
+        margin: 0 auto;
+    }
+}

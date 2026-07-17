@@ -219,8 +219,10 @@ a.edd-add-to-cart .edd-add-to-cart-label,
   transition: all 0.3s;
   border-radius: var(--reign-global-border-radius);
 }
-.rtm-download-item-inner:hover {
-  box-shadow: 15px 15px 20px rgba(58, 46, 68, 0.08);
+@media (hover: hover) and (pointer: fine) {
+  .rtm-download-item-inner:hover {
+    box-shadow: 15px 15px 20px rgba(58, 46, 68, 0.08);
+  }
 }
 
 .rtm-download-item-top {
@@ -299,10 +301,11 @@ a.edd-add-to-cart .edd-add-to-cart-label,
   border-radius: var(--reign-global-border-radius) var(--reign-global-border-radius) 0 0;
 }
 
-.rtm-download-item-top:hover .rtm-download-overlay {
-  height: 100%;
+@media (hover: hover) and (pointer: fine) {
+  .rtm-download-item-top:hover .rtm-download-overlay {
+    height: 100%;
+  }
 }
-
 .rtm-download-action {
   width: 100%;
   -webkit-transition: all 0.3s;
@@ -331,11 +334,12 @@ a.edd-add-to-cart .edd-add-to-cart-label,
   border-left: 0.2em solid var(--reign-colors-theme);
 }
 
-.rtm-download-overlay .button-overlay-white:hover {
-  background: var(--reign-color-white);
-  color: var(--reign-color-black);
+@media (hover: hover) and (pointer: fine) {
+  .rtm-download-overlay .button-overlay-white:hover {
+    background: var(--reign-color-white);
+    color: var(--reign-color-black);
+  }
 }
-
 .rtm-download-overlay > .rtm-download-action > div {
   color: var(--reign-color-white);
   font-size: 14px;
@@ -469,7 +473,7 @@ a.edd-add-to-cart .edd-add-to-cart-label,
 
 .rtm-download-checkout-popup input[type=radio]:checked + label span:before,
 .rtm-download-checkout-popup .edd_price_options label:before,
-label.selectit:before {
+.rtm-download-checkout-popup label.selectit:before {
   background: #929292;
 }
 
@@ -696,8 +700,8 @@ label.selectit:before {
 
 .edd_price_options label:before,
 .edd_price_options label:after,
-label.selectit:before,
-label.selectit:after {
+.edd_price_options label.selectit:before,
+.edd_price_options label.selectit:after {
   width: 16px;
   height: 16px;
   right: auto;
@@ -732,9 +736,9 @@ label.selectit:after {
   transform: scale(0.5);
 }
 
-input[type=radio]:checked + label span:before,
+.edd_price_options input[type=radio]:checked + label span:before,
 .edd_price_options label:before,
-label.selectit:before {
+.edd_price_options label.selectit:before {
   background: var(--reign-colors-theme);
   -webkit-transform: scale(0);
   -ms-transform: scale(0);
@@ -836,9 +840,11 @@ label.selectit:before {
     padding: 5px;
   }
 }
-.rtm-download-layout-1 a.button.button-overlay-white:hover {
-  background-color: #FFFFFF;
-  color: #151515;
+@media (hover: hover) and (pointer: fine) {
+  .rtm-download-layout-1 a.button.button-overlay-white:hover {
+    background-color: #FFFFFF;
+    color: #151515;
+  }
 }
 .rtm-download-layout-1 .edd-loading {
   border-left-color: var(--reign-colors-theme);
@@ -864,13 +870,15 @@ label.selectit:before {
   width: 100%;
   color: #fff;
 }
-.rtm-download-layout-1 .rtm-download-item-top:hover .rtm-download-overlay-layout-1 {
-  opacity: 0.8;
-}
-.rtm-download-layout-1 .rtm-download-item-top:hover .rtm-hover-lines {
-  -webkit-transform: scale(1);
-  transform: scale(1);
-  opacity: 1;
+@media (hover: hover) and (pointer: fine) {
+  .rtm-download-layout-1 .rtm-download-item-top:hover .rtm-download-overlay-layout-1 {
+    opacity: 0.8;
+  }
+  .rtm-download-layout-1 .rtm-download-item-top:hover .rtm-hover-lines {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /*--------------------------------------------------------------
@@ -924,8 +932,10 @@ label.selectit:before {
 /*--------------------------------------------------------------
 # Download Layout 3
 --------------------------------------------------------------*/
-.rtm-download-layout-3 .rtm-download-item-inner:hover {
-  box-shadow: none;
+@media (hover: hover) and (pointer: fine) {
+  .rtm-download-layout-3 .rtm-download-item-inner:hover {
+    box-shadow: none;
+  }
 }
 .rtm-download-layout-3 .rtm-download-item-bottom {
   background: transparent;
@@ -971,11 +981,19 @@ label.selectit:before {
   align-items: center;
   justify-content: center;
 }
-.rtm-download-layout-3 .rtm-download-action .button:hover, .rtm-download-layout-3 .rtm-download-action .button:focus {
+.rtm-download-layout-3 .rtm-download-action .button:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
   border-color: var(--reign-site-button-bg-hover-color);
   transform: translateY(-1px);
+}
+@media (hover: hover) and (pointer: fine) {
+  .rtm-download-layout-3 .rtm-download-action .button:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border-color: var(--reign-site-button-bg-hover-color);
+    transform: translateY(-1px);
+  }
 }
 
 /*--------------------------------------------------------------
@@ -1052,7 +1070,7 @@ label.selectit:before {
 
 .single-download .type-download input[type=radio]:checked + label span:before,
 .single-download .type-download .edd_price_options label:before,
-label.selectit:before {
+.single-download .type-download label.selectit:before {
   background: var(--reign-colors-theme);
 }
 
@@ -1238,9 +1256,13 @@ label.selectit:before {
   .fes-vendor-menu ul li.active a:after {
     opacity: 1;
   }
+}
+@media only screen and (min-width: 768px) and (hover: hover) and (pointer: fine) {
   .fes-vendor-menu ul li a:hover:after {
     opacity: 1;
   }
+}
+@media only screen and (min-width: 768px) {
   .fes-vendor-menu ul li.fes-vendor-menu-tab + li.fes-vendor-menu-tab {
     border-top: 1px solid var(--reign-site-border-color);
   }
@@ -1260,9 +1282,14 @@ label.selectit:before {
   color: var(--reign-color-gray);
 }
 .fes-vendor-menu .edd-tabs li.active a,
-.fes-vendor-menu .edd-tabs li.active .icon, .fes-vendor-menu .edd-tabs li:hover a,
-.fes-vendor-menu .edd-tabs li:hover .icon {
+.fes-vendor-menu .edd-tabs li.active .icon {
   color: var(--reign-colors-theme);
+}
+@media (hover: hover) and (pointer: fine) {
+  .fes-vendor-menu .edd-tabs li:hover a,
+  .fes-vendor-menu .edd-tabs li:hover .icon {
+    color: var(--reign-colors-theme);
+  }
 }
 
 .fes-vendor-menu li.fes-vendor-products-tab .icon-list:before {
@@ -1667,9 +1694,11 @@ fieldset#edd_profile_submit_fieldset p {
   border-radius: 25px;
   border: 1px solid var(--reign-site-border-color);
 }
-.edd_pagination a:hover,
-.edd_pagination span:hover {
-  box-shadow: 0 1.5px 15px 0 rgba(0, 0, 0, 0.17);
+@media (hover: hover) and (pointer: fine) {
+  .edd_pagination a:hover,
+  .edd_pagination span:hover {
+    box-shadow: 0 1.5px 15px 0 rgba(0, 0, 0, 0.17);
+  }
 }
 
 .edd_pagination span {
@@ -1679,8 +1708,10 @@ fieldset#edd_profile_submit_fieldset p {
 .edd_pagination span.dots {
   box-shadow: none;
 }
-.edd_pagination span.dots:hover {
-  box-shadow: 0 1.5px 15px 0 rgba(0, 0, 0, 0.17);
+@media (hover: hover) and (pointer: fine) {
+  .edd_pagination span.dots:hover {
+    box-shadow: 0 1.5px 15px 0 rgba(0, 0, 0, 0.17);
+  }
 }
 
 /*--------------------------------------------------------------
@@ -1972,10 +2003,12 @@ table#edd_user_history tr:last-child td:last-child {
   text-align: center;
   border: 2px solid currentColor;
 }
-.rg-edd_mini_cart ul.edd-cart li a.remove:hover,
-.rg-edd_mini_cart ul.edd-cart li a.edd-remove-from-cart:hover {
-  color: var(--reign-color-white) !important;
-  background: red;
+@media (hover: hover) and (pointer: fine) {
+  .rg-edd_mini_cart ul.edd-cart li a.remove:hover,
+  .rg-edd_mini_cart ul.edd-cart li a.edd-remove-from-cart:hover {
+    color: var(--reign-color-white) !important;
+    background: red;
+  }
 }
 .rg-edd_mini_cart ul.edd-cart li a:not(.remove) {
   display: block;
@@ -2086,9 +2119,15 @@ table#edd_user_history tr:last-child td:last-child {
   font-weight: 400;
   text-shadow: none;
 }
-.rg-edd_mini_cart ul.edd-cart li.edd_checkout a:hover, .rg-edd_mini_cart ul.edd-cart li.edd_checkout a:focus {
+.rg-edd_mini_cart ul.edd-cart li.edd_checkout a:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  .rg-edd_mini_cart ul.edd-cart li.edd_checkout a:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+  }
 }
 
 /*--------------------------------------------------------------
@@ -2132,10 +2171,17 @@ a#fes_lost_password_link {
   text-shadow: none;
   font-family: inherit;
 }
-.edd-blocks__confirmation-details a:hover, .edd-blocks__confirmation-details a:focus {
+.edd-blocks__confirmation-details a:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
   border-color: var(--reign-site-button-bg-hover-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  .edd-blocks__confirmation-details a:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border-color: var(--reign-site-button-bg-hover-color);
+  }
 }
 
 div.fes-form .fes-el .fes-label .fes-help {
@@ -2147,11 +2193,16 @@ div.fes-form .fes-el .fes-label .fes-help {
 }
 
 /* Theme BG Color */
-.fes-vendor-menu ul li.active a:after,
-.fes-vendor-menu ul li a:hover:after {
+/* Theme BG Color */
+.fes-vendor-menu ul li.active a:after {
   background: var(--reign-colors-theme);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .fes-vendor-menu ul li a:hover:after {
+    background: var(--reign-colors-theme);
+  }
+}
 /* Theme Border Color */
 .edd_pagination span.current {
   border-color: var(--reign-colors-theme);
@@ -2179,29 +2230,37 @@ div.fes-form.fes-form .fes-submit input[type=submit],
   color: var(--reign-site-button-text-color);
   border-radius: var(--reign-global-button-radius);
 }
-.edd-submit.button:focus, .edd-submit.button:hover,
+.edd-submit.button:focus,
 .edd-submit.button.blue:focus,
-.edd-submit.button.blue:hover,
 .edd-submit.button.gray:focus,
-.edd-submit.button.gray:hover,
 .edd-submit.button:visited:focus,
-.edd-submit.button:visited:hover,
 div.fes-form.fes-form .fes-submit input[type=submit]:focus,
-div.fes-form.fes-form .fes-submit input[type=submit]:hover,
 #edd-purchase-button:focus,
-#edd-purchase-button:hover,
 .edd-submit:focus,
-.edd-submit:hover,
 [type=submit].edd-submit:focus,
-[type=submit].edd-submit:hover,
 .wp-block-edd-checkout #edd-payment-mode-wrap label.edd-gateway-option.edd-gateway-option-selected:focus,
-.wp-block-edd-checkout #edd-payment-mode-wrap label.edd-gateway-option.edd-gateway-option-selected:hover,
-.wp-block-edd-checkout #edd-payment-mode-wrap label.edd-gateway-option:focus,
-.wp-block-edd-checkout #edd-payment-mode-wrap label.edd-gateway-option:hover {
+.wp-block-edd-checkout #edd-payment-mode-wrap label.edd-gateway-option:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   border-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
   border-radius: var(--reign-global-button-radius);
+}
+@media (hover: hover) and (pointer: fine) {
+  .edd-submit.button:hover,
+  .edd-submit.button.blue:hover,
+  .edd-submit.button.gray:hover,
+  .edd-submit.button:visited:hover,
+  div.fes-form.fes-form .fes-submit input[type=submit]:hover,
+  #edd-purchase-button:hover,
+  .edd-submit:hover,
+  [type=submit].edd-submit:hover,
+  .wp-block-edd-checkout #edd-payment-mode-wrap label.edd-gateway-option.edd-gateway-option-selected:hover,
+  .wp-block-edd-checkout #edd-payment-mode-wrap label.edd-gateway-option:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    border-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border-radius: var(--reign-global-button-radius);
+  }
 }
 
 /* Border Color */
@@ -2666,10 +2725,12 @@ form#edd_sl_cancel_renewal_form input.edd-submit.button {
   background-color: var(--reign-site-secondary-bg-color);
   color: var(--reign-colors-theme);
 }
-#edd_checkout_form_wrap fieldset#edd_payment_mode_select .edd-gateway-option:hover {
-  border-color: var(--reign-colors-theme);
-  background-color: var(--reign-site-secondary-bg-color);
-  color: var(--reign-colors-theme);
+@media (hover: hover) and (pointer: fine) {
+  #edd_checkout_form_wrap fieldset#edd_payment_mode_select .edd-gateway-option:hover {
+    border-color: var(--reign-colors-theme);
+    background-color: var(--reign-site-secondary-bg-color);
+    color: var(--reign-colors-theme);
+  }
 }
 
 /* Terms Agreement Checkbox UI */
@@ -2716,9 +2777,13 @@ form#edd_sl_cancel_renewal_form input.edd-submit.button {
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
-#edd_checkout_form_wrap .edd-terms-agreement label:hover::before,
 #edd_checkout_form_wrap .edd-terms-agreement input[type=checkbox]:checked + label::before {
   border-color: var(--reign-colors-theme);
+}
+@media (hover: hover) and (pointer: fine) {
+  #edd_checkout_form_wrap .edd-terms-agreement label:hover::before {
+    border-color: var(--reign-colors-theme);
+  }
 }
 
 /* EDD Total */

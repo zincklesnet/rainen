@@ -37,8 +37,10 @@
 .htcompare-remove.htcompare-remove::after, .htcompare-remove.htcompare-remove::before {
   background-color: var(--reign-site-body-text-color);
 }
-.htcompare-remove.htcompare-remove:hover::after, .htcompare-remove.htcompare-remove:hover::before {
-  background: var(--reign-color-error);
+@media (hover: hover) and (pointer: fine) {
+  .htcompare-remove.htcompare-remove:hover::after, .htcompare-remove.htcompare-remove:hover::before {
+    background: var(--reign-color-error);
+  }
 }
 
 .htcompare-table.htcompare-table.loading:before {
@@ -74,8 +76,10 @@
 .htcompare-popup.htcompare-popup .htcompare-popup-close::after, .htcompare-popup.htcompare-popup .htcompare-popup-close::before {
   background-color: var(--reign-site-body-text-color);
 }
-.htcompare-popup.htcompare-popup .htcompare-popup-close:hover::after, .htcompare-popup.htcompare-popup .htcompare-popup-close:hover::before {
-  background: var(--reign-color-error);
+@media (hover: hover) and (pointer: fine) {
+  .htcompare-popup.htcompare-popup .htcompare-popup-close:hover::after, .htcompare-popup.htcompare-popup .htcompare-popup-close:hover::before {
+    background: var(--reign-color-error);
+  }
 }
 
 .compare-data-primary .htcolumn-value.htcolumn-value {

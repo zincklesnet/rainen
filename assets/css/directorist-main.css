@@ -74,25 +74,38 @@
   border-color: var(--reign-site-button-bg-color);
   border-radius: var(--reign-global-button-radius);
 }
-.directorist-btn:hover, .directorist-btn:focus,
-#directorist .directorist-coupon-redeem .directorist-coupon-redeem__form button:hover,
+.directorist-btn:focus,
 #directorist .directorist-coupon-redeem .directorist-coupon-redeem__form button:focus,
-.booking-confirmation-btn:hover,
 .booking-confirmation-btn:focus,
-.directorist-compare-listing-wrapper .directorist-compare-listing-all__btn:hover,
 .directorist-compare-listing-wrapper .directorist-compare-listing-all__btn:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
   border-color: var(--reign-site-button-bg-hover-color);
 }
+@media (hover: hover) and (pointer: fine) {
+  .directorist-btn:hover,
+  #directorist .directorist-coupon-redeem .directorist-coupon-redeem__form button:hover,
+  .booking-confirmation-btn:hover,
+  .directorist-compare-listing-wrapper .directorist-compare-listing-all__btn:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border-color: var(--reign-site-button-bg-hover-color);
+  }
+}
 
-.directorist-dropdown__toggle:focus,
-.directorist-dropdown__toggle:hover {
+.directorist-dropdown__toggle:focus {
   background-color: var(--reign-site-button-bg-hover-color) !important;
   color: var(--reign-site-button-text-hover-color) !important;
   border-color: var(--reign-site-button-bg-hover-color) !important;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .directorist-dropdown__toggle:hover {
+    background-color: var(--reign-site-button-bg-hover-color) !important;
+    color: var(--reign-site-button-text-hover-color) !important;
+    border-color: var(--reign-site-button-bg-hover-color) !important;
+  }
+}
 .directorist-selects select {
   color: var(--reign-site-body-text-color);
   background-color: var(--reign-site-sections-bg-color);
@@ -103,11 +116,12 @@
   padding-right: 40px !important;
 }
 
-.directorist-content-active .directorist-authors__card .directorist-btn:hover {
-  background-color: var(--reign-site-button-bg-hover-color);
-  color: var(--reign-site-button-text-hover-color);
+@media (hover: hover) and (pointer: fine) {
+  .directorist-content-active .directorist-authors__card .directorist-btn:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+  }
 }
-
 .directorist-user-dashboard-tab .directorist-user-dashboard-search input,
 .directorist-review-submit__form .directorist-form-group textarea,
 #directorist .directorist-coupon-redeem .directorist-coupon-redeem__form input,
@@ -168,11 +182,15 @@
 }
 
 .directorist-listing-single .directorist-listing-single__meta .directorist-listing-category > a .directorist-icon-mask,
-.directorist-dropdown .directorist-dropdown__links a.active,
-.directorist-content-active .directorist-listings-header__right .directorist-dropdown .directorist-dropdown__links--single:hover {
+.directorist-dropdown .directorist-dropdown__links a.active {
   background: var(--reign-site-secondary-bg-color);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .directorist-content-active .directorist-listings-header__right .directorist-dropdown .directorist-dropdown__links--single:hover {
+    background: var(--reign-site-secondary-bg-color);
+  }
+}
 .directorist-content-active .directorist-listings-header__left .directorist-header-found-title,
 .directorist-dropdown .directorist-dropdown__links a {
   color: var(--reign-site-headings-color);
@@ -181,8 +199,10 @@
 .directorist-listing-single .directorist-listing-single__info .directorist-listing-title a {
   color: var(--reign-site-link-color);
 }
-.directorist-listing-single .directorist-listing-single__info .directorist-listing-title a:hover {
-  color: var(--reign-site-link-hover-color);
+@media (hover: hover) and (pointer: fine) {
+  .directorist-listing-single .directorist-listing-single__info .directorist-listing-title a:hover {
+    color: var(--reign-site-link-hover-color);
+  }
 }
 
 .directorist-dropdown .directorist-dropdown__links a {
@@ -452,10 +472,11 @@ button.directorist-authentication__btn {
   background: transparent;
 }
 
-button.directorist-authentication__btn:hover {
-  color: var(--reign-site-link-hover-color);
+@media (hover: hover) and (pointer: fine) {
+  button.directorist-authentication__btn:hover {
+    color: var(--reign-site-link-hover-color);
+  }
 }
-
 /*--------------------------------------------------------------
 # Dashboard
 --------------------------------------------------------------*/
@@ -489,11 +510,12 @@ button.directorist-authentication__btn:hover {
   color: var(--reign-site-headings-color) !important;
 }
 
-.directorist-favourite-items-wrap .directorist-dashboard-items-list__single:hover {
-  background-color: var(--reign-site-secondary-bg-color);
-  border-radius: var(--reign-global-border-radius);
+@media (hover: hover) and (pointer: fine) {
+  .directorist-favourite-items-wrap .directorist-dashboard-items-list__single:hover {
+    background-color: var(--reign-site-secondary-bg-color);
+    border-radius: var(--reign-global-border-radius);
+  }
 }
-
 .directorist-user-dashboard__nav .directorist-tab__nav__link,
 .directorist-user-dashboard-tabcontent .directorist-listing-table tr td,
 .directorist-user-dashboard-tabcontent .directorist-listing-table tr th,
@@ -541,9 +563,15 @@ button.directorist-authentication__btn:hover {
   color: var(--reign-site-button-text-color);
   border-radius: var(--reign-global-button-radius);
 }
-.directorist-image-profile-wrap .ezmu__upload-button-wrap .ezmu__btn:hover, .directorist-image-profile-wrap .ezmu__upload-button-wrap .ezmu__btn:focus {
+.directorist-image-profile-wrap .ezmu__upload-button-wrap .ezmu__btn:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  .directorist-image-profile-wrap .ezmu__upload-button-wrap .ezmu__btn:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+  }
 }
 
 .directorist-image-profile-wrap {
@@ -567,8 +595,10 @@ button.directorist-authentication__btn:hover {
   border: 0;
 }
 
-.directorist-user-dashboard-tabcontent .directorist-listing-table .directorist-dropdown-menu__list .directorist-dropdown-item:hover {
-  background-color: var(--reign-site-secondary-bg-color);
+@media (hover: hover) and (pointer: fine) {
+  .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist-dropdown-menu__list .directorist-dropdown-item:hover {
+    background-color: var(--reign-site-secondary-bg-color);
+  }
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist-dropdown-menu {
   border-color: var(--reign-site-border-color);
@@ -606,11 +636,12 @@ button.directorist-authentication__btn:hover {
   background: var(--reign-site-secondary-bg-color);
 }
 
-.directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a:hover {
-  background: var(--reign-site-secondary-bg-color);
-  color: var(--reign-site-body-text-color);
+@media (hover: hover) and (pointer: fine) {
+  .directorist-single-listing-action .directorist-social-share .directorist-social-share-links .directorist-social-links__item a:hover {
+    background: var(--reign-site-secondary-bg-color);
+    color: var(--reign-site-body-text-color);
+  }
 }
-
 .directorist-single-author-avatar .directorist-single-author-name h1,
 .directorist-single-author-avatar .directorist-single-author-name h2,
 .directorist-single-author-avatar .directorist-single-author-name h3,
@@ -628,9 +659,11 @@ button.directorist-authentication__btn:hover {
 .directorist-details-info-wrap .directorist-single-info .directorist-single-info__value a {
   color: var(--reign-site-link-color);
 }
-.directorist-single-tag-list a:hover,
-.directorist-details-info-wrap .directorist-single-info .directorist-single-info__value a:hover {
-  color: var(--reign-site-link-hover-color);
+@media (hover: hover) and (pointer: fine) {
+  .directorist-single-tag-list a:hover,
+  .directorist-details-info-wrap .directorist-single-info .directorist-single-info__value a:hover {
+    color: var(--reign-site-link-hover-color);
+  }
 }
 
 .directorist-listing-details .directorist-listing-details-tagline,
@@ -823,19 +856,21 @@ table#directorist-checkout-table {
   color: var(--reign-site-link-color);
   border-color: var(--reign-site-border-color);
 }
-.widget.atbd_widget[id^=bd] .atbd_author_info_widget .atbd_widget_contact_info ul li a:hover,
-.widget.atbd_widget[id^=dcl] .atbd_author_info_widget .atbd_widget_contact_info ul li a:hover,
-.widget.atbd_widget .atbd_author_info_widget .atbd_widget_contact_info ul li a:hover,
-.widget.atbd_widget[id^=bd] a:hover,
-.widget.atbd_widget[id^=dcl] a:hover,
-.widget.atbd_widget a:hover,
-.widget.atbd_widget[id^=bd] .atbdp.atbdp-widget-tags ul li a:hover,
-.widget.atbd_widget[id^=bd] .directorist.atbdp-widget-tags ul li a:hover,
-.widget.atbd_widget[id^=dcl] .atbdp.atbdp-widget-tags ul li a:hover,
-.widget.atbd_widget[id^=dcl] .directorist.atbdp-widget-tags ul li a:hover,
-.widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover,
-.widget.atbd_widget .directorist.atbdp-widget-tags ul li a:hover {
-  color: var(--reign-site-link-hover-color);
+@media (hover: hover) and (pointer: fine) {
+  .widget.atbd_widget[id^=bd] .atbd_author_info_widget .atbd_widget_contact_info ul li a:hover,
+  .widget.atbd_widget[id^=dcl] .atbd_author_info_widget .atbd_widget_contact_info ul li a:hover,
+  .widget.atbd_widget .atbd_author_info_widget .atbd_widget_contact_info ul li a:hover,
+  .widget.atbd_widget[id^=bd] a:hover,
+  .widget.atbd_widget[id^=dcl] a:hover,
+  .widget.atbd_widget a:hover,
+  .widget.atbd_widget[id^=bd] .atbdp.atbdp-widget-tags ul li a:hover,
+  .widget.atbd_widget[id^=bd] .directorist.atbdp-widget-tags ul li a:hover,
+  .widget.atbd_widget[id^=dcl] .atbdp.atbdp-widget-tags ul li a:hover,
+  .widget.atbd_widget[id^=dcl] .directorist.atbdp-widget-tags ul li a:hover,
+  .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover,
+  .widget.atbd_widget .directorist.atbdp-widget-tags ul li a:hover {
+    color: var(--reign-site-link-hover-color);
+  }
 }
 
 .widget.atbd_widget[id^=bd] .atbd_categorized_listings .listings > li .atbd_right_content .directorist-listing-category a .directorist-icon-mask:after,
@@ -844,10 +879,11 @@ table#directorist-checkout-table {
   background-color: var(--reign-site-body-text-color);
 }
 
-.widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover {
-  background-color: var(--reign-site-secondary-bg-color);
+@media (hover: hover) and (pointer: fine) {
+  .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover {
+    background-color: var(--reign-site-secondary-bg-color);
+  }
 }
-
 .widget.atbd_widget[id^=bd] .atbd_author_info_widget .btn,
 .widget.atbd_widget[id^=dcl] .atbd_author_info_widget .btn,
 .widget.atbd_widget .atbd_author_info_widget .btn {
@@ -956,9 +992,15 @@ table#directorist-checkout-table {
   color: var(--reign-site-button-text-color) !important;
   border-radius: var(--reign-global-button-radius) !important;
 }
-.directorist-btn.directorist-btn-add-faq:hover, .directorist-btn.directorist-btn-add-faq:focus {
+.directorist-btn.directorist-btn-add-faq:focus {
   background-color: var(--reign-site-button-bg-hover-color) !important;
   color: var(--reign-site-button-text-hover-color) !important;
+}
+@media (hover: hover) and (pointer: fine) {
+  .directorist-btn.directorist-btn-add-faq:hover {
+    background-color: var(--reign-site-button-bg-hover-color) !important;
+    color: var(--reign-site-button-text-hover-color) !important;
+  }
 }
 
 .directorist-form-group .directorist-form-element {
@@ -995,11 +1037,15 @@ body.admin-bar .directorist-compare-listing-wrapper {
   border-color: var(--reign-site-border-color);
 }
 
-.directorist-compare-listing-single__action__btn:hover,
 .directorist-compare-listing-table-wrapper tbody tr:nth-child(odd) {
   background-color: var(--reign-site-secondary-bg-color);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .directorist-compare-listing-single__action__btn:hover {
+    background-color: var(--reign-site-secondary-bg-color);
+  }
+}
 .directorist-compare-listing-table-wrapper {
   max-width: initial !important;
 }
@@ -1007,8 +1053,10 @@ body.admin-bar .directorist-compare-listing-wrapper {
 .directorist-compare-listing-table-wrapper-title h5 a {
   color: var(--reign-site-link-color);
 }
-.directorist-compare-listing-table-wrapper-title h5 a:hover {
-  color: var(--reign-site-link-hover-color);
+@media (hover: hover) and (pointer: fine) {
+  .directorist-compare-listing-table-wrapper-title h5 a:hover {
+    color: var(--reign-site-link-hover-color);
+  }
 }
 
 .directorist-compare-listing-table-headings {

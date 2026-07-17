@@ -101,52 +101,59 @@
   border: 1px solid var(--reign-form-border-color);
   border-radius: var(--reign-global-form-radius) !important;
 }
-.ps-comments__input:hover, .ps-comments__input:focus,
-.peepso .ps-input:hover,
+.ps-comments__input:focus,
 .peepso .ps-input:focus,
-.plg-peepso .ps-input:hover,
 .plg-peepso .ps-input:focus,
-.ps-lightbox .ps-input:hover,
 .ps-lightbox .ps-input:focus,
-.ps-landing .ps-input:hover,
 .ps-landing .ps-input:focus,
-.ps-chat__wrapper .ps-input:hover,
 .ps-chat__wrapper .ps-input:focus,
-.ps-modal__wrapper .ps-input:hover,
 .ps-modal__wrapper .ps-input:focus,
-.psw-profile .ps-input:hover,
 .psw-profile .ps-input:focus,
-.gc-widget .ps-input:hover,
 .gc-widget .ps-input:focus,
-.widget .ps-input:hover,
 .widget .ps-input:focus,
-.ps-widget__wrapper--external .ps-input:hover,
 .ps-widget__wrapper--external .ps-input:focus,
-.peepso .ps-input.ps-input--select:read-only:hover,
 .peepso .ps-input.ps-input--select:read-only:focus,
-.plg-peepso .ps-input.ps-input--select:read-only:hover,
 .plg-peepso .ps-input.ps-input--select:read-only:focus,
-.ps-lightbox .ps-input.ps-input--select:read-only:hover,
 .ps-lightbox .ps-input.ps-input--select:read-only:focus,
-.ps-landing .ps-input.ps-input--select:read-only:hover,
 .ps-landing .ps-input.ps-input--select:read-only:focus,
-.ps-chat__wrapper .ps-input.ps-input--select:read-only:hover,
 .ps-chat__wrapper .ps-input.ps-input--select:read-only:focus,
-.ps-modal__wrapper .ps-input.ps-input--select:read-only:hover,
 .ps-modal__wrapper .ps-input.ps-input--select:read-only:focus,
-.psw-profile .ps-input.ps-input--select:read-only:hover,
 .psw-profile .ps-input.ps-input--select:read-only:focus,
-.gc-widget .ps-input.ps-input--select:read-only:hover,
 .gc-widget .ps-input.ps-input--select:read-only:focus,
-.widget .ps-input.ps-input--select:read-only:hover,
 .widget .ps-input.ps-input--select:read-only:focus,
-.ps-widget__wrapper--external .ps-input.ps-input--select:read-only:hover,
 .ps-widget__wrapper--external .ps-input.ps-input--select:read-only:focus,
-.ps-message__recipients-select .selectize-input:hover,
 .ps-message__recipients-select .selectize-input:focus {
   background: var(--reign-form-focus-background-color);
   color: var(--reign-form-focus-text-color);
   border: 1px solid var(--reign-form-focus-border-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  .ps-comments__input:hover,
+  .peepso .ps-input:hover,
+  .plg-peepso .ps-input:hover,
+  .ps-lightbox .ps-input:hover,
+  .ps-landing .ps-input:hover,
+  .ps-chat__wrapper .ps-input:hover,
+  .ps-modal__wrapper .ps-input:hover,
+  .psw-profile .ps-input:hover,
+  .gc-widget .ps-input:hover,
+  .widget .ps-input:hover,
+  .ps-widget__wrapper--external .ps-input:hover,
+  .peepso .ps-input.ps-input--select:read-only:hover,
+  .plg-peepso .ps-input.ps-input--select:read-only:hover,
+  .ps-lightbox .ps-input.ps-input--select:read-only:hover,
+  .ps-landing .ps-input.ps-input--select:read-only:hover,
+  .ps-chat__wrapper .ps-input.ps-input--select:read-only:hover,
+  .ps-modal__wrapper .ps-input.ps-input--select:read-only:hover,
+  .psw-profile .ps-input.ps-input--select:read-only:hover,
+  .gc-widget .ps-input.ps-input--select:read-only:hover,
+  .widget .ps-input.ps-input--select:read-only:hover,
+  .ps-widget__wrapper--external .ps-input.ps-input--select:read-only:hover,
+  .ps-message__recipients-select .selectize-input:hover {
+    background: var(--reign-form-focus-background-color);
+    color: var(--reign-form-focus-text-color);
+    border: 1px solid var(--reign-form-focus-border-color);
+  }
 }
 
 /* Box Shadow */
@@ -232,15 +239,16 @@ section.ps-page-unstyled {
   padding: 0;
 }
 
-.ps-postbox__poll-options #ps-delete-option:hover {
-  color: inherit;
+@media (hover: hover) and (pointer: fine) {
+  .ps-postbox__poll-options #ps-delete-option:hover {
+    color: inherit;
+  }
 }
-
 .ps-giphy__search {
   padding: 10px;
 }
 
-.dark-mode .ps-giphy__powered,
+[data-bx-mode=dark] .ps-giphy__powered,
 .dark-scheme .ps-giphy__powered {
   filter: invert(1);
 }
@@ -471,10 +479,11 @@ body .widget-area a.ps-notification__inside {
   background: #f0f0f0 !important;
 }
 
-.product-edit-container .dokan-feat-image-upload a.dokan-feat-image-btn:hover {
-  background: #b4b4b4 !important;
+@media (hover: hover) and (pointer: fine) {
+  .product-edit-container .dokan-feat-image-upload a.dokan-feat-image-btn:hover {
+    background: #b4b4b4 !important;
+  }
 }
-
 .wbpm-peepo-multivendor-wrapper .woocommerce ul.products li.product .button.add_to_cart_button,
 .wbpm-peepo-multivendor-wrapper .woocommerce ul.products li.product .added_to_cart,
 .wbpm-peepo-multivendor-wrapper .woocommerce ul.products li.product .button.product_type_grouped,
@@ -505,7 +514,7 @@ body .widget-area a.ps-notification__inside {
   background: transparent url(../img/svg/search.svg) no-repeat 7px !important;
 }
 
-.dark-mode #bbpress-forums div.bbp-search-form input[type=submit],
+[data-bx-mode=dark] #bbpress-forums div.bbp-search-form input[type=submit],
 .dark-scheme #bbpress-forums div.bbp-search-form input[type=submit] {
   background: transparent url(../img/svg/search-white.svg) no-repeat 7px !important;
   background-size: 16px;
@@ -656,9 +665,13 @@ body .ps-profile__edit-tabs .slick-list {
   color: inherit;
 }
 
-.ps-members__search .ps-input:hover,
 .ps-members__search .ps-input:focus {
   border: 0;
+}
+@media (hover: hover) and (pointer: fine) {
+  .ps-members__search .ps-input:hover {
+    border: 0;
+  }
 }
 
 /* Desktop Icons */
@@ -911,16 +924,16 @@ body .ps-profile__edit-tabs .slick-list {
 }
 
 /* Sidebar Widgets */
-.dark-mode .peepso .ps-input:focus,
-.dark-mode .plg-peepso .ps-input:focus,
-.dark-mode .ps-lightbox .ps-input:focus,
-.dark-mode .ps-landing .ps-input:focus,
-.dark-mode .ps-chat__wrapper .ps-input:focus,
-.dark-mode .ps-modal__wrapper .ps-input:focus,
-.dark-mode .psw-profile .ps-input:focus,
-.dark-mode .gc-widget .ps-input:focus,
-.dark-mode .widget .ps-input:focus,
-.dark-mode .ps-widget__wrapper--external .ps-input:focus,
+[data-bx-mode=dark] .peepso .ps-input:focus,
+[data-bx-mode=dark] .plg-peepso .ps-input:focus,
+[data-bx-mode=dark] .ps-lightbox .ps-input:focus,
+[data-bx-mode=dark] .ps-landing .ps-input:focus,
+[data-bx-mode=dark] .ps-chat__wrapper .ps-input:focus,
+[data-bx-mode=dark] .ps-modal__wrapper .ps-input:focus,
+[data-bx-mode=dark] .psw-profile .ps-input:focus,
+[data-bx-mode=dark] .gc-widget .ps-input:focus,
+[data-bx-mode=dark] .widget .ps-input:focus,
+[data-bx-mode=dark] .ps-widget__wrapper--external .ps-input:focus,
 .dark-scheme .peepso .ps-input:focus,
 .dark-scheme .plg-peepso .ps-input:focus,
 .dark-scheme .ps-lightbox .ps-input:focus,
@@ -1604,17 +1617,17 @@ input#gamipress-achievements-search-input {
   border-color: var(--reign-site-border-color);
 }
 
-.dark-mode .wb-story-shortcode[data-skin=snapgram] .wb-stories-loader span,
-.dark-mode .wb-story-shortcode[data-skin=snapssenger] .wb-stories-loader span,
-.dark-mode .wb-story-shortcode[data-skin=vemdezap] .wb-stories-loader span,
+[data-bx-mode=dark] .wb-story-shortcode[data-skin=snapgram] .wb-stories-loader span,
+[data-bx-mode=dark] .wb-story-shortcode[data-skin=snapssenger] .wb-stories-loader span,
+[data-bx-mode=dark] .wb-story-shortcode[data-skin=vemdezap] .wb-stories-loader span,
 .dark-scheme .wb-story-shortcode[data-skin=snapgram] .wb-stories-loader span,
 .dark-scheme .wb-story-shortcode[data-skin=snapssenger] .wb-stories-loader span,
 .dark-scheme .wb-story-shortcode[data-skin=vemdezap] .wb-stories-loader span {
   filter: invert(1);
 }
-.dark-mode .stories.wb-story-shortcode.snapssenger.carousel .story > .item-link > .info,
-.dark-mode .stories.wb-story-shortcode.snapgram .story > .item-link,
-.dark-mode .stories.wb-story-shortcode.vemdezap .story > .item-link,
+[data-bx-mode=dark] .stories.wb-story-shortcode.snapssenger.carousel .story > .item-link > .info,
+[data-bx-mode=dark] .stories.wb-story-shortcode.snapgram .story > .item-link,
+[data-bx-mode=dark] .stories.wb-story-shortcode.vemdezap .story > .item-link,
 .dark-scheme .stories.wb-story-shortcode.snapssenger.carousel .story > .item-link > .info,
 .dark-scheme .stories.wb-story-shortcode.snapgram .story > .item-link,
 .dark-scheme .stories.wb-story-shortcode.vemdezap .story > .item-link {

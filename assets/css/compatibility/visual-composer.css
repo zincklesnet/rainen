@@ -1,0 +1,222 @@
+/**
+ * Visual Composer (WPBakery) Page Builder Compatibility Styles
+ * 
+ * @package Reign
+ */
+
+/* General Visual Composer Compatibility */
+.visual-composer-builder-active .site-content {
+	padding: 0;
+}
+
+/* VC Row Adjustments */
+.wpb_row,
+.vc_row,
+.vc_row-fluid {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+/* Full Width Row Support */
+.vc_row[data-vc-full-width="true"] {
+	position: relative;
+	left: 50%;
+	right: 50%;
+	width: 100vw;
+	max-width: 100vw;
+	margin-left: -50vw;
+	margin-right: -50vw;
+}
+
+.vc_row[data-vc-full-width="true"] > .vc_column_container {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+/* Stretched Row Content */
+.vc_row[data-vc-stretch-content="true"] > .vc_column_container {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+/* Fix container width inside VC rows */
+.vc_row > .container {
+	width: 100%;
+	max-width: var(--reign-content-width, 1140px);
+	margin: 0 auto;
+}
+
+/* VC Column fixes */
+.vc_column_container {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.vc_column-inner {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+/* Frontend Editor Styles */
+body.reign-vc-frontend-editor .site-header {
+	position: relative;
+	z-index: 99;
+}
+
+body.reign-vc-frontend-editor #vc_inline-frame {
+	margin-top: 0;
+}
+
+body.compose-mode .reign-page-header {
+	display: none;
+}
+
+/* VC Elements Spacing */
+.wpb_content_element {
+	margin-bottom: 35px;
+}
+
+.vc_row + .vc_row {
+	margin-top: 0;
+}
+
+/* VC Tabs */
+.vc_tta-tabs .vc_tta-tabs-container {
+	margin-bottom: 0;
+}
+
+.vc_tta-tabs.vc_tta-style-reign .vc_tta-tab {
+	background: transparent;
+	border: none;
+}
+
+/* VC Accordion */
+.vc_toggle {
+	margin-bottom: 10px;
+}
+
+/* VC Button */
+.vc_btn3-container {
+	display: inline-block;
+	margin-bottom: 0;
+}
+
+/* VC Gallery */
+.wpb_gallery .wpb_image_grid_ul {
+	margin: 0 -5px;
+}
+
+.wpb_gallery .wpb_image_grid_ul li {
+	padding: 5px;
+}
+
+/* VC Separator */
+.vc_separator {
+	margin: 30px 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+	.vc_row[data-vc-full-width="true"] {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+	
+	.vc_column_container {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	
+	.wpb_content_element {
+		margin-bottom: 20px;
+	}
+}
+
+/* BuddyPress Compatibility with VC */
+.buddypress .visual-composer-builder-active .site-content {
+	padding-top: 0;
+}
+
+/* WooCommerce Compatibility with VC */
+.woocommerce .visual-composer-builder-active .site-content {
+	padding-top: 0;
+}
+
+/* VC Blank Template */
+body.page-template-vc_blank_template .site {
+	padding: 0;
+}
+
+body.page-template-vc_blank_template .site-content {
+	padding: 0;
+	margin: 0;
+}
+
+/* Fix z-index conflicts */
+.vc_parallax {
+	z-index: 0;
+}
+
+.vc_video-bg {
+	z-index: 0;
+}
+
+/* VC Custom Heading */
+.vc_custom_heading {
+	margin-bottom: 20px;
+}
+
+/* VC Progress Bar */
+.vc_progress_bar .vc_single_bar {
+	margin-bottom: 15px;
+}
+
+/* VC Pie Chart */
+.vc_pie_chart {
+	margin: 0 auto 35px;
+}
+
+/* VC Message Box */
+.vc_message_box {
+	margin-bottom: 35px;
+}
+
+/* Fix for VC rows in sidebar */
+.widget .wpb_row {
+	margin: 0;
+}
+
+/* VC Call to Action */
+.vc_cta3-container {
+	margin-bottom: 35px;
+}
+
+/* Ensure proper stacking */
+.visual-composer-builder-active {
+	position: relative;
+	z-index: 1;
+}
+
+/* Fix for stretched rows with Reign header */
+.reign-header-sticky + .site-content .vc_row[data-vc-full-width="true"]:first-child {
+	margin-top: 0;
+}
+
+/* VC Icon Box */
+.vc_icon_element {
+	margin-bottom: 20px;
+}
+
+/* VC Tour */
+.vc_tta-tour .vc_tta-panels-container {
+	margin-bottom: 0;
+}
+
+/* Fix sidebar display with VC */
+.visual-composer-builder-active .content-wrapper {
+	max-width: 100%;
+}
+
+.visual-composer-builder-active .sidebar {
+	display: none;
+}

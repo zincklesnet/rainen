@@ -140,6 +140,7 @@
   visibility: hidden;
   cursor: pointer;
   z-index: 3;
+  position: relative;
 }
 
 @media (hover: none) and (pointer: coarse) {
@@ -220,24 +221,33 @@
   width: 100%;
 }
 
-.header-notifications-dropdown-menu .dropdown-item:hover {
-  background: var(--reign-site-secondary-bg-color);
+@media (hover: hover) and (pointer: fine) {
+  .header-notifications-dropdown-menu .dropdown-item:hover {
+    background: var(--reign-site-secondary-bg-color);
+  }
 }
-
-.header-notifications-dropdown-menu .dropdown-item:hover .actions {
-  opacity: 1;
-  visibility: visible;
+@media (hover: hover) and (pointer: fine) {
+  .header-notifications-dropdown-menu .dropdown-item:hover .actions {
+    opacity: 1;
+    visibility: visible;
+  }
 }
-
-.header-notifications-dropdown-menu .dropdown-item:hover.unread::before {
-  content: none;
+@media (hover: hover) and (pointer: fine) {
+  .header-notifications-dropdown-menu .dropdown-item:hover.unread::before {
+    content: none;
+  }
 }
-
-.header-notifications-dropdown-menu .dropdown-item [data-bp-tooltip][data-bp-tooltip-pos=left]:hover:after,
 .header-notifications-dropdown-menu .dropdown-item [data-bp-tooltip][data-bp-tooltip-pos=left][data-bp-tooltip-visible]:after {
   transform: translate(0, -50%);
+  opacity: 1;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .header-notifications-dropdown-menu .dropdown-item [data-bp-tooltip][data-bp-tooltip-pos=left]:hover:after {
+    transform: translate(0, -50%);
+    opacity: 1;
+  }
+}
 .header-notifications-dropdown-menu .dropdown-item [data-bp-tooltip][data-bp-tooltip-pos=left]:after {
   margin-right: 11px;
   right: 100%;
@@ -346,11 +356,12 @@
   border-bottom: 1px solid var(--reign-site-border-color);
 }
 
-.user-messages #message-threads li:hover,
-.user-messages #message li:hover {
-  background: #f5f6f7;
+@media (hover: hover) and (pointer: fine) {
+  .user-messages #message-threads li:hover,
+  .user-messages #message li:hover {
+    background: #f5f6f7;
+  }
 }
-
 .user-messages #message-threads li a,
 .user-messages #message li a {
   display: block;
@@ -367,23 +378,25 @@
   padding-left: 15px;
 }
 
-.user-messages #message-threads li a:hover,
-.user-messages #message li a:hover {
-  color: var(--reign-color-white);
+@media (hover: hover) and (pointer: fine) {
+  .user-messages #message-threads li a:hover,
+  .user-messages #message li a:hover {
+    color: var(--reign-color-white);
+  }
 }
-
 .user-messages #message {
   font-size: 14px;
   padding: 10px;
 }
 
-.user-messages:hover #message-threads,
-.user-messages:hover #message {
-  opacity: 1;
-  margin-top: -4px;
-  visibility: visible;
+@media (hover: hover) and (pointer: fine) {
+  .user-messages:hover #message-threads,
+  .user-messages:hover #message {
+    opacity: 1;
+    margin-top: -4px;
+    visibility: visible;
+  }
 }
-
 /*--------------------------------------------------------------
 # Better Messages
 --------------------------------------------------------------*/
@@ -404,8 +417,10 @@ body.bm-messages-theme-scheme .bp-messages-wrap .reply {
   background: var(--reign-site-sections-bg-color);
   border-color: var(--reign-site-border-color);
 }
-body.bm-messages-theme-scheme body:not(.bm-mobile-device) .bp-messages-wrap .threads-list .thread:hover > * {
-  background: var(--reign-site-secondary-bg-color);
+@media (hover: hover) and (pointer: fine) {
+  body.bm-messages-theme-scheme body:not(.bm-mobile-device) .bp-messages-wrap .threads-list .thread:hover > * {
+    background: var(--reign-site-secondary-bg-color);
+  }
 }
 body.bm-messages-theme-scheme .bp-messages-wrap .threads-list .thread .bm-info .name,
 body.bm-messages-theme-scheme .bp-messages-wrap .threads-list .thread .bm-info h4 {
@@ -433,10 +448,15 @@ body.bm-messages-theme-scheme .contexify_item:not(.contexify_item-disabled) > .c
 body.bm-messages-theme-scheme .contexify_item:not(.contexify_item-disabled) > .contexify_itemContent {
   color: var(--reign-site-body-text-color);
 }
-body.bm-messages-theme-scheme .contexify_item:not(.contexify_item-disabled):hover > .contexify_itemContent,
 body.bm-messages-theme-scheme .contexify_item:not(.contexify_item-disabled):focus > .contexify_itemContent {
   color: var(--reign-colors-theme);
   background: transparent;
+}
+@media (hover: hover) and (pointer: fine) {
+  body.bm-messages-theme-scheme .contexify_item:not(.contexify_item-disabled):hover > .contexify_itemContent {
+    color: var(--reign-colors-theme);
+    background: transparent;
+  }
 }
 body.bm-messages-theme-scheme .bp-messages-wrap .bm-messages-list .bpbm-scroll-down {
   background: var(--reign-colors-theme);
@@ -451,20 +471,25 @@ body.bm-messages-theme-scheme .bp-messages-wrap .bm-messages-list .bpbm-scroll-d
   position: relative;
 }
 
-.user-notifications:hover .rg-dropdown {
-  opacity: 1;
-  margin-top: -4px;
-  visibility: visible;
+@media (hover: hover) and (pointer: fine) {
+  .user-notifications:hover .rg-dropdown {
+    opacity: 1;
+    margin-top: -4px;
+    visibility: visible;
+  }
 }
-
-.user-notifications .rg-dropdown,
-.user-notifications:hover .rg-dropdown {
+.user-notifications .rg-dropdown {
   top: 94px;
   right: -50px;
 }
 
-.user-notifications .rg-dropdown:after,
-.user-notifications:hover .rg-dropdown:after {
+@media (hover: hover) and (pointer: fine) {
+  .user-notifications:hover .rg-dropdown {
+    top: 94px;
+    right: -50px;
+  }
+}
+.user-notifications .rg-dropdown:after {
   content: " ";
   width: 12px;
   height: 12px;
@@ -478,6 +503,21 @@ body.bm-messages-theme-scheme .bp-messages-wrap .bm-messages-list .bpbm-scroll-d
   border-left: 1px solid var(--reign-site-border-color);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .user-notifications:hover .rg-dropdown:after {
+    content: " ";
+    width: 12px;
+    height: 12px;
+    background: var(--reign-site-sections-bg-color);
+    position: absolute;
+    top: -6px;
+    right: 66px;
+    transform: rotate(45deg);
+    z-index: -1;
+    border-top: 1px solid var(--reign-site-border-color);
+    border-left: 1px solid var(--reign-site-border-color);
+  }
+}
 .user-notifications ul#rg-notify li + li {
   border-top: 1px solid var(--reign-site-border-color);
 }
@@ -569,12 +609,13 @@ body.bm-messages-theme-scheme .bp-messages-wrap .bm-messages-list .bpbm-scroll-d
   color: var(--reign-site-alternate-text-color);
 }
 
-.rg-woocommerce_mini_cart ul.woocommerce-mini-cart li a.remove:hover {
-  color: var(--reign-color-white) !important;
-  background: red;
-  border-color: red;
+@media (hover: hover) and (pointer: fine) {
+  .rg-woocommerce_mini_cart ul.woocommerce-mini-cart li a.remove:hover {
+    color: var(--reign-color-white) !important;
+    background: red;
+    border-color: red;
+  }
 }
-
 /* Product links */
 .rg-woocommerce_mini_cart ul.woocommerce-mini-cart li a:not(.remove) {
   display: block;
@@ -588,10 +629,11 @@ body.bm-messages-theme-scheme .bp-messages-wrap .bm-messages-list .bpbm-scroll-d
   margin-bottom: 2px;
 }
 
-.rg-woocommerce_mini_cart ul.woocommerce-mini-cart li a:not(.remove):hover {
-  color: var(--reign-colors-theme);
+@media (hover: hover) and (pointer: fine) {
+  .rg-woocommerce_mini_cart ul.woocommerce-mini-cart li a:not(.remove):hover {
+    color: var(--reign-colors-theme);
+  }
 }
-
 /* Product quantity and price */
 .rg-woocommerce_mini_cart ul.woocommerce-mini-cart li .quantity {
   display: block;
@@ -695,13 +737,19 @@ body.bm-messages-theme-scheme .bp-messages-wrap .bm-messages-list .bpbm-scroll-d
   font-weight: 500;
 }
 
-.rg-woocommerce_mini_cart .button:hover,
 .rg-woocommerce_mini_cart .button:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
   border: 1px solid var(--reign-site-button-bg-hover-color);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .rg-woocommerce_mini_cart .button:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border: 1px solid var(--reign-site-button-bg-hover-color);
+  }
+}
 /* Mobile adjustments for cart */
 @media screen and (max-width: 543px) {
   .rg-woocommerce_mini_cart ul.woocommerce-mini-cart {

@@ -1,0 +1,323 @@
+/**
+ * Beaver Builder Page Builder Compatibility Styles
+ * 
+ * @package Reign
+ */
+
+/* General Beaver Builder Compatibility */
+.beaver-builder-active .site-content {
+	padding: 0;
+}
+
+.fl-builder-content {
+	margin: 0;
+}
+
+/* BB Content Wrapper */
+.reign-bb-content-wrapper {
+	width: 100%;
+}
+
+/* Row Adjustments */
+.fl-row {
+	margin: 0;
+}
+
+.fl-row-content-wrap {
+	position: relative;
+}
+
+/* Full Width Row Support */
+.fl-row-full-width .fl-row-content-wrap {
+	max-width: 100%;
+	width: 100%;
+}
+
+.fl-row-fixed-width .fl-row-content-wrap {
+	max-width: var(--reign-content-width, 1140px);
+	margin: 0 auto;
+}
+
+/* Full Content Width */
+.reign-bb-full-content .fl-row-content {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+/* Column Adjustments */
+.fl-col {
+	float: left;
+	position: relative;
+}
+
+/* Module Spacing */
+.fl-module {
+	margin-bottom: 20px;
+}
+
+.fl-builder-content .fl-module:last-child {
+	margin-bottom: 0;
+}
+
+/* Editor Mode Styles */
+body.fl-builder-edit .site-header {
+	position: relative;
+	z-index: 999998;
+}
+
+body.fl-builder-edit .reign-page-header {
+	display: none;
+}
+
+body.reign-bb-editor-active .site-content {
+	padding: 0;
+	margin: 0;
+}
+
+/* BB UI Panel Fix */
+.fl-builder-ui .fl-builder-panel {
+	z-index: 999999;
+}
+
+/* BB Buttons */
+.fl-button-wrap {
+	text-align: inherit;
+	margin-bottom: 0;
+}
+
+.fl-button {
+	display: inline-block;
+	text-decoration: none;
+}
+
+/* BB Heading Module */
+.fl-heading {
+	margin-bottom: 20px;
+}
+
+.fl-heading .fl-heading-text {
+	margin: 0;
+	padding: 0;
+}
+
+/* BB Text Editor */
+.fl-rich-text {
+	margin-bottom: 20px;
+}
+
+.fl-rich-text p:last-child {
+	margin-bottom: 0;
+}
+
+/* BB Photo Module */
+.fl-photo {
+	line-height: 0;
+	margin-bottom: 20px;
+}
+
+.fl-photo img {
+	max-width: 100%;
+	height: auto;
+}
+
+/* BB Video Module */
+.fl-video {
+	margin-bottom: 20px;
+}
+
+.fl-video .fl-wp-video {
+	width: 100% !important;
+}
+
+/* BB Separator */
+.fl-separator {
+	margin: 20px 0;
+	clear: both;
+}
+
+/* BB Gallery */
+.fl-gallery {
+	margin-bottom: 20px;
+}
+
+.fl-gallery-item {
+	margin-bottom: 10px;
+}
+
+/* BB Accordion */
+.fl-accordion {
+	margin-bottom: 20px;
+}
+
+.fl-accordion-item {
+	margin-bottom: 0;
+	border: 1px solid #e5e5e5;
+}
+
+/* BB Tabs */
+.fl-tabs {
+	margin-bottom: 20px;
+}
+
+.fl-tabs-labels {
+	margin: 0;
+	padding: 0;
+}
+
+/* BB Testimonials */
+.fl-testimonials {
+	margin-bottom: 20px;
+}
+
+.fl-testimonials-wrap {
+	position: relative;
+}
+
+/* BB Icon Group */
+.fl-icon-group-item {
+	display: inline-block;
+	margin: 0 10px 10px 0;
+}
+
+/* BB Call to Action */
+.fl-cta-wrap {
+	margin-bottom: 20px;
+}
+
+/* BB Pricing Table */
+.fl-pricing-table {
+	margin-bottom: 20px;
+}
+
+.fl-pricing-table-column {
+	text-align: center;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+	.fl-row-content-wrap {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+	
+	.fl-col {
+		width: 100% !important;
+		float: none;
+	}
+	
+	.fl-module {
+		margin-bottom: 15px;
+	}
+}
+
+/* BuddyPress Compatibility with BB */
+.buddypress .beaver-builder-active .site-content {
+	padding-top: 0;
+}
+
+/* WooCommerce Compatibility with BB */
+.woocommerce .beaver-builder-active .site-content {
+	padding-top: 0;
+}
+
+/* Fix z-index conflicts */
+.fl-builder-content {
+	position: relative;
+	z-index: 1;
+}
+
+/* BB Theme Builder Support */
+.fl-theme-builder-header-shrink {
+	transition: all 0.3s ease;
+}
+
+.fl-theme-builder-header-sticky {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 999;
+}
+
+/* Fix for BB rows in sidebar */
+.sidebar .fl-builder-content {
+	margin: 0;
+}
+
+.sidebar .fl-row {
+	margin: 0;
+}
+
+/* Ensure proper stacking */
+.beaver-builder-active {
+	position: relative;
+}
+
+/* BB Subscribe Form */
+.fl-subscribe-form {
+	margin-bottom: 20px;
+}
+
+.fl-subscribe-form-inline .fl-form-field {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+/* BB Posts Module */
+.fl-post-grid {
+	margin-bottom: 20px;
+}
+
+.fl-post-grid-post {
+	margin-bottom: 30px;
+}
+
+/* Fix sidebar display with BB */
+.beaver-builder-active .content-wrapper {
+	max-width: 100%;
+}
+
+.beaver-builder-active.fl-builder-edit .sidebar {
+	display: none;
+}
+
+/* BB Slideshow */
+.fl-slideshow {
+	margin-bottom: 20px;
+	position: relative;
+}
+
+/* BB Content Slider */
+.fl-content-slider {
+	margin-bottom: 20px;
+}
+
+.fl-content-slider-wrapper {
+	position: relative;
+}
+
+/* Overlay rows */
+.fl-row-overlay-wrap {
+	position: relative;
+	overflow: hidden;
+}
+
+/* Fix for stretched rows with Reign header */
+.reign-header-sticky + .site-content .fl-row:first-child {
+	margin-top: 0;
+}
+
+/* BB Number Counter */
+.fl-number-counter {
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+/* BB Countdown */
+.fl-countdown {
+	margin-bottom: 20px;
+}
+
+.fl-countdown-unit {
+	display: inline-block;
+	margin: 0 10px;
+}

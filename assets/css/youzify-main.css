@@ -435,13 +435,17 @@ i.youzify-small-verified-icon {
 .youzify-tool-btn .youzify-tool-name,
 .youzify-usermeta li,
 .youzify-usermeta li a,
-.youzify-usermeta li a:hover,
 .youzify-usermeta li span,
 .youzify-profile-login,
 .youzify-membership-form .form-cover-title {
   color: #fff !important;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .youzify-usermeta li a:hover {
+    color: #fff !important;
+  }
+}
 /*--------------------------------------------------------------
 # Youzify Sidebar
 --------------------------------------------------------------*/
@@ -781,20 +785,24 @@ body.youzify-color-mode-active #youzify .activity-meta a:before,
 body.youzify-color-mode-active #youzify .activity-meta i,
 body.youzify-color-mode-active #youzify .youzify-activity-statistics .youzify-post-comments-count i,
 body.youzify-color-mode-active #youzify .youzify-activity-statistics .youzify-post-shares-count i,
-body.youzify-color-mode-active #youzify .activity-meta a.acomment-reply:hover:before,
-body.youzify-color-mode-active #youzify .activity-meta a.delete-activity:hover:before,
-body.youzify-color-mode-active #youzify .activity-meta a:not(.loading).acomment-delete:hover:before,
-body.youzify-color-mode-active #youzify .activity-meta a:not(.loading).youzify-edit-activity:hover:before,
-body.youzify-color-mode-active #youzify .activity-meta a:not(.loading):hover:before,
-body.youzify-color-mode-active .youzify .acomment-options a:not(.loading).delete-activity-single:hover:before,
-body.youzify-color-mode-active .youzify .acomment-options a:not(.loading).delete-activity:hover:before,
-body.youzify-color-mode-active .youzify .acomment-options a:not(.loading).youzify-edit-activity:hover:before,
 body.youzify-color-mode-active .youzify-profile-list-widget .youzify-more-items a,
 body.youzify-color-mode-active .youzify-quick-buttons .youzify-button-item i,
 body.youzify-color-mode-active .youzify-quick-buttons .youzify-button-item span,
-body.youzify-color-mode-active #youzify-profile-navmenu .youzify-settings-menu a:hover i,
 body.youzify-color-mode-active .youzify-uploader-change-item h2 {
   color: var(--reign-site-headings-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  body.youzify-color-mode-active #youzify .activity-meta a.acomment-reply:hover:before,
+  body.youzify-color-mode-active #youzify .activity-meta a.delete-activity:hover:before,
+  body.youzify-color-mode-active #youzify .activity-meta a:not(.loading).acomment-delete:hover:before,
+  body.youzify-color-mode-active #youzify .activity-meta a:not(.loading).youzify-edit-activity:hover:before,
+  body.youzify-color-mode-active #youzify .activity-meta a:not(.loading):hover:before,
+  body.youzify-color-mode-active .youzify .acomment-options a:not(.loading).delete-activity-single:hover:before,
+  body.youzify-color-mode-active .youzify .acomment-options a:not(.loading).delete-activity:hover:before,
+  body.youzify-color-mode-active .youzify .acomment-options a:not(.loading).youzify-edit-activity:hover:before,
+  body.youzify-color-mode-active #youzify-profile-navmenu .youzify-settings-menu a:hover i {
+    color: var(--reign-site-headings-color);
+  }
 }
 body.youzify-color-mode-active #youzify-blogs-list .item .item-meta,
 body.youzify-color-mode-active #youzify-groups-list .item .item-meta .group-status,
@@ -852,9 +860,11 @@ body.youzify-color-mode-active .youzify-user-actions a {
   color: var(--yzfy-button-text-color);
   background-color: var(--yzfy-button-bg-color);
 }
-body.youzify-color-mode-active .youzify-directory .pagination .page-numbers:not(.current):hover {
-  color: var(--reign-site-body-text-color);
-  background-color: var(--reign-site-secondary-bg-color);
+@media (hover: hover) and (pointer: fine) {
+  body.youzify-color-mode-active .youzify-directory .pagination .page-numbers:not(.current):hover {
+    color: var(--reign-site-body-text-color);
+    background-color: var(--reign-site-secondary-bg-color);
+  }
 }
 body.youzify-color-mode-active #youzify .activity-meta a.unfav:before {
   color: #fb6358;
@@ -881,24 +891,28 @@ body.youzify-color-mode-active .youzify table tbody td a {
   color: var(--reign-site-body-text-color);
 }
 
-.dark-mode body.youzify-color-mode-active .youzify-emojionearea .youzify-emojionearea-picker,
-.dark-mode body.youzify-color-mode-active .youzify-emojionearea .youzify-emojionearea-picker .youzify-emojionearea-filters .youzify-emojionearea-filter.active,
+[data-bx-mode=dark] body.youzify-color-mode-active .youzify-emojionearea .youzify-emojionearea-picker,
+[data-bx-mode=dark] body.youzify-color-mode-active .youzify-emojionearea .youzify-emojionearea-picker .youzify-emojionearea-filters .youzify-emojionearea-filter.active,
 .dark-scheme body.youzify-color-mode-active .youzify-emojionearea .youzify-emojionearea-picker,
 .dark-scheme body.youzify-color-mode-active .youzify-emojionearea .youzify-emojionearea-picker .youzify-emojionearea-filters .youzify-emojionearea-filter.active {
   background: var(--reign-site-sections-bg-color);
 }
-.dark-mode body.youzify-color-mode-active .youzify-emojionearea .youzify-emojionearea-picker .youzify-emojionearea-filters,
-.dark-mode body.youzify-color-mode-active .youzify-emojionearea .youzify-emojionearea-picker .youzify-emojionearea-scroll-area .emojibtn:hover,
-.dark-scheme body.youzify-color-mode-active .youzify-emojionearea .youzify-emojionearea-picker .youzify-emojionearea-filters,
-.dark-scheme body.youzify-color-mode-active .youzify-emojionearea .youzify-emojionearea-picker .youzify-emojionearea-scroll-area .emojibtn:hover {
+[data-bx-mode=dark] body.youzify-color-mode-active .youzify-emojionearea .youzify-emojionearea-picker .youzify-emojionearea-filters,
+.dark-scheme body.youzify-color-mode-active .youzify-emojionearea .youzify-emojionearea-picker .youzify-emojionearea-filters {
   background: var(--reign-site-secondary-bg-color);
 }
-.dark-mode body.youzify-color-mode-active .youzify-emojionearea .youzify-emojionearea-picker .youzify-emojionearea-scroll-area .youzify-emojionearea-category-title,
+@media (hover: hover) and (pointer: fine) {
+  [data-bx-mode=dark] body.youzify-color-mode-active .youzify-emojionearea .youzify-emojionearea-picker .youzify-emojionearea-scroll-area .emojibtn:hover,
+  .dark-scheme body.youzify-color-mode-active .youzify-emojionearea .youzify-emojionearea-picker .youzify-emojionearea-scroll-area .emojibtn:hover {
+    background: var(--reign-site-secondary-bg-color);
+  }
+}
+[data-bx-mode=dark] body.youzify-color-mode-active .youzify-emojionearea .youzify-emojionearea-picker .youzify-emojionearea-scroll-area .youzify-emojionearea-category-title,
 .dark-scheme body.youzify-color-mode-active .youzify-emojionearea .youzify-emojionearea-picker .youzify-emojionearea-scroll-area .youzify-emojionearea-category-title {
   background: var(--reign-site-sections-bg-color);
   color: var(--reign-site-body-text-color);
 }
-.dark-mode body.youzify-color-mode-active .youzify-emojionearea .youzify-emojionearea-picker .youzify-emojionearea-search > input,
+[data-bx-mode=dark] body.youzify-color-mode-active .youzify-emojionearea .youzify-emojionearea-picker .youzify-emojionearea-search > input,
 .dark-scheme body.youzify-color-mode-active .youzify-emojionearea .youzify-emojionearea-picker .youzify-emojionearea-search > input {
   color: var(--reign-site-body-text-color);
   border-color: var(--reign-site-border-color);
@@ -1181,9 +1195,13 @@ body.youzify-color-mode-active .youzify table tbody td a {
 }
 .youzify-color-mode-active div.yzpc-widget .yzpc-widget-title,
 .youzify-color-mode-active div.yzpc-widget .yzpc-head-circle .yzpc-circle-percent,
-.youzify-color-mode-active div.yzpc-widget .yzpc-item-content .yzpc-item-title,
-.youzify-color-mode-active div.yzpc-widget .yzpc-task .yzpc-task-head:hover .yzpc-item-title {
+.youzify-color-mode-active div.yzpc-widget .yzpc-item-content .yzpc-item-title {
   color: var(--reign-site-headings-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  .youzify-color-mode-active div.yzpc-widget .yzpc-task .yzpc-task-head:hover .yzpc-item-title {
+    color: var(--reign-site-headings-color);
+  }
 }
 .youzify-color-mode-active div.yzpc-widget .yzpc-widget-description,
 .youzify-color-mode-active div.yzpc-widget .yzpc-item-content .yzpc-item-description,
@@ -1284,8 +1302,10 @@ div.youzify-albums-submit {
 .youzify-color-mode-active div.yzfes-tab-post .yzfes-post-title a {
   color: var(--reign-site-link-color);
 }
-.youzify-color-mode-active div.yzfes-tab-post .yzfes-post-title a:hover {
-  color: var(--reign-site-link-hover-color);
+@media (hover: hover) and (pointer: fine) {
+  .youzify-color-mode-active div.yzfes-tab-post .yzfes-post-title a:hover {
+    color: var(--reign-site-link-hover-color);
+  }
 }
 .youzify-color-mode-active div.yzfes-tab-post .yzfes-post-meta ul li {
   color: var(--reign-site-alternate-text-color);
@@ -1382,8 +1402,10 @@ div.youzify-albums-submit {
 .youzify-color-mode-active div.yzpr-users-who-list .yzpr-list-item .yzpr-item-name a {
   color: var(--reign-site-link-color);
 }
-.youzify-color-mode-active div.yzpr-users-who-list .yzpr-list-item .yzpr-item-name a:hover {
-  color: var(--reign-site-link-hover-color);
+@media (hover: hover) and (pointer: fine) {
+  .youzify-color-mode-active div.yzpr-users-who-list .yzpr-list-item .yzpr-item-name a:hover {
+    color: var(--reign-site-link-hover-color);
+  }
 }
 .youzify-color-mode-active div.yzpr-users-who-list .yzpr-list-item .yzpr-item-meta {
   color: var(--reign-site-alternate-text-color);
@@ -1398,20 +1420,24 @@ body .youzify button.bp-schedule-activity {
   border: 1px solid var(--reign-site-button-bg-color);
   border-radius: var(--reign-global-button-radius);
 }
-body .youzify button.bp-schedule-activity:hover {
-  background-color: var(--reign-site-button-bg-hover-color);
-  color: var(--reign-site-button-text-hover-color);
-  border: 1px solid var(--reign-site-button-bg-hover-color);
+@media (hover: hover) and (pointer: fine) {
+  body .youzify button.bp-schedule-activity:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border: 1px solid var(--reign-site-button-bg-hover-color);
+  }
 }
 
 body .youzify .bp-activity-schedule-model-wrap .modal-container .bp-model-footer button.button-outline {
   background: transparent;
   border: 1px solid var(--reign-site-border-color);
 }
-body .youzify .bp-activity-schedule-model-wrap .modal-container .bp-model-footer button.button-outline:hover {
-  background-color: var(--reign-site-button-bg-color);
-  color: var(--reign-site-button-text-color);
-  border: 1px solid var(--reign-site-button-bg-color);
+@media (hover: hover) and (pointer: fine) {
+  body .youzify .bp-activity-schedule-model-wrap .modal-container .bp-model-footer button.button-outline:hover {
+    background-color: var(--reign-site-button-bg-color);
+    color: var(--reign-site-button-text-color);
+    border: 1px solid var(--reign-site-button-bg-color);
+  }
 }
 
 /*--------------------------------------------------------------
@@ -1485,8 +1511,15 @@ body #youzify .youzify .youzify-main-column .wb-grid-cell {
   text-shadow: none;
   font-family: inherit;
 }
-.youzify .woocommerce-pagination .button:hover, .youzify .woocommerce-pagination .button:focus {
+.youzify .woocommerce-pagination .button:focus {
   background-color: var(--reign-site-button-bg-hover-color);
   color: var(--reign-site-button-text-hover-color);
   border: 1px solid var(--reign-site-button-bg-hover-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  .youzify .woocommerce-pagination .button:hover {
+    background-color: var(--reign-site-button-bg-hover-color);
+    color: var(--reign-site-button-text-hover-color);
+    border: 1px solid var(--reign-site-button-bg-hover-color);
+  }
 }

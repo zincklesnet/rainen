@@ -205,28 +205,28 @@ input[type=number].wcfm-text:focus,
   border-radius: 6px !important;
 }
 
-.dark-mode .select2-container--default .select2-selection--single .select2-selection__rendered,
+[data-bx-mode=dark] .select2-container--default .select2-selection--single .select2-selection__rendered,
 .dark-scheme .select2-container--default .select2-selection--single .select2-selection__rendered {
   color: inherit;
 }
-.dark-mode .wcfm_dashboard_stats_block,
-.dark-mode .wcfm-collapse .wcfm-container,
-.dark-mode .wcfm-tabWrap,
-.dark-mode #wcfm-main-contentainer input.wcfm-checkbox,
-.dark-mode #wcfm-main-contentainer input[type=checkbox],
-.dark-mode .wcfm-dashboard-page #wcfm-main-contentainer input[type=checkbox],
-.dark-mode #wcfm-main-contentainer input[type=text].wcfm-text,
-.dark-mode #wcfm-main-contentainer input[type=password].wcfm-text,
-.dark-mode #wcfm-main-contentainer select.wcfm-select,
-.dark-mode .wcfm_popup_form select.wcfm-select,
-.dark-mode .wcfm_popup_form input[type=text].wcfm-text,
-.dark-mode #wcfm-main-contentainer input[type=number].wcfm-text,
-.dark-mode #wcfm-main-contentainer input[type=time].wcfm-text,
-.dark-mode #wcfm-main-contentainer textarea.wcfm-textarea,
-.dark-mode #wcfm-main-contentainer .wp-picker-container,
-.dark-mode #wcfm-main-contentainer .wcfm-checklist-group,
-.dark-mode #wcfm-main-contentainer .wcfm-radio-group,
-.dark-mode .wcfm_popup_wrapper .wcfm_popup_input,
+[data-bx-mode=dark] .wcfm_dashboard_stats_block,
+[data-bx-mode=dark] .wcfm-collapse .wcfm-container,
+[data-bx-mode=dark] .wcfm-tabWrap,
+[data-bx-mode=dark] #wcfm-main-contentainer input.wcfm-checkbox,
+[data-bx-mode=dark] #wcfm-main-contentainer input[type=checkbox],
+[data-bx-mode=dark] .wcfm-dashboard-page #wcfm-main-contentainer input[type=checkbox],
+[data-bx-mode=dark] #wcfm-main-contentainer input[type=text].wcfm-text,
+[data-bx-mode=dark] #wcfm-main-contentainer input[type=password].wcfm-text,
+[data-bx-mode=dark] #wcfm-main-contentainer select.wcfm-select,
+[data-bx-mode=dark] .wcfm_popup_form select.wcfm-select,
+[data-bx-mode=dark] .wcfm_popup_form input[type=text].wcfm-text,
+[data-bx-mode=dark] #wcfm-main-contentainer input[type=number].wcfm-text,
+[data-bx-mode=dark] #wcfm-main-contentainer input[type=time].wcfm-text,
+[data-bx-mode=dark] #wcfm-main-contentainer textarea.wcfm-textarea,
+[data-bx-mode=dark] #wcfm-main-contentainer .wp-picker-container,
+[data-bx-mode=dark] #wcfm-main-contentainer .wcfm-checklist-group,
+[data-bx-mode=dark] #wcfm-main-contentainer .wcfm-radio-group,
+[data-bx-mode=dark] .wcfm_popup_wrapper .wcfm_popup_input,
 .dark-scheme .wcfm_dashboard_stats_block,
 .dark-scheme .wcfm-collapse .wcfm-container,
 .dark-scheme .wcfm-tabWrap,
@@ -247,8 +247,8 @@ input[type=number].wcfm-text:focus,
 .dark-scheme .wcfm_popup_wrapper .wcfm_popup_input {
   box-shadow: none;
 }
-.dark-mode .wcfmmp-store-wrap li.wcfmmp-single-store.item .store-wrapper .store-footer .store-enquiry a.wcfm_catalog_enquiry,
-.dark-mode .wcfmmp-store-wrap li.wcfmmp-single-store.item .store-wrapper .store-footer a.wcfmmp-visit-store,
+[data-bx-mode=dark] .wcfmmp-store-wrap li.wcfmmp-single-store.item .store-wrapper .store-footer .store-enquiry a.wcfm_catalog_enquiry,
+[data-bx-mode=dark] .wcfmmp-store-wrap li.wcfmmp-single-store.item .store-wrapper .store-footer a.wcfmmp-visit-store,
 .dark-scheme .wcfmmp-store-wrap li.wcfmmp-single-store.item .store-wrapper .store-footer .store-enquiry a.wcfm_catalog_enquiry,
 .dark-scheme .wcfmmp-store-wrap li.wcfmmp-single-store.item .store-wrapper .store-footer a.wcfmmp-visit-store {
   background: var(--reign-site-button-bg-color) !important;
@@ -911,7 +911,7 @@ table.dataTable.display tbody td {
   border: 1px solid var(--reign-form-focus-border-color) !important;
 }
 
-.dark-mode .wcfmmp-product-geolocate-search-form i.wcfmmmp_locate_icon,
+[data-bx-mode=dark] .wcfmmp-product-geolocate-search-form i.wcfmmmp_locate_icon,
 .dark-scheme .wcfmmp-product-geolocate-search-form i.wcfmmmp_locate_icon {
   background-color: #fdfdfd;
   border-radius: 100px;
@@ -976,13 +976,14 @@ table.dataTable.display tbody td {
   z-index: 1;
 }
 
-.woocommerce ul.products li.product:hover img#rwcfma-product-mark-favuorite {
-  opacity: 1;
-  visibility: visible;
-  transform: scale(1);
-  overflow: hidden;
+@media (hover: hover) and (pointer: fine) {
+  .woocommerce ul.products li.product:hover img#rwcfma-product-mark-favuorite {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+    overflow: hidden;
+  }
 }
-
 .woocommerce.single.single-product img#rwcfma-product-mark-favuorite {
   margin: 10px 0;
   padding: 0 10px;
