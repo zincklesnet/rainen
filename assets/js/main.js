@@ -30,81 +30,44 @@
             this.RegisterFormSubmit();
             this.scrollUp();
             this.postSocialShare();
+            this.singlePostContentMargin();
         },
         stickyHeader: function() {
 
-            var $body = $('body');
-            const site_header = $('.reign-fallback-header');
+            if (!$('body').hasClass('reign-sticky-header')) { return; }
 
-            if ($('.reign-header-top').length) {
-                var reign_topbar_height = $('.reign-header-top').outerHeight();
-                var reign_sticky_topbar_height = $('.reign-sticky-topbar .reign-header-top').outerHeight();
+            // Force admin bar to fixed so it doesn't interfere with sticky positioning
+            $('#wpadminbar').css('position', 'fixed');
+
+            var $masthead = $('#masthead');
+            if (!$masthead.length) { return; }
+
+            // Top Bar sync: when the topbar is enabled it must stick together with
+            // the header (card 9962867544). The topbar (.reign-header-top) and #masthead
+            // are in-flow siblings, both made position:sticky in CSS so they stack.
+            // We publish the topbar's real height as --reign-topbar-height so the masthead
+            // pins directly below it. offsetHeight is 0 when the topbar is hidden
+            // (e.g. .reign-topbar-hide-mobile), which keeps the masthead offset gap-free.
+            var topbar = document.querySelector('.reign-header-top');
+            function reignSyncTopbarHeight() {
+                var h = topbar ? topbar.offsetHeight : 0;
+                document.documentElement.style.setProperty('--reign-topbar-height', h + 'px');
+            }
+            if (topbar) {
+                reignSyncTopbarHeight();
+                $(window).on('resize.reignTopbar', reignSyncTopbarHeight);
             }
 
-            // Fixed top
-            if (site_header.hasClass('fixed-top')) {
-                var $lastScrollTop = 0;
-                $(window).on('scroll resize', function() {
-                    if (window.innerWidth >= 960) {
-                        if ($(this).scrollTop() > 0) {
-                            site_header.addClass('nav-scrolling');
-                            if ($(this).scrollTop() > $lastScrollTop) {
-                                site_header.addClass('to-bottom');
-                                site_header.removeClass('to-top');
-                            } else {
-                                site_header.addClass('to-top');
-                                site_header.removeClass('to-bottom');
-                            }
-                            $lastScrollTop = $(this).scrollTop();
-                        } else {
-                            site_header.removeClass('nav-scrolling');
-                        }
-                    } else {
-                        if ($(this).scrollTop() > 50) {
-                            site_header.addClass('nav-scrolling');
-                            if ($(this).scrollTop() > $lastScrollTop) {
-                                site_header.addClass('to-bottom');
-                                site_header.removeClass('to-top');
-                            } else {
-                                site_header.addClass('to-top');
-                                site_header.removeClass('to-bottom');
-                            }
-                            $lastScrollTop = $(this).scrollTop();
-                        } else {
-                            site_header.removeClass('nav-scrolling');
-                        }
-                    }
-                });
-            }
+            // Sentinel: 1px in-flow element inserted before #masthead.
+            // IntersectionObserver fires when the header pins.
+            var sentinel = document.createElement('div');
+            sentinel.className = 'reign-sticky-sentinel';
+            $masthead[0].parentNode.insertBefore(sentinel, $masthead[0]);
 
-            // Fixed top scrolling
-            if (site_header.hasClass('fixed-top')) {
-                $(window).on('scroll resize', function() {
-                    if (site_header.hasClass('nav-scrolling') && site_header.hasClass('to-bottom')) {
-                        if ($body.hasClass('admin-bar')) {
-                            site_header.css({ top: ($('#wpadminbar').outerHeight() - $('.reign-nav-top-bar').outerHeight()) });
-
-                            site_header.css("marginTop", 0 + "px");
-                        } else {
-                            site_header.css({ top: $('.reign-nav-top-bar').outerHeight() * -1 });
-
-                            site_header.css("marginTop", 0 + "px");
-                        }
-                    } else {
-                        site_header.removeAttr('style');
-
-                        site_header.css("marginTop", reign_topbar_height + "px");
-                    }
-                });
-            }
-        
-            if (site_header.hasClass('fixed-top')) {
-                $(window).on('load resize', function() {
-                    if ($('.reign-fallback-header:not(.nav-scrolling)')) {
-                        site_header.css("marginTop", reign_topbar_height + "px");
-                    }
-                });
-            }
+            new IntersectionObserver(function(entries) {
+                var pinned = !entries[0].isIntersecting;
+                $masthead.toggleClass('is-pinned', pinned);
+            }, { threshold: 0 }).observe(sentinel);
 
         },
         mobileMenu: function() {
@@ -157,7 +120,33 @@
                 $(this).toggleClass('fa-plus');
             });
 
-            $('.reign-navbar-mobile .primary-menu li:has(ul), .reign-navbar-mobile .navbar-reign-panel li:has(ul)').doubleTapToGo();
+            // doubleTapToGo (vendor: jquery.doubletaptogo) may be gated out on
+            // some pages — guard so the mobile menu never throws if it's absent.
+            if (typeof $.fn.doubleTapToGo === 'function') {
+                $('.reign-navbar-mobile .primary-menu li:has(ul), .reign-navbar-mobile .navbar-reign-panel li:has(ul)').doubleTapToGo();
+            }
+
+            // Touch fallback for the DESKTOP nav (tablets/iPads render the
+            // desktop menu but can't hover). The :hover reveal is gated behind
+            // @media (hover:hover), and the unguarded `.main-navigation li.focus
+            // > ul` selector is the deliberate touch path: first tap opens the
+            // submenu via .focus, second tap follows the link. Tap outside (or
+            // on another parent) closes.
+            if (window.matchMedia && window.matchMedia('(hover: none)').matches) {
+                $('.main-navigation').on('click', 'li.menu-item-has-children > a', function(e) {
+                    var $li = $(this).parent();
+                    if (!$li.hasClass('focus')) {
+                        e.preventDefault();
+                        $li.siblings('.focus').removeClass('focus').find('.focus').removeClass('focus');
+                        $li.addClass('focus');
+                    }
+                });
+                $(document).on('touchstart click', function(e) {
+                    if (!$(e.target).closest('.main-navigation').length) {
+                        $('.main-navigation li.focus').removeClass('focus');
+                    }
+                });
+            }
 
         },
         panelMenu: function() {
@@ -359,7 +348,11 @@
                     primaryNav.classList.remove('rg-primary-overflow');
                 }
             
-                if (primaryNav) {
+                // navListOrder() reads .children/offsetWidth on all four nodes,
+                // so require every one before wiring it up - otherwise a page
+                // without the extend/collapse containers throws
+                // "Cannot read properties of null (reading 'children')".
+                if (primaryNav && extendNav && primaryWrap && navCollapse) {
                     $(window).on('resize', function () {
                         setTimeout(navListOrder, 300);
                     });
@@ -388,26 +381,72 @@
 
         },
         headerSearch: function() {
-            $(document).on('click keydown', '.search-wrap .rg-search-icon', function(e) {
-                if (e.type === 'keydown' && (e.key !== 'Enter' && e.keyCode !== 13)) return;
+            var WRAP = '.search-wrap';
+
+            function openSearch($wrap) {
+                // Close any other open search first
+                $('.search-wrap.search-active').not($wrap).each(function() {
+                    closeSearch($(this), false);
+                });
+                $wrap.addClass('search-active');
+                $wrap.find('.rg-search-icon').attr('aria-expanded', 'true');
+                $wrap.find('.search-field').first().trigger('focus');
+            }
+
+            function closeSearch($wrap, returnFocus) {
+                $wrap.removeClass('search-active');
+                $wrap.find('.rg-search-icon').attr('aria-expanded', 'false');
+                if (returnFocus) {
+                    $wrap.find('.rg-search-icon').trigger('focus');
+                }
+            }
+
+            function isActivationKey(e) {
+                return e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32;
+            }
+
+            // Open / toggle on icon click or Enter / Space
+            $(document).on('click keydown', WRAP + ' .rg-search-icon', function(e) {
+                if (e.type === 'keydown' && !isActivationKey(e)) { return; }
                 e.preventDefault();
-                var searchParent = $(this).closest('.search-wrap');
-                searchParent.toggleClass('search-active');
-                searchParent.find('.search-field').trigger('focus');
+                var $wrap = $(this).closest(WRAP);
+                $wrap.hasClass('search-active') ? closeSearch($wrap, true) : openSearch($wrap);
             });
 
-            $(document).on('click keydown', '.search-wrap .rg-search-close', function(e) {
-                if (e.type === 'keydown' && (e.key !== 'Enter' && e.keyCode !== 13)) return;
+            // Close button — click or Enter / Space
+            $(document).on('click keydown', WRAP + ' .rg-search-close', function(e) {
+                if (e.type === 'keydown' && !isActivationKey(e)) { return; }
                 e.preventDefault();
-                $('.search-wrap').removeClass('search-active');
+                closeSearch($(this).closest(WRAP), true);
             });
 
+            // Escape closes and returns focus to icon
             $(document).on('keydown', function(e) {
-                if ((e.key && e.key === 'Escape') || e.keyCode === 27) {
-                    if ($('.search-wrap').hasClass('search-active')) {
+                if (e.key === 'Escape' || e.keyCode === 27) {
+                    var $active = $('.search-wrap.search-active');
+                    if ($active.length) {
                         e.preventDefault();
-                        $('.search-wrap').removeClass('search-active');
+                        closeSearch($active, true);
                     }
+                }
+            });
+
+            // Close when focus moves outside the search wrap
+            $(document).on('focusout', WRAP, function() {
+                var $wrap = $(this);
+                setTimeout(function() {
+                    if ($wrap.hasClass('search-active') && !$wrap.find(':focus').length) {
+                        closeSearch($wrap, false);
+                    }
+                }, 0);
+            });
+
+            // Close on outside mouse click
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest(WRAP).length) {
+                    $('.search-wrap.search-active').each(function() {
+                        closeSearch($(this), false);
+                    });
                 }
             });
         },
@@ -428,12 +467,21 @@
             $('.tutor-video-player iframe').addClass('fitvidsignore');
 
             // Target your .container, .wrapper, .post, etc.
-            $("body").fitVids();
+            // fitVids (vendor: fitvids) is loaded globally today, but guard the
+            // call so conditional loading stays safe.
+            if (typeof $.fn.fitVids === 'function') {
+                $("body").fitVids();
+            }
         },
         stickyKit: function() {
+            // theiaStickySidebar (vendor: sticky-sidebar) is now only enqueued
+            // when the "Sticky Sidebar" theme option is on. Bail early if the
+            // plugin isn't present so the call never throws.
+            if (typeof $.fn.theiaStickySidebar !== 'function') { return; }
+
             var rgHeaderHeight = $('#masthead .reign-fallback-header').outerHeight();
             var offsetTop = 39;
-        
+
             if ($('body').hasClass('reign-sticky-header') && $('body').hasClass('admin-bar')) {
                 offsetTop = rgHeaderHeight + 71;
             } else if ($('body').hasClass('reign-sticky-header')) {
@@ -481,6 +529,11 @@
             }
         },
         galleryPostSlider: function() {
+
+            // slick (vendor: slick) stays globally enqueued (also used by the
+            // WooCommerce/BuddyPress/EDD/PeepSo/LifterLMS bundles), but guard
+            // the call so a future gating never breaks gallery archives.
+            if (typeof $.fn.slick !== 'function') { return; }
 
             $('.archive-rg-gallery-post .gallery').each(function() {
                 var obj_rtl;
@@ -1140,7 +1193,7 @@
                     animation: 'fade', // Fade, slide, none
                     animationInSpeed: 200, // Animation in speed (ms)
                     animationOutSpeed: 200, // Animation out speed (ms)
-                    scrollText: '<div class="scroll-top-bar-wrapper"><span class="scroll-text">Scroll to top</span><div class="scroll-top-bar"><div class="loading"></div></div></div>', // Text for element, can contain HTML
+                    scrollText: '<div class="scroll-top-bar-wrapper"><span class="scroll-text">' + ( wp_main_js_obj.scroll_to_top || 'Scroll to Top' ) + '</span><div class="scroll-top-bar"><div class="loading"></div></div></div>', // Text for element, can contain HTML
                     scrollTitle: false, // Set a custom <a> title if required. Defaults to scrollText
                     scrollImg: false, // Set true to use image
                     activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
@@ -1156,6 +1209,11 @@
             }
         },
         postSocialShare: function() {
+            // stick_in_parent (vendor: sticky-kit) is now only enqueued on
+            // singular content where the social-share box renders. Bail early
+            // if the plugin isn't present so the call never throws.
+            if (typeof $.fn.stick_in_parent !== 'function') { return; }
+
             var headerHeight = $( '#masthead' ).height();
 			var headerHeightExt = headerHeight + 55;
 
@@ -1174,6 +1232,26 @@
 			} );
               
         },
+        singlePostContentMargin: function() {
+            if ( !$( 'body' ).hasClass( 'single-post-default-layout' ) ) {
+                return;
+            }
+
+            const container      = document.querySelector( '.single-post-default-layout .container' );
+            const contentWrapper = document.querySelector( '.single-post-default-layout .content-wrapper' );
+
+            if ( !container || !contentWrapper ) {
+                return;
+            }
+
+            function applyMargin() {
+                const maxWidth = getComputedStyle( container ).maxWidth;
+                contentWrapper.style.marginLeft = ( maxWidth === '100%' && window.innerWidth >= 1400 ) ? '70px' : '';
+            }
+
+            applyMargin();
+            $( window ).on( 'resize.singlePostContentMargin', applyMargin );
+        },
     };
 
     jQuery(document).ready(function() {
@@ -1182,96 +1260,3 @@
 
 })(jQuery);
 
-// Reign Sticky Topbar
-jQuery(document).ready(function() {
-    if (jQuery('.reign-header-top').length) {
-        var admin_bar_height = 32;
-        var reign_topbar_height = jQuery('.reign-header-top').height();
-
-        jQuery('body.admin-bar.reign-sticky-topbar .reign-header-top').css("top", admin_bar_height + "px");
-        jQuery('.reign-sticky-topbar #masthead').css("top", reign_topbar_height + 10 + "px");
-    }
-});
-
-jQuery(window).on('resize', function() {
-    if (jQuery('.reign-header-top').length) {
-        var admin_bar_height = 32;
-        var reign_topbar_height = jQuery('.reign-header-top').height();
-
-        jQuery('body.admin-bar.reign-sticky-topbar .reign-header-top').css("top", admin_bar_height + "px");
-        jQuery('.reign-sticky-topbar #masthead').css("top", reign_topbar_height + 10 + "px");
-    }
-});
-
-
-// Reign Mobile Header Resize
-jQuery(window).on('resize', function() {
-
-    var body = jQuery('body');
-    site_mobile_header = jQuery('.reign-fallback-header.header-mobile');
-    if (jQuery('.reign-header-top').length) {
-        var reign_topbar_height = jQuery('.reign-header-top').outerHeight();
-    }
-
-    if (window.innerWidth < 960) {
-
-        // Fixed top
-        if (site_mobile_header.hasClass('fixed-top')) {
-            var lastScrollTop = 0;
-            jQuery(window).on('scroll', function() {
-                if (jQuery(this).scrollTop() > 50) {
-                    site_mobile_header.addClass('nav-scrolling');
-                    if (jQuery(this).scrollTop() > lastScrollTop) {
-                        site_mobile_header.addClass('to-bottom');
-                        site_mobile_header.removeClass('to-top');
-                    } else {
-                        site_mobile_header.addClass('to-top');
-                        site_mobile_header.removeClass('to-bottom');
-                    }
-                    lastScrollTop = jQuery(this).scrollTop();
-                } else {
-                    site_mobile_header.removeClass('nav-scrolling');
-                }
-            });
-        }
-
-        // Fixed top scrolling
-        if (site_mobile_header.hasClass('fixed-top')) {
-
-            if (site_mobile_header.hasClass('nav-scrolling') && site_mobile_header.hasClass('to-bottom')) {
-                if (body.hasClass('admin-bar')) {
-                    site_mobile_header.css({ top: (jQuery('#wpadminbar').outerHeight() - jQuery('.reign-nav-top-bar').outerHeight()) });
-
-                    site_mobile_header.css("marginTop", 0 + "px");
-                } else {
-                    site_mobile_header.css({ top: jQuery('.reign-nav-top-bar').outerHeight() * -1 });
-
-                    site_mobile_header.css("marginTop", 0 + "px");
-                }
-            } else {
-                site_mobile_header.removeAttr('style');
-
-                site_mobile_header.css("marginTop", reign_topbar_height + "px");
-            }
-
-            jQuery(window).on('scroll', function() {
-                if (site_mobile_header.hasClass('nav-scrolling') && site_mobile_header.hasClass('to-bottom')) {
-                    if (body.hasClass('admin-bar')) {
-                        site_mobile_header.css({ top: (jQuery('#wpadminbar').outerHeight() - jQuery('.reign-nav-top-bar').outerHeight()) });
-
-                        site_mobile_header.css("marginTop", 0 + "px");
-                    } else {
-                        site_mobile_header.css({ top: jQuery('.reign-nav-top-bar').outerHeight() * -1 });
-
-                        site_mobile_header.css("marginTop", 0 + "px");
-                    }
-                } else {
-                    site_mobile_header.removeAttr('style');
-
-                    site_mobile_header.css("marginTop", reign_topbar_height + "px");
-                }
-            });
-        }
-    }
-
-});
