@@ -6,6 +6,8 @@
  * @subpackage Widgets
  * @since 4.4.0
  */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 /**
  * Core class used to implement a Categories widget.
  *
@@ -36,11 +38,12 @@ class Reign_Woo_Widget_Product_Categories extends WP_Widget {
 	 *
 	 * @return void Echoes it's output
 	 */
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance ) {
 
-		if ( isset( $args ) ) {
-			extract( $args, EXTR_SKIP );
-		}
+		$before_widget = isset( $args['before_widget'] ) ? $args['before_widget'] : '';
+		$after_widget  = isset( $args['after_widget'] ) ? $args['after_widget'] : '';
+		$before_title  = isset( $args['before_title'] ) ? $args['before_title'] : '';
+		$after_title   = isset( $args['after_title'] ) ? $args['after_title'] : '';
 
 		$instance = wp_parse_args(
 			(array) $instance,
@@ -88,21 +91,21 @@ class Reign_Woo_Widget_Product_Categories extends WP_Widget {
 	 *
 	 * @return array
 	 */
-    function update( $new_instance, $old_instance ) {
-        $updated_instance                                 = $old_instance;
-        $updated_instance['title']                        = sanitize_text_field( $new_instance['title'] );
-        $updated_instance['per_row']                      = absint( $new_instance['per_row'] );
-        $updated_instance['count']                        = absint( $new_instance['count'] );
-        $updated_instance['show_parent_categories_only']  = ! empty( $new_instance['show_parent_categories_only'] ) ? 1 : 0;
-        $updated_instance['show_count']                   = ! empty( $new_instance['show_count'] ) ? 1 : 0;
-        $updated_instance['enable_slider']                = ! empty( $new_instance['enable_slider'] ) ? 1 : 0;
-        $updated_instance['layout']                       = sanitize_text_field( $new_instance['layout'] );
-        // Sanitize selected categories as comma-separated list of ints.
-        $selected_categories                              = isset( $new_instance['selected_categories'] ) ? $new_instance['selected_categories'] : '';
-        $selected_categories_ids                          = array_filter( array_map( 'absint', array_filter( array_map( 'trim', explode( ',', (string) $selected_categories ) ) ) ) );
-        $updated_instance['selected_categories']          = implode( ',', $selected_categories_ids );
-        return $updated_instance;
-    }
+	public function update( $new_instance, $old_instance ) {
+		$updated_instance                                = $old_instance;
+		$updated_instance['title']                       = sanitize_text_field( $new_instance['title'] );
+		$updated_instance['per_row']                     = absint( $new_instance['per_row'] );
+		$updated_instance['count']                       = absint( $new_instance['count'] );
+		$updated_instance['show_parent_categories_only'] = ! empty( $new_instance['show_parent_categories_only'] ) ? 1 : 0;
+		$updated_instance['show_count']                  = ! empty( $new_instance['show_count'] ) ? 1 : 0;
+		$updated_instance['enable_slider']               = ! empty( $new_instance['enable_slider'] ) ? 1 : 0;
+		$updated_instance['layout']                      = sanitize_text_field( $new_instance['layout'] );
+		// Sanitize selected categories as comma-separated list of ints.
+		$selected_categories                     = isset( $new_instance['selected_categories'] ) ? $new_instance['selected_categories'] : '';
+		$selected_categories_ids                 = array_filter( array_map( 'absint', array_filter( array_map( 'trim', explode( ',', (string) $selected_categories ) ) ) ) );
+		$updated_instance['selected_categories'] = implode( ',', $selected_categories_ids );
+		return $updated_instance;
+	}
 
 	/**
 	 * Displays the form for this widget on the Widgets page of the WP Admin area.
@@ -111,7 +114,7 @@ class Reign_Woo_Widget_Product_Categories extends WP_Widget {
 	 *
 	 * @return void Echoes it's output
 	 */
-	function form( $instance ) {
+	public function form( $instance ) {
 		$instance = wp_parse_args(
 			(array) $instance,
 			array(
@@ -134,7 +137,13 @@ class Reign_Woo_Widget_Product_Categories extends WP_Widget {
 		$enable_slider               = $instance['enable_slider'];
 		$layout                      = $instance['layout'];
 		$selected_categories         = $instance['selected_categories'];
-		$categories                  = get_terms( 'product_cat', array( 'orderby' => 'name', 'hide_empty' => false ) );
+		$categories                  = get_terms(
+			array(
+				'taxonomy'   => 'product_cat',
+				'orderby'    => 'name',
+				'hide_empty' => false,
+			)
+		);
 		?>
 
 		<p>

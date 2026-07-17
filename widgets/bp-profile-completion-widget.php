@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Required by a fixed path in functions.php; renaming would break that out-of-scope reference.
 /**
  * Reign Profile Completion Widget.
  */
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class BP_Reign_Profile_Completion_Widget extends WP_Widget {
 
-	function __construct() {
+	public function __construct() {
 
 		/* Set up optional widget args. */
 		$widget_ops = array(
@@ -21,17 +21,17 @@ class BP_Reign_Profile_Completion_Widget extends WP_Widget {
 		);
 
 		/* Set up the widget. */
-        parent::__construct(
-            false,
-            esc_html_x( 'Reign - Profile Completion', 'widget name', 'reign' ),
-            $widget_ops
-        );
+		parent::__construct(
+			false,
+			esc_html_x( 'Reign - Profile Completion', 'widget name', 'reign' ),
+			$widget_ops
+		);
 	}
 
 	/**
 	 * Displays the widget.
 	 */
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance ) {
 		/*
 		 * do not do anything if user isn't logged in OR IF user is viewing other members profile.
 		 */
@@ -39,8 +39,8 @@ class BP_Reign_Profile_Completion_Widget extends WP_Widget {
 			return;
 		}
 
-		$profile_groups_selected      = isset( $instance['profile_groups_enabled'] ) ? $instance['profile_groups_enabled'] : array();
-		$profile_phototype_selected   = ! empty( $instance['profile_photos_enabled'] ) ? $instance['profile_photos_enabled'] : array();
+		$profile_groups_selected    = isset( $instance['profile_groups_enabled'] ) ? $instance['profile_groups_enabled'] : array();
+		$profile_phototype_selected = ! empty( $instance['profile_photos_enabled'] ) ? $instance['profile_photos_enabled'] : array();
 
 		// Plug-and-play defaults: if no selections made, use all available profile groups and photo types.
 		if ( empty( $profile_groups_selected ) && empty( $profile_phototype_selected ) ) {
@@ -48,7 +48,12 @@ class BP_Reign_Profile_Completion_Widget extends WP_Widget {
 			if ( function_exists( 'bp_xprofile_get_groups' ) ) {
 				$all_groups = bp_xprofile_get_groups();
 				if ( ! empty( $all_groups ) && is_array( $all_groups ) ) {
-					$profile_groups_selected = array_map( function ( $group ) { return isset( $group->id ) ? (int) $group->id : 0; }, $all_groups );
+					$profile_groups_selected = array_map(
+						function ( $group ) {
+							return isset( $group->id ) ? (int) $group->id : 0;
+						},
+						$all_groups
+					);
 					$profile_groups_selected = array_filter( $profile_groups_selected );
 				}
 			}
@@ -88,7 +93,7 @@ class BP_Reign_Profile_Completion_Widget extends WP_Widget {
 		/*
 		 * Widget Title
 		 */
-		$title = isset( $instance['title'] ) && $instance['title'] !== '' ? $instance['title'] : __( 'Complete Your Profile', 'reign' );
+		$title = isset( $instance['title'] ) && '' !== $instance['title'] ? $instance['title'] : __( 'Complete Your Profile', 'reign' );
 		if ( isset( $args['before_title'] ) && isset( $args['after_title'] ) ) {
 			echo $args['before_title'] . $title . $args['after_title']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		} else {
@@ -98,6 +103,7 @@ class BP_Reign_Profile_Completion_Widget extends WP_Widget {
 		/*
 		 * Widget Content
 		 */
+		/* translators: %s: Completion percentage (e.g. "75%"). */
 		$progress_label = sprintf( __( '%s Complete', 'reign' ), $user_progress['completion_percentage'] . '%' );
 		?>
 		<div class="wb-bp-profile-completion-wrap">
@@ -179,7 +185,7 @@ class BP_Reign_Profile_Completion_Widget extends WP_Widget {
 	 *
 	 * @return type
 	 */
-	function get_user_profile_progress_data( $profile_groups, $profile_phototype ) {
+	public function get_user_profile_progress_data( $profile_groups, $profile_phototype ) {
 
 		$user_progress_formmatted = array();
 		$user_progress_arr        = $this->get_user_profile_progress( $profile_groups, $profile_phototype );
@@ -196,7 +202,7 @@ class BP_Reign_Profile_Completion_Widget extends WP_Widget {
 	 *
 	 * @return int
 	 */
-	function get_user_profile_progress( $group_ids, $photo_types ) {
+	public function get_user_profile_progress( $group_ids, $photo_types ) {
 
 		/* User Progress specific VARS. */
 		$user_id                = get_current_user_id();
@@ -345,7 +351,7 @@ class BP_Reign_Profile_Completion_Widget extends WP_Widget {
 		$progress_details['total_fields']     = $grand_total_fields;
 		$progress_details['completed_fields'] = $grand_completed_fields;
 
-		return apply_filters( 'BP_reign_user_progress', $progress_details );
+		return apply_filters( 'bp_reign_user_progress', $progress_details );
 	}
 
 	/**
@@ -355,7 +361,7 @@ class BP_Reign_Profile_Completion_Widget extends WP_Widget {
 	 *
 	 * @return int
 	 */
-	function get_user_profile_progress_formatted( $user_progress_arr ) {
+	public function get_user_profile_progress_formatted( $user_progress_arr ) {
 
 		/* Groups */
 
@@ -389,7 +395,7 @@ class BP_Reign_Profile_Completion_Widget extends WP_Widget {
 				'completed'          => $group_details['group_completed_fields'],
 			);
 
-			$listing_number ++;
+			++$listing_number;
 		}
 
 		/* Profile Photo */
@@ -408,7 +414,7 @@ class BP_Reign_Profile_Completion_Widget extends WP_Widget {
 				'completed'          => ( $is_profile_uploaded ) ? 1 : 0,
 			);
 
-			$listing_number ++;
+			++$listing_number;
 		}
 
 		/* Cover Photo */
@@ -427,26 +433,26 @@ class BP_Reign_Profile_Completion_Widget extends WP_Widget {
 				'completed'          => ( $is_cover_uploaded ) ? 1 : 0,
 			);
 
-			$listing_number ++;
+			++$listing_number;
 		}
 
 		/**
 		 * Filter returns User Progress array in the template friendly format.
 		 */
-		return apply_filters( 'BP_reign_user_progress_formatted', $user_prgress_formatted );
+		return apply_filters( 'bp_reign_user_progress_formatted', $user_prgress_formatted );
 	}
 
 	/**
 	 * Callback to save widget settings.
 	 */
-	function update( $new_instance, $old_instance ) {
-		return apply_filters( 'BP_reign_profile_completion_form_update', $new_instance );
+	public function update( $new_instance, $old_instance ) {
+		return apply_filters( 'bp_reign_profile_completion_form_update', $new_instance );
 	}
 
 	/**
 	 * Widget settings form.
 	 */
-	function form( $instance ) {
+	public function form( $instance ) {
 
 		$instance = wp_parse_args( (array) $instance, array( 'title' => __( 'Complete Your Profile', 'reign' ) ) );
 
@@ -491,8 +497,8 @@ class BP_Reign_Profile_Completion_Widget extends WP_Widget {
 					<label>
 						<input class="widefat" type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'profile_groups_enabled' ) ); ?>[]" value="<?php echo esc_attr( $single_group_details->id ); ?>"
 						<?php checked( $is_checked ); ?>
-							   />
-							   <?php echo esc_html( $single_group_details->name ); ?>
+								/>
+								<?php echo esc_html( $single_group_details->name ); ?>
 					</label>
 				</li>
 			<?php endforeach; ?>
@@ -534,7 +540,6 @@ class BP_Reign_Profile_Completion_Widget extends WP_Widget {
 
 		<?php
 	}
-
 }
 
 add_action(

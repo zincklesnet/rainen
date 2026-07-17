@@ -17,6 +17,8 @@
  * @see tribe_get_event() For the format of the event object.
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 $classes = get_post_class( array( 'tribe-common-g-col', 'tribe-events-pro-photo__event' ), $event->ID );
 
 if ( ! empty( $event->featured ) ) {

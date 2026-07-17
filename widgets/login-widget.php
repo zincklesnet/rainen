@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Required by a fixed path in functions.php; renaming would break that out-of-scope reference.
 /**
  * BuddyPress Login Widget.
  *
@@ -28,7 +28,7 @@ class BP_REIGN_BP_Login_Widget extends WP_Widget {
 			'classname'                   => 'widget_rign_bp_login_widget buddypress widget',
 			'customize_selective_refresh' => true,
 		);
-        parent::__construct( false, esc_html_x( 'Reign - Login', 'widget name', 'reign' ), $widget_ops );
+		parent::__construct( false, esc_html_x( 'Reign - Login', 'widget name', 'reign' ), $widget_ops );
 	}
 
 	/**
@@ -55,10 +55,10 @@ class BP_REIGN_BP_Login_Widget extends WP_Widget {
 		$rand               = rand( 1000, 9999 );
 		echo isset( $args['before_widget'] ) ? $args['before_widget'] : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped		
 
-		if ( $login_description == '' ) {
+		if ( '' === $login_description ) {
 			global $wbtm_reign_settings;
 			$registration_page_url = wp_registration_url();
-			if ( isset( $wbtm_reign_settings['reign_pages']['reign_register_page'] ) && ( $wbtm_reign_settings['reign_pages']['reign_register_page'] != '-1' && $wbtm_reign_settings['reign_pages']['reign_register_page'] != '' ) ) {
+			if ( isset( $wbtm_reign_settings['reign_pages']['reign_register_page'] ) && ( '-1' !== $wbtm_reign_settings['reign_pages']['reign_register_page'] && '' !== $wbtm_reign_settings['reign_pages']['reign_register_page'] ) ) {
 				$registration_page_id  = $wbtm_reign_settings['reign_pages']['reign_register_page'];
 				$registration_page_url = get_permalink( $registration_page_id );
 			}
@@ -100,10 +100,10 @@ class BP_REIGN_BP_Login_Widget extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
-        $instance['title']              = sanitize_text_field( $new_instance['title'] );
-        $instance['login_redirect']     = sanitize_text_field( $new_instance['login_redirect'] );
-        $instance['login_redirect_url'] = esc_url_raw( $new_instance['login_redirect_url'] );
-        $instance['login_description']  = wp_kses_post( $new_instance['login_description'] );
+		$instance['title']              = sanitize_text_field( $new_instance['title'] );
+		$instance['login_redirect']     = sanitize_text_field( $new_instance['login_redirect'] );
+		$instance['login_redirect_url'] = esc_url_raw( $new_instance['login_redirect_url'] );
+		$instance['login_description']  = wp_kses_post( $new_instance['login_description'] );
 
 		return $instance;
 	}
@@ -125,10 +125,10 @@ class BP_REIGN_BP_Login_Widget extends WP_Widget {
 		);
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
-        $title              = sanitize_text_field( $instance['title'] );
-        $login_redirect     = sanitize_text_field( $instance['login_redirect'] );
-        $login_redirect_url = esc_url_raw( $instance['login_redirect_url'] );
-        $login_description  = wp_kses_post( $instance['login_description'] );
+		$title              = sanitize_text_field( $instance['title'] );
+		$login_redirect     = sanitize_text_field( $instance['login_redirect'] );
+		$login_redirect_url = esc_url_raw( $instance['login_redirect_url'] );
+		$login_description  = wp_kses_post( $instance['login_description'] );
 		?>
 
 		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'reign' ); ?> <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" /></label></p>
@@ -156,6 +156,7 @@ class BP_REIGN_BP_Login_Widget extends WP_Widget {
 /**
  * Register the widget
  */
+// phpcs:ignore Universal.Files.SeparateFunctionsFromOO.Mixed -- Widget class is paired with its registration callback in one file by design.
 function reign_register_bp_login_widget() {
 	register_widget( 'BP_REIGN_BP_Login_Widget' );
 }

@@ -12,6 +12,8 @@
  * @version 5.0.0
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 use Tribe\Events\Views\V2\Template_Bootstrap;
 
 get_header();

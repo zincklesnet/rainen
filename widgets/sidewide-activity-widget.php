@@ -1,4 +1,6 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Required by a fixed path in functions.php; renaming would break that out-of-scope reference.
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 
 /**
  * The Sitewide Activity Widget Class
@@ -17,16 +19,13 @@ class BP_REIGN_ACTIVITY_Widget extends WP_Widget {
 	 * Load Js on front end
 	 */
 	public function reign_enqueue_scripts() {
-
-		if ( ! is_admin() ) {
-			// wp_enqueue_script( 'reign-widget-js', get_template_directory_uri() . '/assets/js/reign-widget.js', array( 'jquery' ) );
-		}
+		// Reserved for future front-end asset enqueue for this widget.
 	}
 
 	public function widget( $args, $instance ) {
 
 		if ( isset( $instance['is_personal'] ) ) {
-			if ( $instance['is_personal'] == 'yes' && ! is_user_logged_in() ) {
+			if ( 'yes' === $instance['is_personal'] && ! is_user_logged_in() ) {
 				return; // do  not show anything if the widget is set to be displayed for the logged in users activity only
 			}
 		}
@@ -59,15 +58,15 @@ class BP_REIGN_ACTIVITY_Widget extends WP_Widget {
 			echo $args['before_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
-        $safe_title = isset( $instance['title'] ) && $instance['title'] !== '' ? $instance['title'] : esc_html__( 'Site Wide Activities', 'reign' );
-        if ( isset( $args['before_title'] ) ) {
-            echo $args['before_title'] . $safe_title; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        } else {
-            echo $safe_title; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        }
+		$safe_title = isset( $instance['title'] ) && '' !== $instance['title'] ? $instance['title'] : esc_html__( 'Site Wide Activities', 'reign' );
+		if ( isset( $args['before_title'] ) ) {
+			echo $args['before_title'] . $safe_title; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		} else {
+			echo $safe_title; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		}
 
 		if ( isset( $instance['show_feed_link'] ) ) {
-			if ( $instance['show_feed_link'] == 'yes' ) {
+			if ( 'yes' === $instance['show_feed_link'] ) {
 				echo ' <a class="reign-rss" href="' . bp_get_sitewide_activity_feed_link() . '" title="' . esc_html__( 'Sitewide Activity RSS Feed', 'reign' ) . '">' . __( '[RSS]', 'reign' ) . '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 		}
@@ -124,17 +123,17 @@ class BP_REIGN_ACTIVITY_Widget extends WP_Widget {
 		<?php
 	}
 
-    public function update( $new_instance, $old_instance ) {
+	public function update( $new_instance, $old_instance ) {
 		$instance                          = $old_instance;
-        $instance['title']                 = sanitize_text_field( $new_instance['title'] );
-        $instance['max_items']             = absint( $new_instance['max_items'] );
-        $instance['per_page']              = absint( $new_instance['per_page'] );
-        $instance['show_avatar']           = sanitize_text_field( $new_instance['show_avatar'] ); // avatar should be visible or not.
-        $instance['allow_reply']           = isset( $new_instance['allow_reply'] ) ? sanitize_text_field( $new_instance['allow_reply'] ) : 'no'; // allow reply inside widget or not.
-        $instance['show_feed_link']        = isset( $new_instance['show_feed_link'] ) ? sanitize_text_field( $new_instance['show_feed_link'] ) : 'yes'; // feed link should be visible or not.
-        $instance['show_activity_filters'] = isset( $new_instance['show_activity_filters'] ) ? sanitize_text_field( $new_instance['show_activity_filters'] ) : 'yes'; // activity filters should be visible or not.
+		$instance['title']                 = sanitize_text_field( $new_instance['title'] );
+		$instance['max_items']             = absint( $new_instance['max_items'] );
+		$instance['per_page']              = absint( $new_instance['per_page'] );
+		$instance['show_avatar']           = sanitize_text_field( $new_instance['show_avatar'] ); // avatar should be visible or not.
+		$instance['allow_reply']           = isset( $new_instance['allow_reply'] ) ? sanitize_text_field( $new_instance['allow_reply'] ) : 'no'; // allow reply inside widget or not.
+		$instance['show_feed_link']        = isset( $new_instance['show_feed_link'] ) ? sanitize_text_field( $new_instance['show_feed_link'] ) : 'yes'; // feed link should be visible or not.
+		$instance['show_activity_filters'] = isset( $new_instance['show_activity_filters'] ) ? sanitize_text_field( $new_instance['show_activity_filters'] ) : 'yes'; // activity filters should be visible or not.
 		// $instance[ 'show_post_form' ]        = $new_instance[ 'show_post_form' ]; //should we show the post form or not.
-        $instance['show_activity_content'] = isset( $new_instance['show_activity_content'] ) ? absint( $new_instance['show_activity_content'] ) : 0;
+		$instance['show_activity_content'] = isset( $new_instance['show_activity_content'] ) ? absint( $new_instance['show_activity_content'] ) : 0;
 		// $instance[ 'allow_comment' ]       = absint( $new_instance[ 'allow_comment' ] );
 		$instance['included_components']    = reign_normalize_activity_components(
 			isset( $new_instance['included_components'] ) ? $new_instance['included_components'] : array()
@@ -142,8 +141,8 @@ class BP_REIGN_ACTIVITY_Widget extends WP_Widget {
 		$instance['excluded_components']    = reign_normalize_activity_components(
 			isset( $new_instance['excluded_components'] ) ? $new_instance['excluded_components'] : array()
 		);
-        $instance['is_blog_admin_activity'] = isset( $new_instance['is_blog_admin_activity'] ) ? sanitize_text_field( $new_instance['is_blog_admin_activity'] ) : 'no';
-        $instance['is_personal']            = isset( $new_instance['is_personal'] ) ? sanitize_text_field( $new_instance['is_personal'] ) : 'no';
+		$instance['is_blog_admin_activity'] = isset( $new_instance['is_blog_admin_activity'] ) ? sanitize_text_field( $new_instance['is_blog_admin_activity'] ) : 'no';
+		$instance['is_personal']            = isset( $new_instance['is_personal'] ) ? sanitize_text_field( $new_instance['is_personal'] ) : 'no';
 		$instance['activity_words_count']   = absint( $new_instance['activity_words_count'] );
 		return $instance;
 	}
@@ -258,11 +257,11 @@ class BP_REIGN_ACTIVITY_Widget extends WP_Widget {
 				<?php $recorded_components = reign_get_recorded_components(); ?>
 				<?php foreach ( (array) $recorded_components as $component ) : ?>
 					<label for="<?php echo esc_attr( $this->get_field_id( 'included_components' ) . '_' . $component ); ?>" ><?php echo esc_html( ucwords( $component ) ); ?> <input id="<?php echo esc_attr( $this->get_field_id( 'included_components' ) . '_' . $component ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'included_components' ) ); ?>[]" type="checkbox"
-										   <?php
+											<?php
 											if ( is_array( $included_components ) && in_array( $component, $included_components ) ) {
 												echo "checked='checked'";}
 											?>
-					 value="<?php echo esc_attr( $component ); ?>" /></label>
+					value="<?php echo esc_attr( $component ); ?>" /></label>
 				<?php endforeach; ?>
 			</p>
 		</div>
@@ -273,17 +272,16 @@ class BP_REIGN_ACTIVITY_Widget extends WP_Widget {
 				<?php $recorded_components = BP_Activity_Activity::get_recorded_components(); ?>
 				<?php foreach ( (array) $recorded_components as $component ) : ?>
 					<label for="<?php echo esc_attr( $this->get_field_id( 'excluded_components' ) . '_' . $component ); ?>" ><?php echo esc_html( ucwords( $component ) ); ?> <input id="<?php echo esc_attr( $this->get_field_id( 'excluded_components' ) . '_' . $component ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'excluded_components' ) ); ?>[]" type="checkbox"
-										   <?php
+											<?php
 											if ( is_array( $excluded_components ) && in_array( $component, $excluded_components ) ) {
 												echo "checked='checked'";}
 											?>
-					 value="<?php echo esc_attr( $component ); ?>"  /></label>
+					value="<?php echo esc_attr( $component ); ?>"  /></label>
 				<?php endforeach; ?>
 			</p>
 		</div>
 		<?php
 	}
-
 }
 
 // end of class
@@ -291,6 +289,7 @@ class BP_REIGN_ACTIVITY_Widget extends WP_Widget {
 /**
  * Register the widget
  */
+// phpcs:ignore Universal.Files.SeparateFunctionsFromOO.Mixed -- Widget class is paired with its registration + render helpers in one file by design.
 function reign_register_widget() {
 	if ( bp_is_active( 'activity' ) ) {
 		register_widget( 'BP_REIGN_ACTIVITY_Widget' );
@@ -299,49 +298,37 @@ function reign_register_widget() {
 
 add_action( 'bp_widgets_init', 'reign_register_widget' );
 
-// ajax action handling	for the filters(blogs/profile/groups).
+// ajax action handling for the filters(blogs/profile/groups).
 function reign_ajax_list_activity() {
-	// Nonce check: support both default _wpnonce and explicit field for backward compatibility.
-	if ( isset( $_POST['_wpnonce'] ) ) {
-		check_ajax_referer( 'reign_activity' );
-	} elseif ( isset( $_POST['reign_activity_nonce'] ) ) {
+	// Nonce check: mandatory. Accept either the default _wpnonce or the explicit reign_activity_nonce field.
+	if ( isset( $_POST['reign_activity_nonce'] ) ) {
 		check_ajax_referer( 'reign_activity', 'reign_activity_nonce' );
+	} else {
+		check_ajax_referer( 'reign_activity' );
 	}
-	$page = sanitize_text_field( $_POST['page'] );
-	$page = isset( $page ) ? absint( $page ) : 1;
+	$page = isset( $_POST['page'] ) ? absint( wp_unslash( $_POST['page'] ) ) : 1;
 
-	$scope = sanitize_text_field( $_POST['scope'] );
-	$scope = isset( $scope ) ? $scope : '';
+	$scope = isset( $_POST['scope'] ) ? sanitize_text_field( wp_unslash( $_POST['scope'] ) ) : '';
 
-	$per_page = sanitize_text_field( $_POST['per_page'] );
-	$per_page = isset( $per_page ) ? absint( $per_page ) : 10;
+	$per_page = isset( $_POST['per_page'] ) ? absint( wp_unslash( $_POST['per_page'] ) ) : 10;
 
-	$max = sanitize_text_field( $_POST['max'] );
-	$max = isset( $max ) ? absint( $max ) : 200;
+	$max = isset( $_POST['max'] ) ? absint( wp_unslash( $_POST['max'] ) ) : 200;
 
-	$show_avatar = sanitize_text_field( $_POST['show_avatar'] );
-	$show_avatar = isset( $show_avatar ) ? $show_avatar : 1;
+	$show_avatar = isset( $_POST['show_avatar'] ) ? sanitize_text_field( wp_unslash( $_POST['show_avatar'] ) ) : 1;
 
-	$show_filters = sanitize_text_field( $_POST['show_filters'] );
-	$show_filters = isset( $show_filters ) ? $show_filters : 1;
+	$show_filters = isset( $_POST['show_filters'] ) ? sanitize_text_field( wp_unslash( $_POST['show_filters'] ) ) : 1;
 
-	$show_content = sanitize_text_field( $_POST['show_content'] );
-	$show_content = isset( $show_content ) ? $show_content : 1;
+	$show_content = isset( $_POST['show_content'] ) ? sanitize_text_field( wp_unslash( $_POST['show_content'] ) ) : 1;
 
-	$activity_words_count = sanitize_text_field( $_POST['activity_words_count'] );
-	$activity_words_count = isset( $activity_words_count ) ? $activity_words_count : 0;
+	$activity_words_count = isset( $_POST['activity_words_count'] ) ? sanitize_text_field( wp_unslash( $_POST['activity_words_count'] ) ) : 0;
 
-	$included = sanitize_text_field( $_POST['included_components'] );
-	$included = isset( $included ) ? $included : false;
+	$included = isset( $_POST['included_components'] ) ? sanitize_text_field( wp_unslash( $_POST['included_components'] ) ) : false;
 
-	$excluded = sanitize_text_field( $_POST['excluded_components'] );
-	$excluded = isset( $excluded ) ? $excluded : false;
+	$excluded = isset( $_POST['excluded_components'] ) ? sanitize_text_field( wp_unslash( $_POST['excluded_components'] ) ) : false;
 
-	$is_personal = sanitize_text_field( $_POST['is_personal'] );
-	$is_personal = isset( $is_personal ) ? $is_personal : 0;
+	$is_personal = isset( $_POST['is_personal'] ) ? sanitize_text_field( wp_unslash( $_POST['is_personal'] ) ) : 0;
 
-	$is_blog_admin_activity = sanitize_text_field( $_POST['is_blog_admin_activity'] );
-	$is_blog_admin_activity = isset( $is_blog_admin_activity ) ? $is_blog_admin_activity : 0;
+	$is_blog_admin_activity = isset( $_POST['is_blog_admin_activity'] ) ? sanitize_text_field( wp_unslash( $_POST['is_blog_admin_activity'] ) ) : 0;
 
 	// $show_post_form         = sanitize_text_field( $_POST['show_post_form'] );
 	// $show_post_form           = isset( $show_post_form ) ? $show_post_form : 0;
@@ -400,8 +387,9 @@ function reign_get_activity_filter_links( $args = array() ) {
 	);
 	// check scope, if not single entry
 
-	$r = wp_parse_args( $args, $defaults );
-	extract( $r, EXTR_SKIP );
+	$r      = wp_parse_args( $args, $defaults );
+	$before = $r['before'];
+	$after  = $r['after'];
 
 	$components = reign_get_base_component_scope( $args['include'], $args['exclude'] );
 
@@ -415,7 +403,8 @@ function reign_get_activity_filter_links( $args = array() ) {
 			continue;
 		}
 
-		if ( isset( $_GET['afilter'] ) && $component == $_GET['afilter'] ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only activity-filter state from the URL; output fully sanitized.
+		if ( isset( $_GET['afilter'] ) && sanitize_text_field( wp_unslash( $_GET['afilter'] ) ) == $component ) {
 			$selected = ' class="selected"';
 		} else {
 			$selected = '';
@@ -466,8 +455,9 @@ function reign_get_activity_filter_links( $args = array() ) {
 		// $component_links[] = $r[ 'before' ] . '<a href="' . esc_attr( $link ) . '">' . $label . '</a>' . $r[ 'after' ];
 		$component_links[] = $before . '<a href="' . esc_attr( $link ) . '">' . $label . '</a>' . $after;
 	}
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only public activity-feed scope parameter; output fully sanitized.
 	if ( ! empty( $_REQUEST['original_scope'] ) ) {
-		$scope = sanitize_text_field( $_REQUEST['original_scope'] );
+		$scope = sanitize_text_field( wp_unslash( $_REQUEST['original_scope'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only public activity-feed scope parameter; output fully sanitized.
 	}
 	if ( ! empty( $scope ) && reign_scope_has_changed( $scope ) ) {
 
@@ -523,9 +513,9 @@ function bp_reign_list_activities( $args ) {
 
 	$user_id = false; // for limiting to users
 
-	if ( $args['is_personal'] == 'yes' ) {
+	if ( 'yes' === $args['is_personal'] ) {
 		$user_id = get_current_user_id();
-	} elseif ( $args['is_blog_admin_activity'] == 'yes' ) {
+	} elseif ( 'yes' === $args['is_blog_admin_activity'] ) {
 		$user_id = reign_get_blog_admin_id();
 	} elseif ( bp_is_user() ) {
 		$user_id = null;
@@ -542,7 +532,7 @@ function bp_reign_list_activities( $args ) {
 
 	<div class='reign-wrap'>
 
-		<?php if ( $args['show_filters'] == 'yes' ) : ?>
+		<?php if ( 'yes' === $args['show_filters'] ) : ?>
 
 			<ul id="activity-filter-links" class="reign-clearfix">
 				<?php
@@ -601,7 +591,7 @@ function bp_reign_list_activities( $args ) {
 		<?php else : ?>
 
 			<?php
-			if ( $args['is_personal'] == 'yes' ) {
+			if ( 'yes' === $args['is_personal'] ) {
 				/* translators: %s: activity scope */
 				$empty_msg = sprintf( __( 'You have no recent %s activity.', 'reign' ), $scope );
 			} else {
@@ -635,8 +625,8 @@ function reign_activity_entry( $args ) {
 			'allow_comment' => false,
 		)
 	);
-	extract( $args );
 
+	$show_avatar           = isset( $args['show_avatar'] ) ? $args['show_avatar'] : '';
 	$show_activity_content = isset( $args['show_activity_content'] ) ? $args['show_activity_content'] : '';
 	// $args['allow_comment'] = false;//we can provide an option in future to allow commenting
 	$args['show_activity_content'] = absint( $show_activity_content );
@@ -646,7 +636,7 @@ function reign_activity_entry( $args ) {
 
 	<li class="<?php bp_activity_css_class(); ?>" id="activity-<?php bp_activity_id(); ?>">
 
-		<?php if ( ! empty( $show_avatar ) && $show_avatar == 'yes' ) : ?>
+		<?php if ( ! empty( $show_avatar ) && 'yes' === $show_avatar ) : ?>
 
 			<div class="reign-activity-avatar">
 				<a href="<?php bp_activity_user_link(); ?>">
@@ -746,8 +736,9 @@ function reign_get_base_component_scope( $include, $exclude ) {
  * @return bool
  */
 function reign_scope_has_changed( $new_scopes ) {
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only public activity-feed scope parameter; output fully sanitized.
 	if ( isset( $_REQUEST['original_scope'] ) ) {
-		$old_scope = sanitize_text_field( $_REQUEST['original_scope'] );
+		$old_scope = sanitize_text_field( wp_unslash( $_REQUEST['original_scope'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only public activity-feed scope parameter; output fully sanitized.
 		if ( ! $old_scope ) {
 			return false;
 		}

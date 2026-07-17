@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Required by a fixed path in functions.php; renaming would break that out-of-scope reference.
 /**
  * BuddyPress Groups Widget.
  *
@@ -50,9 +50,10 @@ class BP_REIGN_Groups_Carousel_Widget extends WP_Widget {
 		 */
 		$user_id = apply_filters( 'bp_group_widget_user_id', '0' );
 
-		if ( isset( $args ) ) {
-			extract( $args );
-		}
+		$before_widget = isset( $args['before_widget'] ) ? $args['before_widget'] : '';
+		$after_widget  = isset( $args['after_widget'] ) ? $args['after_widget'] : '';
+		$before_title  = isset( $args['before_title'] ) ? $args['before_title'] : '';
+		$after_title   = isset( $args['after_title'] ) ? $args['after_title'] : '';
 
 		if ( empty( $instance['group_default'] ) ) {
 			$instance['group_default'] = 'popular';
@@ -151,14 +152,14 @@ class BP_REIGN_Groups_Carousel_Widget extends WP_Widget {
 							</ul>
 					<?php else : ?>
 							<?php
-					$groups_url = function_exists( 'bp_get_groups_directory_url' ) ? bp_get_groups_directory_url() : home_url( '/' . bp_get_groups_slug() );
-					reign_render_empty_state(
-						'<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
-						__( 'There are no groups to display.', 'reign' ),
-						esc_url( $groups_url ),
-						__( 'Browse Groups', 'reign' )
-					);
-					?>
+							$groups_url = function_exists( 'bp_get_groups_directory_url' ) ? bp_get_groups_directory_url() : home_url( '/' . bp_get_groups_slug() );
+							reign_render_empty_state(
+								'<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+								__( 'There are no groups to display.', 'reign' ),
+								esc_url( $groups_url ),
+								__( 'Browse Groups', 'reign' )
+							);
+							?>
 					<?php endif; ?>
 		</div>
 		<?php
@@ -176,12 +177,12 @@ class BP_REIGN_Groups_Carousel_Widget extends WP_Widget {
 	 * @param array $old_instance Original instance data.
 	 * @return array
 	 */
-    public function update( $new_instance, $old_instance ) {
+	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
-        $instance['title']         = sanitize_text_field( $new_instance['title'] );
-        $instance['max_groups']    = absint( $new_instance['max_groups'] );
-        $instance['group_default'] = sanitize_text_field( $new_instance['group_default'] );
+		$instance['title']         = sanitize_text_field( $new_instance['title'] );
+		$instance['max_groups']    = absint( $new_instance['max_groups'] );
+		$instance['group_default'] = sanitize_text_field( $new_instance['group_default'] );
 
 		return $instance;
 	}
@@ -241,14 +242,14 @@ class BP_REIGN_Groups_Carousel_Widget extends WP_Widget {
 				$cover_img_url = REIGN_INC_DIR_URI . 'reign-settings/imgs/default-cover.jpg';
 			}
 		}
-        echo '<div class="wbtm-group-cover-img"><img loading="lazy" src="' . $cover_img_url . '" alt="" /></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<div class="wbtm-group-cover-img"><img loading="lazy" src="' . $cover_img_url . '" alt="" /></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
-
 }
 
 /**
  * Register the widget
  */
+// phpcs:ignore Universal.Files.SeparateFunctionsFromOO.Mixed -- Widget class is paired with its registration callback in one file by design.
 function reign_register_groups_carousel_widget() {
 	if ( bp_is_active( 'groups' ) ) {
 		register_widget( 'BP_REIGN_Groups_Carousel_Widget' );

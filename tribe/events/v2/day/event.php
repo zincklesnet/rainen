@@ -16,6 +16,8 @@
  * @see tribe_get_event() For the format of the event object.
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 $classes = tribe_get_post_class( array( 'tribe-common-g-row', 'tribe-common-g-row--gutters', 'tribe-events-calendar-day__event' ), $event->ID );
 
 if ( ! empty( $event->featured ) ) {

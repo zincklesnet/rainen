@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Required by a fixed path in functions.php; renaming would break that out-of-scope reference.
 /**
  * Widget API: REIGN_WP_Widget_Text class
  *
@@ -6,6 +6,8 @@
  * @subpackage Widgets
  * @since 4.4.0
  */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 
 /**
  * Core class used to implement a Text widget.
@@ -50,7 +52,7 @@ class REIGN_News_Widget extends WP_Widget {
 		$title          = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );
 		$posts_per_page = empty( $instance['posts_per_page'] ) ? '5' : $instance['posts_per_page'];
 		// Default to all categories when none selected.
-		$post_category  = ! empty( $instance['post_category'] ) ? (array) $instance['post_category'] : array();
+		$post_category = ! empty( $instance['post_category'] ) ? (array) $instance['post_category'] : array();
 
 		$widget_text = ! empty( $instance['text'] ) ? $instance['text'] : '';
 
@@ -86,8 +88,8 @@ class REIGN_News_Widget extends WP_Widget {
 		<div class="widget news_widget_inner">
 			<?php
 			// Generate an instance-aware cache key.
-			$cache_key   = sprintf( 'rg_latest_news_widget:%s:%s', md5( maybe_serialize( $post_args ) ), (string) get_current_blog_id() );
-			$news_posts  = wp_cache_get( $cache_key, 'reign_widgets' );
+			$cache_key  = sprintf( 'rg_latest_news_widget:%s:%s', md5( maybe_serialize( $post_args ) ), (string) get_current_blog_id() );
+			$news_posts = wp_cache_get( $cache_key, 'reign_widgets' );
 
 			if ( false === $news_posts ) {
 				// Cache miss, so run the query.
@@ -152,8 +154,8 @@ class REIGN_News_Widget extends WP_Widget {
 			$instance['text'] = isset( $new_instance['text'] ) ? wp_kses_post( $new_instance['text'] ) : '';
 			// $instance[ 'text' ] = wp_kses_post( $new_instance[ 'text' ] );
 		}
-        $instance['posts_per_page'] = isset( $new_instance['posts_per_page'] ) ? absint( $new_instance['posts_per_page'] ) : 5;
-        $instance['post_category']  = isset( $new_instance['post_category'] ) ? array_map( 'absint', (array) $new_instance['post_category'] ) : array();
+		$instance['posts_per_page'] = isset( $new_instance['posts_per_page'] ) ? absint( $new_instance['posts_per_page'] ) : 5;
+		$instance['post_category']  = isset( $new_instance['post_category'] ) ? array_map( 'absint', (array) $new_instance['post_category'] ) : array();
 		return $instance;
 	}
 
@@ -177,7 +179,7 @@ class REIGN_News_Widget extends WP_Widget {
 		$posts_per_page = isset( $instance['posts_per_page'] ) ? $instance['posts_per_page'] : 5;
 		$title          = sanitize_text_field( $instance['title'] );
 		// Default to empty array so widget shows all categories when nothing is selected.
-		$post_category  = ( isset( $instance['post_category'] ) && ! empty( $instance['post_category'] ) ) ? (array) $instance['post_category'] : array();
+		$post_category = ( isset( $instance['post_category'] ) && ! empty( $instance['post_category'] ) ) ? (array) $instance['post_category'] : array();
 
 		$category = get_terms(
 			array(
@@ -199,25 +201,18 @@ class REIGN_News_Widget extends WP_Widget {
 			<select class="widefat" name="<?php echo esc_attr( $this->get_field_name( 'post_category' ) ); ?>[]" id="<?php echo esc_attr( $this->get_field_id( 'post_category' ) ); ?>" multiple >
 				<option value=""><?php esc_html_e( 'Select category', 'reign' ); ?></option>
 				<?php foreach ( $category as $cat ) : ?>
-					<option value="<?php echo $cat->term_id; ?>" 
-						<?php
-						if ( in_array( $cat->term_id, $post_category ) ) :
-							echo 'selected';
-							endif;
-						?>
-					><?php echo $cat->name; ?>
+					<option value="<?php echo esc_attr( $cat->term_id ); ?>" <?php selected( in_array( $cat->term_id, $post_category, true ) ); ?>><?php echo esc_html( $cat->name ); ?>
 				</option>
 				<?php endforeach; ?>
 			</select>
 		</p>
 		<?php
 	}
-
 }
 
 add_action(
 	'widgets_init',
-	function() {
+	function () {
 		register_widget( 'REIGN_News_Widget' );
 	}
 );

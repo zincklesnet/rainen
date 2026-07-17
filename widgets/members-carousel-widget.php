@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Required by a fixed path in functions.php; renaming would break that out-of-scope reference.
 /**
  * BuddyPress Members Widget.
  *
@@ -114,7 +114,7 @@ class BP_REIGN_Members_Widget extends WP_Widget {
 							<div class="item-avatar">
 							<a href="<?php bp_member_permalink(); ?>"><?php echo reign_get_online_status( $user_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php echo get_avatar( bp_get_member_user_id(), 100, '', '', array( 'loading' => 'lazy' ) ); ?></a>
 							</div>
-							<?php if ( $settings['display_member_name'] == 'show' ) : ?>
+							<?php if ( 'show' === $settings['display_member_name'] ) : ?>
 								<div class="rg-member-decription">
 									<h3 class="item-title"><a class="name fn rg-member-title" href="<?php bp_member_permalink(); ?>"><?php bp_member_name(); ?></a></h3>
 								</div>
@@ -162,10 +162,10 @@ class BP_REIGN_Members_Widget extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
-        $instance['title']               = sanitize_text_field( $new_instance['title'] );
-        $instance['max_members']         = absint( $new_instance['max_members'] );
-        $instance['member_default']      = sanitize_text_field( $new_instance['member_default'] );
-        $instance['display_member_name'] = isset( $new_instance['display_member_name'] ) ? sanitize_text_field( $new_instance['display_member_name'] ) : 'show';
+		$instance['title']               = sanitize_text_field( $new_instance['title'] );
+		$instance['max_members']         = absint( $new_instance['max_members'] );
+		$instance['member_default']      = sanitize_text_field( $new_instance['member_default'] );
+		$instance['display_member_name'] = isset( $new_instance['display_member_name'] ) ? sanitize_text_field( $new_instance['display_member_name'] ) : 'show';
 
 		return $instance;
 	}
@@ -274,13 +274,14 @@ class BP_REIGN_Members_Widget extends WP_Widget {
 				$cover_img_url = REIGN_INC_DIR_URI . 'reign-settings/imgs/default-cover.jpg';
 			}
 		}
-        echo '<div class="wbtm-mem-cover-img"><img loading="lazy" src="' . esc_url( $cover_img_url ) . '" alt="" /></div>';
+		echo '<div class="wbtm-mem-cover-img"><img loading="lazy" src="' . esc_url( $cover_img_url ) . '" alt="" /></div>';
 	}
 }
 
 /**
  * Register the widget
  */
+// phpcs:ignore Universal.Files.SeparateFunctionsFromOO.Mixed -- Widget class is paired with its registration callback in one file by design.
 function reign_members_register_widget() {
 	register_widget( 'BP_REIGN_Members_Widget' );
 }

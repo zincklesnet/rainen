@@ -16,6 +16,8 @@
  * @see tribe_get_event() For the format of the event object.
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 $container_classes = array( 'tribe-common-g-row', 'tribe-events-calendar-latest-past__event-row' );
 $container_classes['tribe-events-calendar-latest-past__event-row--featured'] = $event->featured;
 

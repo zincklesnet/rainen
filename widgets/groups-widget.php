@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Required by a fixed path in functions.php; renaming would break that out-of-scope reference.
 /**
  * BuddyPress Groups Widget.
  *
@@ -60,16 +60,13 @@ class BP_REIGN_Groups_Widget extends WP_Widget {
 		 */
 		$user_id = apply_filters( 'bp_group_widget_user_id', '0' );
 
-		if ( isset( $args ) ) {
-			extract( $args );
-		}
+		$before_widget = isset( $args['before_widget'] ) ? $args['before_widget'] : '';
+		$after_widget  = isset( $args['after_widget'] ) ? $args['after_widget'] : '';
+		$before_title  = isset( $args['before_title'] ) ? $args['before_title'] : '';
+		$after_title   = isset( $args['after_title'] ) ? $args['after_title'] : '';
 
 		if ( empty( $instance['group_default'] ) ) {
 			$instance['group_default'] = 'popular';
-		}
-
-		if ( empty( $instance['title'] ) ) {
-			// $instance[ 'title' ] = __( 'Groups', 'reign' );
 		}
 
 		/**
@@ -143,7 +140,8 @@ class BP_REIGN_Groups_Widget extends WP_Widget {
 										<div class="item">
 											<h3 class="item-title"><?php bp_group_link(); ?></h3>
 											<div class="meta group-meta"><?php bp_group_member_count(); ?></div>
-											<div class="item-meta"><span class="activity" data-livestamp="<?php bp_core_iso8601_date( bp_get_group_last_active( 0, array( 'relative' => false ) ) ); ?>"><?php printf( esc_html__( 'active %s', 'reign' ), bp_get_group_last_active() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span></div>
+											<?php /* translators: %s: Human-readable last-active time. */ ?>
+										<div class="item-meta"><span class="activity" data-livestamp="<?php bp_core_iso8601_date( bp_get_group_last_active( 0, array( 'relative' => false ) ) ); ?>"><?php printf( esc_html__( 'active %s', 'reign' ), esc_html( bp_get_group_last_active() ) ); ?></span></div>
 											<div class="item-desc"><?php bp_group_description_excerpt(); ?></div>
 
 											<?php
@@ -166,7 +164,7 @@ class BP_REIGN_Groups_Widget extends WP_Widget {
 						<?php endwhile; ?>
 					</ul>
 
-					<?php if ( $instance['display_view_all'] == 'show' ) : ?>
+					<?php if ( 'show' === $instance['display_view_all'] ) : ?>
 						<div class="group-more aligncenter">
 							<a class="rg-action button" href="<?php echo esc_attr( home_url( '/' ) . bp_get_groups_slug() ); ?>"><?php esc_html_e( 'View All', 'reign' ); ?></a>
 						</div>
@@ -206,14 +204,14 @@ class BP_REIGN_Groups_Widget extends WP_Widget {
 	 * @param array $old_instance Original instance data.
 	 * @return array
 	 */
-    public function update( $new_instance, $old_instance ) {
+	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
-        $instance['title']            = sanitize_text_field( $new_instance['title'] );
-        $instance['max_groups']       = absint( $new_instance['max_groups'] );
-        $instance['columns']          = absint( $new_instance['columns'] );
-        $instance['group_default']    = sanitize_text_field( $new_instance['group_default'] );
-        $instance['display_view_all'] = isset( $new_instance['display_view_all'] ) ? sanitize_text_field( $new_instance['display_view_all'] ) : 'show';
+		$instance['title']            = sanitize_text_field( $new_instance['title'] );
+		$instance['max_groups']       = absint( $new_instance['max_groups'] );
+		$instance['columns']          = absint( $new_instance['columns'] );
+		$instance['group_default']    = sanitize_text_field( $new_instance['group_default'] );
+		$instance['display_view_all'] = isset( $new_instance['display_view_all'] ) ? sanitize_text_field( $new_instance['display_view_all'] ) : 'show';
 
 		return $instance;
 	}
@@ -266,12 +264,12 @@ class BP_REIGN_Groups_Widget extends WP_Widget {
 		</p>
 		<?php
 	}
-
 }
 
 /**
  * Register the widget
  */
+// phpcs:ignore Universal.Files.SeparateFunctionsFromOO.Mixed -- Widget class is paired with its registration callback in one file by design.
 function reign_register_groups_widget() {
 	if ( bp_is_active( 'groups' ) ) {
 		register_widget( 'BP_REIGN_Groups_Widget' );

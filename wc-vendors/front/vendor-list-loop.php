@@ -75,7 +75,7 @@ if ( class_exists( 'WCVendors_Pro' ) ) {
 					<h3 class="vendor_list--shop-name">
 						<a href="<?php echo esc_url( $shop_link ); ?>" class="wcv-grid-shop-name"><?php echo esc_html( $shop_name ); ?></a>
 					</h3>
-					<?php if ( class_exists( 'Reign_Wcvendors_Addon' ) && $reign_wcvendors_vendor_rating ) : ?>
+					<?php if ( class_exists( 'Reign_Wcvendors_Addon' ) && reign_is_truthy( $reign_wcvendors_vendor_rating ) ) : ?>
 						<div class="store-rating">
 							<?php echo esc_html( reign_wc_vendors_shop_rating( $vendor_id ) ); ?>
 						</div>
@@ -83,14 +83,14 @@ if ( class_exists( 'WCVendors_Pro' ) ) {
 				</div>
 			</div>
 			<?php do_action( 'reign_wc_vendor_after_rating' ); ?>
-			<?php if ( $reign_wcvendors_vendor_contact ) : ?>
+			<?php if ( reign_is_truthy( $reign_wcvendors_vendor_contact ) ) : ?>
 				<small class="vendors_list--shop-phone"><span class="dashicons dashicons-smartphone"></span><span><?php echo esc_html( $phone ); ?></span></small><br/>
 			<?php endif; ?>
-			<?php if ( $reign_wcvendors_vendor_address ) : ?>
+			<?php if ( reign_is_truthy( $reign_wcvendors_vendor_address ) ) : ?>
 				<small class="vendors_list--shop-address"><span class="dashicons dashicons-location"></span><span><?php echo esc_html( $address ); ?></span></small><br/>
 			<?php endif; ?>
 			<a class="button vendors_list--shop-link" href="<?php echo esc_url( $shop_link ); ?>"><?php esc_html_e( 'Visit Store', 'reign' ); ?></a>
-			<?php if ( class_exists( 'Reign_Wcvendors_Addon' ) && $reign_wcvendors_vendor_product ) : ?>
+			<?php if ( class_exists( 'Reign_Wcvendors_Addon' ) && reign_is_truthy( $reign_wcvendors_vendor_product ) ) : ?>
 				<div class="vendor-products">
 					<?php echo esc_html( reign_wc_vendors_vendor_products( $vendor_id ) ); ?>
 				</div>

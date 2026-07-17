@@ -9,6 +9,8 @@
  * @version    1.8.6 - Added new actions for plugins to hook into.
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 global $post;
 $store_icon             = '';
 $store_icon_src         = wp_get_attachment_image_src(
@@ -108,7 +110,7 @@ if ( class_exists( 'WCVendors_Pro' ) ) {
 						<?php echo esc_html__( 'Rating', 'reign' ); ?>
 					</div>
 					<div class="stars">
-						<?php echo WCVendors_Pro_Ratings_Controller::ratings_link( $vendor_id, true ); ?>
+						<?php echo reign_kses_post_with_icons( WCVendors_Pro_Ratings_Controller::ratings_link( $vendor_id, true ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- kses'd with SVG icon vocabulary; wp_kses_post strips the star SVGs. ?>
 					</div>
 				</div>
 			<?php endif; ?>
@@ -130,7 +132,8 @@ if ( class_exists( 'WCVendors_Pro' ) ) {
 		<?php do_action( 'wcvendors_after_header_meta_phone' ); ?>
 	
 		<?php do_action( 'wcvendors_before_header_meta_address' ); ?>
-		<?php if ( $address = reign_wc_vendors_format_store_address( $vendor_id ) ) : ?>
+		<?php $address = reign_wc_vendors_format_store_address( $vendor_id ); ?>
+		<?php if ( $address ) : ?>
 			<div class="address block">
 				<div class="label">
 					<?php echo esc_html__( 'Address', 'reign' ); ?>
@@ -147,12 +150,13 @@ if ( class_exists( 'WCVendors_Pro' ) ) {
 	
 		<?php if ( class_exists( 'WCVendors_Pro' ) ) : ?>
 			<?php do_action( 'wcvendors_before_header_store_icon' ); ?>
-			<?php if ( function_exists( 'wcv_format_store_social_icons' ) && $social_icons = wcv_format_store_social_icons( $vendor_id ) ) : ?>
+				<?php $social_icons = function_exists( 'wcv_format_store_social_icons' ) ? wcv_format_store_social_icons( $vendor_id ) : ''; ?>
+			<?php if ( $social_icons ) : ?>
 				<div class="social block">
 					<div class="label">
 						<?php echo esc_html__( 'Social', 'reign' ); ?>
 					</div>
-                    <?php echo $social_icons; // phpcs:ignore ?>
+					<?php echo reign_kses_post_with_icons( $social_icons ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- kses'd with SVG icon vocabulary; wp_kses_post strips the wcv_get_icon() SVGs. ?>
 				</div>
 			<?php endif; ?>
 			<?php do_action( 'wcvendors_after_header_store_icon' ); ?>

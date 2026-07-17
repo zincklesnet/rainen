@@ -1,4 +1,6 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Required by a fixed path in functions.php and registered as the `peepsowidgetuserbar` widget; renaming would break out-of-scope references.
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 
 
 class PeepSoWidgetUserBar extends WP_Widget {
@@ -11,9 +13,9 @@ class PeepSoWidgetUserBar extends WP_Widget {
 		if ( ! $id ) {
 			$id = 'PeepSoWidgetUserBar';
 		}
-        if ( ! $name ) {
-            $name = esc_html_x( 'Reign - PeepSo UserBar', 'widget name', 'reign' );
-        }
+		if ( ! $name ) {
+			$name = esc_html_x( 'Reign - PeepSo UserBar', 'widget name', 'reign' );
+		}
 		if ( ! $args ) {
 			$args = array( 'description' => esc_html__( 'PeepSo User Bar Widget', 'reign' ) );
 		}
@@ -75,7 +77,7 @@ class PeepSoWidgetUserBar extends WP_Widget {
 
 	// Displays the frontend navbar
 	public function toolbar() {
-		 $note        = PeepSoNotifications::get_instance();
+		$note         = PeepSoNotifications::get_instance();
 		$unread_notes = $note->get_unread_count_for_user();
 
 		$toolbar = array(
@@ -100,7 +102,7 @@ class PeepSoWidgetUserBar extends WP_Widget {
 		foreach ( $toolbar as $item => $data ) {
 			?>
 			<span class="<?php echo $data['class']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
-			  <a href="<?php echo $data['href']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" title="<?php echo esc_attr( $data['label'] ); ?>" class="rg-icon-wrap">
+				<a href="<?php echo $data['href']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" title="<?php echo esc_attr( $data['label'] ); ?>" class="rg-icon-wrap">
 				<div class="ps-bubble__wrapper">
 					<?php
 					if ( 'ps-icon-globe' === $data['icon'] ) {
@@ -114,7 +116,7 @@ class PeepSoWidgetUserBar extends WP_Widget {
 							<?php echo ( $data['count'] > 0 ) ? $data['count'] : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						</span>
 				</div>
-			  </a>
+				</a>
 			</span>
 		<?php } ?>
 
@@ -226,7 +228,7 @@ class PeepSoWidgetUserBar extends WP_Widget {
 		</p>
 		<p>
 			<input name="<?php echo $this->get_field_name( 'show_avatar' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" class="ace ace-switch ace-switch-2"
-				   id="<?php echo $this->get_field_id( 'show_avatar' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" type="checkbox" value="1"
+					id="<?php echo $this->get_field_id( 'show_avatar' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" type="checkbox" value="1"
 				<?php
 				if ( 1 === $show_avatar ) {
 					echo ' checked="" ';}
@@ -238,7 +240,7 @@ class PeepSoWidgetUserBar extends WP_Widget {
 		</p>
 		<p>
 			<input name="<?php echo $this->get_field_name( 'show_name' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" class="ace ace-switch ace-switch-2"
-				   id="<?php echo $this->get_field_id( 'show_name' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" type="checkbox" value="1"
+					id="<?php echo $this->get_field_id( 'show_name' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" type="checkbox" value="1"
 				<?php
 				if ( 1 === $show_name ) {
 					echo ' checked="" ';}
@@ -250,7 +252,7 @@ class PeepSoWidgetUserBar extends WP_Widget {
 		</p>
 		<p>
 			<input name="<?php echo $this->get_field_name( 'show_notifications' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" class="ace ace-switch ace-switch-2"
-				   id="<?php echo $this->get_field_id( 'show_notifications' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" type="checkbox" value="1"
+					id="<?php echo $this->get_field_id( 'show_notifications' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" type="checkbox" value="1"
 				<?php
 				if ( 1 === $show_notifications ) {
 					echo ' checked="" ';}
@@ -262,7 +264,7 @@ class PeepSoWidgetUserBar extends WP_Widget {
 		</p>
 		<p>
 			<input name="<?php echo $this->get_field_name( 'show_usermenu' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" class="ace ace-switch ace-switch-2"
-				   id="<?php echo $this->get_field_id( 'show_usermenu' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" type="checkbox" value="1"
+					id="<?php echo $this->get_field_id( 'show_usermenu' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" type="checkbox" value="1"
 				<?php
 				if ( 1 === $show_usermenu ) {
 					echo ' checked="" ';}
@@ -274,7 +276,7 @@ class PeepSoWidgetUserBar extends WP_Widget {
 		</p>
 		<p>
 			<input name="<?php echo $this->get_field_name( 'show_logout' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" class="ace ace-switch ace-switch-2"
-				   id="<?php echo $this->get_field_id( 'show_logout' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" type="checkbox" value="1"
+					id="<?php echo $this->get_field_id( 'show_logout' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" type="checkbox" value="1"
 				<?php
 				if ( 1 === $show_logout ) {
 					echo ' checked="" ';}
@@ -286,7 +288,7 @@ class PeepSoWidgetUserBar extends WP_Widget {
 		</p>
 		<p>
 			<input name="<?php echo $this->get_field_name( 'show_vip' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" class="ace ace-switch ace-switch-2"
-				   id="<?php echo $this->get_field_id( 'show_vip' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" type="checkbox" value="1"
+					id="<?php echo $this->get_field_id( 'show_vip' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" type="checkbox" value="1"
 				<?php
 				if ( 1 === $show_vip ) {
 					echo ' checked="" ';}
@@ -298,7 +300,7 @@ class PeepSoWidgetUserBar extends WP_Widget {
 		</p>
 		<p>
 			<input name="<?php echo $this->get_field_name( 'show_badges' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" class="ace ace-switch ace-switch-2"
-				   id="<?php echo $this->get_field_id( 'show_badges' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" type="checkbox" value="1"
+					id="<?php echo $this->get_field_id( 'show_badges' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" type="checkbox" value="1"
 				<?php
 				if ( 1 === $show_badges ) {
 					echo ' checked="" ';}
