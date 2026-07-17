@@ -1,0 +1,56 @@
+/**
+ * Common Page Builder Styles
+ * Shared styles for all page builders
+ */
+
+/* Full-width layout for page builders */
+.reign-page-builder-active .content-wrapper {
+    max-width: 100%;
+    padding: 0;
+}
+
+.reign-page-builder-active .site-main {
+    padding: 0;
+    margin: 0;
+}
+
+/* Hide sidebar on page builder pages */
+.reign-page-builder-active #secondary {
+    display: none;
+}
+
+/* Ensure full-width sections */
+.reign-page-builder-wrapper {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Comments wrapper for page builders */
+.reign-builder-comments-wrapper {
+    max-width: 1080px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+/* Header z-index fix for builders */
+.reign-page-builder-active .reign-header,
+.reign-page-builder-active .sticky-header {
+    z-index: 99999 !important;
+}
+
+/* Mobile menu z-index */
+.reign-page-builder-active .reign-mobile-nav-wrapper {
+    z-index: 999999 !important;
+}
+
+/* Remove default margins */
+.reign-page-builder-active article {
+    margin: 0;
+    padding: 0;
+}
+
+/* BuddyPress compatibility */
+.reign-page-builder-active .buddypress-wrap {
+    margin: 0;
+    padding: 0;
+}

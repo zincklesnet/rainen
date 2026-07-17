@@ -1,0 +1,223 @@
+/**
+ * Micro clearfix, as per: http://cssmojo.com/latest_new_clearfix_so_far/
+ * Extend the clearfix class with Sass to avoid the `.clearfix` class appearing
+ * over and over in your markup.
+ */
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# CSS Variable Bridge (maps --stec-* to --reign-*)
+# General
+# Event Cards
+# Buttons
+# Form Inputs
+# Top Navigation
+# Month/Week Grid
+# Dashboard
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+# CSS Variable Bridge
+--------------------------------------------------------------*/
+.dark-mode,
+.dark-scheme {
+  --stec-corner-smoothing: var(--reign-global-border-radius);
+  /* Swiper carousel colors */
+  --swiper-theme-color: var(--reign-colors-theme, #007aff);
+  --swiper-pagination-color: var(--reign-colors-theme, #007aff);
+  --swiper-navigation-color: var(--reign-colors-theme, #007aff);
+  /* Slide shadows & overlays */
+  --stec-slide-shadow-color: rgba(0, 0, 0, 0.15);
+  --stec-dark-overlay: rgba(0, 0, 0, 0.8);
+  --stec-light-overlay: rgba(255, 255, 255, 0.5);
+  /* Disabled states */
+  --stec-disabled-bg: #caccd1;
+  --stec-disabled-color: #6e7277;
+  /* Month/Week active cell text */
+  --stec-layout-month-week-active-cell-txtcolor: var(--stec-boxgrid-title-color, #fff);
+  --stec-layout-month-week-cell-event-title-txtcolor: var(--stec-boxgrid-title-color, #fff);
+  /* Form inputs */
+  --stec-form-input-bg: var(--reign-form-background-color, #f8f8f8);
+  --stec-form-input-border: var(--reign-form-border-color, rgba(0, 0, 0, 0.07));
+  --stec-form-input-color: var(--reign-form-text-color, #525252);
+  /* Checkbox */
+  --stec-checkbox-bg: var(--reign-form-background-color, #f8f8f8);
+  --stec-checkbox-border: var(--reign-form-border-color, rgba(0, 0, 0, 0.07));
+  --stec-checkbox-color: var(--reign-site-headings-color, #454850);
+  /* Top navigation bar */
+  --stec-top-menu-bg: var(--reign-site-sections-bg-color);
+  --stec-top-menu-color: var(--reign-site-body-text-color);
+  --stec-top-menu-color-active: var(--reign-site-button-text-color);
+  --stec-top-menu-bg-active-primary: var(--reign-colors-theme);
+  --stec-top-menu-bg-active-secondary: var(--reign-accent-hover-color);
+  /* Agenda view */
+  --stec-agenda-list-title-color: var(--reign-site-headings-color);
+  --stec-agenda-month-year-bg: var(--reign-site-secondary-bg-color);
+  --stec-agenda-month-year-color: var(--reign-site-headings-color);
+  --stec-agenda-cell-bg: var(--reign-site-sections-bg-color);
+  --stec-agenda-cell-color: var(--reign-site-body-text-color);
+  --stec-agenda-cell-bg-hover: var(--reign-site-secondary-bg-color);
+  --stec-agenda-cell-color-hover: var(--reign-site-body-text-color);
+  --stec-agenda-cell-bg-active: var(--reign-site-headings-color);
+  --stec-agenda-cell-color-active: var(--reign-site-sections-bg-color);
+  --stec-agenda-cell-today-bg: var(--reign-site-sections-bg-color);
+  --stec-agenda-cell-today-color: var(--reign-colors-theme);
+  /* Month/Week view legend */
+  --stec-mw-legend-bg: var(--reign-site-headings-color);
+  --stec-mw-legend-color: var(--reign-site-sections-bg-color);
+  --stec-mw-legend-today-bg: color-mix(in srgb, var(--reign-site-headings-color) 80%, #000);
+  --stec-mw-legend-today-color: var(--reign-accent-color);
+  /* Month/Week view cells */
+  --stec-mw-cell-bg: var(--reign-site-sections-bg-color);
+  --stec-mw-cell-color: var(--reign-site-body-text-color);
+  --stec-mw-cell-bg-hover: var(--reign-site-secondary-bg-color);
+  --stec-mw-cell-color-hover: var(--reign-site-body-text-color);
+  --stec-mw-cell-bg-active: var(--reign-site-headings-color);
+  --stec-mw-cell-color-active: var(--reign-site-sections-bg-color);
+  --stec-mw-cell-diff-bg: var(--reign-site-secondary-bg-color);
+  --stec-mw-cell-diff-color: var(--reign-site-body-text-color);
+  --stec-mw-cell-today-bg: var(--reign-colors-theme);
+  --stec-mw-cell-today-color: #ffffff;
+  --stec-mw-cell-more-color: var(--reign-site-body-text-color);
+  /* Grid view */
+  --stec-grid-bg: var(--reign-site-sections-bg-color);
+  --stec-grid-border-color: var(--reign-site-border-color);
+  --stec-grid-title-color: var(--reign-site-headings-color);
+  --stec-grid-text-color: var(--reign-site-body-text-color);
+  /* Box grid (image overlay - keep white for contrast) */
+  --stec-boxgrid-title-color: #ffffff;
+  --stec-boxgrid-text-color: #ffffff;
+  /* Event post list/card */
+  --stec-ep-bg: var(--reign-site-sections-bg-color);
+  --stec-ep-bg-hover: var(--reign-site-secondary-bg-color);
+  --stec-ep-title-color: var(--reign-site-headings-color);
+  --stec-ep-title-color-hover: var(--reign-site-body-text-color);
+  --stec-ep-text-color: var(--reign-site-body-text-color);
+  --stec-ep-text-color-hover: var(--reign-site-body-text-color);
+  --stec-ep-button-color: var(--reign-site-headings-color);
+  --stec-ep-button-color-hover: var(--reign-colors-theme);
+  /* Event calendar / detail view */
+  --stec-ec-bg: var(--reign-site-sections-bg-color);
+  --stec-ec-title-color: var(--reign-site-headings-color);
+  --stec-ec-title-secondary-color: var(--reign-site-headings-color);
+  --stec-ec-text-color: var(--reign-site-body-text-color);
+  --stec-ec-tab-menu-bg: var(--reign-site-secondary-bg-color);
+  --stec-ec-tab-menu-bg-active: var(--reign-site-sections-bg-color);
+  --stec-ec-tab-menu-color: var(--reign-site-body-text-color);
+  --stec-ec-tab-menu-color-active: var(--reign-site-body-text-color);
+  --stec-ec-button-bg: var(--reign-site-button-bg-color);
+  --stec-ec-button-bg-hover: var(--reign-site-button-bg-hover-color);
+  --stec-ec-button-color: var(--reign-site-button-text-color);
+  --stec-ec-button-color-hover: var(--reign-site-button-text-hover-color);
+  --stec-ec-button-toggle-color: var(--reign-site-headings-color);
+  --stec-ec-button-toggle-color-hover: var(--reign-colors-theme);
+}
+
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+.stec-layout-wrapper,
+.stec-calendar-container {
+  border-radius: var(--reign-global-border-radius);
+  font-family: inherit;
+}
+
+/*--------------------------------------------------------------
+# Event Cards
+--------------------------------------------------------------*/
+.stec-ep-outer {
+  border-radius: var(--reign-global-border-radius);
+  border: 1px solid var(--reign-site-border-color);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.stec-ep-outer:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/*--------------------------------------------------------------
+# Buttons
+--------------------------------------------------------------*/
+.stec-ec-button,
+.stec-ep-read-more-button {
+  border-radius: var(--reign-global-button-radius);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/*--------------------------------------------------------------
+# Form Inputs
+--------------------------------------------------------------*/
+.stec-submit-form input[type=text],
+.stec-submit-form input[type=email],
+.stec-submit-form input[type=url],
+.stec-submit-form input[type=number],
+.stec-submit-form input[type=date],
+.stec-submit-form input[type=time],
+.stec-submit-form textarea,
+.stec-submit-form select {
+  background-color: var(--reign-form-background-color);
+  color: var(--reign-form-text-color);
+  border: 1px solid var(--reign-form-border-color);
+  border-radius: var(--reign-global-form-radius);
+}
+.stec-submit-form input:focus,
+.stec-submit-form textarea:focus,
+.stec-submit-form select:focus {
+  border-color: var(--reign-form-focus-border-color);
+  background-color: var(--reign-form-focus-background-color);
+  color: var(--reign-form-focus-text-color);
+  outline: none;
+}
+
+.stec-qty-selector input[type=text] {
+  background-color: var(--stec-form-input-bg, var(--reign-form-background-color, #f8f8f8)) !important;
+  border: 1px solid var(--stec-form-input-border, var(--reign-form-border-color, rgba(0, 0, 0, 0.07))) !important;
+  color: var(--stec-form-input-color, var(--reign-form-text-color, #525252));
+}
+.stec-qty-selector i {
+  color: var(--stec-form-input-color, var(--reign-form-text-color, #525252));
+}
+.stec-qty-selector i:hover {
+  color: var(--stec-color-red, #ea4335);
+}
+
+.stec-input-text-wrapper input[type=email],
+.stec-input-text-wrapper input[type=password],
+.stec-input-text-wrapper input[type=text] {
+  background: var(--reign-form-background-color) !important;
+  color: var(--reign-form-text-color) !important;
+  border: 1px solid var(--reign-form-border-color) !important;
+}
+.stec-input-text-wrapper input[type=email]:focus,
+.stec-input-text-wrapper input[type=password]:focus,
+.stec-input-text-wrapper input[type=text]:focus {
+  background: var(--reign-form-focus-background-color) !important;
+  color: var(--reign-form-focus-text-color) !important;
+  border: 1px solid var(--reign-form-focus-border-color) !important;
+}
+
+.stec-checkbox {
+  background-color: var(--stec-checkbox-bg, var(--reign-form-background-color, #f8f8f8));
+  border: 1px solid var(--stec-checkbox-border, var(--reign-form-border-color, rgba(0, 0, 0, 0.07)));
+  color: var(--stec-checkbox-color, var(--reign-site-headings-color, #454850));
+}
+
+/*--------------------------------------------------------------
+# Top Navigation
+--------------------------------------------------------------*/
+.stec-top-navigation {
+  border-radius: var(--reign-global-border-radius) var(--reign-global-border-radius) 0 0;
+}
+
+/*--------------------------------------------------------------
+# Month/Week Grid
+--------------------------------------------------------------*/
+.stec-mw-grid,
+.stec-mw-cell {
+  border-color: var(--reign-site-border-color);
+}
+
+/*--------------------------------------------------------------
+# Dashboard
+--------------------------------------------------------------*/
+.stec-dashboard-wrapper {
+  border-radius: var(--reign-global-border-radius);
+}

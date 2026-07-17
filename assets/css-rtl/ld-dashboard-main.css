@@ -1,0 +1,478 @@
+/**
+ * Micro clearfix, as per: http://cssmojo.com/latest_new_clearfix_so_far/
+ * Extend the clearfix class with Sass to avoid the `.clearfix` class appearing
+ * over and over in your markup.
+ */
+/*--------------------------------------------------------------
+# LD Dashboard
+--------------------------------------------------------------*/
+[data-bx-mode=dark],
+.dark-scheme {
+  --ld-white-bg: var(--reign-site-sections-bg-color);
+  --ld-heading-color: var(--reign-site-headings-color);
+  --ld-border-color: var(--reign-site-border-color);
+  --ld-border-color2: var(--reign-colors-theme);
+  --ld-primary-color: var(--reign-colors-theme);
+  --ld-hover_color: var(--reign-accent-hover-color);
+  --ld-text_color: var(--reign-site-body-text-color);
+  --ld-background: var(--reign-site-secondary-bg-color);
+  --ld-background2: #FAF9F4;
+  --ld-grey-color: var(--reign-site-alternate-text-color);
+  --ld-box-shadow: var(--reign-more-options-box-shadow);
+}
+
+.ld-dashboard-add-edit-form .site-content {
+  padding-top: 0;
+}
+
+.ld-dashboard-add-edit-form .content-wrapper {
+  padding-bottom: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  button.ld-dashboard-share-post-add:hover {
+    border: 0;
+  }
+}
+[data-bx-mode=dark] .ld-dashboard-share-post-single,
+[data-bx-mode=dark] .acf-box,
+[data-bx-mode=dark] .ld-dashboard-add-withdraw-method-form .ld-dashboard-withdraw-messages,
+[data-bx-mode=dark] .ld-dashboard-wrapper .ld-dashboard-datatable-header,
+[data-bx-mode=dark] .ld-dashboard-wrapper #ld-dashboard-report td.dataTables_empty,
+[data-bx-mode=dark] .ld-dashboard-wrapper #ld-dashboard-report thead,
+[data-bx-mode=dark] .ld-dashboard-wrapper #ld-dashboard-report .ld-dashboard-table.ld-dashboard-datatable,
+[data-bx-mode=dark] .ld-quiz-progress-content-container p,
+[data-bx-mode=dark] .ld-dashboard-withdrawal-history-content-table th,
+[data-bx-mode=dark] .ld-dashboard-withdrawal-pending-msg,
+[data-bx-mode=dark] .ld-dashboard-student-submitted-essays-container thead th,
+[data-bx-mode=dark] .ld-dashboard-student-submitted-essays-container tfoot th,
+[data-bx-mode=dark] .ld-dashboard-student-submitted-essays-container tbody tr:nth-child(2n+2),
+[data-bx-mode=dark] table#ld-dashboard-course-report-table,
+[data-bx-mode=dark] #ld-dashboard-course-report-table thead,
+[data-bx-mode=dark] .ld-dashboard-report-pager-info button.ld-dashboard-button,
+[data-bx-mode=dark] .ld-dashboard-sent-invites-details table.invite-anyone-sent-invites,
+[data-bx-mode=dark] .ld-dashboard-student-course-report-table-wrapper .ld-dashboard-student-course-report-tabs table,
+[data-bx-mode=dark] .ld-dashboard-student-course-report-table-wrapper .ld-dashboard-student-course-report-tabs table tr.odd,
+[data-bx-mode=dark] .ld-dashboard-student-course-report-table-wrapper .ld-dashboard-student-course-report-tabs table thead,
+[data-bx-mode=dark] .ld-dashboard-sent-invites-details table.invite-anyone-sent-invites thead,
+[data-bx-mode=dark] .ld-dashboard-sent-invites-details table.invite-anyone-sent-invites tr:nth-child(2n+2),
+.dark-scheme .ld-dashboard-share-post-single,
+.dark-scheme .acf-box,
+.dark-scheme .ld-dashboard-add-withdraw-method-form .ld-dashboard-withdraw-messages,
+.dark-scheme .ld-dashboard-wrapper .ld-dashboard-datatable-header,
+.dark-scheme .ld-dashboard-wrapper #ld-dashboard-report td.dataTables_empty,
+.dark-scheme .ld-dashboard-wrapper #ld-dashboard-report thead,
+.dark-scheme .ld-dashboard-wrapper #ld-dashboard-report .ld-dashboard-table.ld-dashboard-datatable,
+.dark-scheme .ld-quiz-progress-content-container p,
+.dark-scheme .ld-dashboard-withdrawal-history-content-table th,
+.dark-scheme .ld-dashboard-withdrawal-pending-msg,
+.dark-scheme .ld-dashboard-student-submitted-essays-container thead th,
+.dark-scheme .ld-dashboard-student-submitted-essays-container tfoot th,
+.dark-scheme .ld-dashboard-student-submitted-essays-container tbody tr:nth-child(2n+2),
+.dark-scheme table#ld-dashboard-course-report-table,
+.dark-scheme #ld-dashboard-course-report-table thead,
+.dark-scheme .ld-dashboard-report-pager-info button.ld-dashboard-button,
+.dark-scheme .ld-dashboard-sent-invites-details table.invite-anyone-sent-invites,
+.dark-scheme .ld-dashboard-student-course-report-table-wrapper .ld-dashboard-student-course-report-tabs table,
+.dark-scheme .ld-dashboard-student-course-report-table-wrapper .ld-dashboard-student-course-report-tabs table tr.odd,
+.dark-scheme .ld-dashboard-student-course-report-table-wrapper .ld-dashboard-student-course-report-tabs table thead,
+.dark-scheme .ld-dashboard-sent-invites-details table.invite-anyone-sent-invites thead,
+.dark-scheme .ld-dashboard-sent-invites-details table.invite-anyone-sent-invites tr:nth-child(2n+2) {
+  background: var(--reign-site-sections-bg-color);
+}
+[data-bx-mode=dark] .ld-dashboard-announcement-single,
+.dark-scheme .ld-dashboard-announcement-single {
+  background-color: var(--reign-site-sections-bg-color);
+}
+[data-bx-mode=dark] .ld-dashboard-content-wrapper,
+[data-bx-mode=dark] .ld-dashbord-student-progress-item,
+[data-bx-mode=dark] .ld-dashboard-add-edit-form .ld-dashboard-content-wrapper,
+[data-bx-mode=dark] .ld-dashboard-course-builder-wrapper .ld-dashboard-course-builder-lesson,
+[data-bx-mode=dark] .ld-dashboard-share-course-toggle-wrapper,
+[data-bx-mode=dark] .ld-dashboard-share-toggle-content,
+[data-bx-mode=dark] .ld-dashboard-course-builder-content.ui-sortable.ui-sortable-disabled div.ld-dashboard-course-builder-lesson,
+[data-bx-mode=dark] .ld-dashboard-course-lesson-builder-topic-single,
+[data-bx-mode=dark] .ld-dashboard-course-lesson-builder-quiz-single,
+[data-bx-mode=dark] .ld-dashboard-quiz-builder-list-wrapper li,
+[data-bx-mode=dark] .ld-dashboard-quizzes-builder-wrapper .ld-dashboard-quizzes-builder-content .ld-dashboard-quizz-builder-section-wrap,
+[data-bx-mode=dark] .ld-dashboard-content .select2-container .select2-selection--multiple .select2-selection__choice,
+[data-bx-mode=dark] ol#ld-dashboard-invite-students-steps ul.select2-selection__rendered li.select2-selection__choice,
+[data-bx-mode=dark] .ld-dashborad-add-edit-course .acf-field.custom-learndash-course-sub-form,
+[data-bx-mode=dark] .ld-dashboard-withdrawal-form-content,
+[data-bx-mode=dark] .ld-dashboard-withdrawal-history-content-table table,
+[data-bx-mode=dark] .wbcom-ld-dashboard div#swal2-html-container ul li:nth-child(2n+2),
+[data-bx-mode=dark] .ld-dashboard-announcement-content-header h4,
+.dark-scheme .ld-dashboard-content-wrapper,
+.dark-scheme .ld-dashbord-student-progress-item,
+.dark-scheme .ld-dashboard-add-edit-form .ld-dashboard-content-wrapper,
+.dark-scheme .ld-dashboard-course-builder-wrapper .ld-dashboard-course-builder-lesson,
+.dark-scheme .ld-dashboard-share-course-toggle-wrapper,
+.dark-scheme .ld-dashboard-share-toggle-content,
+.dark-scheme .ld-dashboard-course-builder-content.ui-sortable.ui-sortable-disabled div.ld-dashboard-course-builder-lesson,
+.dark-scheme .ld-dashboard-course-lesson-builder-topic-single,
+.dark-scheme .ld-dashboard-course-lesson-builder-quiz-single,
+.dark-scheme .ld-dashboard-quiz-builder-list-wrapper li,
+.dark-scheme .ld-dashboard-quizzes-builder-wrapper .ld-dashboard-quizzes-builder-content .ld-dashboard-quizz-builder-section-wrap,
+.dark-scheme .ld-dashboard-content .select2-container .select2-selection--multiple .select2-selection__choice,
+.dark-scheme ol#ld-dashboard-invite-students-steps ul.select2-selection__rendered li.select2-selection__choice,
+.dark-scheme .ld-dashborad-add-edit-course .acf-field.custom-learndash-course-sub-form,
+.dark-scheme .ld-dashboard-withdrawal-form-content,
+.dark-scheme .ld-dashboard-withdrawal-history-content-table table,
+.dark-scheme .wbcom-ld-dashboard div#swal2-html-container ul li:nth-child(2n+2),
+.dark-scheme .ld-dashboard-announcement-content-header h4 {
+  background: var(--reign-site-secondary-bg-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  [data-bx-mode=dark] .ld-dashboard-course-builder-wrapper .ld-dashboard-course-builder-lesson:hover,
+  [data-bx-mode=dark] .ld-dashboard-crate-lesson button.ld_dashboard_builder_new_section_heading:hover,
+  .dark-scheme .ld-dashboard-course-builder-wrapper .ld-dashboard-course-builder-lesson:hover,
+  .dark-scheme .ld-dashboard-crate-lesson button.ld_dashboard_builder_new_section_heading:hover {
+    background: var(--reign-site-secondary-bg-color);
+  }
+}
+[data-bx-mode=dark] .ld-dashboard-location li.ld-dashboard-menu-tab.ld-dashboard-active a.ld-focus-menu-link,
+.dark-scheme .ld-dashboard-location li.ld-dashboard-menu-tab.ld-dashboard-active a.ld-focus-menu-link {
+  color: var(--reign-colors-theme);
+}
+[data-bx-mode=dark] .ld-dashboard-location li.ld-dashboard-menu-tab.ld-dashboard-active a.ld-focus-menu-link,
+.dark-scheme .ld-dashboard-location li.ld-dashboard-menu-tab.ld-dashboard-active a.ld-focus-menu-link {
+  background: rgba(var(--reign-colors-theme-rgb), 0.04);
+}
+@media (hover: hover) and (pointer: fine) {
+  [data-bx-mode=dark] .ld-dashboard-location ul li a:hover,
+  .dark-scheme .ld-dashboard-location ul li a:hover {
+    background: rgba(var(--reign-colors-theme-rgb), 0.04);
+  }
+}
+[data-bx-mode=dark] .ld-dashboard-location .ld-dashboard-left-panel .ld-dashboard-menu-divider-label,
+[data-bx-mode=dark] .statistics-inner strong.learndash-statistics,
+[data-bx-mode=dark] .statistics-inner strong.statistics,
+[data-bx-mode=dark] h2.ld-dashboard-share-course-title,
+[data-bx-mode=dark] .ld-dashboard-share-status span.ld-dashboard-item-label,
+[data-bx-mode=dark] .ld-dashboard-share-course-toggle-wrapper H6,
+[data-bx-mode=dark] .ld-mycourse-content h3 a,
+[data-bx-mode=dark] .ld-dashborad-add-edit-course .acf-form .acf-label label,
+[data-bx-mode=dark] .current-balance span,
+[data-bx-mode=dark] .ld-dashboard-no-withdrawal-history-message,
+[data-bx-mode=dark] .ld-quiz-progress-content-container p strong a,
+[data-bx-mode=dark] .ld-dashboard-announcement-single,
+[data-bx-mode=dark] .ld-dashboard-withdraw-method-single span.ld-dashboard-withdraw-method-title,
+[data-bx-mode=dark] .ld-dashboard-withdrawal-history-content-table th,
+[data-bx-mode=dark] .ld-dashboard-withdrawal-pending-msg,
+[data-bx-mode=dark] .ld-dashboard-request-balance strong,
+[data-bx-mode=dark] .ld-dashboard-student-submitted-essays-container thead th,
+[data-bx-mode=dark] #ld-dashboard-course-report-table thead th,
+[data-bx-mode=dark] .ld-dashboard-form-group-row .ld-dashboard-meeting-row-group input[type=checkbox]::before,
+[data-bx-mode=dark] .ld-dashboard-report-pager-info button.ld-dashboard-button,
+[data-bx-mode=dark] .ld-dashboard-student-course-report-table-wrapper .ld-dashboard-student-course-report-tabs table thead th,
+[data-bx-mode=dark] .ld-dashboard-sent-invites-details table.invite-anyone-sent-invites thead th,
+.dark-scheme .ld-dashboard-location .ld-dashboard-left-panel .ld-dashboard-menu-divider-label,
+.dark-scheme .statistics-inner strong.learndash-statistics,
+.dark-scheme .statistics-inner strong.statistics,
+.dark-scheme h2.ld-dashboard-share-course-title,
+.dark-scheme .ld-dashboard-share-status span.ld-dashboard-item-label,
+.dark-scheme .ld-dashboard-share-course-toggle-wrapper H6,
+.dark-scheme .ld-mycourse-content h3 a,
+.dark-scheme .ld-dashborad-add-edit-course .acf-form .acf-label label,
+.dark-scheme .current-balance span,
+.dark-scheme .ld-dashboard-no-withdrawal-history-message,
+.dark-scheme .ld-quiz-progress-content-container p strong a,
+.dark-scheme .ld-dashboard-announcement-single,
+.dark-scheme .ld-dashboard-withdraw-method-single span.ld-dashboard-withdraw-method-title,
+.dark-scheme .ld-dashboard-withdrawal-history-content-table th,
+.dark-scheme .ld-dashboard-withdrawal-pending-msg,
+.dark-scheme .ld-dashboard-request-balance strong,
+.dark-scheme .ld-dashboard-student-submitted-essays-container thead th,
+.dark-scheme #ld-dashboard-course-report-table thead th,
+.dark-scheme .ld-dashboard-form-group-row .ld-dashboard-meeting-row-group input[type=checkbox]::before,
+.dark-scheme .ld-dashboard-report-pager-info button.ld-dashboard-button,
+.dark-scheme .ld-dashboard-student-course-report-table-wrapper .ld-dashboard-student-course-report-tabs table thead th,
+.dark-scheme .ld-dashboard-sent-invites-details table.invite-anyone-sent-invites thead th {
+  color: var(--reign-site-headings-color);
+}
+[data-bx-mode=dark] h2.statistics-label,
+[data-bx-mode=dark] .ld-dashboard-statistics-container .ld-dashboard-icons span.ld-icons,
+.dark-scheme h2.statistics-label,
+.dark-scheme .ld-dashboard-statistics-container .ld-dashboard-icons span.ld-icons {
+  color: var(--reign-site-body-text-color) !important;
+}
+[data-bx-mode=dark] .ld-dashboard-groups-content-wrapper .ld-dashboard-group-edit-heading h3,
+[data-bx-mode=dark] .ld-mycourse-content .ld-meta.ld-course-metadata ul li span,
+[data-bx-mode=dark] .ld-dashboard-location ul li a,
+[data-bx-mode=dark] .ld-dashboard-profile-form-field-list label,
+[data-bx-mode=dark] .ld-dashboard-student-courses li a,
+[data-bx-mode=dark] .ld-dashboard-info-table td a,
+[data-bx-mode=dark] .table_content_ld span,
+[data-bx-mode=dark] .table_content_ld tr td,
+[data-bx-mode=dark] .ld-dashboard-location ul li a,
+[data-bx-mode=dark] .ld-dashboard-profile-form-field-list label,
+[data-bx-mode=dark] .ld-dashboard-student-courses li a,
+[data-bx-mode=dark] .ld-dashboard-info-table td a,
+[data-bx-mode=dark] .table_content_ld tr td,
+[data-bx-mode=dark] .ld-dashboard-course-progress ul li strong span,
+[data-bx-mode=dark] .ld-dashboard-student-courses li strong span,
+[data-bx-mode=dark] .ld-dashborad-add-edit-course .acf-form .acf-radio-list li label,
+[data-bx-mode=dark] .ld-dashborad-add-edit-course .acf-form .acf-true-false label .message,
+[data-bx-mode=dark] .ld-mycourse-content .ld-meta.ld-course-metadata ul li,
+[data-bx-mode=dark] .acf-field p.description,
+[data-bx-mode=dark] .current-balance p,
+[data-bx-mode=dark] .ld-dashboard-withdraw-method-single .ld-dashboard-withdraw-method-content,
+[data-bx-mode=dark] .ld-dashboard-withdraw-method-fields small,
+.dark-scheme .ld-dashboard-groups-content-wrapper .ld-dashboard-group-edit-heading h3,
+.dark-scheme .ld-mycourse-content .ld-meta.ld-course-metadata ul li span,
+.dark-scheme .ld-dashboard-location ul li a,
+.dark-scheme .ld-dashboard-profile-form-field-list label,
+.dark-scheme .ld-dashboard-student-courses li a,
+.dark-scheme .ld-dashboard-info-table td a,
+.dark-scheme .table_content_ld span,
+.dark-scheme .table_content_ld tr td,
+.dark-scheme .ld-dashboard-location ul li a,
+.dark-scheme .ld-dashboard-profile-form-field-list label,
+.dark-scheme .ld-dashboard-student-courses li a,
+.dark-scheme .ld-dashboard-info-table td a,
+.dark-scheme .table_content_ld tr td,
+.dark-scheme .ld-dashboard-course-progress ul li strong span,
+.dark-scheme .ld-dashboard-student-courses li strong span,
+.dark-scheme .ld-dashborad-add-edit-course .acf-form .acf-radio-list li label,
+.dark-scheme .ld-dashborad-add-edit-course .acf-form .acf-true-false label .message,
+.dark-scheme .ld-mycourse-content .ld-meta.ld-course-metadata ul li,
+.dark-scheme .acf-field p.description,
+.dark-scheme .current-balance p,
+.dark-scheme .ld-dashboard-withdraw-method-single .ld-dashboard-withdraw-method-content,
+.dark-scheme .ld-dashboard-withdraw-method-fields small {
+  color: var(--reign-site-body-text-color);
+}
+[data-bx-mode=dark] .ld-dashboard-content-wrapper,
+[data-bx-mode=dark] .ld-dashboard-share-lesson-wrapper,
+[data-bx-mode=dark] .ld-dashboard-share-topic-wrapper,
+[data-bx-mode=dark] .ld-dashboard-share-quiz-wrapper,
+[data-bx-mode=dark] .ld-dashboard-share-post-single,
+[data-bx-mode=dark] .ld-dashboard-lesson-builder-wrapper,
+[data-bx-mode=dark] .ld-dashboard-withdrawal-content,
+[data-bx-mode=dark] .ld-dashboard-content,
+[data-bx-mode=dark] .ld-dashboard-inline-links ul,
+[data-bx-mode=dark] .ld-dashboard-seperator span:after,
+[data-bx-mode=dark] .ld-quiz-progress-content-container p,
+[data-bx-mode=dark] .ld-dashboard-withdrawal-history-content-table,
+[data-bx-mode=dark] .ld-dashboard-single-group-wrapper,
+[data-bx-mode=dark] .ld-dashboard-student-submitted-essays-container thead th,
+[data-bx-mode=dark] .ld-dashboard-student-submitted-essays-container tfoot th,
+[data-bx-mode=dark] .ld-dashboard-video-playlist-select-wrap-section,
+[data-bx-mode=dark] .ld-dashboard-student-submitted-essays-container,
+[data-bx-mode=dark] .ld-dashboard-student-submitted-essays-container thead th,
+[data-bx-mode=dark] .ld-dashboard-student-submitted-essays-container tbody tr:nth-child(2n+2),
+[data-bx-mode=dark] .ld-dashboard-student-submitted-essays-container tfoot th,
+[data-bx-mode=dark] .ld-dashboard-load-more-wrapper button.ld-dashboard-builder-load-more,
+.dark-scheme .ld-dashboard-content-wrapper,
+.dark-scheme .ld-dashboard-share-lesson-wrapper,
+.dark-scheme .ld-dashboard-share-topic-wrapper,
+.dark-scheme .ld-dashboard-share-quiz-wrapper,
+.dark-scheme .ld-dashboard-share-post-single,
+.dark-scheme .ld-dashboard-lesson-builder-wrapper,
+.dark-scheme .ld-dashboard-withdrawal-content,
+.dark-scheme .ld-dashboard-content,
+.dark-scheme .ld-dashboard-inline-links ul,
+.dark-scheme .ld-dashboard-seperator span:after,
+.dark-scheme .ld-quiz-progress-content-container p,
+.dark-scheme .ld-dashboard-withdrawal-history-content-table,
+.dark-scheme .ld-dashboard-single-group-wrapper,
+.dark-scheme .ld-dashboard-student-submitted-essays-container thead th,
+.dark-scheme .ld-dashboard-student-submitted-essays-container tfoot th,
+.dark-scheme .ld-dashboard-video-playlist-select-wrap-section,
+.dark-scheme .ld-dashboard-student-submitted-essays-container,
+.dark-scheme .ld-dashboard-student-submitted-essays-container thead th,
+.dark-scheme .ld-dashboard-student-submitted-essays-container tbody tr:nth-child(2n+2),
+.dark-scheme .ld-dashboard-student-submitted-essays-container tfoot th,
+.dark-scheme .ld-dashboard-load-more-wrapper button.ld-dashboard-builder-load-more {
+  border-color: var(--reign-site-border-color);
+}
+[data-bx-mode=dark] #ld-dashboard-report table.dataTable.no-footer,
+[data-bx-mode=dark] #ld-dashboard-report table.dataTable thead th,
+[data-bx-mode=dark] #ld-dashboard-report table.dataTable thead td,
+[data-bx-mode=dark] #ld-dashboard-report .dataTables_wrapper .dataTables_filter input,
+[data-bx-mode=dark] div#ld-dashboard-report-table_paginate .paginate_button,
+[data-bx-mode=dark] #ld-dashboard-report table.dataTable tbody tr,
+[data-bx-mode=dark] #ld-dashboard-report table.ld-dashboard-table.ld-dashboard-datatable.dataTable.display tbody td,
+[data-bx-mode=dark] .ld-dashbord-course-particulars,
+[data-bx-mode=dark] .ld-dashboard-time-spent-on-a-course-summary .revenue-particulars-wrapper,
+[data-bx-mode=dark] table#ld-dashboard-course-report-table,
+[data-bx-mode=dark] #ld-dashboard-course-report-table.ld-dashboard-table.ld-dashboard-datatable.dataTable.display tbody td,
+[data-bx-mode=dark] #ld-dashboard-course-report-table thead th,
+[data-bx-mode=dark] .ld-dashboard-student-course-report-table-wrapper .ld-dashboard-student-course-report-tabs table,
+[data-bx-mode=dark] #ld-dashboard-course-report-table_length select,
+[data-bx-mode=dark] #ld-dashboard-course-report table.dataTable thead th,
+[data-bx-mode=dark] .ld-dashboard-sent-invites-details table.invite-anyone-sent-invites td,
+[data-bx-mode=dark] .ld-dashboard-sent-invites-details table.invite-anyone-sent-invites th,
+[data-bx-mode=dark] .ld-dashboard-sent-invites-details table.invite-anyone-sent-invites,
+[data-bx-mode=dark] .ld-dashboard-sent-invites-details table.invite-anyone-sent-invites td,
+[data-bx-mode=dark] .ld-dashboard-student-course-report-table-wrapper .ld-dashboard-student-course-report-tabs tbody td,
+.dark-scheme #ld-dashboard-report table.dataTable.no-footer,
+.dark-scheme #ld-dashboard-report table.dataTable thead th,
+.dark-scheme #ld-dashboard-report table.dataTable thead td,
+.dark-scheme #ld-dashboard-report .dataTables_wrapper .dataTables_filter input,
+.dark-scheme div#ld-dashboard-report-table_paginate .paginate_button,
+.dark-scheme #ld-dashboard-report table.dataTable tbody tr,
+.dark-scheme #ld-dashboard-report table.ld-dashboard-table.ld-dashboard-datatable.dataTable.display tbody td,
+.dark-scheme .ld-dashbord-course-particulars,
+.dark-scheme .ld-dashboard-time-spent-on-a-course-summary .revenue-particulars-wrapper,
+.dark-scheme table#ld-dashboard-course-report-table,
+.dark-scheme #ld-dashboard-course-report-table.ld-dashboard-table.ld-dashboard-datatable.dataTable.display tbody td,
+.dark-scheme #ld-dashboard-course-report-table thead th,
+.dark-scheme .ld-dashboard-student-course-report-table-wrapper .ld-dashboard-student-course-report-tabs table,
+.dark-scheme #ld-dashboard-course-report-table_length select,
+.dark-scheme #ld-dashboard-course-report table.dataTable thead th,
+.dark-scheme .ld-dashboard-sent-invites-details table.invite-anyone-sent-invites td,
+.dark-scheme .ld-dashboard-sent-invites-details table.invite-anyone-sent-invites th,
+.dark-scheme .ld-dashboard-sent-invites-details table.invite-anyone-sent-invites,
+.dark-scheme .ld-dashboard-sent-invites-details table.invite-anyone-sent-invites td,
+.dark-scheme .ld-dashboard-student-course-report-table-wrapper .ld-dashboard-student-course-report-tabs tbody td {
+  border-color: var(--reign-site-border-color) !important;
+}
+[data-bx-mode=dark] .custom-learndash-pagination li a,
+[data-bx-mode=dark] .custom-learndash-pagination-nav button.ld-dashboard-pagination-btn,
+.dark-scheme .custom-learndash-pagination li a,
+.dark-scheme .custom-learndash-pagination-nav button.ld-dashboard-pagination-btn {
+  background-color: var(--reign-site-sections-bg-color);
+  color: var(--reign-site-body-text-color);
+}
+[data-bx-mode=dark] .ld-dashboard-tab-buttons-filter a,
+[data-bx-mode=dark] .ld-dashboard-inline-links ul li a,
+.dark-scheme .ld-dashboard-tab-buttons-filter a,
+.dark-scheme .ld-dashboard-inline-links ul li a {
+  color: var(--reign-site-link-color);
+}
+[data-bx-mode=dark] .ld-mycourse-content .ld-mycourses-stats span.ld-icons,
+[data-bx-mode=dark] .ld-dashboard-wbgrid .mycourse-footer,
+.dark-scheme .ld-mycourse-content .ld-mycourses-stats span.ld-icons,
+.dark-scheme .ld-dashboard-wbgrid .mycourse-footer {
+  background: rgba(217, 223, 236, 0.05);
+}
+[data-bx-mode=dark] .ld-dashboard-course-builder-lesson .ld-dashboard-sortable-input,
+[data-bx-mode=dark] .ld-dashboard-quizzes-builder-wrapper .ld-dashboard-quizzes-builder-content span.ld-dashboard-sortable-input,
+[data-bx-mode=dark] .ld-dashboard-course-builder-lesson .ld-dashboard-course-lesson-builder-topic-single .ld-dashboard-sortable-input,
+[data-bx-mode=dark] .ld-dashboard-course-builder-lesson .ld-dashboard-course-lesson-builder-quiz-single .ld-dashboard-sortable-input,
+[data-bx-mode=dark] .ld-dashboard-quiz-builder-wrapper .ld-dashboard-quiz-builder-list-wrapper .ld-dashboard-sortable-input,
+[data-bx-mode=dark] .ld-dashboard-course-builder-wrapper .ld-dashboard-course-builder-lesson .ld-dashboard-sortable-input-section,
+[data-bx-mode=dark] .ld-dashboard-course-builder-wrapper .ld-dashboard-course-builder-lesson-dropdown .ld-dashboard-accordian-icon:before,
+[data-bx-mode=dark] div#ld-dashboard-report-table_paginate .paginate_button,
+[data-bx-mode=dark] .ld-dashboard-meeting-option-tooltip img,
+.dark-scheme .ld-dashboard-course-builder-lesson .ld-dashboard-sortable-input,
+.dark-scheme .ld-dashboard-quizzes-builder-wrapper .ld-dashboard-quizzes-builder-content span.ld-dashboard-sortable-input,
+.dark-scheme .ld-dashboard-course-builder-lesson .ld-dashboard-course-lesson-builder-topic-single .ld-dashboard-sortable-input,
+.dark-scheme .ld-dashboard-course-builder-lesson .ld-dashboard-course-lesson-builder-quiz-single .ld-dashboard-sortable-input,
+.dark-scheme .ld-dashboard-quiz-builder-wrapper .ld-dashboard-quiz-builder-list-wrapper .ld-dashboard-sortable-input,
+.dark-scheme .ld-dashboard-course-builder-wrapper .ld-dashboard-course-builder-lesson .ld-dashboard-sortable-input-section,
+.dark-scheme .ld-dashboard-course-builder-wrapper .ld-dashboard-course-builder-lesson-dropdown .ld-dashboard-accordian-icon:before,
+.dark-scheme div#ld-dashboard-report-table_paginate .paginate_button,
+.dark-scheme .ld-dashboard-meeting-option-tooltip img {
+  filter: invert(1);
+}
+[data-bx-mode=dark] #acf-popup .acf-popup-box,
+.dark-scheme #acf-popup .acf-popup-box {
+  box-shadow: var(--reign-more-options-box-shadow);
+}
+@media (hover: hover) and (pointer: fine) {
+  [data-bx-mode=dark] .ld-dashboard-single-group-wrapper:hover,
+  .dark-scheme .ld-dashboard-single-group-wrapper:hover {
+    box-shadow: var(--reign-more-options-box-shadow);
+  }
+}
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=text],
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=password],
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=date],
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=datetime],
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=datetime-local],
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=email],
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=month],
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=number],
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=search],
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=tel],
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=time],
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=url],
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=week],
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field textarea,
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field select,
+[data-bx-mode=dark] .ld-dashboard-content select,
+[data-bx-mode=dark] .ld-dashboard-content #ld-dashboard-report .dataTables_wrapper .dataTables_filter input,
+[data-bx-mode=dark] .ld-dashboard-content #ld-dashboard-report div#ld-dashboard-report-table_length select[name=ld-dashboard-report-table_length],
+[data-bx-mode=dark] #ld-dashboard-course-report-table_length select, [data-bx-mode=dark] .ld-dashboard-student-course-report-tabs .ld-groups-datatable-footer div.dataTables_length select,
+[data-bx-mode=dark] .ld-dashboard-student-course-report-table-wrapper .ld-dashboard-student-course-report-tabs .ld-dashboard-datatable-header input[type=search],
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=text],
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=password],
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=date],
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=datetime],
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=datetime-local],
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=email],
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=month],
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=number],
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=search],
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=tel],
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=time],
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=url],
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=week],
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field textarea,
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field select,
+.dark-scheme .ld-dashboard-content select,
+.dark-scheme .ld-dashboard-content #ld-dashboard-report .dataTables_wrapper .dataTables_filter input,
+.dark-scheme .ld-dashboard-content #ld-dashboard-report div#ld-dashboard-report-table_length select[name=ld-dashboard-report-table_length],
+.dark-scheme #ld-dashboard-course-report-table_length select,
+.dark-scheme .ld-dashboard-student-course-report-tabs .ld-groups-datatable-footer div.dataTables_length select,
+.dark-scheme .ld-dashboard-student-course-report-table-wrapper .ld-dashboard-student-course-report-tabs .ld-dashboard-datatable-header input[type=search] {
+  background: var(--reign-form-background-color);
+  color: var(--reign-form-text-color);
+  border-color: var(--reign-form-border-color) !important;
+}
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=text]:focus,
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=password]:focus,
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=date]:focus,
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=datetime]:focus,
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=datetime-local]:focus,
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=email]:focus,
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=month]:focus,
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=number]:focus,
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=search]:focus,
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=tel]:focus,
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=time]:focus,
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=url]:focus,
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field input[type=week]:focus,
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field textarea:focus,
+[data-bx-mode=dark] .ld-dashboard-content form#acf-form .acf-field select:focus,
+[data-bx-mode=dark] .ld-dashboard-content select:focus,
+[data-bx-mode=dark] .ld-dashboard-content #ld-dashboard-report .dataTables_wrapper .dataTables_filter input:focus,
+[data-bx-mode=dark] .ld-dashboard-content #ld-dashboard-report div#ld-dashboard-report-table_length select[name=ld-dashboard-report-table_length]:focus,
+[data-bx-mode=dark] #ld-dashboard-course-report-table_length select:focus, [data-bx-mode=dark] .ld-dashboard-student-course-report-tabs .ld-groups-datatable-footer div.dataTables_length select:focus,
+[data-bx-mode=dark] .ld-dashboard-student-course-report-table-wrapper .ld-dashboard-student-course-report-tabs .ld-dashboard-datatable-header input[type=search]:focus,
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=text]:focus,
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=password]:focus,
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=date]:focus,
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=datetime]:focus,
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=datetime-local]:focus,
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=email]:focus,
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=month]:focus,
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=number]:focus,
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=search]:focus,
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=tel]:focus,
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=time]:focus,
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=url]:focus,
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field input[type=week]:focus,
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field textarea:focus,
+.dark-scheme .ld-dashboard-content form#acf-form .acf-field select:focus,
+.dark-scheme .ld-dashboard-content select:focus,
+.dark-scheme .ld-dashboard-content #ld-dashboard-report .dataTables_wrapper .dataTables_filter input:focus,
+.dark-scheme .ld-dashboard-content #ld-dashboard-report div#ld-dashboard-report-table_length select[name=ld-dashboard-report-table_length]:focus,
+.dark-scheme #ld-dashboard-course-report-table_length select:focus,
+.dark-scheme .ld-dashboard-student-course-report-tabs .ld-groups-datatable-footer div.dataTables_length select:focus,
+.dark-scheme .ld-dashboard-student-course-report-table-wrapper .ld-dashboard-student-course-report-tabs .ld-dashboard-datatable-header input[type=search]:focus {
+  background: var(--reign-form-focus-background-color);
+  color: var(--reign-form-focus-text-color);
+  border-color: var(--reign-form-focus-border-color) !important;
+}
+[data-bx-mode=dark] .select2-container.-acf .select2-selection--multiple .select2-selection__choice,
+.dark-scheme .select2-container.-acf .select2-selection--multiple .select2-selection__choice {
+  background: var(--reign-site-secondary-bg-color);
+  border-color: var(--reign-site-border-color);
+}
+[data-bx-mode=dark] .ld-dashboard-content .select2-container .select2-selection--multiple .select2-selection__choice,
+.dark-scheme .ld-dashboard-content .select2-container .select2-selection--multiple .select2-selection__choice {
+  color: var(--reign-site-body-text-color);
+}

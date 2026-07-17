@@ -1,0 +1,926 @@
+/**
+ * Micro clearfix, as per: http://cssmojo.com/latest_new_clearfix_so_far/
+ * Extend the clearfix class with Sass to avoid the `.clearfix` class appearing
+ * over and over in your markup.
+ */
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Single Job
+# Resume
+# Single Resume
+--------------------------------------------------------------*/
+html {
+  scroll-behavior: smooth;
+}
+
+#candidate-description,
+#candidate-qualification,
+#candidate-experience,
+#candidate-skills,
+#candidate-video {
+  scroll-margin-top: 100px;
+}
+
+/* buttons style */
+.single-resume .resume_contact {
+  padding-right: 0;
+}
+.single-resume .resume_contact .resume_contact_button {
+  margin: 0;
+  padding: 10px 20px;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+  float: none;
+  width: 100%;
+  height: 50px;
+}
+.single-resume .resume_contact .resume_contact_details {
+  margin-top: 10px;
+  float: none;
+  width: 100%;
+  background: var(--reign-site-sections-bg-color);
+  border-color: var(--reign-site-border-color);
+  border-radius: var(--reign-global-border-radius);
+}
+.single-resume .resume_contact .resume_contact_details:before, .single-resume .resume_contact .resume_contact_details:after {
+  display: none;
+}
+
+/* check box style */
+.job_filters .job_types li [type=checkbox],
+.job_filters .job_types li [type=radio] {
+  width: 20px;
+  height: 20px;
+  vertical-align: bottom;
+  margin-left: 5px;
+}
+
+/*--------------------------------------------------------------
+# Single Job
+--------------------------------------------------------------*/
+.single_job_listing .single-job-listing-company.company {
+  position: relative;
+  border: 0;
+  border-bottom: 1px solid var(--reign-site-border-color);
+  margin-bottom: 20px;
+  padding: 0;
+  padding-bottom: 30px;
+  display: block;
+  clear: both;
+  min-height: 3em;
+  box-shadow: none;
+  box-sizing: content-box;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .single_job_listing .single-job-listing-company.company {
+    display: flex;
+    align-items: flex-start;
+    text-align: initial;
+  }
+}
+
+.single-job-listing-company__logo {
+  display: inline-block;
+  background: var(--reign-site-sections-bg-color);
+  margin: 0 auto 15px;
+}
+
+.single-job-listing-company__logo img {
+  border: 2px solid var(--reign-site-border-color);
+  border-radius: 8px;
+}
+
+@media (min-width: 768px) {
+  .single-job-listing-company__logo {
+    flex: 0 0 105px;
+    width: 105px;
+    height: 100px;
+    margin: 0;
+    border: 2px solid var(--reign-site-border-color);
+    border-radius: 8px;
+    margin-left: 25px;
+    padding: 15px;
+    display: flex;
+  }
+  .single-job-listing-company__logo img {
+    border: none;
+  }
+}
+.single_job_listing .company img,
+.single-job-listing-company__logo .company_logo {
+  margin: auto;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  right: 0;
+  float: none;
+  vertical-align: middle;
+  box-shadow: none;
+}
+@media (max-width: 767px) {
+  .single_job_listing .company img,
+  .single-job-listing-company__logo .company_logo {
+    width: auto;
+    height: auto;
+  }
+}
+
+.single-job-listing-company__details {
+  flex: 1;
+  align-self: center;
+}
+
+.single-job-listing-company__details .single-job-listing-company__name {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.single-job-listing-company__details > * + * {
+  margin-top: 10px;
+}
+
+.single-job-listing-company__tagline {
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) and (max-width: 1199.98px) {
+  .single-job-listing-company__contact {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+}
+.single-job-listing-company__contact > * {
+  display: block;
+}
+
+.single-job-listing-company__contact > * {
+  margin-top: 10px;
+}
+
+@media (min-width: 1200px) {
+  .single-job-listing-company__contact > * {
+    display: inline-block;
+  }
+}
+@media (min-width: 768px) and (max-width: 1199.98px) {
+  .single-job-listing-company__contact > * {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+@media (min-width: 1200px) {
+  .single-job-listing-company__contact > * {
+    margin-left: 20px;
+  }
+}
+.single-job-listing-company__contact .application-deadline {
+  line-height: 30px;
+}
+
+/*--------------------------------------------------------------
+# Single Resume
+--------------------------------------------------------------*/
+.single-resume-inner .single-candidate-head-left .categories {
+  margin: 0;
+  justify-content: center;
+}
+
+@media (min-width: 1200px) {
+  .single-resume-inner .single-candidate-head-left .categories {
+    justify-content: flex-start;
+  }
+}
+.single-resume-inner .social-network-pages {
+  font-size: 16px;
+  display: flex;
+  z-index: 99;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.single-resume-inner .social-network-pages a {
+  display: inline-block;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 2px solid transparent;
+  -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  padding: 0px 0px;
+  font-size: 16px;
+  line-height: 1;
+  border-radius: 50px;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 7px;
+  margin-left: 7px;
+}
+
+.single-resume-inner .social-network-pages a:focus {
+  text-decoration: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .single-resume-inner .social-network-pages a:hover {
+    text-decoration: none;
+  }
+}
+.single-resume-inner .social-network-pages a:focus,
+.single-resume-inner .social-network-pages a.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.single-resume-inner .social-network-pages a.disabled,
+.single-resume-inner .social-network-pages a:disabled {
+  opacity: 0.65;
+}
+
+.single-resume-inner .social-network-pages a:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
+
+.single-resume-inner .social-network-pages a:not(:disabled):not(.disabled):active,
+.single-resume-inner .social-network-pages a:not(:disabled):not(.disabled).active {
+  background-image: none;
+}
+
+.single-resume-inner .social-network-pages a.candidate-twitter {
+  color: #55acee;
+  background-color: transparent;
+  background-image: none;
+  border-color: #55acee;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .single-resume-inner .social-network-pages a.candidate-twitter:hover {
+    color: #fff;
+    background-color: #55acee;
+    border-color: #55acee;
+  }
+}
+.single-resume-inner .social-network-pages a.candidate-twitter:focus,
+.single-resume-inner .social-network-pages a.candidate-twitter.focus {
+  box-shadow: 0 0 0 0.2rem rgba(85, 172, 238, 0.5);
+}
+
+.single-resume-inner .social-network-pages a.candidate-twitter.disabled,
+.single-resume-inner .social-network-pages a.candidate-twitter:disabled {
+  color: #55acee;
+  background-color: transparent;
+}
+
+.single-resume-inner .social-network-pages a.candidate-twitter:not(:disabled):not(.disabled):active,
+.single-resume-inner .social-network-pages a.candidate-twitter:not(:disabled):not(.disabled).active,
+.show > .single-resume-inner .social-network-pages a.candidate-twitter.dropdown-toggle {
+  color: #212529;
+  background-color: #55acee;
+  border-color: #55acee;
+}
+
+.single-resume-inner .social-network-pages a.candidate-twitter:not(:disabled):not(.disabled):active:focus,
+.single-resume-inner .social-network-pages a.candidate-twitter:not(:disabled):not(.disabled).active:focus,
+.show > .single-resume-inner .social-network-pages a.candidate-twitter.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(85, 172, 238, 0.5);
+}
+
+.single-resume-inner .social-network-pages a.candidate-facebook {
+  color: #3b5999;
+  background-color: transparent;
+  background-image: none;
+  border-color: #3b5999;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .single-resume-inner .social-network-pages a.candidate-facebook:hover {
+    color: #fff;
+    background-color: #3b5999;
+    border-color: #3b5999;
+  }
+}
+.single-resume-inner .social-network-pages a.candidate-facebook:focus,
+.single-resume-inner .social-network-pages a.candidate-facebook.focus {
+  box-shadow: 0 0 0 0.2rem rgba(59, 89, 153, 0.5);
+}
+
+.single-resume-inner .social-network-pages a.candidate-facebook.disabled,
+.single-resume-inner .social-network-pages a.candidate-facebook:disabled {
+  color: #3b5999;
+  background-color: transparent;
+}
+
+.single-resume-inner .social-network-pages a.candidate-facebook:not(:disabled):not(.disabled):active,
+.single-resume-inner .social-network-pages a.candidate-facebook:not(:disabled):not(.disabled).active,
+.show > .single-resume-inner .social-network-pages a.candidate-facebook.dropdown-toggle {
+  color: #fff;
+  background-color: #3b5999;
+  border-color: #3b5999;
+}
+
+.single-resume-inner .social-network-pages a.candidate-facebook:not(:disabled):not(.disabled):active:focus,
+.single-resume-inner .social-network-pages a.candidate-facebook:not(:disabled):not(.disabled).active:focus,
+.show > .single-resume-inner .social-network-pages a.candidate-facebook.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(59, 89, 153, 0.5);
+}
+
+.single-resume-inner .social-network-pages a.candidate-google-plus {
+  color: #dd4b39;
+  background-color: transparent;
+  background-image: none;
+  border-color: #dd4b39;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .single-resume-inner .social-network-pages a.candidate-google-plus:hover {
+    color: #fff;
+    background-color: #dd4b39;
+    border-color: #dd4b39;
+  }
+}
+.single-resume-inner .social-network-pages a.candidate-google-plus:focus,
+.single-resume-inner .social-network-pages a.candidate-google-plus.focus {
+  box-shadow: 0 0 0 0.2rem rgba(221, 75, 57, 0.5);
+}
+
+.single-resume-inner .social-network-pages a.candidate-google-plus.disabled,
+.single-resume-inner .social-network-pages a.candidate-google-plus:disabled {
+  color: #dd4b39;
+  background-color: transparent;
+}
+
+.single-resume-inner .social-network-pages a.candidate-google-plus:not(:disabled):not(.disabled):active,
+.single-resume-inner .social-network-pages a.candidate-google-plus:not(:disabled):not(.disabled).active,
+.show > .single-resume-inner .social-network-pages a.candidate-google-plus.dropdown-toggle {
+  color: #fff;
+  background-color: #dd4b39;
+  border-color: #dd4b39;
+}
+
+.single-resume-inner .social-network-pages a.candidate-google-plus:not(:disabled):not(.disabled):active:focus,
+.single-resume-inner .social-network-pages a.candidate-google-plus:not(:disabled):not(.disabled).active:focus,
+.show > .single-resume-inner .social-network-pages a.candidate-google-plus.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(221, 75, 57, 0.5);
+}
+
+.single-resume-inner .social-network-pages a.candidate-linkedin {
+  color: #0077B5;
+  background-color: transparent;
+  background-image: none;
+  border-color: #0077B5;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .single-resume-inner .social-network-pages a.candidate-linkedin:hover {
+    color: #fff;
+    background-color: #0077B5;
+    border-color: #0077B5;
+  }
+}
+.single-resume-inner .social-network-pages a.candidate-linkedin:focus,
+.single-resume-inner .social-network-pages a.candidate-linkedin.focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 119, 181, 0.5);
+}
+
+.single-resume-inner .social-network-pages a.candidate-linkedin.disabled,
+.single-resume-inner .social-network-pages a.candidate-linkedin:disabled {
+  color: #0077B5;
+  background-color: transparent;
+}
+
+.single-resume-inner .social-network-pages a.candidate-linkedin:not(:disabled):not(.disabled):active,
+.single-resume-inner .social-network-pages a.candidate-linkedin:not(:disabled):not(.disabled).active,
+.show > .single-resume-inner .social-network-pages a.candidate-linkedin.dropdown-toggle {
+  color: #fff;
+  background-color: #0077B5;
+  border-color: #0077B5;
+}
+
+.single-resume-inner .social-network-pages a.candidate-linkedin:not(:disabled):not(.disabled):active:focus,
+.single-resume-inner .social-network-pages a.candidate-linkedin:not(:disabled):not(.disabled).active:focus,
+.show > .single-resume-inner .social-network-pages a.candidate-linkedin.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 119, 181, 0.5);
+}
+
+.single-resume-inner .social-network-pages a.candidate-instagram {
+  color: #e4405f;
+  background-color: transparent;
+  background-image: none;
+  border-color: #e4405f;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .single-resume-inner .social-network-pages a.candidate-instagram:hover {
+    color: #fff;
+    background-color: #e4405f;
+    border-color: #e4405f;
+  }
+}
+.single-resume-inner .social-network-pages a.candidate-instagram:focus,
+.single-resume-inner .social-network-pages a.candidate-instagram.focus {
+  box-shadow: 0 0 0 0.2rem rgba(228, 64, 95, 0.5);
+}
+
+.single-resume-inner .social-network-pages a.candidate-instagram.disabled,
+.single-resume-inner .social-network-pages a.candidate-instagram:disabled {
+  color: #e4405f;
+  background-color: transparent;
+}
+
+.single-resume-inner .social-network-pages a.candidate-instagram:not(:disabled):not(.disabled):active,
+.single-resume-inner .social-network-pages a.candidate-instagram:not(:disabled):not(.disabled).active,
+.show > .single-resume-inner .social-network-pages a.candidate-instagram.dropdown-toggle {
+  color: #fff;
+  background-color: #e4405f;
+  border-color: #e4405f;
+}
+
+.single-resume-inner .social-network-pages a.candidate-instagram:not(:disabled):not(.disabled):active:focus,
+.single-resume-inner .social-network-pages a.candidate-instagram:not(:disabled):not(.disabled).active:focus,
+.show > .single-resume-inner .social-network-pages a.candidate-instagram.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(228, 64, 95, 0.5);
+}
+
+.single-resume-inner .social-network-pages a.candidate-youtube {
+  color: #cd201f;
+  background-color: transparent;
+  background-image: none;
+  border-color: #cd201f;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .single-resume-inner .social-network-pages a.candidate-youtube:hover {
+    color: #fff;
+    background-color: #cd201f;
+    border-color: #cd201f;
+  }
+}
+.single-resume-inner .social-network-pages a.candidate-youtube:focus,
+.single-resume-inner .social-network-pages a.candidate-youtube.focus {
+  box-shadow: 0 0 0 0.2rem rgba(205, 32, 31, 0.5);
+}
+
+.single-resume-inner .social-network-pages a.candidate-youtube.disabled,
+.single-resume-inner .social-network-pages a.candidate-youtube:disabled {
+  color: #cd201f;
+  background-color: transparent;
+}
+
+.single-resume-inner .social-network-pages a.candidate-youtube:not(:disabled):not(.disabled):active,
+.single-resume-inner .social-network-pages a.candidate-youtube:not(:disabled):not(.disabled).active,
+.show > .single-resume-inner .social-network-pages a.candidate-youtube.dropdown-toggle {
+  color: #fff;
+  background-color: #cd201f;
+  border-color: #cd201f;
+}
+
+.single-resume-inner .social-network-pages a.candidate-youtube:not(:disabled):not(.disabled):active:focus,
+.single-resume-inner .social-network-pages a.candidate-youtube:not(:disabled):not(.disabled).active:focus,
+.show > .single-resume-inner .social-network-pages a.candidate-youtube.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(205, 32, 31, 0.5);
+}
+
+.single-resume-inner .social-network-pages a.candidate-behance {
+  color: #131418;
+  background-color: transparent;
+  background-image: none;
+  border-color: #131418;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .single-resume-inner .social-network-pages a.candidate-behance:hover {
+    color: #fff;
+    background-color: #131418;
+    border-color: #131418;
+  }
+}
+.single-resume-inner .social-network-pages a.candidate-behance:focus,
+.single-resume-inner .social-network-pages a.candidate-behance.focus {
+  box-shadow: 0 0 0 0.2rem rgba(19, 20, 24, 0.5);
+}
+
+.single-resume-inner .social-network-pages a.candidate-behance.disabled,
+.single-resume-inner .social-network-pages a.candidate-behance:disabled {
+  color: #131418;
+  background-color: transparent;
+}
+
+.single-resume-inner .social-network-pages a.candidate-behance:not(:disabled):not(.disabled):active,
+.single-resume-inner .social-network-pages a.candidate-behance:not(:disabled):not(.disabled).active,
+.show > .single-resume-inner .social-network-pages a.candidate-behance.dropdown-toggle {
+  color: #fff;
+  background-color: #131418;
+  border-color: #131418;
+}
+
+.single-resume-inner .social-network-pages a.candidate-behance:not(:disabled):not(.disabled):active:focus,
+.single-resume-inner .social-network-pages a.candidate-behance:not(:disabled):not(.disabled).active:focus,
+.show > .single-resume-inner .social-network-pages a.candidate-behance.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(19, 20, 24, 0.5);
+}
+
+.single-resume-inner .social-network-pages a.candidate-pinterest {
+  color: #bd081c;
+  background-color: transparent;
+  background-image: none;
+  border-color: #bd081c;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .single-resume-inner .social-network-pages a.candidate-pinterest:hover {
+    color: #fff;
+    background-color: #bd081c;
+    border-color: #bd081c;
+  }
+}
+.single-resume-inner .social-network-pages a.candidate-pinterest:focus,
+.single-resume-inner .social-network-pages a.candidate-pinterest.focus {
+  box-shadow: 0 0 0 0.2rem rgba(189, 8, 28, 0.5);
+}
+
+.single-resume-inner .social-network-pages a.candidate-pinterest.disabled,
+.single-resume-inner .social-network-pages a.candidate-pinterest:disabled {
+  color: #bd081c;
+  background-color: transparent;
+}
+
+.single-resume-inner .social-network-pages a.candidate-pinterest:not(:disabled):not(.disabled):active,
+.single-resume-inner .social-network-pages a.candidate-pinterest:not(:disabled):not(.disabled).active,
+.show > .single-resume-inner .social-network-pages a.candidate-pinterest.dropdown-toggle {
+  color: #fff;
+  background-color: #bd081c;
+  border-color: #bd081c;
+}
+
+.single-resume-inner .social-network-pages a.candidate-pinterest:not(:disabled):not(.disabled):active:focus,
+.single-resume-inner .social-network-pages a.candidate-pinterest:not(:disabled):not(.disabled).active:focus,
+.show > .single-resume-inner .social-network-pages a.candidate-pinterest.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(189, 8, 28, 0.5);
+}
+
+.single-resume-inner .social-network-pages a.candidate-github {
+  color: #1F1F1F;
+  background-color: transparent;
+  background-image: none;
+  border-color: #1F1F1F;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .single-resume-inner .social-network-pages a.candidate-github:hover {
+    color: #fff;
+    background-color: #1F1F1F;
+    border-color: #1F1F1F;
+  }
+}
+.single-resume-inner .social-network-pages a.candidate-github:focus,
+.single-resume-inner .social-network-pages a.candidate-github.focus {
+  box-shadow: 0 0 0 0.2rem rgba(31, 31, 31, 0.5);
+}
+
+.single-resume-inner .social-network-pages a.candidate-github.disabled,
+.single-resume-inner .social-network-pages a.candidate-github:disabled {
+  color: #1F1F1F;
+  background-color: transparent;
+}
+
+.single-resume-inner .social-network-pages a.candidate-github:not(:disabled):not(.disabled):active,
+.single-resume-inner .social-network-pages a.candidate-github:not(:disabled):not(.disabled).active,
+.show > .single-resume-inner .social-network-pages a.candidate-github.dropdown-toggle {
+  color: #fff;
+  background-color: #1F1F1F;
+  border-color: #1F1F1F;
+}
+
+.single-resume-inner .social-network-pages a.candidate-github:not(:disabled):not(.disabled):active:focus,
+.single-resume-inner .social-network-pages a.candidate-github:not(:disabled):not(.disabled).active:focus,
+.show > .single-resume-inner .social-network-pages a.candidate-github.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(31, 31, 31, 0.5);
+}
+
+@media (min-width: 1200px) {
+  .single-resume-inner .social-network-pages {
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    margin-bottom: 0;
+  }
+  .single-resume-inner .social-network-pages a {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 15px;
+    margin-left: 10px;
+  }
+}
+@media (min-width: 1200px) {
+  .single-resume-inner .single-resume-head-inner > div.single-candidate-head-left {
+    padding-right: 15px;
+  }
+}
+.single-candidate-head-left .categories {
+  margin-bottom: 16px;
+}
+
+.single-candidate-head-left .categories li a {
+  color: #888;
+  background-color: var(--reign-site-border-color);
+}
+
+.single-candidate-head-left .categories li a:focus {
+  color: #fff;
+  background: #333;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .single-candidate-head-left .categories li a:hover {
+    color: #fff;
+    background: #333;
+  }
+}
+.single-candidate-head-left .social-network-pages {
+  margin-bottom: 23px;
+}
+
+@media (min-width: 1200px) {
+  .single-candidate-head-left .categories {
+    margin-bottom: 0;
+  }
+  .single-candidate-head-left .social-network-pages {
+    margin-bottom: 0;
+  }
+}
+.single-candidate-head-right {
+  align-items: center;
+  flex-direction: column;
+}
+
+.single-candidate-head-right .candidate-location-published {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.single-candidate-head-right .candidate-resume {
+  align-self: center;
+}
+
+.single-candidate-head-right .candidate-resume a {
+  display: inline-block;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 2px solid transparent;
+  -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  padding: 8px 41px;
+  font-size: 15px;
+  line-height: 2;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.single-resume-inner .single-candidate-head-right .candidate-resume a {
+  color: var(--reign-site-headings-color);
+  background-color: transparent;
+  background-image: none;
+  border-color: var(--reign-site-border-color);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .single-resume-inner .single-candidate-head-right .candidate-resume a:hover {
+    color: #fff;
+    background-color: #333;
+    border-color: #333;
+  }
+}
+.single-candidate-head-right .candidate-resume a:focus {
+  text-decoration: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .single-candidate-head-right .candidate-resume a:hover {
+    text-decoration: none;
+  }
+}
+.single-candidate-head-right .candidate-resume a:focus,
+.single-candidate-head-right .candidate-resume a.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.single-candidate-head-right .candidate-resume a.disabled,
+.single-candidate-head-right .candidate-resume a:disabled {
+  opacity: 0.65;
+}
+
+.single-candidate-head-right .candidate-resume a:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
+
+.single-candidate-head-right .candidate-resume a:not(:disabled):not(.disabled):active,
+.single-candidate-head-right .candidate-resume a:not(:disabled):not(.disabled).active {
+  background-image: none;
+}
+
+.single-candidate-head-right .candidate-resume a i {
+  padding-right: 8px;
+  font-size: 20px;
+  color: #1da1f2;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .single-candidate-head-right .candidate-resume a:hover i {
+    color: #fff;
+  }
+}
+.single-candidate-head-right .candidate-resume a:focus i {
+  color: inherit;
+}
+
+.single-candidate-head-right .candidate-resume a:active {
+  color: #fff !important;
+}
+
+@media (min-width: 1200px) {
+  .single-candidate-head-right {
+    flex-direction: row;
+    padding: 48px 15px 55px;
+  }
+  .single-candidate-head-right .candidate-location-published {
+    flex-direction: row;
+    align-items: normal;
+    align-self: flex-start;
+    margin-bottom: 0;
+  }
+  .single-candidate-head-right .location {
+    margin-bottom: 0;
+  }
+  .single-candidate-head-right .candidate-resume {
+    align-self: flex-end;
+  }
+}
+.single-candidate-details {
+  margin-bottom: 30px;
+}
+
+@media (min-width: 1200px) {
+  .single-candidate-details {
+    margin-bottom: 0;
+  }
+}
+.single-resume-content-navbar {
+  margin-bottom: 30px;
+}
+
+.single-resume-content-navbar ul {
+  background: var(--reign-site-sections-bg-color);
+  border: 2px solid var(--reign-site-border-color);
+  margin: 0;
+  display: flex;
+  height: 60px;
+  align-items: center;
+  border-radius: 8px;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.single-resume-content-navbar ul li {
+  height: inherit;
+}
+
+.single-resume-content .single-resume-content-navbar ul li a {
+  height: inherit;
+  -moz-height: 58px;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  color: var(--reign-site-headings-color);
+  padding: 2px 10px 0;
+  width: max-content;
+  border-bottom: 2px solid transparent;
+}
+
+.single-resume-content-navbar ul li a i {
+  display: none;
+}
+
+.single-resume-content-navbar ul li a.active {
+  font-weight: 600;
+}
+
+@media (min-width: 768px) {
+  .single-resume-content-navbar ul {
+    justify-content: center;
+  }
+  .single-resume-content-navbar ul li {
+    text-align: center;
+  }
+  .single-resume-content-navbar ul li a {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+}
+@media (min-width: 992px) {
+  .single-resume-content-navbar ul {
+    overflow-x: inherit;
+    overflow-y: inherit;
+  }
+  .single-resume-content-navbar ul li a.active {
+    font-weight: 400;
+  }
+}
+@media (min-width: 1200px) {
+  .single-resume-content-navbar {
+    margin-bottom: 30px;
+  }
+  .single-resume-content-navbar ul li a {
+    font-size: 15px;
+  }
+  .single-resume-content-navbar ul li + li {
+    margin-right: 22px;
+  }
+}
+.single-resume-content-navbar-inner.stuck {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #fff;
+  z-index: 2;
+  right: 0;
+}
+
+.single-resume-content-navbar-inner.stuck ul {
+  width: 100vw;
+  position: relative;
+  margin-right: calc(-50vw + 50% - 8px);
+  border-width: 2px 0;
+  border-top-color: transparent;
+  border-radius: 0;
+  background-color: #fff;
+}
+
+@media (max-width: 991.98px) {
+  .single-resume-content-navbar-inner.stuck ul {
+    /* (max-width: 991.98px) */
+    margin-right: calc(-50vw + 50%);
+  }
+}
+.single-resume__widget--content {
+  margin: 0;
+  padding: 24px 20px;
+  border: 2px solid var(--reign-site-border-color);
+  border-radius: 8px;
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .single-resume-content_inner .single-resume__sidebar-area {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  .single-resume-content_inner .single-resume__sidebar-area .single-resume__overview,
+  .single-resume-content_inner .single-resume__sidebar-area .contact-candidate {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    flex: 0 0 50%;
+    max-width: 50%;
+    margin-top: 0;
+  }
+  .wp-job-manager-bookmarks-form {
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+}

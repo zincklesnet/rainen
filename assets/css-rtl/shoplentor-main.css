@@ -1,0 +1,10 @@
+/**
+ * ShopLentor (formerly WooLentor) Theme Integration
+ * 
+ * Primary color customization handled via inline CSS in reign-shoplentor-functions.php
+ * Use this file for additional static custom styles if needed
+ */
+
+.htcompare-popup .htcompare-popup-content-area {
+    background-color: var(--reign-primary-color) !important;
+}

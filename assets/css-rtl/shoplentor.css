@@ -1,0 +1,111 @@
+/**
+ * Micro clearfix, as per: http://cssmojo.com/latest_new_clearfix_so_far/
+ * Extend the clearfix class with Sass to avoid the `.clearfix` class appearing
+ * over and over in your markup.
+ */
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Button Style
+# Common Table Style
+# Popup Style
+# Share Link Button
+# Responsive
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+# Button Style
+--------------------------------------------------------------*/
+.htcompare-btn.htcompare-btn svg {
+  fill: currentColor;
+}
+
+.htcompare-btn.loading {
+  opacity: 0.25;
+}
+
+/*--------------------------------------------------------------
+# Common Table Style
+--------------------------------------------------------------*/
+.htcompare-col.htcompare-col {
+  border-left: 1px solid var(--reign-site-border-color);
+}
+
+.htcolumn-field-name.htcolumn-field-name {
+  color: var(--reign-site-body-text-color);
+}
+
+.htcompare-remove.htcompare-remove::after, .htcompare-remove.htcompare-remove::before {
+  background-color: var(--reign-site-body-text-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  .htcompare-remove.htcompare-remove:hover::after, .htcompare-remove.htcompare-remove:hover::before {
+    background: var(--reign-color-error);
+  }
+}
+
+.htcompare-table.htcompare-table.loading:before {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+.htcompare-table.htcompare-table .htcompare-table-loader {
+  border: 8px solid var(--reign-site-secondary-bg-color);
+  border-top: 8px solid var(--reign-colors-theme);
+}
+
+.ever-compare-message-error {
+  border: 1px solid var(--reign-color-error);
+  border-right-width: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.htcompare-row.htcompare-row:nth-child(2n) .htcompare-col {
+  background-color: var(--reign-site-secondary-bg-color);
+}
+
+/*--------------------------------------------------------------
+# Popup Style
+--------------------------------------------------------------*/
+.htcompare-popup.htcompare-popup {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.htcompare-popup.htcompare-popup .htcompare-popup-content-area {
+  background: var(--reign-site-sections-bg-color);
+}
+.htcompare-popup.htcompare-popup .htcompare-popup-close {
+  background: var(--reign-site-sections-bg-color);
+}
+.htcompare-popup.htcompare-popup .htcompare-popup-close::after, .htcompare-popup.htcompare-popup .htcompare-popup-close::before {
+  background-color: var(--reign-site-body-text-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  .htcompare-popup.htcompare-popup .htcompare-popup-close:hover::after, .htcompare-popup.htcompare-popup .htcompare-popup-close:hover::before {
+    background: var(--reign-color-error);
+  }
+}
+
+.compare-data-primary .htcolumn-value.htcolumn-value {
+  border-color: var(--reign-site-border-color);
+}
+
+/*--------------------------------------------------------------
+# Responsive
+--------------------------------------------------------------*/
+@media (max-width: 767px) {
+  .htcompare-row:nth-child(2n) .htcompare-col {
+    background-color: transparent;
+  }
+  .htcolumn-value::before {
+    background-color: var(--reign-site-secondary-bg-color);
+    color: var(--reign-site-body-text-color);
+  }
+}
+/*--------------------------------------------------------------
+# Single Product
+--------------------------------------------------------------*/
+.single-product .htcompare-button-area {
+  margin: 0 0 20px;
+  display: inline-block;
+}
+
+.single-product .wishsuite-button {
+  margin-left: 10px;
+}
