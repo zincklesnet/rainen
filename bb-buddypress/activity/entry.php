@@ -12,6 +12,8 @@
  * @package BuddyBoss
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 bp_nouveau_activity_hook( 'before', 'entry' );
 
 $activity_id    = bp_get_activity_id();
@@ -188,7 +190,7 @@ $activity_popup_title = sprintf( esc_html__( '%s\'s post', 'reign' ), bp_core_ge
 										bb_activity_topics_manager_instance()->bb_get_activity_topic_url(
 											array(
 												'activity_id' => bp_get_activity_id(),
-												'html'        => true,
+												'html' => true,
 											)
 										)
 									);
@@ -227,8 +229,8 @@ $activity_popup_title = sprintf( esc_html__( '%s\'s post', 'reign' ), bp_core_ge
 						$activity_date_recorded = bp_get_activity_date_recorded();
 						printf(
 							'<span class="time-since" data-livestamp="%1$s">%2$s</span>',
-							bp_core_get_iso8601_date( $activity_date_recorded ),
-							bp_core_time_since( $activity_date_recorded )
+							esc_attr( bp_core_get_iso8601_date( $activity_date_recorded ) ),
+							esc_html( bp_core_time_since( $activity_date_recorded ) )
 						);
 						?>
 					</a>

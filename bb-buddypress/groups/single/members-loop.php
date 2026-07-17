@@ -5,13 +5,15 @@
  * @since 3.0.0
  * @version 3.2.0
  */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 ?>
 
 <?php
 global $wbtm_reign_settings;
 
 $member_directory_type = $wbtm_reign_settings['reign_buddyextender']['member_directory_type'] ?? 'wbtm-member-directory-type-2';
-$img_class             = ( $member_directory_type == 'wbtm-member-directory-type-4' ) ? 'img-card' : '';
+$img_class             = ( 'wbtm-member-directory-type-4' === $member_directory_type ) ? 'img-card' : '';
 
 $footer_buttons_class = ( bp_is_active( 'friends' ) && bp_is_active( 'messages' ) ) ? 'footer-buttons-on' : '';
 
@@ -90,7 +92,7 @@ if ( bp_group_has_members( bp_ajax_querystring( 'group_members' ) . '&type=group
 
 					<div class="item-avatar">
 						<?php
-						if ( $member_directory_type == 'wbtm-member-directory-type-4' ) {
+						if ( 'wbtm-member-directory-type-4' === $member_directory_type ) {
 							echo '<figure class="img-dynamic aspect-ratio avatar">';
 						}
 						?>
@@ -103,14 +105,14 @@ if ( bp_group_has_members( bp_ajax_querystring( 'group_members' ) . '&type=group
 							?>
 						</a>
 						<?php
-						if ( $member_directory_type == 'wbtm-member-directory-type-4' ) {
+						if ( 'wbtm-member-directory-type-4' === $member_directory_type ) {
 							echo '</figure>';
 						}
 						?>
 					</div>
 
 					<?php
-					if ( $member_directory_type == 'wbtm-member-directory-type-4' ) {
+					if ( 'wbtm-member-directory-type-4' === $member_directory_type ) {
 						echo '<div class="item-wrapper">';
 					}
 					?>
@@ -213,7 +215,7 @@ if ( bp_group_has_members( bp_ajax_querystring( 'group_members' ) . '&type=group
 					</div>
 					<!-- Added actions buttons outside "item" section :: End  -->
 					<?php
-					if ( $member_directory_type == 'wbtm-member-directory-type-4' ) {
+					if ( 'wbtm-member-directory-type-4' === $member_directory_type ) {
 						echo '</div>';
 					}
 					?>
@@ -273,7 +275,7 @@ if ( bp_group_has_members( bp_ajax_querystring( 'group_members' ) . '&type=group
 					<div class="bb-remove-connection-content bb-action-popup-content">
 						<p>
 							<?php
-							echo sprintf(
+							printf(
 								/* translators: %s: The member name with HTML tags */
 								esc_html__( 'Are you sure you want to remove %s from your connections?', 'reign' ),
 								'<span class="bb-user-name"></span>'

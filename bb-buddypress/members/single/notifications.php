@@ -6,6 +6,8 @@
  * @version 3.0.0
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 $profile_link         = trailingslashit( bp_displayed_user_domain() . bp_get_profile_slug() );
 $is_send_ajax_request = bb_is_send_ajax_request();
 ?>

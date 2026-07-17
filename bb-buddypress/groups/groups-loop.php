@@ -5,6 +5,8 @@
  * @since 3.0.0
  * @version 3.1.0
  */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 ?>
 
 <?php add_filter( 'bp_get_group_description_excerpt', 'bb_get_group_description_excerpt_view_more', 99, 2 ); ?>
@@ -21,7 +23,7 @@
 <?php
 global $wbtm_reign_settings;
 $group_directory_type = $wbtm_reign_settings['reign_buddyextender']['group_directory_type'] ?? 'wbtm-group-directory-type-2';
-$img_class            = ( $group_directory_type == 'wbtm-group-directory-type-4' ) ? 'img-card' : '';
+$img_class            = ( 'wbtm-group-directory-type-4' === $group_directory_type ) ? 'img-card' : '';
 
 $cover_class        = ! bb_platform_group_element_enable( 'cover-images' ) ? 'bb-cover-disabled' : 'bb-cover-enabled';
 $meta_privacy       = ! bb_platform_group_element_enable( 'group-privacy' ) ? 'meta-privacy-hidden' : '';
@@ -67,7 +69,7 @@ $group_cover_height = function_exists( 'bb_get_group_cover_image_height' ) ? bb_
 					<?php if ( ! bp_disable_group_avatar_uploads() ) : ?>
 						<div class="item-avatar">
 							<?php
-							if ( $group_directory_type == 'wbtm-group-directory-type-4' ) {
+							if ( 'wbtm-group-directory-type-4' === $group_directory_type ) {
 								echo '<figure class="img-dynamic aspect-ratio avatar">';
 							}
 							?>
@@ -134,7 +136,7 @@ $group_cover_height = function_exists( 'bb_get_group_cover_image_height' ) ? bb_
 
 						<!-- Added action buttons here -->
 						<?php
-						if ( $group_directory_type == 'wbtm-group-directory-type-3' ) {
+						if ( 'wbtm-group-directory-type-3' === $group_directory_type ) {
 							echo '<div class="action-wrap"><i class="far fa-plus-circle"></i>';
 						}
 						?>
@@ -144,7 +146,7 @@ $group_cover_height = function_exists( 'bb_get_group_cover_image_height' ) ? bb_
 							<?php } ?>
 						</div>
 						<?php
-						if ( $group_directory_type == 'wbtm-group-directory-type-3' ) {
+						if ( 'wbtm-group-directory-type-3' === $group_directory_type ) {
 							echo '</div>';
 						}
 						?>

@@ -5,6 +5,8 @@
  * @since 3.0.0
  * @version 3.0.0
  */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 ?>
 
 <?php
@@ -13,7 +15,7 @@ $member_directory_type = isset( $wbtm_reign_settings['reign_buddyextender']['mem
 ?>
 <?php
 $img_class = '';
-if ( $member_directory_type == 'wbtm-member-directory-type-4' ) {
+if ( 'wbtm-member-directory-type-4' === $member_directory_type ) {
 	$img_class = 'img-card';
 }
 ?>
@@ -39,20 +41,20 @@ if ( $member_directory_type == 'wbtm-member-directory-type-4' ) {
 
 					<div class="item-avatar">
 						<?php
-						if ( $member_directory_type == 'wbtm-member-directory-type-4' ) {
+						if ( 'wbtm-member-directory-type-4' === $member_directory_type ) {
 							echo '<figure class="img-dynamic aspect-ratio avatar">';
 						}
 						?>
 						<a class="<?php echo esc_attr( $img_class ); ?>" href="<?php bp_member_link(); ?>"><?php bp_member_avatar( array( 'type' => 'full' ) ); ?></a>
 						<?php
-						if ( $member_directory_type == 'wbtm-member-directory-type-4' ) {
+						if ( 'wbtm-member-directory-type-4' === $member_directory_type ) {
 							echo '</figure>';
 						}
 						?>
 					</div>
 
 					<?php
-					if ( $member_directory_type == 'wbtm-member-directory-type-4' ) {
+					if ( 'wbtm-member-directory-type-4' === $member_directory_type ) {
 						echo '<div class="item-wrapper">';
 					}
 					?>
@@ -72,7 +74,7 @@ if ( $member_directory_type == 'wbtm-member-directory-type-4' ) {
 					</div>
 					<!-- Added actions buttons outside "item" section :: End  -->
 					<?php
-					if ( $member_directory_type == 'wbtm-member-directory-type-4' ) {
+					if ( 'wbtm-member-directory-type-4' === $member_directory_type ) {
 						echo '</div>';
 					}
 					?>

@@ -5,6 +5,8 @@
  * @since   1.0.0
  * @version 3.0.0
  */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 ?>
 <?php
 global $wbtm_reign_settings;
@@ -17,12 +19,12 @@ if ( ! isset( $bp_nouveau_appearance['user_nav_display'] ) ) {
 }
 
 $bp_nav_style = get_theme_mod( 'buddypress_single_member_nav_style', 'iconic' );
-$class        = ( $bp_nav_style == 'iconic' ) ? 'reign-nav-iconic' : 'reign-default';
+$class        = ( 'iconic' === $bp_nav_style ) ? 'reign-nav-iconic' : 'reign-default';
 
 $bp_nav_view_style = get_theme_mod( 'buddypress_main_nav_view_style', 'text_icon' );
-if ( $bp_nav_view_style == 'swipe' ) {
+if ( 'swipe' === $bp_nav_view_style ) {
 	$nav_view_style = 'reign-nav-swipe';
-} elseif ( $bp_nav_view_style == 'text_icon' ) {
+} elseif ( 'text_icon' === $bp_nav_view_style ) {
 	$nav_view_style = 'reign-nav-swipe text-icon';
 } else {
 	$nav_view_style = 'reign-nav-more';
@@ -33,7 +35,7 @@ $show_nav = ! bp_nouveau_is_object_nav_in_sidebar() && ! bp_is_user_messages() &
 
 <?php bp_nouveau_member_hook( 'before', 'home_content' ); ?>
 
-<?php if ( $member_header_position == 'top' ) : ?>
+<?php if ( 'top' === $member_header_position ) : ?>
 	<div id="item-header" role="complementary" data-bp-item-id="<?php echo esc_attr( bp_displayed_user_id() ); ?>" data-bp-item-component="members" class="users-header single-headers">
 
 		<?php bp_nouveau_member_header_template_part(); ?>
@@ -71,7 +73,7 @@ $show_nav = ! bp_nouveau_is_object_nav_in_sidebar() && ! bp_is_user_messages() &
 				<?php endif; ?>
 				<div class="item-body-inner-wrapper">
 
-					<?php if ( $member_header_position == 'inside' ) : ?>
+					<?php if ( 'inside' === $member_header_position ) : ?>
 						<div id="item-header" role="complementary" data-bp-item-id="<?php echo esc_attr( bp_displayed_user_id() ); ?>" data-bp-item-component="members" class="users-header single-headers">
 
 							<?php bp_nouveau_member_header_template_part(); ?>

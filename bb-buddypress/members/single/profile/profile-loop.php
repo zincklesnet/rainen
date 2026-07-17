@@ -6,6 +6,8 @@
  * @version 3.1.0
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 $edit_profile_link = trailingslashit( bp_displayed_user_domain() . bp_get_profile_slug() . '/edit/group/' );
 ?>
 

@@ -6,13 +6,15 @@
  * @version 3.0.0
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 $bp_nav_style = get_theme_mod( 'buddypress_single_group_nav_style', 'iconic' );
-$class        = ( $bp_nav_style == 'iconic' ) ? 'reign-nav-iconic' : 'reign-default';
+$class        = ( 'iconic' === $bp_nav_style ) ? 'reign-nav-iconic' : 'reign-default';
 
 $bp_nav_view_style = get_theme_mod( 'buddypress_main_nav_view_style', 'text_icon' );
-if ( $bp_nav_view_style == 'swipe' ) {
+if ( 'swipe' === $bp_nav_view_style ) {
 	$nav_view_style = 'reign-nav-swipe';
-} elseif ( $bp_nav_view_style == 'text_icon' ) {
+} elseif ( 'text_icon' === $bp_nav_view_style ) {
 	$nav_view_style = 'reign-nav-swipe text-icon';
 } else {
 	$nav_view_style = 'reign-nav-more';
@@ -42,7 +44,7 @@ if ( bp_has_groups() ) :
 
 		<?php bp_nouveau_group_hook( 'before', 'home_content' ); ?>
 
-		<?php if ( $member_header_position == 'top' ) : ?>
+		<?php if ( 'top' === $member_header_position ) : ?>
 			<div id="item-header" role="complementary" data-bp-item-id="<?php bp_group_id(); ?>" data-bp-item-component="groups" class="groups-header single-headers">
 
 				<?php bp_nouveau_group_header_template_part(); ?>
@@ -73,7 +75,7 @@ if ( bp_has_groups() ) :
 					<div class="wb-grid-cell">
 						<div class="item-body-inner-wrapper">
 
-							<?php if ( $member_header_position == 'inside' ) : ?>
+							<?php if ( 'inside' === $member_header_position ) : ?>
 								<div id="item-header" role="complementary" data-bp-item-id="<?php bp_group_id(); ?>" data-bp-item-component="groups" class="groups-header single-headers">
 
 									<?php bp_nouveau_group_header_template_part(); ?>
@@ -95,7 +97,7 @@ if ( bp_has_groups() ) :
 
 							<?php
 							if ( bp_is_group_subgroups() ) {
-								echo $template_content; // phpcs:ignore
+								echo $template_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- buffered theme template part, escaped at source.
 							} else {
 								bp_nouveau_group_template_part();
 							}

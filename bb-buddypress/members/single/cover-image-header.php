@@ -5,6 +5,8 @@
  * @since 3.0.0
  * @version 3.0.0
  */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 ?>
 <?php
 global $wbtm_reign_settings;
@@ -73,7 +75,8 @@ if ( $bp_is_my_profile ) {
 }
 ?>
 
-<?php if ( ! bp_is_user_messages() && ! bp_is_user_settings() && ! bp_is_user_notifications() && ! bp_is_user_profile_edit() && ! bp_is_user_change_avatar() && ! bp_is_user_change_cover_image() && ! apply_filters( 'reign_bp_is_current_action', false ) ) :
+<?php
+if ( ! bp_is_user_messages() && ! bp_is_user_settings() && ! bp_is_user_notifications() && ! bp_is_user_profile_edit() && ! bp_is_user_change_avatar() && ! bp_is_user_change_cover_image() && ! apply_filters( 'reign_bp_is_current_action', false ) ) :
 	$is_activity_enabled       = bp_is_active( 'activity' );
 	$bp_activity_do_mentions   = $is_activity_enabled && bp_activity_do_mentions();
 	$bp_get_last_activity      = bp_get_last_activity();
@@ -309,7 +312,7 @@ if ( $bp_is_my_profile ) {
 					<div class="bb-remove-connection-content bb-action-popup-content">
 						<p>
 							<?php
-							echo sprintf(
+							printf(
 								/* translators: %s: The member name with HTML tags. */
 								esc_html__( 'Are you sure you want to remove %s from your connections?', 'reign' ),
 								'<span class="bb-user-name"></span>'

@@ -5,6 +5,8 @@
  * @since 3.0.0
  * @version 7.0.0
  */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 ?>
 <?php
 global $wbtm_reign_settings;

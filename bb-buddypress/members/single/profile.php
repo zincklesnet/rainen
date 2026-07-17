@@ -6,6 +6,8 @@
  * @version 3.0.0
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 $profile_link = trailingslashit( bp_displayed_user_domain() . bp_get_profile_slug() );
 $is_edit_mode = bp_is_user_profile_edit() || bp_is_user_change_avatar() || bp_is_user_change_cover_image() || apply_filters( 'reign_bp_is_current_action', false );
 

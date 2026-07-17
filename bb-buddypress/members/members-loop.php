@@ -5,6 +5,8 @@
  * @since 3.0.0
  * @version 3.0.0
  */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 ?>
 
 <?php bp_nouveau_before_loop(); ?>
@@ -13,7 +15,7 @@
 global $wbtm_reign_settings;
 
 $member_directory_type = $wbtm_reign_settings['reign_buddyextender']['member_directory_type'] ?? 'wbtm-member-directory-type-2';
-$img_class             = ( $member_directory_type == 'wbtm-member-directory-type-4' ) ? 'img-card' : '';
+$img_class             = ( 'wbtm-member-directory-type-4' === $member_directory_type ) ? 'img-card' : '';
 
 $footer_buttons_class = ( bp_is_active( 'friends' ) && bp_is_active( 'messages' ) ) ? ' footer-buttons-on' : '';
 
@@ -136,7 +138,7 @@ $enabled_joined_date   = ! function_exists( 'bb_enabled_member_directory_element
 						$moderation_class = function_exists( 'bp_moderation_is_user_blocked' ) && bp_moderation_is_user_blocked( $bp_get_member_user_id ) ? $moderation_class . ' bp-user-blocked' : $moderation_class;
 						?>
 						<?php
-						if ( $member_directory_type == 'wbtm-member-directory-type-4' ) {
+						if ( 'wbtm-member-directory-type-4' === $member_directory_type ) {
 							echo '<figure class="img-dynamic aspect-ratio avatar">';
 						}
 						?>
@@ -149,14 +151,14 @@ $enabled_joined_date   = ! function_exists( 'bb_enabled_member_directory_element
 							?>
 						</a>
 						<?php
-						if ( $member_directory_type == 'wbtm-member-directory-type-4' ) {
+						if ( 'wbtm-member-directory-type-4' === $member_directory_type ) {
 							echo '</figure>';
 						}
 						?>
 					</div>
 
 					<?php
-					if ( $member_directory_type == 'wbtm-member-directory-type-4' ) {
+					if ( 'wbtm-member-directory-type-4' === $member_directory_type ) {
 						echo '<div class="item-wrapper">';
 					}
 					?>
@@ -226,7 +228,7 @@ $enabled_joined_date   = ! function_exists( 'bb_enabled_member_directory_element
 					<!-- Added actions buttons outside "item" section :: Start  -->
 					<div class="member-buttons-wrap action-wrap">
 						<?php
-						if ( $member_directory_type === 'wbtm-member-directory-type-1' ) {
+						if ( 'wbtm-member-directory-type-1' === $member_directory_type ) {
 							echo '<i class="far fa-plus-circle"></i>';
 						}
 						?>
@@ -247,7 +249,7 @@ $enabled_joined_date   = ! function_exists( 'bb_enabled_member_directory_element
 					</div><!-- .member-buttons-wrap -->
 					<!-- Added actions buttons outside "item" section :: End  -->
 					<?php
-					if ( $member_directory_type == 'wbtm-member-directory-type-4' ) {
+					if ( 'wbtm-member-directory-type-4' === $member_directory_type ) {
 						echo '</div>';
 					}
 					?>
@@ -261,7 +263,7 @@ $enabled_joined_date   = ! function_exists( 'bb_enabled_member_directory_element
 					</div>
 					<?php if ( ! empty( $member_switch_button ) || ! empty( $member_report_button ) || ! empty( $member_block_button ) ) { ?>
 					<div class="bb_more_options member-dropdown">
-						<a href="#" class="bb_more_options_action bp-tooltip" data-bp-tooltip-pos="<?php echo ( $member_directory_type === 'wbtm-member-directory-type-4' ) ? 'left' : 'up'; ?>" data-bp-tooltip="<?php esc_attr_e( 'More Options', 'reign' ); ?>" aria-label="<?php esc_attr_e( 'More Options', 'reign' ); ?>">
+						<a href="#" class="bb_more_options_action bp-tooltip" data-bp-tooltip-pos="<?php echo ( 'wbtm-member-directory-type-4' === $member_directory_type ) ? 'left' : 'up'; ?>" data-bp-tooltip="<?php esc_attr_e( 'More Options', 'reign' ); ?>" aria-label="<?php esc_attr_e( 'More Options', 'reign' ); ?>">
 							<i class="bb-icon-menu-dots-h"></i>
 							<span class="bp-screen-reader-text"><?php esc_html_e( 'More options', 'reign' ); ?></span>
 						</a>
@@ -307,7 +309,7 @@ bp_nouveau_after_loop();
 					<div class="bb-remove-connection-content bb-action-popup-content">
 						<p>
 							<?php
-							echo sprintf(
+							printf(
 								/* translators: %s: The member name with HTML tags */
 								esc_html__( 'Are you sure you want to remove %s from your connections?', 'reign' ),
 								'<span class="bb-user-name"></span>'
