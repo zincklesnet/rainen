@@ -5,6 +5,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 if ( class_exists( 'BuddyPress' ) && is_user_logged_in() && bp_is_active( 'notifications' ) ) {
 
 	global $bp;
@@ -24,7 +26,7 @@ if ( class_exists( 'BuddyPress' ) && is_user_logged_in() && bp_is_active( 'notif
 		<div class="header-notifications-dropdown-menu" aria-labelledby="nav_notification" aria-live="polite">
 			<div class="dropdown-title">
 				<?php esc_html_e( 'Notifications', 'reign' ); ?>
-				<a class="mark-read-all action-unread <?php echo ( $unread_notification_count == 0 ) ? 'hidden' : ''; ?>" data-notification-id="all">
+				<a class="mark-read-all action-unread <?php echo ( 0 === (int) $unread_notification_count ) ? 'hidden' : ''; ?>" data-notification-id="all">
 					<?php esc_html_e( 'Mark all as read', 'reign' ); ?>
 				</a>
 			</div>
@@ -71,4 +73,8 @@ if ( class_exists( 'BuddyPress' ) && is_user_logged_in() && bp_is_active( 'notif
 		</div>
 	</div>
 	<?php
+} elseif ( function_exists( 'buddynext_header_notification_bell' ) ) {
+	// BuddyNext active (mutually exclusive with BuddyPress) — render the BN
+	// notification bell (server-rendered unread badge, zero JS).
+	buddynext_header_notification_bell();
 }

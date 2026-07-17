@@ -7,17 +7,19 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 $wbcom_metabox_data = get_post_meta( get_the_ID(), 'reign_wbcom_metabox_data', true );
 $page_option        = 'on';
 
 $hide = true;
-if ( $page_option == 'on' ) {
+if ( 'on' === $page_option ) {
 	$hide = false;
-} elseif ( $page_option == '' ) {
+} elseif ( '' === $page_option ) {
 	$hide = true;
 }
 $reign_subheader_settings = get_post_meta( $post->ID, '_subheader_overwrite', true );
-if ( $reign_subheader_settings == 'yes' ) {
+if ( 'yes' === $reign_subheader_settings ) {
 	$hide = true;
 }
 ?>

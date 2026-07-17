@@ -5,6 +5,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 if ( ! is_user_logged_in() ) {
 	// Register Page Redirect.
 	$registration_page_id  = get_theme_mod( 'reign_registration_page', 0 );
@@ -14,7 +16,7 @@ if ( ! is_user_logged_in() ) {
 	$form_type_login    = get_theme_mod( 'reign_sign_form_popup', 'default' );
 	$forms              = get_theme_mod( 'reign_sign_form_display', 'login' );
 
-	if ( $form_type_login !== 'custom' && ( $forms === 'register' || $forms === 'both' ) && $reign_signin_popup ) {
+	if ( 'custom' !== $form_type_login && ( 'register' === $forms || 'both' === $forms ) && reign_is_truthy( $reign_signin_popup ) ) {
 		$registration_page_url = '#';
 	}
 

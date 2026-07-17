@@ -1,4 +1,8 @@
 <?php
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase -- $PeepSoUser / $PeepSoProfile mirror PeepSo SDK object names; renaming would diverge from upstream PeepSo templates.
 global $wbtm_reign_settings;
 $user_id              = PeepSoProfileShortcode::get_instance()->get_view_user_id();
 $PeepSoProfile        = PeepSoProfile::get_instance();
@@ -25,7 +29,7 @@ if ( empty( $cover ) ) {
 	<div class="ps-focus__cover ps-js-cover">
 		<div class="ps-focus__cover-image ps-js-cover-wrapper">
 			<img class="ps-js-cover-image" src="<?php echo esc_url( $cover ); ?>"
-				alt="<?php printf( esc_attr__( '%s cover photo', 'reign' ), $PeepSoUser->get_fullname() ); ?>"
+				alt="<?php printf( /* translators: %s: Member full name. */ esc_attr__( '%s cover photo', 'reign' ), esc_attr( $PeepSoUser->get_fullname() ) ); ?>"
 				style="<?php echo esc_attr( $PeepSoUser->get_cover_position() ); ?>; opacity: 0;" />
 			<div class="ps-focus__cover-loading ps-js-cover-loading">
 				<i class="gcis gci-circle-notch gci-spin"></i>
@@ -45,7 +49,7 @@ if ( empty( $cover ) ) {
 		<div class="ps-focus__cover-inner ps-js-cover-button-popup"<?php echo $cover_box_attrs; // phpcs:ignore ?>>
 			<div class="ps-avatar ps-avatar--focus ps-focus__avatar ps-js-avatar">
 				<img class="ps-js-avatar-image" src="<?php echo esc_url( $PeepSoUser->get_avatar( 'full' ) ); ?>" 
-					alt="<?php printf( esc_attr__( '%s avatar', 'reign' ), $PeepSoUser->get_fullname() ); ?>" />
+					alt="<?php printf( /* translators: %s: Member full name. */ esc_attr__( '%s avatar', 'reign' ), esc_attr( $PeepSoUser->get_fullname() ) ); ?>" />
 				<?php
 				$avatar_box_attrs = ' style="cursor:default"';
 				if ( $PeepSoUser->has_avatar() ) {
@@ -63,7 +67,7 @@ if ( empty( $cover ) ) {
 
 				<?php if ( $PeepSoUser->get_online_status() ) { ?>
 					<div class="ps-online ps-online--focus ps-tip ps-tip--inline"
-						aria-label="<?php printf( esc_attr__( '%s is currently online', 'reign' ), $PeepSoUser->get_fullname() ); ?>">
+						aria-label="<?php printf( /* translators: %s: Member full name. */ esc_attr__( '%s is currently online', 'reign' ), esc_attr( $PeepSoUser->get_fullname() ) ); ?>">
 						<div class="ps-online__inner"></div>
 					</div>
 				<?php } ?>
@@ -113,7 +117,7 @@ if ( empty( $cover ) ) {
 		<div class="ps-focus__cover-inner ps-js-cover-button-popup"<?php echo $cover_box_attrs; // phpcs:ignore ?>>
 			<div class="ps-avatar ps-avatar--focus ps-focus__avatar ps-js-avatar">
 				<img class="ps-js-avatar-image" src="<?php echo esc_url( $PeepSoUser->get_avatar( 'full' ) ); ?>"
-					alt="<?php printf( esc_attr__( '%s avatar', 'reign' ), $PeepSoUser->get_fullname() ); ?>" />
+					alt="<?php printf( /* translators: %s: Member full name. */ esc_attr__( '%s avatar', 'reign' ), esc_attr( $PeepSoUser->get_fullname() ) ); ?>" />
 
 				<?php
 				$avatar_box_attrs = ' style="cursor:default"';
@@ -132,7 +136,7 @@ if ( empty( $cover ) ) {
 
 				<?php if ( $PeepSoUser->get_online_status() ) { ?>
 					<div class="ps-online ps-online--focus ps-tip ps-tip--inline"
-						aria-label="<?php printf( esc_attr__( '%s is currently online', 'reign' ), $PeepSoUser->get_fullname() ); ?>">
+						aria-label="<?php printf( /* translators: %s: Member full name. */ esc_attr__( '%s is currently online', 'reign' ), esc_attr( $PeepSoUser->get_fullname() ) ); ?>">
 						<div class="ps-online__inner"></div>
 					</div>
 				<?php } ?>
@@ -149,8 +153,10 @@ if ( empty( $cover ) ) {
 		<div class="ps-focus__info">
 			<div class="ps-focus__title">
 				<?php
-				if ( ! $is_profile_segment || 1 == (int) PeepSo::get_option( 'always_full_cover', 0 ) ) {
-					echo '<div class="ps-focus__title-before">', do_action( 'peepso_profile_cover_full_before_name', $PeepSoUser->get_id() ), '</div>';
+				if ( ! $is_profile_segment || 1 === (int) PeepSo::get_option( 'always_full_cover', 0 ) ) {
+					echo '<div class="ps-focus__title-before">';
+					do_action( 'peepso_profile_cover_full_before_name', $PeepSoUser->get_id() );
+					echo '</div>';
 				}
 				?>
 				<div class="ps-focus__name" data-hover-card="<?php echo esc_attr( $PeepSoUser->get_id() ); ?>">
@@ -161,8 +167,10 @@ if ( empty( $cover ) ) {
 				?>
 				</div>
 				<?php
-				if ( ! $is_profile_segment || 1 == (int) PeepSo::get_option( 'always_full_cover', 0 ) ) {
-					echo '<div class="ps-focus__title-after">', do_action( 'peepso_profile_cover_full_after_name', $PeepSoUser->get_id() ), '</div>';
+				if ( ! $is_profile_segment || 1 === (int) PeepSo::get_option( 'always_full_cover', 0 ) ) {
+					echo '<div class="ps-focus__title-after">';
+					do_action( 'peepso_profile_cover_full_after_name', $PeepSoUser->get_id() );
+					echo '</div>';
 				}
 				?>
 			</div>

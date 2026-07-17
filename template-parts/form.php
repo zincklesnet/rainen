@@ -5,8 +5,11 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
+// phpcs:ignore WordPress.PHP.DontExtract.extract_extract -- $args is a controlled array passed by reign's form loader.
 extract( $args );
-$rand = rand( 1000, 9999 );
+$rand = wp_rand( 1000, 9999 );
 
 if ( is_user_logged_in() ) {
 
@@ -39,16 +42,16 @@ $classes   = array( 'registration-login-form', 'mb-0' );
 $classes[] = 'formContainer';
 $classes[] = "selected-forms-{$forms}";
 
-if ( $forms !== 'both' || ! $can_register ) {
+if ( 'both' !== $forms || ! $can_register ) {
 	$classes[] = 'selected-forms-single';
 }
-if ( $forms !== 'both' || ! $can_register ) {
+if ( 'both' !== $forms || ! $can_register ) {
 	$classes[] = 'selected-forms-single';
 }
 ?>
-<div class="<?php echo implode( ' ', $classes ); ?>">
+<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
 	<!-- Nav tabs -->
-	<?php if ( $can_register && $forms === 'both' ) { ?>
+	<?php if ( $can_register && 'both' === $forms ) { ?>
 		<ul class="nav nav-tabs" role="tablist">
 			<li class="nav-item">
 				<a class="nav-link nav-login-link active" data-toggle="tab" href="#login-panel-<?php echo esc_attr( $rand ); ?>" role="tab">
@@ -64,7 +67,7 @@ if ( $forms !== 'both' || ! $can_register ) {
 	<?php } ?>
 
 	<div class="tab-content">
-		<?php if ( ( $forms === 'login' || $forms === 'both' ) ) { ?>
+		<?php if ( ( 'login' === $forms || 'both' === $forms ) ) { ?>
 			<div class="tab-pane active" id="login-panel-<?php echo esc_attr( $rand ); ?>" role="tabpanel">
 				<?php
 				get_template_part(
@@ -83,7 +86,7 @@ if ( $forms !== 'both' || ! $can_register ) {
 			</div>
 		<?php } ?>
 
-		<?php if ( $can_register && ( $forms === 'register' || $forms === 'both' ) ) { ?>
+		<?php if ( $can_register && ( 'register' === $forms || 'both' === $forms ) ) { ?>
 			<div class="tab-pane active" id="register-panel-<?php echo esc_attr( $rand ); ?>" role="tabpanel">
 				<?php
 				get_template_part(
@@ -95,6 +98,7 @@ if ( $forms !== 'both' || ! $can_register ) {
 						'redirect'             => isset( $register_redirect ) ? $register_redirect : '',
 						'forms'                => $forms,
 						'register_fields_type' => $register_fields_type,
+						'register_title'       => isset( $register_title ) ? $register_title : '',
 					)
 				);
 				?>

@@ -1,54 +1,68 @@
 <?php
 /**
- * Template part for displaying posts
+ * Template part for displaying a single search result.
+ *
+ * Thumbnail card layout with a post-type badge, search-term highlighted title
+ * and excerpt, and the standard entry meta.
  *
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
+$reign_has_thumb = has_post_thumbnail();
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class( 'reign-search-result' . ( $reign_has_thumb ? ' reign-search-result--has-thumb' : ' reign-search-result--no-thumb' ) ); ?>>
 
 	<?php do_action( 'reign_rg_post_content_before' ); ?>
 
-	<div class="rg-post-content">
+	<?php if ( $reign_has_thumb ) : ?>
+		<a class="reign-search-result__thumb" href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1">
+			<?php the_post_thumbnail( 'medium', array( 'alt' => the_title_attribute( 'echo=0' ) ) ); ?>
+		</a>
+	<?php endif; ?>
+
+	<div class="reign-search-result__body rg-post-content">
 		<header class="entry-header">
-			<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
-			<div class="entry-meta"><?php reign_entry_list_footer(); ?></div>
+			<?php
+			if ( function_exists( 'reign_search_result_type_badge' ) ) {
+				reign_search_result_type_badge();
+			}
+			?>
+			<h2 class="entry-title reign-search-result__title">
+				<?php
+				if ( function_exists( 'reign_search_highlighted_title' ) ) {
+					reign_search_highlighted_title();
+				} else {
+					the_title( sprintf( '<a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a>' );
+				}
+				?>
+			</h2>
+			<?php
+			// reign_entry_list_footer() renders nothing for hierarchical post
+			// types (pages) — buffer it so we never emit an empty .entry-meta.
+			ob_start();
+			reign_entry_list_footer();
+			$reign_entry_meta = trim( ob_get_clean() );
+			if ( '' !== $reign_entry_meta ) :
+				?>
+				<div class="entry-meta"><?php echo $reign_entry_meta; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- reign_entry_list_footer() escapes its own output. ?></div>
+			<?php endif; ?>
 		</header><!-- .entry-header -->
 
-		<div class="entry-content">
+		<div class="entry-content reign-search-result__excerpt">
 			<?php
-			if ( is_singular() ) {
-				/* translators: %s: Name of current post */
-				the_content(
-					sprintf(
-						wp_kses( __( 'Continue reading %s <span class="meta-nav">&rarr;</span>', 'reign' ), array( 'span' => array( 'class' => array() ) ) ),
-						the_title( '<span class="screen-reader-text">"', '"</span>', false )
-					)
-				);
+			if ( function_exists( 'reign_search_highlighted_excerpt' ) ) {
+				reign_search_highlighted_excerpt();
 			} else {
 				the_excerpt();
 			}
 			?>
-
-			<?php
-			wp_link_pages(
-				array(
-					'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'reign' ),
-					'after'  => '</div>',
-				)
-			);
-			?>
-
-			<?php if ( ! is_singular() ) { ?>
-				<p class="no-margin"><a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'View %s', 'reign' ), the_title_attribute( 'echo=0' ) ) ); ?>" class="read-more button"><?php esc_html_e( 'Read More', 'reign' ); ?></a></p>
-				<?php } ?>
-
 		</div><!-- .entry-content -->
-	</div>
+	</div><!-- .reign-search-result__body -->
 
 	<?php do_action( 'reign_rg_post_content_after' ); ?>
 

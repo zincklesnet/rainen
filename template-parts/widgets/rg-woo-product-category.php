@@ -34,7 +34,8 @@ if ( ! empty( $selected_categories ) ) {
 	}
 }
 
-$categories         = get_terms( 'product_cat', $cat_args );
+$cat_args['taxonomy'] = 'product_cat';
+$categories           = get_terms( $cat_args );
 $ul_wrapper_class   = ( $atts['enable_slider'] ) ? 'rg-woo-category-slider-wrap' : '';
 $li_wb_grid_classes = 'wb-grid-cell sm-wb-grid-1-2 md-wb-grid-1-' . $atts['per_row'];
 $data_slick         = '{"slidesToShow": ' . $atts['per_row'] . ', "slidesToScroll": 1}';
@@ -91,7 +92,7 @@ foreach ( $categories as $category ) {
 			<span class="rg-woo-pro-circle">
 				<?php
 				$count = $category->count;
-				if ( $count === 1 ) {
+				if ( 1 === $count ) {
 					echo esc_attr( $count ) . ' <span class="count-text">' . esc_html__( 'Item', 'reign' ) . '</span>';
 				} else {
 					echo esc_attr( $count ) . ' <span class="count-text">' . esc_html__( 'Items', 'reign' ) . '</span>';

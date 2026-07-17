@@ -5,12 +5,18 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 if ( is_user_logged_in() ) {
-	// For PeepSo notification icons.
-	if ( class_exists( 'PeepSo' ) && is_active_sidebar( 'reign-header-widget-area' ) ) {
+	// BuddyNext active (mutually exclusive with BuddyPress) — render the BN
+	// avatar + profile dropdown (quick links + log out, CSS-only, zero JS).
+	if ( function_exists( 'buddynext_header_user_menu' ) ) {
+		buddynext_header_user_menu();
+	} elseif ( class_exists( 'PeepSo' ) && is_active_sidebar( 'reign-header-widget-area' ) ) {
+		// For PeepSo notification icons.
 		dynamic_sidebar( 'reign-header-widget-area' );
 	} else {
-		$current_user = wp_get_current_user();
+		$current_user = wp_get_current_user(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- local copy mirrors the WP global; not mutating shared state.
 		if ( $current_user instanceof WP_User ) {
 			if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
 				$user_link = function_exists( 'bp_members_get_user_url' ) ? bp_members_get_user_url( get_current_user_id() ) : '#';

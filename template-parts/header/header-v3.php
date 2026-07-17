@@ -7,8 +7,10 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 ?>
-<div class="reign-fallback-header header-desktop version-three<?php echo ( get_theme_mod( 'reign_header_sticky_menu_enable', true ) ) ? esc_attr( ' fixed-top' ) : ''; ?>">
+<div class="reign-fallback-header header-desktop version-three<?php echo reign_is_truthy( get_theme_mod( 'reign_header_sticky_menu_enable', true ) ) ? esc_attr( ' fixed-top' ) : ''; ?>">
 	<div class="container">
 		<div class="wb-grid">
 			<div class="header-left no-gutter wb-grid-flex wb-grid-center wb-grid-space-between">
@@ -39,10 +41,10 @@
 				$reign_header_sticky_menu_custom_style_enable = get_theme_mod( 'reign_header_sticky_menu_custom_style_enable', false );
 				$sticky_menu_logo                             = get_theme_mod( 'reign_sticky_header_menu_logo', '' );
 
-				if ( $reign_header_sticky_menu_enable && $reign_header_sticky_menu_custom_style_enable && $sticky_menu_logo ) {
+				if ( reign_is_truthy( $reign_header_sticky_menu_enable ) && reign_is_truthy( $reign_header_sticky_menu_custom_style_enable ) && $sticky_menu_logo ) {
 					?>
 					<a href="<?php echo esc_url( get_home_url() ); ?>" class="sticky-menu-logo custom-logo-link" rel="home" itemprop="url">
-						<img src="<?php echo esc_url( $sticky_menu_logo ); ?>" class="custom-logo" alt="<?php bloginfo( 'name' ); ?>" itemprop="logo">
+						<img src="<?php echo esc_url( $sticky_menu_logo ); ?>" class="custom-logo" alt="<?php bloginfo( 'name' ); ?>" itemprop="logo" fetchpriority="high">
 					</a>
 					<?php
 				}
@@ -54,8 +56,8 @@
 				<?php
 				do_action( 'reign_before_header_icons' );
 
-				$reign_header_default_icons_set = reign_header_default_icons_set();
-				$reign_header_icons_set         = get_theme_mod( 'reign_header_icons_set', $reign_header_default_icons_set );
+				// (default sourced via helper)
+				$reign_header_icons_set         = reign_get_sortable_setting( 'reign_header_icons_set', reign_header_default_icons_set() );
 				foreach ( $reign_header_icons_set as $header_icon ) {
 					get_template_part( 'template-parts/header-icons/' . $header_icon, '' );
 				}

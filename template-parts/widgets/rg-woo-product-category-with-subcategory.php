@@ -5,6 +5,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 $cat_args = apply_filters(
 	'widget_rg_woo_product_category_with_subcategory_args',
 	array(
@@ -27,7 +29,8 @@ if ( ! empty( $selected_categories ) ) {
 	}
 }
 
-$categories = get_terms( 'product_cat', $cat_args );
+$cat_args['taxonomy'] = 'product_cat';
+$categories           = get_terms( $cat_args );
 
 $ul_wrapper_class   = ( $atts['enable_slider'] ) ? 'rg-woo-category-slider-wrap' : '';
 $li_wb_grid_classes = 'wb-grid-cell sm-wb-grid-1-2 md-wb-grid-1-' . $atts['per_row'];
@@ -45,6 +48,7 @@ if ( ! is_wp_error( $categories ) && ! empty( $categories ) ) {
 
 		// Pre-fetching subcategories for better performance.
 		$subcat_args = array(
+			'taxonomy'   => 'product_cat',
 			'orderby'    => 'name',
 			'hide_empty' => true,
 			'parent'     => $category->term_id,
@@ -55,7 +59,7 @@ if ( ! is_wp_error( $categories ) && ! empty( $categories ) ) {
 		}
 
 		// Fetch subcategories.
-		$subcats = get_terms( 'product_cat', $subcat_args );
+		$subcats = get_terms( $subcat_args );
 
 		if ( is_wp_error( $subcats ) || empty( $subcats ) ) {
 			continue;

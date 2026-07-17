@@ -5,21 +5,24 @@
  * @var string $redirect
  * @var string $forms
  */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+// phpcs:ignore WordPress.PHP.DontExtract.extract_extract -- $args is a controlled array passed by reign's form loader.
 extract( $args );
 $can_register = get_option( 'users_can_register' );
 
 global $wbtm_reign_settings;
 $registration_page_url = wp_registration_url();
-if ( isset( $wbtm_reign_settings['reign_pages']['reign_register_page'] ) && ( $wbtm_reign_settings['reign_pages']['reign_register_page'] != '-1' && $wbtm_reign_settings['reign_pages']['reign_register_page'] != '' ) ) {
+if ( isset( $wbtm_reign_settings['reign_pages']['reign_register_page'] ) && ( '-1' !== $wbtm_reign_settings['reign_pages']['reign_register_page'] && '' !== $wbtm_reign_settings['reign_pages']['reign_register_page'] ) ) {
 	$registration_page_id  = $wbtm_reign_settings['reign_pages']['reign_register_page'];
 	$registration_page_url = get_permalink( $registration_page_id );
 }
 ?>
-<div class="title h6" role="heading" aria-level="2"><?php echo ( $login_title != '' ) ? esc_html( $login_title ) : esc_html__( 'Login to your Account', 'reign' ); ?></div>
+<div class="title h6" role="heading" aria-level="2"><?php echo ( ! empty( $login_title ) ) ? wp_kses_post( $login_title ) : esc_html__( 'Login to your Account', 'reign' ); ?></div>
 
 <form data-handler="reign-signin-form" class="content reign-sign-form-login reign-sign-form" method="POST" action="<?php echo esc_url( site_url( 'wp-login.php', 'login_post' ) ); ?>">
 
-	<input class="simple-input" type="hidden" value="<?php echo wp_create_nonce( 'reign-sign-form' ); ?>" name="_ajax_nonce" />
+	<input class="simple-input" type="hidden" value="<?php echo esc_attr( wp_create_nonce( 'reign-sign-form' ) ); ?>" name="_ajax_nonce" />
 
 	<input class="simple-input" type="hidden" name="redirect_to" value="<?php echo esc_attr( $redirect_to ); ?>"/>
 	<input class="simple-input" type="hidden" name="redirect" value="<?php echo esc_attr( $redirect ); ?>"/>
@@ -60,9 +63,10 @@ if ( isset( $wbtm_reign_settings['reign_pages']['reign_register_page'] ) && ( $w
 			<?php
 			// Add iThemes Security Passwordless Login (Magic Link) support
 			if ( class_exists( 'ITSEC_Passwordless_Login' ) ||
-			     ( class_exists( 'ITSEC_Modules' ) &&
-			       method_exists( 'ITSEC_Modules', 'is_active' ) &&
-			       ITSEC_Modules::is_active( 'passwordless-login' ) ) ) : ?>
+				 ( class_exists( 'ITSEC_Modules' ) &&
+				   method_exists( 'ITSEC_Modules', 'is_active' ) &&
+				   ITSEC_Modules::is_active( 'passwordless-login' ) ) ) :
+				?>
 
 				<!-- Magic Link Section (hidden by default) -->
 				<div class="itsec-pwls-login-wrap reign-magic-link-section" style="display: none;">
@@ -73,15 +77,15 @@ if ( isset( $wbtm_reign_settings['reign_pages']['reign_register_page'] ) && ( $w
 							<?php esc_html_e( 'Username or Email Address', 'reign' ); ?>
 						</label>
 						<input type="text"
-						       name="itsec_magic_link_username"
-						       id="itsec_magic_link_username_<?php echo esc_attr( $rand ); ?>"
-						       class="form-control simple-input">
+							   name="itsec_magic_link_username"
+							   id="itsec_magic_link_username_<?php echo esc_attr( $rand ); ?>"
+							   class="form-control simple-input">
 					</div>
 
 					<button class="btn full-width itsec-pwls-login__submit itsec-pwls-login__submit-magic"
-					        name="itsec_pwls_magic_login"
-					        type="button"
-					        data-action="reign-send-magic-link">
+							name="itsec_pwls_magic_login"
+							type="button"
+							data-action="reign-send-magic-link">
 						<span><?php esc_html_e( 'Email Magic Link', 'reign' ); ?></span>
 						<span class="icon-loader"></span>
 					</button>
@@ -138,9 +142,10 @@ if ( isset( $wbtm_reign_settings['reign_pages']['reign_register_page'] ) && ( $w
 				<?php
 				// Add Magic Link toggle option if available
 				if ( class_exists( 'ITSEC_Passwordless_Login' ) ||
-				     ( class_exists( 'ITSEC_Modules' ) &&
-				       method_exists( 'ITSEC_Modules', 'is_active' ) &&
-				       ITSEC_Modules::is_active( 'passwordless-login' ) ) ) : ?>
+					 ( class_exists( 'ITSEC_Modules' ) &&
+					   method_exists( 'ITSEC_Modules', 'is_active' ) &&
+					   ITSEC_Modules::is_active( 'passwordless-login' ) ) ) :
+					?>
 					<div class="itsec-pwls-login-option" style="margin: 15px 0; text-align: center;">
 						<a href="#" class="reign-toggle-login-method">
 							<?php esc_html_e( 'Email me a login link', 'reign' ); ?>
@@ -160,7 +165,7 @@ if ( isset( $wbtm_reign_settings['reign_pages']['reign_register_page'] ) && ( $w
 
 			<?php
 			if ( $can_register ) {
-				if ( $login_description != '' ) {
+				if ( '' !== $login_description ) {
 					echo wp_kses_post( wpautop( do_shortcode( $login_description ) ) );
 				} else {
 					printf(

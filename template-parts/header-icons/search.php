@@ -5,6 +5,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 $reign_header_layout = get_theme_mod( 'reign_header_layout', 'v1' );
 ?>
 
@@ -17,7 +19,8 @@ $reign_header_layout = get_theme_mod( 'reign_header_layout', 'v1' );
 			do_action( 'reign_header_v4_middle_section_html' );
 		} else {
 			// Check cache for the search form.
-			if ( false === ( $search_form = wp_cache_get( 'reign_search_form' ) ) ) {
+			$search_form = wp_cache_get( 'reign_search_form' );
+			if ( false === $search_form ) {
 				ob_start();
 				get_search_form();
 				$search_form = ob_get_clean();

@@ -6,6 +6,8 @@
  *
  * @package Reign
  */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 ?>
 <?php
 $download_list_layout = 'rtm-download-item-article rtm-download-layout-2';

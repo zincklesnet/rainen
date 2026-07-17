@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( is_user_logged_in() && function_exists( 'bp_is_active' ) && bp_is_active( 'friends' ) ) {
 	?>
 	<div id="friend-requests-list" class="rg-friend-request header-notifications-dropdown-toggle">
-		<a class="rg-icon-wrap dropdown-toggle" href="<?php echo esc_url( trailingslashit( bp_loggedin_user_domain() . bp_get_friends_slug() . '/requests' ) ); ?>" id="nav_friend_requests" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="<?php esc_attr_e( 'Friend requests', 'reign' ); ?>">
+		<a class="rg-icon-wrap dropdown-toggle" href="<?php echo esc_url( trailingslashit( bp_loggedin_user_domain() . bp_get_friends_slug() . '/requests' ) ); ?>" id="nav_friend_requests" role="button" aria-haspopup="true" aria-expanded="false" title="<?php esc_attr_e( 'Friend requests', 'reign' ); ?>">
 			<i class="far fa-user-plus"></i>
 			<?php
 			$total_requests = bp_friend_get_total_requests_count( bp_loggedin_user_id() );

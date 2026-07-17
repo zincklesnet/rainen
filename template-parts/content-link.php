@@ -7,11 +7,13 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 global $blog_list_layout;
 if ( ! isset( $blog_list_layout ) ) {
 	$blog_list_layout = get_theme_mod( 'reign_blog_list_layout', 'default-view' );
 }
-$kirki_post_types_support_class = new Reign_Kirki_Post_Types_Support();
+$kirki_post_types_support_class = new Reign_Customizer_Post_Types_Fields();
 $supported_post_types           = $kirki_post_types_support_class->get_post_types_to_support();
 
 $post_link_title = get_post_meta( get_the_ID(), '_reign_post_link_title', true );
@@ -26,12 +28,12 @@ $post_link_url = get_post_meta( get_the_ID(), '_reign_post_link_url', true );
 			if ( 'post' === get_post_type() ) {
 				$switch_header_image = get_theme_mod( 'reign_single_post_switch_header_image', false );
 			} else {
-				$switch_header_image = get_theme_mod( 'reign_single_'. get_post_type() .'_switch_header_image', false );
+				$switch_header_image = get_theme_mod( 'reign_single_' . get_post_type() . '_switch_header_image', false );
 			}
 
-			if ( ! $switch_header_image ) {
+			if ( ! reign_is_truthy( $switch_header_image ) ) {
 				?>
-				<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'View %s', 'reign' ), the_title_attribute( 'echo=0' ) ) ); ?>" class="entry-media rg-post-thumbnail">
+				<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( /* translators: %s: Post title. */ __( 'View %s', 'reign' ), the_title_attribute( 'echo=0' ) ) ); ?>" class="entry-media rg-post-thumbnail">
 					<?php
 					the_post_thumbnail( 'reign-featured-large' );
 					?>
@@ -40,7 +42,7 @@ $post_link_url = get_post_meta( get_the_ID(), '_reign_post_link_url', true );
 			}
 		} else {
 			?>
-			<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'View %s', 'reign' ), the_title_attribute( 'echo=0' ) ) ); ?>" class="entry-media rg-post-thumbnail">
+			<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( /* translators: %s: Post title. */ __( 'View %s', 'reign' ), the_title_attribute( 'echo=0' ) ) ); ?>" class="entry-media rg-post-thumbnail">
 				<?php
 				the_post_thumbnail( 'reign-featured-large' );
 				?>
@@ -51,15 +53,15 @@ $post_link_url = get_post_meta( get_the_ID(), '_reign_post_link_url', true );
 
 	?>
 
-    <?php do_action( 'reign_rg_post_content_before' ); ?>
+	<?php do_action( 'reign_rg_post_content_before' ); ?>
 
 	<div class="rg-post-content">
-		<?php if ( $post_link_title != '' && $post_link_url !=''  ) { ?>
+		<?php if ( '' !== $post_link_title && '' !== $post_link_url ) { ?>
 
 			<div class="rg-link-block  rg-post-thumbnail">
 				<p>
-					<a href="<?php echo esc_url($post_link_url);?>">
-						<i class="fas fa-link"></i><?php echo esc_html($post_link_title);?> →
+					<a href="<?php echo esc_url( $post_link_url ); ?>">
+						<i class="fas fa-link"></i><?php echo esc_html( $post_link_title ); ?> →
 					</a>
 				</p>
 			</div>
@@ -75,10 +77,9 @@ $post_link_url = get_post_meta( get_the_ID(), '_reign_post_link_url', true );
 		<div class="entry-content">
 			<?php
 			if ( is_singular() ) {
-				/* translators: %s: Name of current post */
 				the_content(
 					sprintf(
-						wp_kses( __( 'Continue reading %s <span class="meta-nav">&rarr;</span>', 'reign' ), array( 'span' => array( 'class' => array() ) ) ),
+						wp_kses( /* translators: %s: Name of current post. */ __( 'Continue reading %s <span class="meta-nav">&rarr;</span>', 'reign' ), array( 'span' => array( 'class' => array() ) ) ),
 						the_title( '<span class="screen-reader-text">"', '"</span>', false )
 					)
 				);
@@ -99,13 +100,13 @@ $post_link_url = get_post_meta( get_the_ID(), '_reign_post_link_url', true );
 			?>
 
 			<?php if ( ! is_singular() ) { ?>
-				<p class="no-margin"><a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'View %s', 'reign' ), the_title_attribute( 'echo=0' ) ) ); ?>" class="read-more button"><?php esc_html_e( 'Read More', 'reign' ); ?></a></p>
+				<p class="no-margin"><a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( /* translators: %s: Post title. */ __( 'View %s', 'reign' ), the_title_attribute( 'echo=0' ) ) ); ?>" class="read-more button"><?php esc_html_e( 'Read More', 'reign' ); ?></a></p>
 			<?php } ?>
 
 		</div><!-- .entry-content -->
 	</div>
 
-    <?php do_action( 'reign_rg_post_content_after' ); ?>
+	<?php do_action( 'reign_rg_post_content_after' ); ?>
 
 	<?php
 	if ( is_single() ) {

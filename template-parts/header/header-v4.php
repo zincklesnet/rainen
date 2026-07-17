@@ -7,9 +7,11 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 $menu_class = ! has_nav_menu( 'menu-1' ) ? 'no-nav-menu' : '';
 ?>
-<div class="reign-fallback-header header-desktop version-four<?php echo ( get_theme_mod( 'reign_header_sticky_menu_enable', true ) ) ? esc_attr( ' fixed-top' ) : ''; ?>">
+<div class="reign-fallback-header header-desktop version-four<?php echo reign_is_truthy( get_theme_mod( 'reign_header_sticky_menu_enable', true ) ) ? esc_attr( ' fixed-top' ) : ''; ?>">
 	<div class="container">
 		<div class="rg-hdr-v4-row-1 <?php echo esc_attr( $menu_class ); ?>">
 			<div class="rg-hdr-v4-row-1-col">
@@ -31,10 +33,10 @@ $menu_class = ! has_nav_menu( 'menu-1' ) ? 'no-nav-menu' : '';
 					$reign_header_sticky_menu_custom_style_enable = get_theme_mod( 'reign_header_sticky_menu_custom_style_enable', false );
 					$sticky_menu_logo                             = get_theme_mod( 'reign_sticky_header_menu_logo', '' );
 
-					if ( $reign_header_sticky_menu_enable && $reign_header_sticky_menu_custom_style_enable && $sticky_menu_logo ) {
+					if ( reign_is_truthy( $reign_header_sticky_menu_enable ) && reign_is_truthy( $reign_header_sticky_menu_custom_style_enable ) && $sticky_menu_logo ) {
 						?>
 						<a href="<?php echo esc_url( get_home_url() ); ?>" class="sticky-menu-logo custom-logo-link" rel="home" itemprop="url">
-							<img src="<?php echo esc_url( $sticky_menu_logo ); ?>" class="custom-logo" alt="<?php bloginfo( 'name' ); ?>" itemprop="logo">
+							<img src="<?php echo esc_url( $sticky_menu_logo ); ?>" class="custom-logo" alt="<?php bloginfo( 'name' ); ?>" itemprop="logo" fetchpriority="high">
 						</a>
 						<?php
 					}
@@ -44,8 +46,8 @@ $menu_class = ! has_nav_menu( 'menu-1' ) ? 'no-nav-menu' : '';
 			</div>
 
 			<?php
-			$reign_header_default_icons_set = reign_header_default_icons_set();
-			$reign_header_icons_set         = get_theme_mod( 'reign_header_icons_set', $reign_header_default_icons_set );
+			// (default sourced via helper)
+			$reign_header_icons_set         = reign_get_sortable_setting( 'reign_header_icons_set', reign_header_default_icons_set() );
 			if ( in_array( 'search', $reign_header_icons_set ) ) :
 				?>
 				<div class="rg-hdr-v4-row-2-col">

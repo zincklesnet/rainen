@@ -6,10 +6,13 @@
  * @var string $forms
  * @var string $login_descr
  */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+// phpcs:ignore WordPress.PHP.DontExtract.extract_extract -- $args is a controlled array passed by reign's form loader.
 extract( $args );
 
 ?>
-<div class="title h6" role="heading" aria-level="2"><?php esc_html_e( 'Register in', 'reign' ); ?>&nbsp;<?php echo get_bloginfo( 'name' ); ?></div>
+<div class="title h6" role="heading" aria-level="2"><?php echo ( ! empty( $register_title ) ) ? wp_kses_post( $register_title ) : esc_html__( 'Register in', 'reign' ) . '&nbsp;' . esc_html( get_bloginfo( 'name' ) ); ?></div>
 <?php
 if ( class_exists( 'BuddyPress' ) ) {
 
@@ -22,7 +25,7 @@ if ( class_exists( 'BuddyPress' ) ) {
 		<input class="simple-input" type="hidden" name="redirect_to" value="<?php echo esc_attr( $redirect_to ); ?>" />
 		<input class="simple-input" type="hidden" name="redirect" value="<?php echo esc_attr( $redirect ); ?>" />
 
-		<input class="simple-input" type="hidden" value="<?php echo wp_create_nonce( 'reign-sign-form' ); ?>" name="_ajax_nonce" />
+		<input class="simple-input" type="hidden" value="<?php echo esc_attr( wp_create_nonce( 'reign-sign-form' ) ); ?>" name="_ajax_nonce" />
 
 		<div class="reign-sign-form-register-fields">       
 

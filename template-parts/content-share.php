@@ -10,11 +10,11 @@ defined( 'ABSPATH' ) || exit;
 
 $post_social = get_theme_mod( 'single_post_social_box', true );
 
-if ( empty( $post_social ) ) {
+if ( ! reign_is_truthy( $post_social ) ) {
 	return;
 }
 
-$post_social_link = get_theme_mod( 'single_post_social_link', array( 'facebook', 'twitter' ) );
+$post_social_link = reign_get_sortable_setting( 'single_post_social_link', array( 'facebook', 'twitter' ) );
 
 if ( isset( $post_social_link ) && ! empty( $post_social_link ) ) {
 	?>
@@ -45,11 +45,12 @@ if ( isset( $post_social_link ) && ! empty( $post_social_link ) ) {
 						case 'pinterest':
 							$params = array(
 								'media=' . ( function_exists( 'the_post_thumbnail' ) ? wp_get_attachment_url( get_post_thumbnail_id() ) : '' ),
-								'description=' . strip_tags( get_the_title() ),
+								'description=' . wp_strip_all_tags( get_the_title() ),
 							);
+							$pinterest_url = 'http://pinterest.com/pin/create/button/?url=' . rawurlencode( get_the_permalink() ) . '&' . implode( '&', $params );
 							?>
 								<li>
-									<a class="btn-link btn-icon--left social-pinterest" href="http://pinterest.com/pin/create/button/?url=<?php echo rawurlencode( get_the_permalink() ) . '&' . implode( '&', $params ); ?>" target="_blank" data-pin-custom="true" data-pin-do="buttonBookmark" title="<?php esc_attr_e( 'Pinterest', 'reign' ); ?>">
+									<a class="btn-link btn-icon--left social-pinterest" href="<?php echo esc_url( $pinterest_url ); ?>" target="_blank" data-pin-custom="true" data-pin-do="buttonBookmark" title="<?php esc_attr_e( 'Pinterest', 'reign' ); ?>">
 										<i class="fab fa-pinterest-p"></i>
 									</a>
 								</li>

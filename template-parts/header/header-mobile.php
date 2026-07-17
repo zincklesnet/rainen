@@ -5,11 +5,13 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 $mobile_menu_logged_in_exists  = has_nav_menu( 'mobile-menu-logged-in' );
 $mobile_menu_logged_out_exists = has_nav_menu( 'mobile-menu-logged-out' );
 ?>
 
-<div class="reign-fallback-header header-mobile<?php echo ( get_theme_mod( 'reign_header_sticky_menu_enable', true ) ) ? esc_attr( ' fixed-top' ) : ''; ?>">
+<div class="reign-fallback-header header-mobile<?php echo reign_is_truthy( get_theme_mod( 'reign_header_sticky_menu_enable', true ) ) ? esc_attr( ' fixed-top' ) : ''; ?>">
 	<nav id="site-navigation" class="main-navigation reign-navbar-mobile" role="navigation" aria-label="<?php esc_attr_e( 'Main menu', 'reign' ); ?>">
 		<div class="container">
 			<?php do_action( 'reign_before_reign_mobile_nav_top' ); ?>
@@ -17,20 +19,15 @@ $mobile_menu_logged_out_exists = has_nav_menu( 'mobile-menu-logged-out' );
 				<div class="site-branding">
 					<div class="logo">
 						<?php
-						if ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) {
-							$mobile_menu_logo_enable = get_theme_mod( 'reign_header_mobile_menu_logo_enable', false );
-							if ( $mobile_menu_logo_enable ) {
-								$reign_header_mobile_menu_logo = get_theme_mod( 'reign_header_mobile_menu_logo', '' );
-								if ( ! empty( $reign_header_mobile_menu_logo ) ) {
-									?>
-									<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img class="reign-mobile-logo" src="<?php echo esc_url( $reign_header_mobile_menu_logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" /></a>
-									<?php
-								} else {
-									the_custom_logo();
-								}
-							} else {
-								the_custom_logo();
-							}
+						$mobile_menu_logo_enable       = reign_is_truthy( get_theme_mod( 'reign_header_mobile_menu_logo_enable', false ) );
+						$reign_header_mobile_menu_logo = get_theme_mod( 'reign_header_mobile_menu_logo', '' );
+						if ( $mobile_menu_logo_enable && ! empty( $reign_header_mobile_menu_logo ) ) {
+							// A configured mobile logo wins, even without a main Site Logo.
+							?>
+							<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img class="reign-mobile-logo" src="<?php echo esc_url( $reign_header_mobile_menu_logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" fetchpriority="high" /></a>
+							<?php
+						} elseif ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) {
+							the_custom_logo();
 						} else {
 							reign_display_site_title_description();
 						}
@@ -48,9 +45,9 @@ $mobile_menu_logged_out_exists = has_nav_menu( 'mobile-menu-logged-out' );
 					<?php do_action( 'reign_before_reign_mobile_main_menu' ); ?>
 					<?php if ( is_user_logged_in() ) { ?>
 						<div class="reign-mobile-user reign-mobile-user-header">
-							<?php 
+							<?php
 								// Output the current user's profile block (avatar, name, profile/settings link).
-								echo render_reign_user_profile_block(); 
+								echo render_reign_user_profile_block(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- returns pre-escaped theme markup.
 							?>
 							<a href="javascript:void(0);" class="reign-panel-close" aria-label="<?php esc_attr_e( 'Close navigation menu', 'reign' ); ?>"><i class="far fa-times" aria-hidden="true"></i></a>
 						</div>
@@ -59,22 +56,17 @@ $mobile_menu_logged_out_exists = has_nav_menu( 'mobile-menu-logged-out' );
 							<div class="site-branding">
 								<div class="logo">
 									<?php
-									if ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) {
-										$mobile_menu_logo_enable = get_theme_mod( 'reign_header_mobile_menu_logo_enable', false );
-										if ( $mobile_menu_logo_enable ) {
-											$reign_header_mobile_menu_logo = get_theme_mod( 'reign_header_mobile_menu_logo', '' );
-											if ( ! empty( $reign_header_mobile_menu_logo ) ) {
-												?>
-												<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-													<img class="reign-mobile-logo" src="<?php echo esc_url( $reign_header_mobile_menu_logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" />
-												</a>
-												<?php
-											} else {
-												the_custom_logo();
-											}
-										} else {
-											the_custom_logo();
-										}
+									$mobile_menu_logo_enable       = reign_is_truthy( get_theme_mod( 'reign_header_mobile_menu_logo_enable', false ) );
+									$reign_header_mobile_menu_logo = get_theme_mod( 'reign_header_mobile_menu_logo', '' );
+									if ( $mobile_menu_logo_enable && ! empty( $reign_header_mobile_menu_logo ) ) {
+										// A configured mobile logo wins, even without a main Site Logo.
+										?>
+										<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+											<img class="reign-mobile-logo" src="<?php echo esc_url( $reign_header_mobile_menu_logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" fetchpriority="high" />
+										</a>
+										<?php
+									} elseif ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) {
+										the_custom_logo();
 									} else {
 										reign_display_site_title_description();
 									}
@@ -135,30 +127,30 @@ $mobile_menu_logged_out_exists = has_nav_menu( 'mobile-menu-logged-out' );
 					do_action( 'reign_before_header_icons' );
 
 					$reign_mobile_header_default_icons_set = reign_mobile_header_default_icons_set();
-					$reign_mobile_header_icons_set         = get_theme_mod( 'reign_mobile_header_icons_set', $reign_mobile_header_default_icons_set );
+					$reign_mobile_header_icons_set         = reign_get_sortable_setting( 'reign_mobile_header_icons_set', reign_mobile_header_default_icons_set() );
 
 					if ( is_array( $reign_mobile_header_icons_set ) && in_array( 'user-menu', $reign_mobile_header_icons_set ) ) :
 						if ( apply_filters( 'reign_user_profile_menu_toggler', is_user_logged_in() ) ) {
-							// For PeepSo notification icons.
-							if ( class_exists( 'PeepSo' ) ) {
-								$reign_dark_mode_style = get_theme_mod( 'reign_dark_mode_style', 'style2' );
+							// BuddyNext active (mutually exclusive with BuddyPress) —
+							// render the BN avatar + profile dropdown (zero JS).
+							if ( function_exists( 'buddynext_header_user_menu' ) ) {
+								buddynext_header_user_menu();
+							} elseif ( class_exists( 'PeepSo' ) ) {
+								// For PeepSo notification icons.
 
 								if ( is_active_sidebar( 'reign-header-widget-area' ) ) :
 									echo '<div class="reign-peepso-menu-toggle">';
 									dynamic_sidebar( 'reign-header-widget-area' );
-									if ( 'style3' === $reign_dark_mode_style ) {
-										do_action( 'reign_after_header_icons' );
-									}
 									echo '</div>';
 								endif;
 
 								echo '<div class="user-profile-menu-wrapper">';
 								echo '<div class="reign-mobile-user reign-mobile-user-header">';
-								echo render_reign_user_profile_block(); // Output the current user's profile block (avatar, name, profile/settings link).
+								echo render_reign_user_profile_block(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- returns pre-escaped theme markup. // Output the current user's profile block (avatar, name, profile/settings link).
 								echo '<a href="javascript:void(0);" class="reign-panel-close" aria-label="' . esc_attr__( 'Close navigation menu', 'reign' ) . '"><i class="far fa-times" aria-hidden="true"></i></a>';
 								echo '</div>';
 								if ( has_nav_menu( 'menu-2' ) ) {
-								// Use menu-2 location (User Profile menu)
+									// Use menu-2 location (User Profile menu)
 									wp_nav_menu(
 										array(
 											'theme_location' => 'menu-2',
@@ -174,7 +166,7 @@ $mobile_menu_logged_out_exists = has_nav_menu( 'mobile-menu-logged-out' );
 								echo '</div>';
 
 							} else {
-								$current_user = wp_get_current_user();
+								$current_user = wp_get_current_user(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- local copy mirrors the WP global; not mutating shared state.
 								if ( ( $current_user instanceof WP_User ) ) {
 									if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
 										$user_link = function_exists( 'bp_members_get_user_url' ) ? bp_members_get_user_url( get_current_user_id() ) : '#';
@@ -189,7 +181,7 @@ $mobile_menu_logged_out_exists = has_nav_menu( 'mobile-menu-logged-out' );
 									echo '</a>';
 									echo '<div class="user-profile-menu-wrapper">';
 									echo '<div class="reign-mobile-user reign-mobile-user-header">';
-									echo render_reign_user_profile_block(); // Output the current user's profile block (avatar, name, profile/settings link).
+									echo render_reign_user_profile_block(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- returns pre-escaped theme markup. // Output the current user's profile block (avatar, name, profile/settings link).
 									echo '<a href="javascript:void(0);" class="reign-panel-close" aria-label="' . esc_attr__( 'Close navigation menu', 'reign' ) . '"><i class="far fa-times" aria-hidden="true"></i></a>';
 									echo '</div>';
 									// Use menu-2 location (User Profile menu)
@@ -225,7 +217,7 @@ $mobile_menu_logged_out_exists = has_nav_menu( 'mobile-menu-logged-out' );
 					<div class="reign-navbar-user">
 						<?php
 						$reign_mobile_header_default_icons_set = reign_mobile_header_default_icons_set();
-						$reign_mobile_header_icons_set         = get_theme_mod( 'reign_mobile_header_icons_set', $reign_mobile_header_default_icons_set );
+						$reign_mobile_header_icons_set         = reign_get_sortable_setting( 'reign_mobile_header_icons_set', reign_mobile_header_default_icons_set() );
 						foreach ( $reign_mobile_header_icons_set as $header_icon ) {
 							if ( 'user-menu' !== $header_icon ) {
 								get_template_part( 'template-parts/header-icons/' . $header_icon, '' );
@@ -233,6 +225,7 @@ $mobile_menu_logged_out_exists = has_nav_menu( 'mobile-menu-logged-out' );
 						}
 
 						do_action( 'reign_after_header_icons' );
+						do_action( 'reign_after_mobile_header_icons' );
 						?>
 					</div><!-- .reign-navbar-user -->
 					<?php
@@ -244,12 +237,13 @@ $mobile_menu_logged_out_exists = has_nav_menu( 'mobile-menu-logged-out' );
 				<div class="reign-navbar-user">
 					<?php
 					$reign_mobile_header_default_icons_set = reign_mobile_header_default_icons_set();
-					$reign_mobile_header_icons_set         = get_theme_mod( 'reign_mobile_header_icons_set', $reign_mobile_header_default_icons_set );
+					$reign_mobile_header_icons_set         = reign_get_sortable_setting( 'reign_mobile_header_icons_set', reign_mobile_header_default_icons_set() );
 					foreach ( $reign_mobile_header_icons_set as $header_icon ) {
 						if ( 'user-menu' !== $header_icon ) {
 							get_template_part( 'template-parts/header-icons/' . $header_icon, '' );
 						}
 					}
+					do_action( 'reign_after_mobile_header_icons' );
 					?>
 				</div><!-- .reign-navbar-user -->
 			<?php } ?>

@@ -7,6 +7,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -14,34 +16,35 @@
 	<?php do_action( 'rtm_post_begins' ); ?>
 	<?php
 	if ( ! is_front_page() ) {
-		$post_type = get_post_type();
+		$reign_post_type = get_post_type();
 
 		$wbcom_metabox_data = get_post_meta( get_the_ID(), 'reign_wbcom_metabox_data', true );
 
 		$page_option = isset( $wbcom_metabox_data['layout']['display_page_title'] ) ? $wbcom_metabox_data['layout']['display_page_title'] : 'off';
 
-		$hide_title = get_theme_mod( 'reign_' . $post_type . '_single_pagetitle_enable' );
+		// Switch stores 'on'/'off' — normalize once so the bare branch checks below are correct.
+		$hide_title = reign_is_truthy( get_theme_mod( 'reign_' . $reign_post_type . '_single_pagetitle_enable', false ) );
 
 		$default_single_header_enable    = get_theme_mod( 'reign_cpt_default_sub_header_switch', false );
 		$reign_page_single_header_enable = get_theme_mod( 'reign_page_single_header_enable', true );
 
 		$hide = true;
-		if ( $page_option == 'on' ) {
+		if ( 'on' === $page_option ) {
 			$hide = false;
-		} elseif ( $page_option == '' ) {
+		} elseif ( '' === $page_option ) {
 			$hide = true;
-		} elseif ( $reign_page_single_header_enable && ! $hide_title ) {
+		} elseif ( reign_is_truthy( $reign_page_single_header_enable ) && ! $hide_title ) {
 			$hide = false;
-		} elseif ( $reign_page_single_header_enable && $hide_title ) {
+		} elseif ( reign_is_truthy( $reign_page_single_header_enable ) && $hide_title ) {
 			$hide = true;
-		} elseif ( $default_single_header_enable && ! $hide_title ) {
+		} elseif ( reign_is_truthy( $default_single_header_enable ) && ! $hide_title ) {
 			$hide = false;
-		} elseif ( $default_single_header_enable && $hide_title ) {
+		} elseif ( reign_is_truthy( $default_single_header_enable ) && $hide_title ) {
 			$hide = true;
 		}
 
 		$reign_subheader_settings = get_post_meta( get_the_ID(), '_subheader_overwrite', true );
-		if ( $reign_subheader_settings == 'yes' ) {
+		if ( 'yes' === $reign_subheader_settings ) {
 			$hide = true;
 		}
 
@@ -60,9 +63,9 @@
 		if ( is_singular() ) {
 			$switch_header_image = get_theme_mod( 'reign_single_' . get_post_type() . '_switch_header_image', false );
 
-			if ( ! $switch_header_image ) {
+			if ( ! reign_is_truthy( $switch_header_image ) ) {
 				?>
-				<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'View %s', 'reign' ), the_title_attribute( 'echo=0' ) ) ); ?>" class="entry-media rg-post-thumbnail">
+				<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( /* translators: %s: Post title. */ __( 'View %s', 'reign' ), the_title_attribute( 'echo=0' ) ) ); ?>" class="entry-media rg-post-thumbnail">
 					<?php
 					the_post_thumbnail( 'reign-featured-large' );
 					?>
@@ -71,7 +74,7 @@
 			}
 		} else {
 			?>
-			<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'View %s', 'reign' ), the_title_attribute( 'echo=0' ) ) ); ?>" class="entry-media rg-post-thumbnail">
+			<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( /* translators: %s: Post title. */ __( 'View %s', 'reign' ), the_title_attribute( 'echo=0' ) ) ); ?>" class="entry-media rg-post-thumbnail">
 				<?php
 				the_post_thumbnail( 'reign-featured-large' );
 				?>

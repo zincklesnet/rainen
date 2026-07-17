@@ -7,6 +7,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 global $post;
 $bp_pages = get_option( 'bp-pages' );
 
@@ -21,9 +23,9 @@ if ( class_exists( 'BuddyPress' ) ) {
 		'forums'   => 'forums',
 	);
 
-	foreach ( $components as $component => $page ) {
-		if ( is_array( $page ) ) {
-			if ( bp_is_current_component( $page[0] ) || call_user_func( 'bp_' . $page[1] ) ) {
+	foreach ( $components as $component => $component_page ) {
+		if ( is_array( $component_page ) ) {
+			if ( bp_is_current_component( $component_page[0] ) || call_user_func( 'bp_' . $component_page[1] ) ) {
 				$bp_page = get_post( $bp_pages[ $component ] );
 				break;
 			}
@@ -36,7 +38,7 @@ if ( class_exists( 'BuddyPress' ) ) {
 
 // Fallback for Forums page via title, if not found above.
 if ( empty( $bp_page ) && function_exists( 'bbp_is_forum_archive' ) && bbp_is_forum_archive() ) {
-	$forum_root_page = get_page_by_title( 'Forums' );
+	$forum_root_page = get_page_by_title( 'Forums' ); // phpcs:ignore WordPress.WP.DeprecatedFunctions.get_page_by_titleFound -- lightweight title fallback for the forum root; acceptable for a one-off lookup.
 	if ( $forum_root_page ) {
 		$bp_page = $forum_root_page;
 	}
@@ -54,7 +56,10 @@ $display_left_panel_menu         = isset( $wbcom_metabox_data['layout']['display
 $reign_left_panel_gloabl_setting = get_theme_mod( 'reign_left_panel_gloabl_setting', true );
 
 // Check whether to display the left panel based on other conditions.
-if ( 'no' !== $display_left_panel_menu && false === $reign_left_panel_gloabl_setting ) {
+// Strict `false === ...` would silently break for saved values 'off' / '0'
+// which are NOT === false. reign_is_truthy() normalises across all storage
+// shapes so disabling the global setting actually hides the panel.
+if ( 'no' !== $display_left_panel_menu && ! reign_is_truthy( $reign_left_panel_gloabl_setting ) ) {
 	return;
 }
 
@@ -68,13 +73,11 @@ $reign_left_panel_toggle = get_theme_mod( 'reign_left_panel_toggle', true );
 $state_class = '';
 // Check if the 'reignpanel' cookie exists and has the value 'open'.
 if ( isset( $_COOKIE['reignpanel'] ) ) {
-	if ( $_COOKIE['reignpanel'] === 'open' ) {
+	// Unexpected cookie values fall through and use the default state.
+	if ( 'open' === sanitize_key( wp_unslash( $_COOKIE['reignpanel'] ) ) ) {
 		$state_class = 'reign-panel-open';
-	} elseif ( $_COOKIE['reignpanel'] !== 'closed' ) {
-		// Log or handle unexpected cookie values if needed.
-		error_log( 'Unexpected reignpanel cookie value: ' . $_COOKIE['reignpanel'] );
 	}
-} elseif ( $reign_left_panel_state === 'open' ) {
+} elseif ( 'open' === $reign_left_panel_state ) {
 	// If the cookie doesn't exist, fall back to the theme mod setting.
 	$state_class = 'reign-panel-open';
 }
@@ -98,7 +101,7 @@ if ( ! is_user_logged_in() ) {
 
 <div id="reign-menu-panel" class="reign-menu-panel <?php echo esc_attr( $state_class ); ?>">
 	<div class="reign-menu-panel-inner reign-scrollbar">
-		<?php if ( $reign_left_panel_toggle ) : ?>
+		<?php if ( reign_is_truthy( $reign_left_panel_toggle ) ) : ?>
 			<div class="reign-menu-panel-header">
 				<button class="reign-toggler" type="button">
 					<span class="icon-bar bar1"></span>
@@ -124,7 +127,7 @@ if ( ! is_user_logged_in() ) {
 
 			$left_panel_menu = ob_get_clean();
 
-			if ( str_contains( $left_panel_menu, 'reign-menu-section' ) ) {
+			if ( false !== strpos( $left_panel_menu, 'reign-menu-section' ) ) {
 				$left_panel_menu = str_replace(
 					'navbar-nav navbar-reign-panel',
 					'navbar-nav navbar-reign-panel has-section-menu',

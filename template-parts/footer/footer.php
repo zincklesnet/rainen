@@ -7,6 +7,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 ?>
 
 <footer itemscope="itemscope" itemtype="http://schema.org/WPFooter">
@@ -29,7 +31,7 @@
 	?>
 	<?php
 	$reign_footer_bottom = get_theme_mod( 'reign_footer_copyright_enable', true );
-	if ( $reign_footer_bottom ) {
+	if ( reign_is_truthy( $reign_footer_bottom ) ) {
 		?>
 		<div id="reign-copyright-text">
 			<div class="container">

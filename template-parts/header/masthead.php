@@ -7,8 +7,10 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 ?>
-<div class="reign-fallback-header header-desktop<?php echo ( get_theme_mod( 'reign_header_sticky_menu_enable', true ) ) ? esc_attr( ' fixed-top' ) : ''; ?>">
+<div class="reign-fallback-header header-desktop<?php echo reign_is_truthy( get_theme_mod( 'reign_header_sticky_menu_enable', true ) ) ? esc_attr( ' fixed-top' ) : ''; ?>">
 	<div class="container">
 		<div class="wb-grid">
 			<div class="header-left no-gutter wb-grid-flex wb-grid-center wb-grid-space-between">
@@ -64,7 +66,7 @@
 					get_template_part( 'template-parts/user-messages' );
 					get_template_part( 'template-parts/user-notifications' );
 
-					$current_user = wp_get_current_user();
+					$current_user = wp_get_current_user(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- local copy mirrors the WP global; not mutating shared state.
 
 					if ( ( $current_user instanceof WP_User ) ) {
 						if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {

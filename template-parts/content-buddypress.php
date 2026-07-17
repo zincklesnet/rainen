@@ -6,8 +6,11 @@
  *
  * @package Reign
  */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 global $post;
 $bp_pages = get_option( 'bp-pages' );
+// phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited -- BuddyPress directory pages have no real post; set $post so metabox lookups resolve the directory page.
 if ( bp_is_current_component( 'groups' ) && isset( $bp_pages['groups'] ) && ! bp_is_user() && ! bp_is_group_create() && ! bp_is_group() ) {
 	$post = get_post( $bp_pages['groups'] );
 } elseif ( bp_is_current_component( 'members' ) && isset( $bp_pages['members'] ) && ! bp_is_user() ) {
@@ -21,23 +24,24 @@ if ( bp_is_current_component( 'groups' ) && isset( $bp_pages['groups'] ) && ! bp
 } elseif ( bp_is_register_page() && isset( $bp_pages['register'] ) ) {
 	$post = get_post( $bp_pages['register'] );
 }
+// phpcs:enable WordPress.WP.GlobalVariablesOverride.Prohibited
 
 $hide = true;
 
-if ( ! empty( $post ) && $post->ID != 0 ) {
+if ( ! empty( $post ) && 0 !== (int) $post->ID ) {
 	$wbcom_metabox_data = get_post_meta( $post->ID, 'reign_wbcom_metabox_data', true );
 	$page_option        = isset( $wbcom_metabox_data['layout']['display_page_title'] ) ? $wbcom_metabox_data['layout']['display_page_title'] : 'on';
-	if ( $post->ID == 0 || bp_is_user() ) {
+	if ( 0 === (int) $post->ID || bp_is_user() ) {
 		$page_option = 'off';
 	}
 
-	if ( $page_option == 'on' ) {
+	if ( 'on' === $page_option ) {
 		$hide = false;
-	} elseif ( $page_option == '' ) {
+	} elseif ( '' === $page_option ) {
 		$hide = true;
 	}
 	$reign_subheader_settings = get_post_meta( $post->ID, '_subheader_overwrite', true );
-	if ( $reign_subheader_settings == 'yes' ) {
+	if ( 'yes' === $reign_subheader_settings ) {
 		$hide = true;
 	}
 }
@@ -51,7 +55,7 @@ if ( ! empty( $post ) && $post->ID != 0 ) {
 	<?php } elseif ( ( function_exists( 'bp_is_register_page' ) && bp_is_register_page() ) || ( function_exists( 'bp_is_activation_page' ) && bp_is_activation_page() ) ) { ?>
 		<?php
 		$logo_id = get_theme_mod( 'custom_logo' );
-		$logo    = ( $logo_id ) ? wp_get_attachment_image( $logo_id, 'full', '', array( 'class' => 'rg-logo' ) ) : get_bloginfo( 'name' );
+		$logo    = ( $logo_id ) ? wp_get_attachment_image( $logo_id, 'full', '', array( 'class' => 'custom-logo rg-logo' ) ) : get_bloginfo( 'name' );
 		?>
 		<div class="register-section-logo">
 			<h2>

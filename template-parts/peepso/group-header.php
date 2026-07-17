@@ -1,5 +1,8 @@
 <?php
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase -- $PeepSoGroup* / $coverUrl mirror PeepSo SDK object names; renaming would diverge from upstream PeepSo templates.
 global $wbtm_reign_settings;
 $url             = PeepSoUrlSegments::get_instance();
 $group_id        = $url->get( 1 );
@@ -38,7 +41,7 @@ if ( empty( $group_cover_photo ) ) {
 	<div class="ps-focus__cover ps-js-cover">
 		<div class="ps-focus__cover-image ps-js-cover-wrapper">
 			<img class="ps-js-cover-image" src="<?php echo esc_url( $group_cover_photo ); ?>"
-				alt="<?php printf( esc_attr__( '%s cover photo', 'reign' ), esc_attr( $PeepSoGroup->get( 'name' ) ) ); ?>"
+				alt="<?php printf( /* translators: %s: Group name. */ esc_attr__( '%s cover photo', 'reign' ), esc_attr( $PeepSoGroup->get( 'name' ) ) ); ?>"
 				style="<?php echo esc_attr( $PeepSoGroup->cover_photo_position() ); ?>; opacity: 0;" />
 			<div class="ps-focus__cover-loading ps-js-cover-loading">
 				<i class="gcis gci-circle-notch gci-spin"></i>
@@ -55,7 +58,7 @@ if ( empty( $group_cover_photo ) ) {
 		<div class="ps-focus__cover-inner ps-js-cover-button-popup"<?php echo $cover_box_attrs; // phpcs:ignore ?>>
 			<div class="ps-avatar ps-avatar--focus ps-focus__avatar ps-group__profile-focus-avatar ps-js-avatar">
 				<img class="ps-js-avatar-image" src="<?php echo esc_url( $PeepSoGroup->get_avatar_url_full() ); ?>"
-					alt="<?php printf( esc_attr__( '%s avatar', 'reign' ), esc_attr( $PeepSoGroup->get( 'name' ) ) ); ?>" />
+					alt="<?php printf( /* translators: %s: Group name. */ esc_attr__( '%s avatar', 'reign' ), esc_attr( $PeepSoGroup->get( 'name' ) ) ); ?>" />
 
 				<?php
 				$avatar_box_attrs = ' style="cursor:default"';
@@ -176,11 +179,11 @@ if ( empty( $group_cover_photo ) ) {
 								<div class="ps-btn__icon"><span class="gcis gci-chevron-down"></span></div>
 							</a>
 
-							<?php echo PeepSoGroupPrivacy::render_dropdown(); ?>
+							<?php echo PeepSoGroupPrivacy::render_dropdown(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- PeepSo returns pre-escaped dropdown markup. ?>
 						</div>
 					<?php } else { ?>
 						<span class="ps-btn ps-btn--sm ps-btn--app ps-tip ps-tip--bottom ps-tip--md ps-tip--arrow ps-tip--left" aria-label="<?php echo esc_attr( $group->privacy['desc'] ); ?>">
-							<i class="<?php echo esc_attr( $group->privacy['icon'] ); ?>"></i><?php printf( __( ' %s Group', 'reign' ), esc_html( $group->privacy['name'] ) ); ?>
+							<i class="<?php echo esc_attr( $group->privacy['icon'] ); ?>"></i><?php printf( /* translators: %s: Group privacy label. */ esc_html__( ' %s Group', 'reign' ), esc_html( $group->privacy['name'] ) ); ?>
 						</span>
 					<?php } ?>
 				</div>
@@ -188,14 +191,14 @@ if ( empty( $group_cover_photo ) ) {
 				<!-- Members -->
 				<a class="ps-focus__detail" href="<?php echo esc_url( $group->get_url() . 'members/' ); ?>">
 					<i class="pso-i-queue-alt"></i>
-					<span class="ps-js-member-count"><?php printf( _n( '%s member', '%s members', $group->members_count, 'reign' ), number_format_i18n( $group->members_count ) ); ?></span>
+					<span class="ps-js-member-count"><?php printf( /* translators: %s: Number of members. */ esc_html( _n( '%s member', '%s members', $group->members_count, 'reign' ) ), esc_html( number_format_i18n( $group->members_count ) ) ); ?></span>
 				</a>
 
 				<!-- Pending members -->
 				<?php if ( $group->pending_admin_members_count > 0 && $PeepSoGroupUser->can( 'manage_users' ) ) { ?>
 					<a class="ps-focus__detail ps-js-pending-label" href="<?php echo esc_url( $group->get_url() . 'members/pending' ); ?>">
 						<i class="gcis gci-user-clock"></i>
-						<?php printf( __( ' <span class="ps-js-pending-count" data-id="%1$d">%2$s</span> pending', 'reign' ), esc_attr( $group->id ), esc_html( $group->pending_admin_members_count ) ); ?>
+						<?php printf( /* translators: 1: Group ID, 2: Pending member count. */ wp_kses_post( __( ' <span class="ps-js-pending-count" data-id="%1$d">%2$s</span> pending', 'reign' ) ), absint( $group->id ), esc_html( $group->pending_admin_members_count ) ); ?>
 					</a>
 				<?php } ?>
 			</div>
@@ -225,16 +228,18 @@ if ( empty( $group_cover_photo ) ) {
 					);
 				}
 
-				$title = __( 'Members', 'reign' );
+				$members_title = __( 'Members', 'reign' );
 
-				if ( $PeepSoGroupUser->can( 'manage_users' ) && $pending = $group->pending_admin_members_count ) {
-						$title .= ' <span class="ps-js-pending-label">(' . sprintf( __( '<span class="ps-js-pending-count" data-id="%1$d">%2$s</span> pending', 'reign' ), $group->id, $pending ) . ')</span>';
+				$pending = $group->pending_admin_members_count;
+				if ( $PeepSoGroupUser->can( 'manage_users' ) && $pending ) {
+						/* translators: 1: Group ID, 2: Pending member count. */
+						$members_title .= ' <span class="ps-js-pending-label">(' . sprintf( __( '<span class="ps-js-pending-count" data-id="%1$d">%2$s</span> pending', 'reign' ), $group->id, $pending ) . ')</span>';
 				}
 
 				if ( $PeepSoGroupUser->can( 'view_users' ) ) {
 					$segments[0][] = array(
 						'href'  => 'members',
-						'title' => $title,
+						'title' => $members_title,
 						'icon'  => 'pso-i-queue-alt',
 					);
 				}
@@ -265,7 +270,7 @@ if ( empty( $group_cover_photo ) ) {
 
 						if ( $can_access ) {
 							?>
-							<a class="ps-focus__menu-item ps-js-item <?php echo ( $segment['href'] == $group_segment ) ? 'ps-focus__menu-item--active' : ''; ?>" href="<?php echo esc_url( $href ); ?>" aria-label="<?php echo $segment['label'] ?? $segment['title']; ?>">
+							<a class="ps-focus__menu-item ps-js-item <?php echo ( $segment['href'] == $group_segment ) ? 'ps-focus__menu-item--active' : ''; ?>" href="<?php echo esc_url( $href ); ?>" aria-label="<?php echo esc_attr( $segment['label'] ?? $segment['title'] ); ?>">
 								<div class="ps-focus__menu-item-inner">
 									<i class="<?php echo esc_attr( $segment['icon'] ); ?>"></i>
 									<span><?php echo esc_html( $segment['title'] ); ?></span>

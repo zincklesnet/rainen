@@ -6,6 +6,8 @@
  *
  * @package Reign
  */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 ?>
 <?php
 $download_list_layout = 'rtm-download-item-article rtm-download-layout-default';
@@ -70,10 +72,12 @@ $rtm_edd_customization_obj = RTM_EDD_Customization::instance();
 					$vendor_store_url = '';
 				}
 					printf(
-						__( '<span class="byline"> by %1$s</span>', 'reign' ),
+						/* translators: %1$s: Author byline markup. */
+						wp_kses_post( __( '<span class="byline"> by %1$s</span>', 'reign' ) ),
 						sprintf(
 							'<span class="author vcard"><a class="url fn n" href="%1$s" title="%2$s">%3$s %4$s</a></span>',
-							$vendor_store_url,
+							esc_url( $vendor_store_url ),
+							/* translators: %s: Author display name. */
 							esc_attr( sprintf( __( 'View all posts by %s', 'reign' ), get_the_author_meta( 'display_name' ) ) ),
 							esc_html( get_the_author_meta( 'display_name' ) ),
 							get_avatar( get_the_author_meta( 'ID' ), 50 ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
