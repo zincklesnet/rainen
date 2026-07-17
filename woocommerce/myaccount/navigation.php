@@ -26,7 +26,7 @@ $reign_woo_myaccount_menu_toggle = get_theme_mod( 'reign_woo_myaccount_menu_togg
 ?>
 
 <nav class="woocommerce-MyAccount-navigation" aria-label="<?php esc_attr_e( 'Account pages', 'reign' ); ?>">
-	<?php if ( $reign_woo_myaccount_menu_toggle ) : ?>
+	<?php if ( reign_is_truthy( $reign_woo_myaccount_menu_toggle ) ) : ?>
 		<div class="rg-MyAccount-navigation-heading">
 			<h5>
 				<?php esc_html_e( 'Menu', 'reign' ); ?>

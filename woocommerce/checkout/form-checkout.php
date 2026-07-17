@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$reign_woo_checkout_layout = get_theme_mod( 'reign_woo_checkout_layout', 'woo_cart_default' );
+$reign_woo_checkout_layout = get_theme_mod( 'reign_woo_checkout_layout', 'woo_checkout_default' );
 
 do_action( 'woocommerce_before_checkout_form', $checkout );
 

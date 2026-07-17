@@ -54,7 +54,8 @@ if ( class_exists( 'Reign_WP_Job_Manager_Addon' ) ) {
 					if ( $category ) :
 						?>
 						resume-meta<?php endif; ?>">
-						<date><?php printf( __( '%s ago', 'reign' ), human_time_diff( get_post_time( 'U' ), current_time( 'timestamp' ) ) ); ?></date>
+						<?php /* translators: %s: Human-readable time difference (e.g. "2 days"). */ ?>
+						<date><?php printf( esc_html__( '%s ago', 'reign' ), esc_html( human_time_diff( get_post_time( 'U' ), current_time( 'timestamp' ) ) ) ); ?></date>
 						<?php if ( $category ) : ?>
 							<div class="resume-category">
 							<?php echo esc_html( $category ); ?>

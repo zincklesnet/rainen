@@ -46,6 +46,13 @@ if ( ! empty( $product_tabs ) ) : ?>
 			<div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--<?php echo esc_attr( $key ); ?> panel entry-content wc-tab" id="tab-<?php echo esc_attr( $key ); ?>" role="tabpanel" aria-labelledby="tab-title-<?php echo esc_attr( $key ); ?>">
 				<?php
 				if ( isset( $product_tab['callback'] ) ) {
+					global $product;
+
+					// Prevent fatals when shortcode-rendered product content loses global product context.
+					if ( 'additional_information' === $key && ( ! $product || ! is_a( $product, 'WC_Product' ) ) ) {
+						continue;
+					}
+
 					call_user_func( $product_tab['callback'], $key, $product_tab );
 				}
 				?>
