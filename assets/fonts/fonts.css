@@ -1,0 +1,56 @@
+/*
+ * Reign theme bundled fonts.
+ *
+ * Inter — the modern community-UI sans (Circle, Skool, Mighty Networks,
+ * Bluesky, Linear all converged on it). Loaded as four discrete weights
+ * because the variable woff2 is ~80 KB for the weight range we use; four
+ * subsets total ~96 KB and give us cleaner cache hit rates when the
+ * browser only needs Regular for a public page view.
+ *
+ * Source Serif 4 is referenced by theme.json as a customer-picker option
+ * but NOT @font-face declared here — Fonts/Component.php loads it from
+ * Google Fonts at runtime only when the customer selects it for a slot.
+ * Self-hosting an extra 40 KB serif just for the *option* would waste
+ * the byte budget for the 95% of customers who stay on Inter.
+ *
+ * System UI is pure CSS — no @font-face needed.
+ *
+ * @package reign
+ * @since 8.0.0
+ */
+
+@font-face {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: local('Inter Regular'), local('Inter-Regular'),
+		url('inter/Inter-Regular.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: local('Inter Medium'), local('Inter-Medium'),
+		url('inter/Inter-Medium.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: local('Inter SemiBold'), local('Inter-SemiBold'),
+		url('inter/Inter-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: local('Inter Bold'), local('Inter-Bold'),
+		url('inter/Inter-Bold.woff2') format('woff2');
+}
