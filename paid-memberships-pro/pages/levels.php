@@ -11,6 +11,8 @@
  * @author Paid Memberships Pro
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 global $wpdb, $pmpro_msg, $pmpro_msgt, $current_user;
 
 $layout_mapping = array(
