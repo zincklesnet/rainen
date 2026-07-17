@@ -10,6 +10,8 @@
  * @package rtMedia
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 // By default it is not an ajax request.
 global $rt_ajax_request;
 $rt_ajax_request = false;
