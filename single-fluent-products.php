@@ -7,9 +7,11 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 get_header();
 
-// Check if any page builder is used
+// Check if any page builder is used.
 $is_page_builder_used = reign_is_page_builder_used();
 ?>
 
@@ -20,11 +22,11 @@ $is_page_builder_used = reign_is_page_builder_used();
 		while ( have_posts() ) :
 			the_post();
 
-			// If page builder is active, output content directly
+			// If page builder is active, output content directly.
 			if ( $is_page_builder_used ) {
 				reign_output_page_builder_content();
 			} else {
-				// Output FluentCart product content
+				// Output FluentCart product content.
 				?>
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 					<div class="entry-content">

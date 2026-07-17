@@ -7,6 +7,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 $sidebar_id = reign_get_sidebar_id_to_show( 'secondary_sidebar' );
 
 if ( ! $sidebar_id ) {
@@ -16,11 +18,11 @@ if ( ! $sidebar_id ) {
 		$sidebar_id = get_theme_mod( 'reign_search_left_sidebar', '' );
 	}
 	if ( $post ) {
-		$post_type = get_post_type();
+		$reign_post_type = get_post_type();
 		if ( is_singular() ) {
-			$sidebar_id = get_theme_mod( 'reign_' . $post_type . '_single_left_sidebar', '' );
+			$sidebar_id = get_theme_mod( 'reign_' . $reign_post_type . '_single_left_sidebar', '' );
 		} elseif ( ! is_search() ) {
-			$sidebar_id = get_theme_mod( 'reign_' . $post_type . '_archive_left_sidebar', '' );
+			$sidebar_id = get_theme_mod( 'reign_' . $reign_post_type . '_archive_left_sidebar', '' );
 		}
 	}
 }

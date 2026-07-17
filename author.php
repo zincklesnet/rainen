@@ -12,6 +12,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 get_header();
 ?>
 
@@ -23,10 +25,10 @@ get_header();
 
 		$blog_list_layout   = get_theme_mod( 'reign_blog_list_layout', 'default-view' );
 		$reign_blog_per_row = get_theme_mod( 'reign_blog_per_row', '3' );
-		if ( $blog_list_layout == 'masonry-view' ) {
+		if ( 'masonry-view' === $blog_list_layout ) {
 			echo '<div class="masonry wb-post-listing col-' . esc_attr( $reign_blog_per_row ) . '">';
 			echo '<div class="reign-grid-sizer"></div>';
-		} elseif ( $blog_list_layout == 'wb-grid-view' ) {
+		} elseif ( 'wb-grid-view' === $blog_list_layout ) {
 			echo '<div class="wb-grid-view-wrap wb-post-listing">';
 		} else {
 			echo '<div class="wb-lists-view-wrap wb-post-listing">';
@@ -45,9 +47,9 @@ get_header();
 
 		endwhile;
 
-		if ( $blog_list_layout == 'masonry-view' ) {
+		if ( 'masonry-view' === $blog_list_layout ) {
 			echo '</div>';
-		} elseif ( $blog_list_layout == 'wb-grid-view' ) {
+		} elseif ( 'wb-grid-view' === $blog_list_layout ) {
 			echo '</div>';
 		} else {
 			echo '</div>';

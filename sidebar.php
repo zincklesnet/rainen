@@ -7,6 +7,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 $sidebar_id = reign_get_sidebar_id_to_show( 'primary_sidebar' );
 
 if ( ! $sidebar_id ) {
@@ -17,11 +19,11 @@ if ( ! $sidebar_id ) {
 	}
 
 	if ( $post ) {
-		$post_type = get_post_type();
+		$reign_post_type = get_post_type();
 		if ( is_singular() ) {
-			$sidebar_id = get_theme_mod( 'reign_' . $post_type . '_single_right_sidebar', '' );
+			$sidebar_id = get_theme_mod( 'reign_' . $reign_post_type . '_single_right_sidebar', '' );
 		} elseif ( ! is_search() ) {
-			$sidebar_id = get_theme_mod( 'reign_' . $post_type . '_archive_right_sidebar', '' );
+			$sidebar_id = get_theme_mod( 'reign_' . $reign_post_type . '_archive_right_sidebar', '' );
 		}
 	}
 }
@@ -64,7 +66,7 @@ if ( is_active_sidebar( $sidebar_id ) && $display_sidebar ) {
 	if ( is_plugin_active( 'edd-sell-services/edd-sell-services.php' ) ) {
 		$ess_general_settings = get_option( 'ess_general_settings' );
 		/* Check EDD mnanager Order Page id and Current Page ID same then display EDD Service status widget*/
-		if ( $ess_general_settings['ess_manage_order_page'] == get_the_ID() ) {
+		if ( get_the_ID() === $ess_general_settings['ess_manage_order_page'] ) {
 			the_widget(
 				'edd_services_widget',
 				array(),

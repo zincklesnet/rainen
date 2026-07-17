@@ -8,6 +8,9 @@
  *
  * @package Reign
  */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 ?>
 <?php do_action( 'reign_content_bottom' ); ?>
 </main><!-- #content -->

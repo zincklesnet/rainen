@@ -12,11 +12,13 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 get_header();
 
-// Check if any page builder is used
+// Check if any page builder is used.
 $is_page_builder_used = reign_is_page_builder_used();
-$active_builder = reign_get_active_page_builder();
+$active_builder       = reign_get_active_page_builder();
 
 ?>
 
@@ -27,11 +29,11 @@ $active_builder = reign_get_active_page_builder();
 	while ( have_posts() ) :
 		the_post();
 
-		// If page builder is active, output content directly without Reign's template
+		// If page builder is active, output content directly without Reign's template.
 		if ( $is_page_builder_used ) {
 			reign_output_page_builder_content();
 		} else {
-			// Use Reign's default template for regular pages
+			// Use Reign's default template for regular pages.
 			get_template_part( 'template-parts/content', 'page' );
 		}
 

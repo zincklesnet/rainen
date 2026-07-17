@@ -9,6 +9,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 global $post, $comment;
 
 ?>
@@ -18,21 +20,21 @@ global $post, $comment;
 		<footer class="comment-meta">
 			<div class="comment-author vcard">
 				<?php
-				if ( 0 != $args['avatar_size'] ) {
-					echo get_avatar( $comment, $args['avatar_size'] );
+				if ( 0 !== (int) $args['avatar_size'] ) {
+					echo get_avatar( $comment, $args['avatar_size'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_avatar() returns safe markup.
 				}
 				?>
 				<?php
 				$comment_author = get_comment_author_link( $comment );
 
-				if ( '0' == $comment->comment_approved ) {
-					$comment_author = get_comment_author( $comment );
+				if ( '0' === $comment->comment_approved ) {
+					$comment_author = esc_html( get_comment_author( $comment ) );
 				}
 
 				printf(
 					/* translators: %s: Comment author link. */
-					__( '%s <span class="says">says:</span>', 'reign' ),
-					sprintf( '<b class="fn">%s</b>', $comment_author )
+					wp_kses_post( __( '%s <span class="says">says:</span>', 'reign' ) ),
+					wp_kses_post( sprintf( '<b class="fn">%s</b>', $comment_author ) )
 				);
 				?>
 			</div><!-- .comment-author -->
@@ -42,12 +44,12 @@ global $post, $comment;
 				printf(
 					'<a href="%s"><time datetime="%s">%s</time></a>',
 					esc_url( get_comment_link( $comment, $args ) ),
-					get_comment_time( 'c' ),
+					esc_attr( get_comment_time( 'c' ) ),
 					sprintf(
 						/* translators: 1: Comment date, 2: Comment time. */
-						__( '%1$s at %2$s', 'reign' ),
-						get_comment_date( '', $comment ),
-						get_comment_time()
+						esc_html__( '%1$s at %2$s', 'reign' ),
+						esc_html( get_comment_date( '', $comment ) ),
+						esc_html( get_comment_time() )
 					)
 				);
 
@@ -55,7 +57,7 @@ global $post, $comment;
 				?>
 			</div><!-- .comment-metadata -->
 
-			<?php if ( '0' == $comment->comment_approved ) : ?>
+			<?php if ( '0' === $comment->comment_approved ) : ?>
 			<em class="comment-awaiting-moderation"></em>
 			<?php endif; ?>
 		</footer><!-- .comment-meta -->
@@ -70,7 +72,7 @@ global $post, $comment;
 
 				do_action( 'reign_before_comment_replay', get_comment_ID(), $comment );
 
-				if ( '1' == $comment->comment_approved ) {
+				if ( '1' === $comment->comment_approved ) {
 					comment_reply_link(
 						array_merge(
 							$args,

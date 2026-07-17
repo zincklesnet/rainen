@@ -7,6 +7,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 get_header();
 ?>
 

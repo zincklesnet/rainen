@@ -32,7 +32,7 @@ while ( have_posts() ) :
 	endwhile; // End of the loop.
 ?>
 </div>
-<?php // Always show Udemy layout sidebar ?>
+<?php // Always show Udemy layout sidebar. ?>
 <aside id="reign-sidebar-right" class="widget-area learndash-course-widget" role="complementary">
 	<div class="widget-area-inner">
 		<div class="learndash-course-widget-wrap">
@@ -79,7 +79,7 @@ while ( have_posts() ) :
 			$course_info['certificate'] = esc_html__( 'No', 'reign' );
 		}
 
-		// Student count and avatars removed
+		// Student count and avatars removed.
 
 		$course_info['assignment'] = esc_html__( 'No', 'reign' );
 		foreach ( $lessons as $key => $lesson ) {
@@ -92,7 +92,7 @@ while ( have_posts() ) :
 		}
 
 		$_learndash_course_grid_video_embed_code = get_post_meta( $course_id, '_learndash_course_grid_video_embed_code', true );
-		if ( $_learndash_course_grid_video_embed_code != '' ) :
+		if ( '' !== $_learndash_course_grid_video_embed_code ) :
 			echo '<div class="lm-course-thumbnail">';
 			echo wp_oembed_get( $_learndash_course_grid_video_embed_code ); //phpcs:ignore
 			echo '</div>';
@@ -105,7 +105,7 @@ while ( have_posts() ) :
 				echo get_reign_ld_default_course_img_html(); //phpcs:ignore
 				echo '</div>';
 		endif;
-		// Student avatars section removed
+			// Student avatars section removed.
 
 			/**
 			 * Course info bar
@@ -126,6 +126,7 @@ while ( have_posts() ) :
 			echo do_shortcode( '[ld_course_resume course_id ="' . $course_id . '" user_id ="' . $user_id . '" label="' . esc_html__( 'Continue', 'reign' ) . '"]' );
 
 
+			/* translators: %s: Course label. */
 			$course_features_label = sprintf( esc_html_x( '%s Features', 'Course Features  Label', 'reign' ), LearnDash_Custom_Label::get_label( 'course' ) );
 
 			echo '<div class="lm-tab-course-info">';
@@ -151,7 +152,7 @@ while ( have_posts() ) :
 				),
 			);
 
-			// Students count removed from course features
+			// Students count removed from course features.
 
 			// Add the remaining elements.
 			$course_features = array_merge(
@@ -181,7 +182,7 @@ while ( have_posts() ) :
 			}
 			echo '<ul>';
 
-			if ( $rla_ccf_enable == 'yes' ) {
+			if ( 'yes' === $rla_ccf_enable ) {
 				for ( $i = 0; $i < $count_value; $i++ ) {
 					?>
 				<li class="<?php echo ( isset( $course_feature['slug'] ) ) ? esc_attr( $course_feature['slug'] ) : ''; ?>">
@@ -207,8 +208,8 @@ while ( have_posts() ) :
 		</div>
 
 		<?php
-		if ( is_active_sidebar('ld-single-course-sidebar') ) {
-		    dynamic_sidebar('ld-single-course-sidebar');
+		if ( is_active_sidebar( 'ld-single-course-sidebar' ) ) {
+			dynamic_sidebar( 'ld-single-course-sidebar' );
 		}
 		?>
 

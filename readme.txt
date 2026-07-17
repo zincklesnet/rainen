@@ -2,7 +2,7 @@
 
 Requires at least: 4.5
 Tested up to: 6.8.3
-Version: 7.9.7
+Version: 8.0.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -39,6 +39,94 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see < http://www.gnu.org/licenses/ >
 
 == Changelog ==
+
+= 8.0.3 - June 2026 =
+
+Maintenance release for 8.0.0. Wider dark mode coverage, conditional asset-loading fixes, opt-in button styling so plugin and component controls keep their own look, and tighter BuddyNext integration.
+
+* Improve  - Dark mode styling now covers the BuddyBoss Platform and Shortcodes for BuddyPress Pro interfaces.
+* Improve  - Adjusted the footer widget heading font size for link titles.
+* Improve  - Refined the header light and dark mode toggle presentation.
+* Improve  - When BuddyNext is active, the login, register, and reset password links point to the BuddyNext authentication hub.
+* Fix      - Auto (System) color mode now follows the visitor's operating-system light or dark preference.
+* Fix      - Block editor and plugin colors now match your active Reign brand color in both light and dark mode.
+* Fix      - Menu icons no longer leak onto post and widget titles, and the fallback link icon stays inside the left panel instead of the header and mobile menus.
+* Fix      - Integration stylesheets and scripts, including the LearnDash dashboard, now load only on the pages that need them.
+* Fix      - Corrected the BuddyBoss reactions position in activity listings.
+* Fix      - Fixed header icon alignment on mobile when BuddyNext is active.
+* Fix      - Theme button styling is now opt-in, so plugin and component controls keep their own look: WPMediaVerse controls, the BuddyX light and dark toggle, and the BuddyNext header menu no longer pick up the theme accent fill.
+* Fix      - Easy Digital Downloads price-option checkbox styling no longer affects unrelated checkboxes elsewhere on the site.
+
+= 8.0.1 - June 2026 =
+
+Maintenance release for 8.0.0. Rebuilt Get Started onboarding and a header-icon fix for BuddyNext communities.
+
+* New      - Rebuilt Get Started screen as a Wbcom onboarding hub with a one-click installer for companion plugins.
+* Improve  - Get Started and theme options now share the companion-family layout, with a Build More page.
+* Fix      - Restored the message and notification header icons that were dropped on Customizer save when BuddyNext is active without BuddyPress.
+* Dev      - Replaced the bundled TGMPA library with a lightweight in-house companion installer.
+
+= 8.0.0 - June 2026 =
+
+Major release. The Customizer is rebuilt in-house and loads faster, with a new visitor light and dark mode toggle, ready-made Site Skins, and lighter front-end loading. Your saved settings carry over unchanged.
+
+* New      - Rebuilt Customizer that loads faster and is simpler to navigate.
+* New      - Light, dark, and auto color mode toggle in the header and mobile menu, with each visitor's choice remembered as they browse.
+* New      - 8 ready-made Site Skins (Cool, Dark, Editorial, Minimal, Monochrome, Pastel, Vibrant, Warm) under Color Options > Site Skin.
+* New      - Mobile Topbar Content control that keeps the top bar on a single tidy row on phones by showing either your contact info or your social links, under Header > Top Bar.
+* New      - Full set of Left Panel size controls for open width, collapsed width, header height, item spacing, and section heading size; defaults match the previous look so nothing shifts.
+* New      - 27 ready-to-use block patterns (hero, about, features, social proof, pricing and FAQ, call to action, footer, and post listings) for the block editor.
+* New      - Larger Google Fonts library in the typography picker, with only the fonts you choose loaded on your site.
+* New      - Separate top, right, bottom, and left spacing controls for the footer and copyright areas.
+* New      - Block editor color palette now matches your active Reign color scheme.
+* New      - Get Started > Theme Setup adds a "Re-run 8.0.0 Setup" button that safely re-applies migration defaults for sites that skipped the one-time update, without overwriting any saved value.
+* Improve  - Font picker groups your theme fonts and Google Fonts with a search box, and previously selected fonts keep working.
+* Improve  - Left Panel settings reorganized into clear groups (Behavior, Size & Spacing, Icon, and Menu Text) for easier setup.
+* Improve  - Sub Header controls now clearly explain when a sub header shows or hides and which setting takes priority.
+* Improve  - Reign blue restored as the default accent color, with a brighter accent in dark mode.
+* Fix      - On and off toggles across the theme now reliably take effect, including sticky header, top bar, scroll-up button, site loader, left panel, sub header, mobile logo, related posts, social share, breadcrumb, sign-in popup, WooCommerce options, and the login screen.
+* Fix      - Restored Customizer controls that had stopped showing: Sub Header Height, Blogs Per Row, Blog Excerpt Length, and the Forms color options.
+* Fix      - Layout Settings is now one clear panel grouping each content type's Archive, Single, and Search options.
+* Fix      - Removed a duplicate dark mode control so your default mode lives in one place under Color Options > Light & Dark Mode.
+* Fix      - Top bar no longer breaks into two rows or clips text on phones, and the sign-in popup close button is now easier to tap.
+* Fix      - Dark mode styling now applies consistently across all theme areas.
+* Fix      - Resolved a PHP notice that could appear in some configurations.
+* Compat   - Your saved Customizer settings, colors, and dark mode preference carry over unchanged after updating.
+* Compat   - Your existing color scheme is preserved exactly; the new Site Skins are optional and only change your colors if you choose one.
+* Compat   - Because several options now take effect that previously did not, review your settings after updating (especially Header > Top Bar, Site Loader, and Scroll Up) to confirm they match your intent.
+
+= 7.9.9 =
+* New: Added Customizer fields for login and register form labels with HTML/link support.
+* Fix: Dark mode logo swap now applied to BuddyPress register page.
+* Fix: "Scroll to Top" JS string is now translatable.
+* Fix: Resolved dark mode issue in Access Plan description for LifterLMS.
+* Fix: Registered `sfwd-quiz` with the Reign Customizer layout system.
+* Fix: Login page logo no longer appears twice.
+* Fix: Added missing course-level comment section for LearnDash.
+* Fix: Friends connections icon toggle now works with BP Activity Share Pro plugin.
+* Fix: Resolved logo visibility issue in Firefox browser.
+* Update: Updated recommended plugins list.
+
+= 7.9.8 =
+* Security: Patched stored XSS vulnerability in social profile fields.
+* Security: Removed unauthenticated theme customizer reset via `?devmod_remove_theme_mod`.
+* Security: Added nonce, capability, and sanitization checks to `reign_save_post_meta()`.
+* Security: Sanitized social link settings and profile URLs.
+* Security: Escaped previously unescaped meta values in post format meta box output.
+* Security: Hardened `login.php` and fixed duplicate site name on the login page.
+* New: Added dark mode and color scheme support for Stachethemes Event Calendar (dashboard + frontend).
+* New: Added store manager tab UI styling for WCFM.
+* Fix: Notifications and messages count now clears at zero without requiring a page refresh.
+* Fix: WooCommerce - guarded the additional information tab when product context is missing.
+* Fix: Restored native select appearance in WP admin forms.
+* Fix: `[reign_display_posts]` now bounds the default `posts_per_page`.
+* Fix: `reign_login_title()` correctly returns the site name instead of an empty option.
+* Fix: `load_color_dark_palette()` now emits the full dark palette.
+* Fix: PeepSo redirect URLs now use `home_url()` instead of `site_url()` for multisite compatibility.
+* Fix: Removed deprecated reflection access from theme slug lookup.
+* Improvement: PHPCS fixes across multiple files.
+* Improvement: Added `Tested up to` and `Requires PHP` headers; bumped composer PHP requirement to 7.4.
+* Improvement: Updated `reign.pot` translation template.
 
 = 7.9.7 =
 * Fix: Avatar moderation issue with latest BP Moderation Pro.

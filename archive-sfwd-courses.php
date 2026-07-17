@@ -7,6 +7,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 get_header();
 
 global $wbtm_reign_settings;
@@ -25,7 +27,7 @@ $archive_course_layout = ( isset( $wbtm_reign_settings['learndash']['archive_cou
 	<?php if ( have_posts() ) : ?>
 		<?php
 		if ( class_exists( 'LearnMate_LearnDash_Addon' ) ) {
-			$view_to_render = isset( $_COOKIE['learnmate_course_view'] ) ? $_COOKIE['learnmate_course_view'] : 'lm-grid-view';
+			$view_to_render = isset( $_COOKIE['learnmate_course_view'] ) ? sanitize_key( wp_unslash( $_COOKIE['learnmate_course_view'] ) ) : 'lm-grid-view';
 		} else {
 			$view_to_render = 'lm-grid-view';
 		}

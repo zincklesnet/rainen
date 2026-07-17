@@ -7,6 +7,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 get_header();
 if ( class_exists( 'PeepSo' ) ) {
 	global $wbtm_reign_settings;
@@ -14,7 +16,7 @@ if ( class_exists( 'PeepSo' ) ) {
 	$header_position = apply_filters( 'wbtm_rth_manage_header_position', $header_position );
 
 	$peepso_url_segments = PeepSoUrlSegments::get_instance();
-	if ( 'peepso_profile' === $peepso_url_segments->_shortcode || ( ( 'peepso_groups' === $peepso_url_segments->_shortcode ) && ( sizeof( $peepso_url_segments->_segments ) > 1 ) ) ) {
+	if ( 'peepso_profile' === $peepso_url_segments->_shortcode || ( ( 'peepso_groups' === $peepso_url_segments->_shortcode ) && ( count( $peepso_url_segments->_segments ) > 1 ) ) ) {
 		if ( 'inside' === $header_position ) {
 			do_action( 'reign_before_content_section' );
 		}
@@ -36,7 +38,7 @@ if ( class_exists( 'PeepSo' ) ) {
 
 	<?php
 	$peepso_url_segments = PeepSoUrlSegments::get_instance();
-	if ( 'peepso_profile' === $peepso_url_segments->_shortcode || ( ( 'peepso_groups' === $peepso_url_segments->_shortcode ) && ( sizeof( $peepso_url_segments->_segments ) > 1 ) ) ) {
+	if ( 'peepso_profile' === $peepso_url_segments->_shortcode || ( ( 'peepso_groups' === $peepso_url_segments->_shortcode ) && ( count( $peepso_url_segments->_segments ) > 1 ) ) ) {
 		if ( 'inside' === $header_position ) {
 			do_action( 'reign_after_content_section' );
 		}

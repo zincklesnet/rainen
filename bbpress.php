@@ -12,6 +12,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 get_header();
 
 do_action( 'reign_before_content_section' ); ?>

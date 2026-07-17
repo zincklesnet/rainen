@@ -12,17 +12,19 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 get_header();
 
-$register_split_view       = get_theme_mod( 'register_split_view' );
-$register_heading_position = get_theme_mod( 'register_heading_position' );
+$register_split_view       = get_theme_mod( 'register_split_view', false );
+$register_heading_position = get_theme_mod( 'register_heading_position', '' );
 $register_custom_heading   = get_theme_mod( 'register_custom_heading', esc_html__( 'Join our community!', 'reign' ) );
 $register_custom_text      = get_theme_mod( 'register_custom_text', esc_html__( 'Become a member today to connect with others, join groups, and share experiences!', 'reign' ) );
 
 if ( ( function_exists( 'bp_is_register_page' ) && bp_is_register_page() ) || ( function_exists( 'bp_is_activation_page' ) && bp_is_activation_page() ) ) {
 	$class_bp_register = 'rg-bp-container-reg';
 
-	if ( $register_split_view ) {
+	if ( reign_is_truthy( $register_split_view ) ) {
 		if ( $register_heading_position ) {
 			$heading_postion_style = 'padding-top: ' . $register_heading_position . '%;';
 		} else {
@@ -34,7 +36,7 @@ if ( ( function_exists( 'bp_is_register_page' ) && bp_is_register_page() ) || ( 
 		}
 		if ( $register_custom_text ) {
 			echo '<span>';
-			echo stripslashes( $register_custom_text );
+			echo wp_kses_post( stripslashes( $register_custom_text ) );
 			echo '</span>';
 		}
 		echo '</div><div class="split-overlay"></div></div>';
@@ -69,7 +71,7 @@ do_action( 'reign_before_content_section' ); ?>
 	?>
 </div>
 
-<?php echo get_sidebar( 'buddypress' ); // phpcs:ignore ?>
+<?php get_sidebar( 'buddypress' ); ?>
 
 <?php
 get_footer();

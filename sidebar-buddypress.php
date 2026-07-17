@@ -7,8 +7,19 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
+// BuddyPress can be deactivated while this template is still cached
+// by a page-caching plugin; bail without calling any bp_* function
+// rather than fatal under PHP 8.x.
+if ( ! function_exists( 'bp_is_current_component' ) ) {
+	get_sidebar();
+	return;
+}
+
 global $post;
 $bp_pages = get_option( 'bp-pages' );
+// phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited -- BuddyPress directory pages have no real post; set $post so sidebar metabox lookups resolve the directory page.
 if ( bp_is_current_component( 'groups' ) ) {
 	$post = get_post( $bp_pages['groups'] );
 } elseif ( bp_is_current_component( 'members' ) || bp_is_user() ) {
@@ -22,33 +33,34 @@ if ( bp_is_current_component( 'groups' ) ) {
 } elseif ( bp_is_register_page() ) {
 	$post = get_post( $bp_pages['register'] );
 }
+// phpcs:enable WordPress.WP.GlobalVariablesOverride.Prohibited
 
 $theme_slug  = apply_filters( 'wbcom_essential_theme_slug', 'reign' );
 $site_layout = '';
-if ( ! empty( $post ) && $post->ID != 0 ) {
+if ( ! empty( $post ) && 0 !== (int) $post->ID ) {
 	$wbcom_metabox_data = get_post_meta( $post->ID, $theme_slug . '_wbcom_metabox_data', true );
 	$site_layout        = isset( $wbcom_metabox_data['layout']['site_layout'] ) ? $wbcom_metabox_data['layout']['site_layout'] : '';
 }
 
-if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) || class_exists( 'BP_Classic' ) ) {
+if ( ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) || class_exists( 'BP_Classic' ) ) {
 	$bp_activity_sidebar = get_theme_mod( 'reign_activity_directory_sidebar_layout', 'right_sidebar' );
 	$bp_members_sidebar  = get_theme_mod( 'reign_members_directory_sidebar_layout', 'right_sidebar' );
 	$bp_groups_sidebar   = get_theme_mod( 'reign_groups_directory_sidebar_layout', 'right_sidebar' );
 
-	if ( ( bp_is_current_component( 'activity' ) && $bp_activity_sidebar == 'both_sidebar' ) || bp_is_current_component( 'activity' ) && ( $bp_activity_sidebar == 'right_sidebar' ) ) {
+	if ( ( bp_is_current_component( 'activity' ) && 'both_sidebar' === $bp_activity_sidebar ) || ( bp_is_current_component( 'activity' ) && 'right_sidebar' === $bp_activity_sidebar ) ) {
 		$sidebar_id = 'activity-index';
-	} elseif ( ( bp_is_current_component( 'members' ) && $bp_members_sidebar == 'both_sidebar' ) || ( bp_is_current_component( 'members' ) && $bp_members_sidebar == 'right_sidebar' ) ) {
+	} elseif ( ( bp_is_current_component( 'members' ) && 'both_sidebar' === $bp_members_sidebar ) || ( bp_is_current_component( 'members' ) && 'right_sidebar' === $bp_members_sidebar ) ) {
 		$sidebar_id = 'member-index';
-	} elseif ( ( bp_is_current_component( 'groups' ) && $bp_groups_sidebar == 'both_sidebar' ) || bp_is_current_component( 'groups' ) && ( $bp_groups_sidebar == 'right_sidebar' ) ) {
+	} elseif ( ( bp_is_current_component( 'groups' ) && 'both_sidebar' === $bp_groups_sidebar ) || ( bp_is_current_component( 'groups' ) && 'right_sidebar' === $bp_groups_sidebar ) ) {
 		$sidebar_id = 'group-index';
-	} elseif ( $site_layout == '0' ) {
+	} elseif ( '0' === $site_layout ) {
 		$sidebar_id = '0';
 	} elseif ( ! bp_is_user() ) {
 		return;
 	}
-} elseif ( ( $site_layout == 'both_sidebar' ) || ( $site_layout == 'right_sidebar' ) ) {
+} elseif ( ( 'both_sidebar' === $site_layout ) || ( 'right_sidebar' === $site_layout ) ) {
 	$sidebar_id = $wbcom_metabox_data['layout']['primary_sidebar'];
-} elseif ( $site_layout == '0' ) {
+} elseif ( '0' === $site_layout ) {
 	$sidebar_id = '0';
 } elseif ( ! bp_is_user() ) {
 	return;
@@ -56,7 +68,7 @@ if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, 
 
 if ( bp_is_current_component( 'groups' ) && ! bp_is_group() && ! bp_is_user() && ! bp_is_group_create() ) {
 	$class      = 'widget-area member-index-widget-area md-wb-grid-1-3';
-	$sidebar_id = ( $sidebar_id != '0' ) ? $sidebar_id : 'group-index';
+	$sidebar_id = ( '0' !== $sidebar_id ) ? $sidebar_id : 'group-index';
 	if ( ! is_active_sidebar( $sidebar_id ) ) {
 		return;
 	}
@@ -77,7 +89,7 @@ if ( bp_is_current_component( 'groups' ) && ! bp_is_group() && ! bp_is_user() &&
 	}
 } elseif ( bp_is_current_component( 'members' ) && ! bp_is_user() ) {
 	$class      = 'widget-area member-index-widget-area md-wb-grid-1-3';
-	$sidebar_id = ( $sidebar_id != '0' ) ? $sidebar_id : 'member-index';
+	$sidebar_id = ( '0' !== $sidebar_id ) ? $sidebar_id : 'member-index';
 	if ( ! is_active_sidebar( $sidebar_id ) ) {
 		return;
 	}
@@ -98,7 +110,7 @@ if ( bp_is_current_component( 'groups' ) && ! bp_is_group() && ! bp_is_user() &&
 	}
 } elseif ( bp_is_current_component( 'activity' ) && ! bp_is_user() ) {
 
-	$sidebar_id = ( $sidebar_id != '0' ) ? $sidebar_id : 'activity-index';
+	$sidebar_id = ( '0' !== $sidebar_id ) ? $sidebar_id : 'activity-index';
 
 	if ( is_active_sidebar( $sidebar_id ) ) {
 		ob_start();
@@ -118,7 +130,7 @@ if ( bp_is_current_component( 'groups' ) && ! bp_is_group() && ! bp_is_user() &&
 		}
 	}
 } elseif ( function_exists( 'bp_is_document_component' ) && ( bp_is_document_component() && ! bp_is_user() ) ) {
-	$sidebar_id = ( $sidebar_id != '0' ) ? $sidebar_id : 'activity-index';
+	$sidebar_id = ( '0' !== $sidebar_id ) ? $sidebar_id : 'activity-index';
 
 	if ( is_active_sidebar( $sidebar_id ) ) {
 		ob_start();
@@ -138,7 +150,7 @@ if ( bp_is_current_component( 'groups' ) && ! bp_is_group() && ! bp_is_user() &&
 		}
 	}
 } elseif ( function_exists( 'bp_is_media_component' ) && ( bp_is_media_component() && ! bp_is_user() ) ) {
-	$sidebar_id = ( $sidebar_id != '0' ) ? $sidebar_id : 'activity-index';
+	$sidebar_id = ( '0' !== $sidebar_id ) ? $sidebar_id : 'activity-index';
 
 	if ( is_active_sidebar( $sidebar_id ) ) {
 		ob_start();
@@ -158,7 +170,7 @@ if ( bp_is_current_component( 'groups' ) && ! bp_is_group() && ! bp_is_user() &&
 		}
 	}
 } elseif ( function_exists( 'bp_is_register_page' ) && bp_is_register_page() ) {
-	$sidebar_id = ( $sidebar_id != '0' ) ? $sidebar_id : 'activity-index';
+	$sidebar_id = ( '0' !== $sidebar_id ) ? $sidebar_id : 'activity-index';
 
 	if ( is_active_sidebar( $sidebar_id ) ) {
 		ob_start();

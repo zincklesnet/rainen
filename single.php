@@ -7,13 +7,15 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 get_header();
 
 $reign_single_post_navigation = get_theme_mod( 'reign_single_post_navigation', 'on' );
 
-// Check if any page builder is used
+// Check if any page builder is used.
 $is_page_builder_used = reign_is_page_builder_used();
-$active_builder = reign_get_active_page_builder();
+$active_builder       = reign_get_active_page_builder();
 
 ?>
 
@@ -23,12 +25,12 @@ $active_builder = reign_get_active_page_builder();
 		<?php
 		while ( have_posts() ) :
 			the_post();
-			
-			// If page builder is active, output content directly without Reign's template
+
+			// If page builder is active, output content directly without Reign's template.
 			if ( $is_page_builder_used ) {
 				reign_output_page_builder_content();
 			} else {
-				// Use Reign's default template for regular posts
+				// Use Reign's default template for regular posts.
 				get_template_part( 'template-parts/content', get_post_format() );
 			}
 
@@ -40,15 +42,15 @@ $active_builder = reign_get_active_page_builder();
 			);
 
 			if ( is_singular( 'post' ) ) {
-				if ( $reign_single_post_navigation ) {
+				if ( reign_is_truthy( $reign_single_post_navigation ) ) {
 					reign_post_navigation();
 				}
 			}
 
 			do_action( 'reign_post_comment_before' );
 
-			// do_action( 'reign_single_post_comment_section' );
-			if ( ( get_post_type() != 'sfwd-courses' ) || ( ! is_plugin_active( 'reign-learndash-addon/reign-learndash-addon.php' ) ) ) {
+			// phpcs:ignore Squiz.PHP.CommentedOutCode.Found -- intentionally disabled action hook.
+			if ( ( 'sfwd-courses' !== get_post_type() ) || ( ! is_plugin_active( 'reign-learndash-addon/reign-learndash-addon.php' ) ) ) {
 				// If comments are open or we have at least one comment, load up the comment template.
 				if ( comments_open() || get_comments_number() ) :
 					reign_maybe_wrap_builder_comments( true );

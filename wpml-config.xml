@@ -1,0 +1,14 @@
+<wpml-config>
+	<admin-texts>
+		<key name="theme_mods_reign">
+			<key name="reign_header_topbar_info_links" />
+			<key name="reign_header_topbar_social_links" />
+			<key name="reign_related_post_title" />
+			<key name="login_custom_heading" />
+			<key name="login_custom_text" />
+			<key name="reign_login_description" />
+			<key name="reign_sign_form_shortcode" />
+			<key name="reign_footer_copyright_text" />
+		</key>
+	</admin-texts>
+</wpml-config>

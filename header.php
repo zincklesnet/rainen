@@ -9,6 +9,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 ?>
 <!DOCTYPE html>
 <?php do_action( 'reign_html_before' ); ?>
@@ -29,7 +31,7 @@
 			<?php do_action( 'reign_before_masthead' ); ?>
 			<?php
 			if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'header' ) ) {
-			?>
+				?>
 			<header id="masthead" class="site-header <?php echo esc_attr( get_theme_mod( 'reign_header_layout', 'v2' ) ); ?>" role="banner">
 				<?php do_action( 'reign_begin_masthead' ); ?>
 
@@ -37,7 +39,7 @@
 
 				<?php do_action( 'reign_end_masthead' ); ?>
 			</header>
-			<?php
+				<?php
 			}
 			?>
 			<?php do_action( 'reign_after_masthead' ); ?>

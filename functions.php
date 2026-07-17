@@ -1,22 +1,35 @@
 <?php
+/**
+ * Theme functions and definitions.
+ *
+ * @package Reign
+ */
 
+/**
+ * Main theme class.
+ */
 class REIGN_Theme_Class {
 
+	/**
+	 * Whether the class has been initialized.
+	 *
+	 * @var bool
+	 */
 	private static $initialized = false;
 
 
 	/**
 	 * Lightweight constructor.
-	 * 
+	 *
 	 * This constructor is lightweight and only sets up the basic things. The heavy initialization
 	 * is deferred to the init method to prevent memory issues.
-	 * 
+	 *
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		// Only basic setup in constructor to prevent memory issues
+		// Only basic setup in constructor to prevent memory issues.
 		if ( ! self::$initialized ) {
-			// Defer heavy initialization
+			// Defer heavy initialization.
 			add_action( 'after_setup_theme', array( $this, 'init_theme' ), 0 );
 			self::$initialized = true;
 		}
@@ -25,35 +38,35 @@ class REIGN_Theme_Class {
 
 	/**
 	 * Heavy initialization
-	 * 
+	 *
 	 * This method is called only when needed and can be cleared by memory management.
-	 * 
+	 *
 	 * @since 1.0.0
 	 */
 	public function init_theme() {
-		// Define constants first
+		// Define constants first.
 		add_action( 'after_setup_theme', array( __CLASS__, 'constants' ), 1 );
 
-		// Load files conditionally
+		// Load files conditionally.
 		add_action( 'after_setup_theme', array( __CLASS__, 'includes' ), 2 );
 
-		// Setup BuddyPress hooks only if BP is active
+		// Setup BuddyPress hooks only if BP is active.
 		if ( function_exists( 'buddypress' ) ) {
 			$this->setup_buddypress_hooks();
 		}
 
-		// Add modern image support
+		// Add modern image support.
 		add_filter( 'mime_types', array( $this, 'reign_theme_upload_mimes' ) );
 
-		// Ensure file type validation for WebP/AVIF
+		// Ensure file type validation for WebP/AVIF.
 		add_filter( 'wp_check_filetype_and_ext', array( $this, 'reign_check_filetype' ), 10, 5 );
 
-		// Implement lazy loading
+		// Implement lazy loading.
 		add_filter( 'wp_lazy_loading_enabled', '__return_true' );
 	}
 
 	/**
-	 * CONDITIONAL BUDDYPRESS SETUP - only load if needed
+	 * CONDITIONAL BUDDYPRESS SETUP - only load if needed.
 	 */
 	private function setup_buddypress_hooks() {
 		add_filter( 'bp_get_template_stack', array( 'REIGN_Theme_Class', 'reign_bp_get_template_stack' ), 10, 1 );
@@ -70,11 +83,11 @@ class REIGN_Theme_Class {
 	 * @since 1.0.0
 	 */
 	public static function constants() {
-		// Existing constants code stays the same
+		// Existing constants code stays the same.
 		$theme   = wp_get_theme( get_template() );
 		$version = $theme->get( 'Version' );
 
-		// All existing constant definitions...
+		// All existing constant definitions.
 		define( 'REIGN_THEME_DIR', get_template_directory() );
 		define( 'REIGN_THEME_URI', get_template_directory_uri() );
 
@@ -89,21 +102,21 @@ class REIGN_Theme_Class {
 			define( 'REIGN_THEME_VERSION', $version );
 		}
 
-		// Javascript and CSS Paths
+		// Javascript and CSS Paths.
 		define( 'REIGN_JS_DIR_URI', REIGN_THEME_URI . '/assets/js/' );
 		define( 'REIGN_CSS_DIR_URI', REIGN_THEME_URI . '/assets/css/' );
 
-		// Include Paths
+		// Include Paths.
 		define( 'REIGN_INC_DIR', REIGN_THEME_DIR . '/inc/' );
 		define( 'REIGN_INC_DIR_URI', REIGN_THEME_URI . '/inc/' );
 
-		// Check if plugins are active
+		// Check if plugins are active.
 		define( 'REIGN_ELEMENTOR_ACTIVE', class_exists( 'Elementor\Plugin' ) );
 		define( 'REIGN_BEAVER_BUILDER_ACTIVE', class_exists( 'FLBuilder' ) );
 		define( 'REIGN_WOOCOMMERCE_ACTIVE', class_exists( 'WooCommerce' ) );
 
-		$optionKey = 'reign_theme_is_activated';
-		if ( ! get_option( $optionKey ) ) {
+		$option_key = 'reign_theme_is_activated';
+		if ( ! get_option( $option_key ) ) {
 
 			/**
 			 * Initial setup of BuddyPress Nouveau settings
@@ -120,7 +133,7 @@ class REIGN_Theme_Class {
 				'group_nav_display'      => 1,
 			);
 			update_option( 'bp_nouveau_appearance', $bp_nouveau_appearance );
-			update_option( $optionKey, 1 );
+			update_option( $option_key, 1 );
 		}
 	}
 
@@ -131,7 +144,7 @@ class REIGN_Theme_Class {
 	 */
 	public static function bp_nouveau_enqueue_script() {
 
-		// Set the JS extension based on SCRIPT_DEBUG
+		// Set the JS extension based on SCRIPT_DEBUG.
 		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 			$js_extension = '.js';
 		} else {
@@ -150,7 +163,7 @@ class REIGN_Theme_Class {
 			wp_enqueue_script( 'bp-nouveau-magnific-popup' );
 		}
 
-		// Enqueue custom script if theme package is 'nouveau'
+		// Enqueue custom script if theme package is 'nouveau'.
 		if ( function_exists( 'bp_get_theme_package_id' ) ) {
 			$theme_package_id = bp_get_theme_package_id();
 		} else {
@@ -168,8 +181,8 @@ class REIGN_Theme_Class {
 			wp_enqueue_script( 'reign-nouveau-js' );
 		}
 
-		// Enqueue scripts for infinite scroll pagination
-		$blog_list_layout = get_theme_mod( 'reign_blog_list_pagination' );
+		// Enqueue scripts for infinite scroll pagination.
+		$blog_list_layout = get_theme_mod( 'reign_blog_list_pagination', '' );
 
 		if ( '' !== $blog_list_layout && 'reign_blog_infinite_scroll_pagination' === $blog_list_layout ) {
 			wp_enqueue_script( 'reign-infinity-scroll-js', get_template_directory_uri() . '/assets/js/vendors/infinite-scroll.pkgd.min.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
@@ -188,7 +201,7 @@ class REIGN_Theme_Class {
 		if ( bp_is_groups_directory() ) {
 			// Get BuddyPress Nouveau appearance settings.
 			$bp_nouveau_appearance = bp_get_option( 'bp_nouveau_appearance', array() );
-			
+
 			// Set default groups layout if not set.
 			if ( ! isset( $bp_nouveau_appearance['groups_layout'] ) ) {
 				$bp_nouveau_appearance['groups_layout'] = 1;
@@ -225,12 +238,12 @@ class REIGN_Theme_Class {
 		// Check if the current view is a user page and the action is 'requests'.
 		if ( bp_is_user() && 'requests' === bp_current_action() ) {
 			// Remove specific classes if they exist in the current classes array.
-			$index = array_search( 'friends-list', $classes );
+			$index = array_search( 'friends-list', $classes, true );
 			if ( false !== $index ) {
 				unset( $classes[ $index ] );
 			}
-			
-			$index = array_search( 'friends-request-list', $classes );
+
+			$index = array_search( 'friends-request-list', $classes, true );
 			if ( false !== $index ) {
 				unset( $classes[ $index ] );
 			}
@@ -241,7 +254,7 @@ class REIGN_Theme_Class {
 				$customizer_option,
 				bp_nouveau_get_appearance_settings( $customizer_option )
 			);
-			
+
 			// If specific layout preferences are set, apply grid classes.
 			if ( $layout_prefs && (int) $layout_prefs > 1 && function_exists( 'bp_nouveau_customizer_grid_choices' ) ) {
 				$grid_classes = bp_nouveau_customizer_grid_choices( 'classes' );
@@ -270,6 +283,13 @@ class REIGN_Theme_Class {
 		return $classes;
 	}
 
+	/**
+	 * Filter loop classes for BP Follow component.
+	 *
+	 * @param array  $classes   Existing classes.
+	 * @param string $component Component being viewed.
+	 * @return array Modified classes.
+	 */
 	public static function reign_bp_nouveau_follow_get_loop_classes( $classes, $component ) {
 
 		global $bp;
@@ -306,6 +326,13 @@ class REIGN_Theme_Class {
 		return $classes;
 	}
 
+	/**
+	 * Filter loop classes for BP groups component.
+	 *
+	 * @param array  $classes   Existing classes.
+	 * @param string $component Component being viewed.
+	 * @return array Modified classes.
+	 */
 	public static function bpgt_filter_nouveau_get_loop_classes( $classes, $component ) {
 		if ( 'groups' === $component ) {
 			$layout_prefs = bp_nouveau_get_temporary_setting(
@@ -330,6 +357,12 @@ class REIGN_Theme_Class {
 		return $classes;
 	}
 
+	/**
+	 * Filter BuddyPress template stack to use BP Nouveau or BuddyBoss directories.
+	 *
+	 * @param array $stack Template stack.
+	 * @return array Modified template stack.
+	 */
 	public static function reign_bp_get_template_stack( $stack ) {
 		if ( function_exists( 'bp_get_theme_package_id' ) ) {
 			$theme_package_id = bp_get_theme_package_id();
@@ -339,20 +372,20 @@ class REIGN_Theme_Class {
 
 		if ( 'nouveau' === $theme_package_id ) {
 			if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
-				$index = array_search( get_stylesheet_directory() . '/buddypress', $stack );
+				$index = array_search( get_stylesheet_directory() . '/buddypress', $stack, true );
 				if ( false !== $index ) {
 					$stack[ $index ] = get_stylesheet_directory() . '/bb-buddypress';
 				}
-				$index = array_search( get_template_directory() . '/buddypress', $stack );
+				$index = array_search( get_template_directory() . '/buddypress', $stack, true );
 				if ( false !== $index ) {
 					$stack[ $index ] = get_template_directory() . '/bb-buddypress';
 				}
 			} else {
-				$index = array_search( get_stylesheet_directory() . '/buddypress', $stack );
+				$index = array_search( get_stylesheet_directory() . '/buddypress', $stack, true );
 				if ( false !== $index ) {
 					$stack[ $index ] = get_stylesheet_directory() . '/bp-nouveau';
 				}
-				$index = array_search( get_template_directory() . '/buddypress', $stack );
+				$index = array_search( get_template_directory() . '/buddypress', $stack, true );
 				if ( false !== $index ) {
 					$stack[ $index ] = get_template_directory() . '/bp-nouveau';
 				}
@@ -369,8 +402,49 @@ class REIGN_Theme_Class {
 	public static function includes() {
 
 		include_once REIGN_THEME_DIR . '/inc/reign-deprecated-hooks.php';
+
+		/**
+		 * Boot the in-house Customizer Framework + autoloader FIRST.
+		 *
+		 * Must come before class-reign-theme-structure.php (and any other
+		 * include below) because the bootstrap file is the source of the
+		 * reign_is_truthy() helper that other theme files call at file
+		 * scope or from constructor-time hook registrations. Loading the
+		 * structure class before this bootstrap caused a fatal in 8.0.0
+		 * (Phase 7 truthy sweep landed render-time calls inside init_hooks(),
+		 * which self-fires from the file-scope ::instance() at the bottom
+		 * of class-reign-theme-structure.php).
+		 *
+		 * Also publishes the PSR-4 autoloader for Reign\Customizer_Framework\*
+		 * etc., so any class instantiation below resolves cleanly.
+		 *
+		 * @since 8.0.0
+		 */
+		include_once REIGN_THEME_DIR . '/inc/customizer-framework-bootstrap.php';
+
+		/**
+		 * Performance hooks — front-end-only resource trims (disable WP
+		 * emoji, dequeue jQuery Migrate, remove wp-embed + oEmbed
+		 * discovery). Loaded early so its `init` and `wp_default_scripts`
+		 * hooks register before WordPress core fires them.
+		 *
+		 * @since 8.0.0
+		 */
+		include_once REIGN_THEME_DIR . '/inc/performance-hooks.php';
+
 		include_once REIGN_THEME_DIR . '/inc/theme-functions.php';
 		include_once REIGN_THEME_DIR . '/inc/class-reign-theme-structure.php';
+		include_once REIGN_THEME_DIR . '/inc/reign-color-setup.php';
+
+		/**
+		 * Register Reign block pattern categories (reign-hero / reign-about /
+		 * reign-features / reign-social-proof / reign-pricing-faq / reign-cta /
+		 * reign-footer / reign-query) used by the 27 universal patterns under
+		 * patterns/ that WP auto-discovers.
+		 *
+		 * @since 8.0.0
+		 */
+		include_once REIGN_THEME_DIR . '/inc/block-pattern-categories.php';
 
 		/**
 		 * Load Theme JSON Bridge component for WordPress block editor integration.
@@ -378,21 +452,17 @@ class REIGN_Theme_Class {
 		include_once REIGN_THEME_DIR . '/inc/theme-json-bridge.php';
 
 		/**
-		 * Include the main plugin file of Kirki.
+		 * Load Reign's customizer panel/section/field registrations via the
+		 * in-house Customizer Framework.
+		 *
+		 * Kirki was removed in 8.0.0; the framework is loaded by
+		 * inc/customizer-framework-bootstrap.php above. This loader requires
+		 * every file under inc/Customizer_Settings/Fields/ which self-register
+		 * via singleton ::instance() calls.
+		 *
+		 * @since 8.0.0
 		 */
-		include_once REIGN_THEME_DIR . '/lib/kirki/kirki.php';
-		if ( ! defined( 'KIRKI_PRO_VERSION' ) ) {
-			require_once REIGN_THEME_DIR . '/lib/kirki/pro-src/pro-index.php';
-			require_once REIGN_THEME_DIR . '/lib/kirki/pro-src/Init.php';
-			if ( class_exists( '\Kirki\Pro\Init' ) ) {
-				new \Kirki\Pro\Init();
-			}
-		}
-
-		/**
-		 * Include the main plugin file of Kirki.
-		 */
-		include_once REIGN_THEME_DIR . '/lib/kirki-addon/kirki-addon.php';
+		include_once REIGN_THEME_DIR . '/inc/Customizer_Settings/loader.php';
 
 		/**
 		 * Include the custom-styles file of Kirki.
@@ -484,9 +554,8 @@ class REIGN_Theme_Class {
 			require REIGN_THEME_DIR . '/widgets/peepso/widgetuserbar.php';
 		}
 
-		/* Theme Required Plugins Manager Files */
-		require_once REIGN_INC_DIR . 'required-plugins/class-tgm-plugin-activation.php';
-		require_once REIGN_INC_DIR . 'required-plugins/required-plugins.php';
+		/* Wbcom companion plugin installer (one-click EDD install, replaces TGMPA). */
+		require_once REIGN_INC_DIR . 'required-plugins/class-reign-plugin-installer.php';
 
 		/* Theme Options Panel In Admin Dashboard */
 		require_once REIGN_INC_DIR . 'reign-settings/reign-theme-options-manager.php';
@@ -518,6 +587,12 @@ class REIGN_Theme_Class {
 
 			/* Include buddypress groups customization file */
 			include_once REIGN_THEME_DIR . '/inc/buddypress/reign-bp-group-customization.php';
+		} elseif ( defined( 'BUDDYNEXT_VERSION' ) ) {
+
+			/* Special Support To BuddyNext (community engine; runtime-exclusive
+			   with BuddyPress). Wires the BuddyNext header user section + feeds
+			   the "User Profile" (menu-2) nav menu into its dropdown. */
+			require_once REIGN_THEME_DIR . '/inc/plugins-support/buddynext/reign-buddynext-functions.php';
 		}
 
 		// Call rtmedia functions file.
@@ -563,15 +638,18 @@ class REIGN_Theme_Class {
 
 	/**
 	 * Add Modern Image Support.
+	 *
+	 * @param array $file_types Allowed MIME types.
+	 * @return array Modified MIME types.
 	 */
 	public function reign_theme_upload_mimes( $file_types ) {
-		// Allow SVG
+		// Allow SVG.
 		$file_types['svg'] = 'image/svg+xml';
 
-		// Allow WebP
+		// Allow WebP.
 		$file_types['webp'] = 'image/webp';
 
-		// Allow AVIF (some browsers and older WordPress versions may not fully support this yet)
+		// Allow AVIF (some browsers and older WordPress versions may not fully support this yet).
 		$file_types['avif'] = 'image/avif';
 
 		return $file_types;
@@ -579,16 +657,23 @@ class REIGN_Theme_Class {
 
 	/**
 	 * Fix file type detection for WebP and AVIF.
+	 *
+	 * @param array       $data      File data array containing ext, type, proper_filename.
+	 * @param string      $file      Full path to the file.
+	 * @param string      $filename  The filename being sanitized.
+	 * @param array       $mimes     Key is the file extension with value as the mime type.
+	 * @param string|bool $real_mime The actual mime type or false if the type cannot be determined.
+	 * @return array Modified file data.
 	 */
 	public function reign_check_filetype( $data, $file, $filename, $mimes, $real_mime ) {
 		$ext = pathinfo( $filename, PATHINFO_EXTENSION );
 
-		if ( $ext === 'webp' ) {
+		if ( 'webp' === $ext ) {
 			$data['ext']  = 'webp';
 			$data['type'] = 'image/webp';
 		}
 
-		if ( $ext === 'avif' ) {
+		if ( 'avif' === $ext ) {
 			$data['ext']  = 'avif';
 			$data['type'] = 'image/avif';
 		}
@@ -619,13 +704,16 @@ reign_theme();
 
 
 
-/*
- * Call switch theme to  child theme and update parent theme mod to child theme
+/**
+ * Call switch theme to child theme and update parent theme mod to child theme.
  *
+ * @param string   $new_name  The new theme's name.
+ * @param WP_Theme $new_theme The new theme object.
+ * @param WP_Theme $old_theme The old theme object.
  */
 function reign_theme_switch_to_child_theme( $new_name, $new_theme, $old_theme ) {
 
-	if ( $new_name == 'REIGN Child' ) {
+	if ( 'REIGN Child' === $new_name ) {
 		$theme_mods = get_option( 'theme_mods_' . get_template(), true );
 		update_option( 'theme_mods_' . get_stylesheet(), $theme_mods );
 	}
@@ -652,7 +740,7 @@ class Reign_Left_Panel_Menu_Walker extends Walker_Nav_Menu {
 	 * @since Reign 7.1.2
 	 * @since WP 4.4.0 The {@see 'nav_menu_item_args'} filter was added.
 	 */
-	function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 
 		if ( isset( $args->item_spacing ) && 'discard' === $args->item_spacing ) {
 			$t = '';
@@ -672,7 +760,7 @@ class Reign_Left_Panel_Menu_Walker extends Walker_Nav_Menu {
 		}
 
 		// Stick to bottom of the menu.
-		if ( isset( $item->stick_to_bottom ) && '1' == $item->stick_to_bottom ) {
+		if ( isset( $item->stick_to_bottom ) && '1' === $item->stick_to_bottom ) {
 			$classes[] = 'bp-menu-item-at-bottom';
 		}
 
@@ -800,8 +888,8 @@ class Reign_Left_Panel_Menu_Walker extends Walker_Nav_Menu {
 	}
 }
 
-// Include minimal security plugin compatibility
+// Include minimal security plugin compatibility.
 require_once get_template_directory() . '/inc/security-compatibility.php';
 
-// Include Better Messages compatibility
+// Include Better Messages compatibility.
 require_once get_template_directory() . '/inc/better-messages-support.php';

@@ -33,7 +33,8 @@ while ( have_posts() ) :
 			<?php
 			$group_info                 = array();
 			$group_id                   = get_the_ID();
-			$group_course               = learndash_get_groups_courses_ids( $userid = 0, array( $group_id ) );
+			$userid                     = 0;
+			$group_course               = learndash_get_groups_courses_ids( $userid, array( $group_id ) );
 			$group_info['group_course'] = count( $group_course );
 			$group_users                = learndash_get_groups_user_ids( $group_id );
 			$group_info['group_users']  = count( $group_users );
@@ -69,6 +70,7 @@ while ( have_posts() ) :
 				echo get_reign_ld_default_course_img_html(); //phpcs:ignore
 				echo '</div>';
 			}
+			/* translators: %s: Group label. */
 			$group_features_label = sprintf( esc_html_x( '%s Features', 'Group Features  Label', 'reign' ), LearnDash_Custom_Label::get_label( 'group' ) );
 			echo '<div class="lm-tab-course-info lm-tab-group-info">';
 			echo '<h3 class="title">' . esc_html( $group_features_label ) . '</h3>';
@@ -108,7 +110,7 @@ while ( have_posts() ) :
 				$count_value = '';
 			}
 			echo '<ul>';
-			if ( $rla_gcf_enable == 'yes' ) {
+			if ( 'yes' === $rla_gcf_enable ) {
 				for ( $i = 0; $i < $count_value; $i++ ) {
 					?>
 					<li class="<?php echo ( isset( $group_features['slug'] ) ) ? esc_attr( $group_features['slug'] ) : ''; ?>">
@@ -134,8 +136,8 @@ while ( have_posts() ) :
 		</div>
 
 		<?php
-		if ( is_active_sidebar('ld-single-group-sidebar') ) {
-		    dynamic_sidebar('ld-single-group-sidebar');
+		if ( is_active_sidebar( 'ld-single-group-sidebar' ) ) {
+			dynamic_sidebar( 'ld-single-group-sidebar' );
 		}
 		?>
 
