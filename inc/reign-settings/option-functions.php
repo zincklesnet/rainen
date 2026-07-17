@@ -1,5 +1,7 @@
 <?php
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 if ( ! function_exists( 'reign_sanitize_social_link_url' ) ) {
 	/**
 	 * Normalizes and validates a social link URL.
@@ -93,6 +95,16 @@ if ( ! function_exists( 'reign_sanitize_extender_settings' ) ) {
 			$settings['wbtm_social_links'] = reign_sanitize_social_links_config( $settings['wbtm_social_links'] );
 		}
 
+		// All other extender settings are scalar form values (selects, checkboxes, sliders, URLs).
+		foreach ( $settings as $key => $value ) {
+			if ( 'wbtm_social_links' === $key ) {
+				continue;
+			}
+			if ( is_scalar( $value ) ) {
+				$settings[ $key ] = sanitize_text_field( (string) $value );
+			}
+		}
+
 		return $settings;
 	}
 }
@@ -128,7 +140,7 @@ if ( ! function_exists( 'reign_upgrade_stored_social_links' ) ) {
 			$sanitized_links = reign_sanitize_social_links_config( $wbtm_reign_settings[ $extender_key ]['wbtm_social_links'] );
 			if ( $sanitized_links !== $wbtm_reign_settings[ $extender_key ]['wbtm_social_links'] ) {
 				$wbtm_reign_settings[ $extender_key ]['wbtm_social_links'] = $sanitized_links;
-				$updated                                                  = true;
+				$updated = true;
 			}
 		}
 
@@ -200,7 +212,7 @@ add_filter(
 
 		/* sticky header support */
 		$header_design_type = isset( $wbtm_reign_settings['reign_pages']['header_design_type'] ) ? $wbtm_reign_settings['reign_pages']['header_design_type'] : 'full_width';
-		if ( $header_design_type == 'sticky' ) {
+		if ( 'sticky' === $header_design_type ) {
 			$classes = array_merge( $classes, array( 'rg-sticky-menu' ) );
 		}
 
@@ -208,7 +220,7 @@ add_filter(
 		boxed and fluid layout support */
 		// $active_site_layout   = isset( $wbtm_reign_settings[ 'reign_pages' ][ 'active_site_layout' ] ) ? $wbtm_reign_settings[ 'reign_pages' ][ 'active_site_layout' ] : 'full_width';
 		$active_site_layout = get_theme_mod( 'reign_site_layout', 'full_width' );
-		if ( $active_site_layout == 'box_width' ) {
+		if ( 'box_width' === $active_site_layout ) {
 			$classes = array_merge( $classes, array( 'rg-boxed-layout' ) );
 		}
 
@@ -239,38 +251,38 @@ add_filter(
 		 * Manage Main Menu Hover Style.
 		 */
 		$reign_header_main_menu_hover_style = get_theme_mod( 'reign_header_main_menu_hover_style', false );
-		if ( $reign_header_main_menu_hover_style === 'style1' ) {
+		if ( 'style1' === $reign_header_main_menu_hover_style ) {
 			$classes[] = 'menu-hover-style1';
 		}
-		if ( $reign_header_main_menu_hover_style === 'style2' ) {
+		if ( 'style2' === $reign_header_main_menu_hover_style ) {
 			$classes[] = 'menu-hover-style2';
 		}
-		if ( $reign_header_main_menu_hover_style === 'style3' ) {
+		if ( 'style3' === $reign_header_main_menu_hover_style ) {
 			$classes[] = 'menu-hover-style3';
 		}
-		if ( $reign_header_main_menu_hover_style === 'style4' ) {
+		if ( 'style4' === $reign_header_main_menu_hover_style ) {
 			$classes[] = 'menu-hover-style4';
 		}
-		if ( $reign_header_main_menu_hover_style === 'style5' ) {
+		if ( 'style5' === $reign_header_main_menu_hover_style ) {
 			$classes[] = 'menu-hover-style5';
 		}
-		if ( $reign_header_main_menu_hover_style === 'style6' ) {
+		if ( 'style6' === $reign_header_main_menu_hover_style ) {
 			$classes[] = 'menu-hover-style6';
 		}
 
 		/**
 		 * Manage Single Post Layout.
 		 */
-		if ( is_single() && 'post' == get_post_type() ) {
+		if ( is_single() && 'post' === get_post_type() ) {
 			$reign_single_post_layout = get_theme_mod( 'reign_single_post_layout', 'default' );
-			if ( $reign_single_post_layout === 'default' ) {
-					$classes[] = 'single-post-default-layout';
+			if ( 'default' === $reign_single_post_layout ) {
+				$classes[] = 'single-post-default-layout';
 			}
-			if ( $reign_single_post_layout === 'wide' ) {
-					$classes[] = 'single-post-wide-layout';
+			if ( 'wide' === $reign_single_post_layout ) {
+				$classes[] = 'single-post-wide-layout';
 			}
-			if ( $reign_single_post_layout === 'wide_sidebar' ) {
-					$classes[] = 'single-post-wide-sidebar-layout';
+			if ( 'wide_sidebar' === $reign_single_post_layout ) {
+				$classes[] = 'single-post-wide-sidebar-layout';
 			}
 		}
 
@@ -288,20 +300,30 @@ add_filter(
 		 * Mobile view hide topbar support.
 		 */
 		$reign_header_topbar_mobile_view_disable = get_theme_mod( 'reign_header_topbar_mobile_view_disable', false );
-		if ( $reign_header_topbar_mobile_view_disable ) {
+		if ( reign_is_truthy( $reign_header_topbar_mobile_view_disable ) ) {
 			$classes[] = 'reign-topbar-hide-mobile';
 		}
 
+		/**
+		 * Mobile topbar content: which side shows on phones so the bar stays a
+		 * single fixed-height row instead of stacking the two sides into two rows.
+		 */
+		$reign_header_topbar_mobile_content = get_theme_mod( 'reign_header_topbar_mobile_content', 'info' );
+		if ( ! in_array( $reign_header_topbar_mobile_content, array( 'info', 'social', 'both' ), true ) ) {
+			$reign_header_topbar_mobile_content = 'info';
+		}
+		$classes[] = 'reign-topbar-mobile-' . $reign_header_topbar_mobile_content;
+
 		$reign_header_topbar_enable = get_theme_mod( 'reign_header_topbar_enable', '1' );
 		$reign_header_topbar_sticky = get_theme_mod( 'reign_header_topbar_sticky', false );
-		if ( $reign_header_topbar_enable && $reign_header_topbar_sticky ) {
+		if ( reign_is_truthy( $reign_header_topbar_enable ) && reign_is_truthy( $reign_header_topbar_sticky ) ) {
 			$classes[] = 'reign-sticky-topbar';
 		}
 
 		$reign_header_sticky_menu_enable              = get_theme_mod( 'reign_header_sticky_menu_enable', true );
 		$reign_header_sticky_menu_custom_style_enable = get_theme_mod( 'reign_header_sticky_menu_custom_style_enable', false );
 		$sticky_menu_logo                             = get_theme_mod( 'reign_sticky_header_menu_logo', '' );
-		if ( $reign_header_sticky_menu_enable && $reign_header_sticky_menu_custom_style_enable && $sticky_menu_logo ) {
+		if ( reign_is_truthy( $reign_header_sticky_menu_enable ) && reign_is_truthy( $reign_header_sticky_menu_custom_style_enable ) && $sticky_menu_logo ) {
 			$classes[] = 'reign-custom-sticky-logo';
 		}
 
@@ -309,14 +331,14 @@ add_filter(
 		if ( class_exists( 'BuddyPress' ) ) {
 			$reign_buddypress_avatar_style = get_theme_mod( 'reign_buddypress_avatar_style', false );
 
-			if ( true === $reign_buddypress_avatar_style ) {
+			if ( reign_is_truthy( $reign_buddypress_avatar_style ) ) {
 				$classes[] = 'round-avatars';
 			}
 		}
 
 		// Left panel shift body.
 		$reign_left_panel_shift_body = get_theme_mod( 'reign_left_panel_shift_body', false );
-		if ( true === $reign_left_panel_shift_body ) {
+		if ( reign_is_truthy( $reign_left_panel_shift_body ) ) {
 			$classes[] = 'rg-shift-body';
 		}
 
@@ -328,16 +350,26 @@ add_filter(
 add_action(
 	'wp_head',
 	function () {
-		// global $wbtm_reign_settings;
-		// $reign_tracking_code = isset( $wbtm_reign_settings[ 'reign_pages' ][ 'reign_tracking_code' ] ) ? $wbtm_reign_settings[ 'reign_pages' ][ 'reign_tracking_code' ] : '';
-		// $reign_tracking_code = stripslashes( $reign_tracking_code );
-		// echo $reign_tracking_code;
-
+		// Admin trust boundary: the three fields below (reign_tracking_code,
+		// reign_custom_js_header, reign_custom_js_footer) are intentional
+		// "paste raw HTML / JS" customizer fields used for analytics snippets,
+		// verification tags, third-party tracking scripts, etc. They can ONLY
+		// be saved by users with the edit_theme_options capability (admin).
+		// That is the security gate; the output here is raw by design and the
+		// phpcs:ignore is documented, not a smell.
+		//
+		// The ! empty() guards prevent emitting empty <script></script> tags
+		// (or an empty tracking-code block) when the field is unset on a
+		// fresh install - small render-side hygiene only.
 		$reign_tracking_code = get_theme_mod( 'reign_tracking_code', '' );
-		echo $reign_tracking_code;
+		if ( ! empty( $reign_tracking_code ) ) {
+			echo $reign_tracking_code; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-only raw HTML field for analytics / verification tags. Save requires edit_theme_options.
+		}
 
 		$reign_custom_js_header = get_theme_mod( 'reign_custom_js_header', '' );
-		echo '<script type="text/javascript">' . $reign_custom_js_header . '</script>';
+		if ( ! empty( $reign_custom_js_header ) ) {
+			echo '<script type="text/javascript">' . $reign_custom_js_header . '</script>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-only raw JS field. Save requires edit_theme_options.
+		}
 	},
 	99
 );
@@ -345,8 +377,11 @@ add_action(
 add_action(
 	'wp_footer',
 	function () {
+		// See trust boundary note above the wp_head action.
 		$reign_custom_js_footer = get_theme_mod( 'reign_custom_js_footer', '' );
-		echo '<script type="text/javascript">' . $reign_custom_js_footer . '</script>';
+		if ( ! empty( $reign_custom_js_footer ) ) {
+			echo '<script type="text/javascript">' . $reign_custom_js_footer . '</script>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-only raw JS field. Save requires edit_theme_options.
+		}
 	},
 	99
 );
@@ -370,23 +405,23 @@ if ( ! function_exists( 'reign_404_redirect' ) ) {
 		if ( is_404() ) {
 			$reign_404_page_id = get_theme_mod( 'reign_404_page', 0 );
 
-			// Exclude rtMedia routes by checking the request URI.
-			if ( isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], '/media/' ) !== false ) {
-				// The current URL contains `/media/`, so skip redirection.
-				return;
-			}
-
-			// Only redirect actual page requests, not asset requests
+			// Only redirect actual page requests, not asset requests.
 			if ( ! isset( $_SERVER['REQUEST_URI'] ) ) {
 				return;
 			}
 
-			$request_uri = $_SERVER['REQUEST_URI'];
-			
-			// Skip redirection for asset files (images, CSS, JS, fonts, etc.)
+			$request_uri = esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) );
+
+			// Exclude rtMedia routes by checking the request URI.
+			if ( false !== strpos( $request_uri, '/media/' ) ) {
+				// The current URL contains `/media/`, so skip redirection.
+				return;
+			}
+
+			// Skip redirection for asset files (images, CSS, JS, fonts, etc.).
 			$asset_extensions = array( '.css', '.js', '.jpg', '.jpeg', '.png', '.gif', '.svg', '.ico', '.webp', '.woff', '.woff2', '.ttf', '.eot', '.pdf', '.zip', '.mp4', '.mp3', '.xml', '.txt' );
 			foreach ( $asset_extensions as $extension ) {
-				if ( stripos( $request_uri, $extension ) !== false ) {
+				if ( false !== stripos( $request_uri, $extension ) ) {
 					return;
 				}
 			}
@@ -406,7 +441,7 @@ if ( ! function_exists( 'reign_404_redirect' ) ) {
 				return;
 			}
 
-			if ( $reign_404_page_id && $reign_404_page_id != '-1' && get_post_status( $reign_404_page_id ) ) {
+			if ( $reign_404_page_id && '-1' != $reign_404_page_id && get_post_status( $reign_404_page_id ) ) {
 				wp_safe_redirect( get_permalink( $reign_404_page_id ) );
 				exit;
 			}
@@ -452,7 +487,8 @@ function reign_options_enqueue_scripts() {
 	global $pagenow;
 
 	// Retrieve the 'page' query parameter and sanitize it.
-	$page = isset( $_GET['page'] ) ? sanitize_text_field( $_GET['page'] ) : '';
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin-page detection for asset loading.
+	$page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
 
 	// Check if the request is for an admin page related to Reign options or post edit/create.
 	if ( is_admin() && ( ( $page && 'reign-options' === $page ) || 'post.php' === $pagenow || 'post-new.php' === $pagenow ) ) {
@@ -537,7 +573,7 @@ function reign_alter_bp_core_fetch_avatar_no_grav( $no_grav, $params ) {
 			return $no_grav;
 		}
 		$email = $userdata->user_email;
-		if ( $params['object'] == 'user' ) {
+		if ( 'user' === $params['object'] ) {
 			$has_validate_gravatar = false;
 			if ( $has_validate_gravatar ) {
 				return $no_grav;
@@ -627,7 +663,7 @@ function reign_alter_bp_core_avatar_default( $default_grav, $params ) {
 		return $default_grav;
 	}
 
-	if ( $params['object'] == 'group' ) {
+	if ( 'group' === $params['object'] ) {
 		$group_default_image = isset( $wbtm_reign_settings['reign_buddyextender']['group_default_image'] ) ? $wbtm_reign_settings['reign_buddyextender']['group_default_image'] : REIGN_INC_DIR_URI . 'reign-settings/imgs/default-grp-avatar.png';
 		if ( empty( $group_default_image ) ) {
 			$group_default_image = REIGN_INC_DIR_URI . 'reign-settings/imgs/default-grp-avatar.png';

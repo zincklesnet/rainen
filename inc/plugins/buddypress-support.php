@@ -79,6 +79,11 @@ function reign_bp_user_menu_toggle_render() {
  * @param array $atts Shortcode attributes.
  */
 function reign_bp_memeber_carousel( $atts ) {
+	// Shortcode callback — registered at file scope. The file itself is
+	// loaded unconditionally, so guard the BP function calls here.
+	if ( ! function_exists( 'bp_has_members' ) ) {
+		return '';
+	}
 	global $members_template, $wbtm_reign_settings;
 	// Attributes
 	$atts = shortcode_atts(
@@ -129,7 +134,7 @@ function reign_bp_memeber_carousel( $atts ) {
 				<div class="rg-member rg-image-box">
 					<div class="wbtm-mem-cover-img"><img src="<?php echo esc_url( $cover_img_url ); ?>" alt="" /></div>
 					<div class="item-avatar">
-						<a href="<?php bp_member_permalink(); ?>"><?php echo reign_get_online_status( $user_id ); ?><?php echo get_avatar( bp_get_member_user_id() ); ?></a>
+						<a href="<?php bp_member_permalink(); ?>"><?php echo wp_kses_post( reign_get_online_status( $user_id ) ); ?><?php echo get_avatar( bp_get_member_user_id() ); ?></a>
 					</div>
 					<?php if ( 'show' === $atts['member_name'] ) : ?>
 						<div class="rg-member-decription">
@@ -161,6 +166,10 @@ add_shortcode( 'bp_member_carousel', 'reign_bp_memeber_carousel' );
  * @param array $atts Shortcode attributes.
  */
 function reign_bp_group_carousel( $atts ) {
+	// Shortcode callback — see sibling member carousel above for guard rationale.
+	if ( ! function_exists( 'bp_has_groups' ) ) {
+		return '';
+	}
 	global $groups_template, $wbtm_reign_settings;
 	// Attributes
 	$atts = shortcode_atts(

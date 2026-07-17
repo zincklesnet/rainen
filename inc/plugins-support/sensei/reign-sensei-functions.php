@@ -5,6 +5,8 @@
  * @package reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 if ( ! function_exists( 'reign_sensei_single_course_header' ) ) {
 	/**
 	 * Displays the custom header on Sensei single course pages.
@@ -23,7 +25,7 @@ if ( ! function_exists( 'reign_sensei_single_course_header' ) ) {
 			<div class="sensei-single-course-header">
 				<div class="container">
 					<div class="sensei-single-course-header-inner-wrap">
-						<?php if ( $breadcrumb && function_exists( 'reign_breadcrumbs' ) ) : ?>
+						<?php if ( reign_is_truthy( $breadcrumb ) && function_exists( 'reign_breadcrumbs' ) ) : ?>
 							<div class="lm-breadcrumbs-wrapper">
 								<?php reign_breadcrumbs(); ?>
 							</div>
@@ -49,7 +51,7 @@ if ( ! function_exists( 'reign_sensei_single_course_header' ) ) {
 										$first_name        = get_the_author_meta( 'user_firstname', $teacher_id );
 										$last_name         = get_the_author_meta( 'user_lastname', $teacher_id );
 										$author_name       = get_the_author_meta( 'display_name', $teacher_id );
-										if ( ! empty( $first_name ) && ! empty( $last_name ) && $author_name == '' ) {
+										if ( ! empty( $first_name ) && ! empty( $last_name ) && '' === $author_name ) {
 											$author_name = $first_name . ' ' . $last_name;
 										}
 										if ( $i < 3 ) {
@@ -75,7 +77,8 @@ if ( ! function_exists( 'reign_sensei_single_course_header' ) ) {
 								<span class="last-update-date_icon">
 									<i class="far fa-clock"></i>
 								</span>
-								<span><?php printf( esc_html__( 'Last updated on %s', 'reign' ), the_modified_date( '', '', '', false ) ); ?> </span>
+								<?php /* translators: %s: Last modified date. */ ?>
+								<span><?php printf( esc_html__( 'Last updated on %s', 'reign' ), esc_html( get_the_modified_date() ) ); ?> </span>
 							</div>
 						</div>
 					</div>

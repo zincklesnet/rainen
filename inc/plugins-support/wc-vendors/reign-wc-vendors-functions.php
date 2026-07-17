@@ -5,6 +5,8 @@
  * @package reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 if ( ! function_exists( 'reign_wcvendors_render_store_header_on_top' ) ) {
 	/**
 	 * Displays the custom header on Sensei single course pages.
@@ -13,12 +15,20 @@ if ( ! function_exists( 'reign_wcvendors_render_store_header_on_top' ) ) {
 	 */
 	function reign_wcvendors_render_store_header_on_top() {
 
-		// Set header on single vendor papge.
+		// WCV_Vendors (the new namespace) is a different class from
+		// WC_Vendors (the gate this file is loaded behind). On installs
+		// where only the older class is present, direct static calls
+		// to WCV_Vendors would fatal.
+		if ( ! class_exists( 'WCV_Vendors' ) ) {
+			return;
+		}
+
+		// Set header on single vendor page.
 		if ( WCV_Vendors::is_vendor_page() ) {
 
 			if ( class_exists( 'Reign_Theme_Structure' ) ) {
-				$Reign_Theme_Structure_OBJ = Reign_Theme_Structure::instance();
-				remove_action( 'reign_before_content', array( $Reign_Theme_Structure_OBJ, 'render_page_header' ) );
+				$reign_theme_structure_obj = Reign_Theme_Structure::instance();
+				remove_action( 'reign_before_content', array( $reign_theme_structure_obj, 'render_page_header' ) );
 			}
 
 			$vendor_shop = urldecode( get_query_var( 'vendor_shop' ) );
@@ -71,7 +81,7 @@ if ( ! function_exists( 'reign_wc_vendors_format_store_address' ) ) {
 				'city'     => get_user_meta( $vendor_id, '_wcv_store_city', true ),
 				'state'    => get_user_meta( $vendor_id, '_wcv_store_state', true ),
 				'postcode' => get_user_meta( $vendor_id, '_wcv_store_postcode', true ),
-				'country'  => isset( WC()->countries->countries[ get_user_meta( $vendor_id, '_wcv_store_country', true ) ] ) ? WC()->countries->countries[ get_user_meta( $vendor_id, '_wcv_store_country', true ) ] : '',
+				'country'  => ( function_exists( 'WC' ) && WC() && isset( WC()->countries ) && isset( WC()->countries->countries[ get_user_meta( $vendor_id, '_wcv_store_country', true ) ] ) ) ? WC()->countries->countries[ get_user_meta( $vendor_id, '_wcv_store_country', true ) ] : '',
 			),
 			$vendor_id
 		);

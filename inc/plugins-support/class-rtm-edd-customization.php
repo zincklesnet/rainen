@@ -62,7 +62,6 @@ if ( ! class_exists( 'RTM_EDD_Customization' ) ) :
 			add_filter( 'edd_downloads_list_wrapper_class', array( $this, 'alter_edd_downloads_list_wrapper_class' ), 10, 2 );
 
 			add_filter( 'reign_customizer_supported_post_types', array( $this, 'add_post_type' ), 10, 1 );
-
 		}
 
 		/**
@@ -86,10 +85,10 @@ if ( ! class_exists( 'RTM_EDD_Customization' ) ) :
 		 * Add panels and sections
 		 */
 		public function add_panels_and_sections() {
-			new \Kirki\Section(
+			\Reign\Customizer_Framework\Section::add(
 				'reign_edd_support',
 				array(
-					'title'       => esc_html__( 'Easy Digital Download', 'reign' ),
+					'title'       => esc_html__( 'Easy Digital Downloads', 'reign' ),
 					'priority'    => 10,
 					'panel'       => 'reign_plugin_support_panel',
 					'description' => '',
@@ -102,7 +101,8 @@ if ( ! class_exists( 'RTM_EDD_Customization' ) ) :
 		 */
 		public function add_fields() {
 
-			new \Kirki\Field\Select(
+			\Reign\Customizer_Framework\Field::add(
+				'select',
 				array(
 					'settings'    => 'reign_edd_downloads_layouts',
 					'label'       => esc_html__( 'Archive Downloads Layout', 'reign' ),
@@ -111,15 +111,16 @@ if ( ! class_exists( 'RTM_EDD_Customization' ) ) :
 					'default'     => 'default',
 					'priority'    => 10,
 					'choices'     => array(
-						'default' => 'Default',
-						'layout1' => 'Layout 1',
-						'layout2' => 'Layout 2',
-						'layout3' => 'Layout 3',
+						'default' => esc_html__( 'Default', 'reign' ),
+						'layout1' => esc_html__( 'Layout 1', 'reign' ),
+						'layout2' => esc_html__( 'Layout 2', 'reign' ),
+						'layout3' => esc_html__( 'Layout 3', 'reign' ),
 					),
 				)
 			);
 
-			new \Kirki\Pro\Field\Divider(
+			\Reign\Customizer_Framework\Field::add(
+				'custom',
 				array(
 					'settings' => 'reign_edd_downloads_layouts_divider',
 					'section'  => 'reign_edd_support',
@@ -129,7 +130,8 @@ if ( ! class_exists( 'RTM_EDD_Customization' ) ) :
 				)
 			);
 
-			new \Kirki\Field\Slider(
+			\Reign\Customizer_Framework\Field::add(
+				'slider',
 				array(
 					'settings'    => 'reign_edd_downloads_per_row',
 					'label'       => esc_html__( 'Downloads Per Row', 'reign' ),
@@ -257,7 +259,7 @@ if ( ! class_exists( 'RTM_EDD_Customization' ) ) :
 			 */
 			if ( edd_is_free_download( get_the_ID() ) ) :
 				?>
-				<div<?php echo $item_props; ?>>
+				<div<?php echo $item_props; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Static schema.org microdata attribute string. ?>>
 					<div itemprop="price">
 						<span class="edd_price" id="edd_price_<?php echo esc_attr( get_the_id() ); ?>">
 							<?php esc_html_e( 'Free', 'reign' ); ?>
@@ -282,7 +284,7 @@ if ( ! class_exists( 'RTM_EDD_Customization' ) ) :
 					$min_price = edd_currency_filter( edd_format_amount( $variable_prices[0] ) );
 					$max_price = edd_currency_filter( edd_format_amount( $variable_prices[ count( $variable_prices ) - 1 ] ) );
 					?>
-				<div<?php echo $item_props; ?>>
+				<div<?php echo $item_props; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Static schema.org microdata attribute string. ?>>
 					<div itemprop="price">
 						<span class="edd_price"> 
 							<?php echo esc_html( $min_price . ' - ' . $max_price ); ?>
@@ -292,7 +294,7 @@ if ( ! class_exists( 'RTM_EDD_Customization' ) ) :
 					<?php
 				} else {
 					?>
-					<div<?php echo $item_props; ?>>
+					<div<?php echo $item_props; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Static schema.org microdata attribute string. ?>>
 						<div itemprop="price"> 
 							<?php edd_price( get_the_ID() ); ?>
 						</div>
@@ -304,7 +306,7 @@ if ( ! class_exists( 'RTM_EDD_Customization' ) ) :
 				 */
 			elseif ( ! edd_has_variable_prices( get_the_ID() ) ) :
 				?>
-				<div<?php echo $item_props; ?>>
+				<div<?php echo $item_props; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Static schema.org microdata attribute string. ?>>
 					<div itemprop="price">
 						<?php edd_price( get_the_ID() ); ?>
 					</div>
@@ -502,6 +504,13 @@ endif;
 /**
  * Main instance of RTM_EDD_Customization.
  *
+ * Gated by EDD presence: the class registers EDD-specific filters
+ * (edd_downloads_list_wrapper_class etc.) and a wp_head action that
+ * emits inline CSS. Without this guard the inline CSS was fired on
+ * every front-end page even on non-EDD installs.
+ *
  * @return RTM_EDD_Customization
  */
-RTM_EDD_Customization::instance();
+if ( class_exists( 'Easy_Digital_Downloads' ) ) {
+	RTM_EDD_Customization::instance();
+}

@@ -5,6 +5,8 @@
  * @package reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 if ( ! function_exists( 'reign_learndash_get_single_template' ) ) {
 	/**
 	 * Filters the single template used for LearnDash groups.
@@ -13,6 +15,13 @@ if ( ! function_exists( 'reign_learndash_get_single_template' ) ) {
 	 * @return string The modified path to the single template.
 	 */
 	function reign_learndash_get_single_template( $single_template ) {
+
+		// LearnDash_Theme_Register is a separate class from SFWD_LMS
+		// (the gate this file is loaded behind). On certain stripped
+		// LD builds it isn't shipped, so a direct static call would fatal.
+		if ( ! class_exists( 'LearnDash_Theme_Register' ) ) {
+			return $single_template;
+		}
 
 		if ( LearnDash_Theme_Register::get_active_theme_key() != 'ld30' ) {
 			return $single_template;
@@ -124,7 +133,8 @@ if ( ! function_exists( 'reign_get_course_user_ids' ) ) {
 			} else {
 				break;
 			}
-		} while ( count( $students_chunk ) === $chunk_size );
+			$students_chunk_count = count( $students_chunk );
+		} while ( $students_chunk_count === $chunk_size );
 
 		return $course_user_ids;
 	}
@@ -158,7 +168,8 @@ if ( ! function_exists( 'reign_get_group_user_ids' ) ) {
 			} else {
 				break;
 			}
-		} while ( count( $students_chunk ) === $chunk_size );
+			$students_chunk_count = count( $students_chunk );
+		} while ( $students_chunk_count === $chunk_size );
 
 		return $group_user_ids;
 	}
@@ -188,7 +199,7 @@ if ( ! function_exists( 'reign_learndash_single_course_header' ) ) {
 			$_ld_instructor_ids = array();
 		}
 		$ir_shared_instructor_ids = get_post_meta( $course_id, 'ir_shared_instructor_ids', true );
-		if ( $ir_shared_instructor_ids != '' ) {
+		if ( '' !== $ir_shared_instructor_ids ) {
 			$ir_shared_instructor_ids = explode( ',', $ir_shared_instructor_ids );
 		} else {
 			$ir_shared_instructor_ids = array();
@@ -209,12 +220,12 @@ if ( ! function_exists( 'reign_learndash_single_course_header' ) ) {
 		?>
 		<div class="learndash-single-course-header <?php echo esc_attr( $cover_image_class ); ?>"
 			<?php
-			if ( $show_cover_image == 1 ) :
+			if ( 1 == $show_cover_image ) :
 				?>
 			style="background-image:url('<?php echo esc_url( $_course_image[0] ); ?>')" <?php endif; ?>>
 			<div class="container">
 				<div class="learndash-single-course-header-inner-wrap">
-					<?php if ( $breadcrumb && function_exists( 'reign_breadcrumbs' ) ) : ?>
+					<?php if ( reign_is_truthy( $breadcrumb ) && function_exists( 'reign_breadcrumbs' ) ) : ?>
 						<div class="lm-breadcrumbs-wrapper">
 							<div class="container"><?php reign_breadcrumbs(); ?></div>
 						</div>
@@ -222,7 +233,7 @@ if ( ! function_exists( 'reign_learndash_single_course_header' ) ) {
 					<h1 class="entry-title"><?php the_title(); ?></h1>
 					<p class="course-header-short-description">
 						<?php
-						if ( $description != '' ) {
+						if ( '' !== $description ) {
 							echo wp_kses_post( $description );
 						} else {
 							the_excerpt();
@@ -243,7 +254,7 @@ if ( ! function_exists( 'reign_learndash_single_course_header' ) ) {
 								$first_name        = get_the_author_meta( 'user_firstname', $insttuctor_id );
 								$last_name         = get_the_author_meta( 'user_lastname', $insttuctor_id );
 								$author_name       = get_the_author_meta( 'display_name', $insttuctor_id );
-								if ( ! empty( $first_name ) && ! empty( $last_name ) && $author_name == '' ) {
+								if ( ! empty( $first_name ) && ! empty( $last_name ) && '' === $author_name ) {
 									$author_name = $first_name . ' ' . $last_name;
 								}
 								if ( $i < 3 ) {
@@ -267,7 +278,8 @@ if ( ! function_exists( 'reign_learndash_single_course_header' ) ) {
 						<span class="last-update-date_icon">
 							<i class="far fa-calendar"></i>
 						</span>
-						<span><?php printf( esc_html__( 'Last updated on %s', 'reign' ), the_modified_date( '', '', '', false ) ); ?> </span>
+						<?php /* translators: %s: Last modified date. */ ?>
+						<span><?php printf( esc_html__( 'Last updated on %s', 'reign' ), esc_html( get_the_modified_date() ) ); ?> </span>
 					</div>
 				</div>
 			</div>
@@ -340,11 +352,11 @@ if ( ! function_exists( 'reign_learndash_single_group_header' ) ) {
 
 		?>
 		<div class="learndash-single-course-header learndash-single-group-header <?php echo esc_attr( $cover_image_class ); ?>"
-			<?php if ( $show_cover_image == 1 ) : ?>
+			<?php if ( 1 == $show_cover_image ) : ?>
 			style="background-image:url('<?php echo esc_url( $_course_image[0] ); ?>')" <?php endif; ?>>
 			<div class="container">
 				<div class="learndash-single-course-header-inner-wrap learndash-single-group-header-inner-wrap">
-					<?php if ( $breadcrumb && function_exists( 'reign_breadcrumbs' ) ) : ?>
+					<?php if ( reign_is_truthy( $breadcrumb ) && function_exists( 'reign_breadcrumbs' ) ) : ?>
 						<div class="lm-breadcrumbs-wrapper">
 							<div class="container"><?php reign_breadcrumbs(); ?></div>
 						</div>
@@ -352,8 +364,8 @@ if ( ! function_exists( 'reign_learndash_single_group_header' ) ) {
 					<h1 class="entry-title"><?php the_title(); ?></h1>
 					<p class="course-header-short-description">
 						<?php
-						if ( $description != '' ) {
-							echo $description;
+						if ( '' !== $description ) {
+							echo wp_kses_post( $description );
 						} else {
 							the_excerpt();
 						}
@@ -361,7 +373,11 @@ if ( ! function_exists( 'reign_learndash_single_group_header' ) ) {
 					</p>
 					<div class="learndash-course-info">
 						<div class="learndash-course-student-enrollment">
-							<?php printf( _n( '%d user', '%d users', count( $users_enrolled ), 'reign' ), count( $users_enrolled ) ); ?>
+							<?php
+							$enrolled_count = count( $users_enrolled );
+							/* translators: %d: Number of enrolled users. */
+							printf( esc_html( _n( '%d user', '%d users', $enrolled_count, 'reign' ) ), absint( $enrolled_count ) );
+							?>
 						</div>
 					</div>
 					<div class="learndash-course-instructor">
@@ -378,7 +394,7 @@ if ( ! function_exists( 'reign_learndash_single_group_header' ) ) {
 								$first_name        = get_the_author_meta( 'user_firstname', $insttuctor_id );
 								$last_name         = get_the_author_meta( 'user_lastname', $insttuctor_id );
 								$author_name       = get_the_author_meta( 'display_name', $insttuctor_id );
-								if ( ! empty( $first_name ) && ! empty( $last_name ) && $author_name == '' ) {
+								if ( ! empty( $first_name ) && ! empty( $last_name ) && '' === $author_name ) {
 									$author_name = $first_name . ' ' . $last_name;
 								}
 								if ( $i < 3 ) {
@@ -441,7 +457,7 @@ if ( ! function_exists( 'remove_learndash_course_grid_course_list' ) ) {
 			// Check if it's the course list template.
 			if ( 'course_list_template' === $name ) {
 				// Define the custom template file.
-				$custom_template = 'learndash/ld30/ld_course_list_template.php';
+				$custom_template = 'learndash/ld30/ld-course-list-template.php';
 
 				// Locate the template in the theme or child theme.
 				$located_template = locate_template( $custom_template );
@@ -472,19 +488,53 @@ if ( ! function_exists( 'add_post_type' ) ) {
 	function add_post_type( $post_types ) {
 		$post_types[] = array(
 			'slug'        => 'sfwd-courses',
-			'name'        => LearnDash_Custom_Label::get_label('courses'),
+			'name'        => LearnDash_Custom_Label::get_label( 'courses' ),
 			'has_archive' => true,
 		);
 		$post_types[] = array(
 			'slug' => 'sfwd-lessons',
-			'name' => sprintf(__('Course %s', 'reign'), LearnDash_Custom_Label::get_label('lessons')),
+			/* translators: %s: LearnDash lessons label. */
+			'name' => sprintf( __( 'Course %s', 'reign' ), LearnDash_Custom_Label::get_label( 'lessons' ) ),
 		);
 		$post_types[] = array(
 			'slug' => 'sfwd-topic',
-			'name' => sprintf(__('Course %s', 'reign'), LearnDash_Custom_Label::get_label('topics')),
+			/* translators: %s: LearnDash topics label. */
+			'name' => sprintf( __( 'Course %s', 'reign' ), LearnDash_Custom_Label::get_label( 'topics' ) ),
+		);
+		$post_types[] = array(
+			'slug'      => 'sfwd-quiz',
+			/* translators: %s: LearnDash quiz label. */
+			'name'      => sprintf( __( 'Course %s', 'reign' ), LearnDash_Custom_Label::get_label( 'quiz' ) ),
+			'is_single' => true,
 		);
 		return $post_types;
 	}
 }
 
 add_filter( 'reign_customizer_supported_post_types', 'add_post_type', 10, 1 );
+
+if ( ! function_exists( 'reign_learndash_course_comments' ) ) {
+	/**
+	 * Render the comment section on single course pages.
+	 *
+	 * Hooked to `reign_single_post_comment_section`, which is fired by both the
+	 * theme's single-sfwd-courses.php and the Reign LearnDash Addon's equivalent
+	 * template. The parent theme's original handler for this action was left
+	 * commented out, causing courses to silently skip comments while lessons
+	 * (which fall back to single.php) rendered them correctly.
+	 */
+	function reign_learndash_course_comments() {
+		if ( ! is_singular( 'sfwd-courses' ) ) {
+			return;
+		}
+
+		if ( post_password_required() ) {
+			return;
+		}
+
+		if ( comments_open() || get_comments_number() ) {
+			comments_template();
+		}
+	}
+}
+add_action( 'reign_single_post_comment_section', 'reign_learndash_course_comments' );

@@ -47,8 +47,10 @@ if ( ! class_exists( 'Reign_Theme_Options_Manager' ) ) :
 			add_action( 'admin_menu', array( $this, 'reign_settings_page_init' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'render_vertical_skeleton_scripts' ) );
 
-			// Redirect admin after theme switch.
-			add_action( 'after_switch_theme', array( $this, 'redirect_admin' ) );
+			// Redirect admin after theme switch. PHP_INT_MAX so every other
+			// after_switch_theme handler (e.g. integration defaults setters)
+			// runs before the redirect exits.
+			add_action( 'after_switch_theme', array( $this, 'redirect_admin' ), PHP_INT_MAX );
 
 			// Hide all admin notices.
 			add_action( 'admin_init', array( $this, 'reign_hide_all_admin_notices_from_reign_options' ) );
@@ -65,7 +67,8 @@ if ( ! class_exists( 'Reign_Theme_Options_Manager' ) ) :
 		 * @return void
 		 */
 		public function reign_hide_all_admin_notices_from_reign_options() {
-			if ( is_admin() && ( isset( $_GET['page'] ) && 'reign-options' == $_GET['page'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin-page detection.
+			if ( is_admin() && isset( $_GET['page'] ) && 'reign-options' === sanitize_key( wp_unslash( $_GET['page'] ) ) ) {
 				remove_all_actions( 'admin_notices' );
 				remove_all_actions( 'all_admin_notices' );
 			}
@@ -80,7 +83,18 @@ if ( ! class_exists( 'Reign_Theme_Options_Manager' ) ) :
 		 */
 		public function redirect_admin() {
 			if ( current_user_can( 'edit_theme_options' ) ) {
-				header( 'Location:' . admin_url() . 'admin.php?page=reign-options' );
+				// Core fires 'after_switch_theme' from check_theme_switched() on every
+				// load until it can run flush_rewrite_rules() + update_option(
+				// 'theme_switched', false ) AFTER the action. Our exit below would kill
+				// PHP first, leaving 'theme_switched' set and re-triggering this
+				// redirect on every request (ERR_TOO_MANY_REDIRECTS). Mirror core's
+				// post-action cleanup before exiting. 'theme_switched_via_customizer'
+				// needs no handling - core clears it before firing the action.
+				flush_rewrite_rules();
+				update_option( 'theme_switched', false );
+
+				wp_safe_redirect( admin_url( 'admin.php?page=reign-options' ) );
+				exit;
 			}
 		}
 
@@ -88,7 +102,9 @@ if ( ! class_exists( 'Reign_Theme_Options_Manager' ) ) :
 		 * Include required core files used in admin and on the frontend.
 		 */
 		public function includes() {
+			include_once REIGN_INC_DIR . 'reign-settings/reign-options-icons.php';
 			include_once REIGN_INC_DIR . 'reign-settings/get-started-options.php';
+			include_once REIGN_INC_DIR . 'reign-settings/build-more-options.php';
 			include_once REIGN_INC_DIR . 'reign-settings/buddy-extender-options.php';
 			include_once REIGN_INC_DIR . 'reign-settings/peepso-extender-options.php';
 			include_once REIGN_INC_DIR . 'reign-settings/wbcom-support-tab.php';
@@ -130,11 +146,13 @@ if ( ! class_exists( 'Reign_Theme_Options_Manager' ) ) :
 							</div>
 
 							<?php
-							if ( isset( $_GET['updated'] ) && 'true' === esc_attr( $_GET['updated'] ) ) {
+							// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Display-only success notice; flag is set by the nonce-checked save redirect.
+							if ( isset( $_GET['updated'] ) && 'true' === sanitize_key( wp_unslash( $_GET['updated'] ) ) ) {
 								echo '<div class="updated"><p>' . esc_html__( 'Theme Settings updated.', 'reign' ) . '</p></div>';
 							}
 
-							$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'get_started';
+							// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin tab routing.
+							$tab = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'get_started';
 							$this->reign_admin_tabs( $tab );
 							?>
 						</div>
@@ -160,7 +178,8 @@ if ( ! class_exists( 'Reign_Theme_Options_Manager' ) ) :
 										<form id="reign-theme-options-form" method="post" action="<?php admin_url( 'admin.php?page=reign-options' ); ?>" style="display:none;">
 											<?php
 												wp_nonce_field( 'reign-options' );
-											if ( $pagenow == 'admin.php' && $_GET['page'] == 'reign-options' ) {
+											// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin-page detection.
+											if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && 'reign-options' === sanitize_key( wp_unslash( $_GET['page'] ) ) ) {
 												do_action( 'render_theme_options_page_for_' . $tab );
 											}
 											?>
@@ -173,130 +192,7 @@ if ( ! class_exists( 'Reign_Theme_Options_Manager' ) ) :
 				</div><!-- .reign-theme-admin-wrap-container -->
 
 				<div class="reign-theme-admin-sidebar">
-					<div class="reign-option-info-wrapper reign-addons-info-wrapper">
-						<div class="option-wrapper reign-option-support-container">
-							<h3 class="option-title"><?php esc_html_e( 'Reign Add-ons', 'reign' ); ?></h3>
-							<div class="reign-addon-listing">
-								<?php if ( ! class_exists( 'LearnMate_LearnDash_Addon' ) ) : ?>
-									<div class="reign-addon-listing-row" data-category="learning">
-										<div class="reign-addon-listin-block">
-											<h4 class="reign-addon-title"><?php esc_html_e( 'Reign LeanDash', 'reign' ); ?></h4>
-											<p class="reign-addon-desc"><?php esc_html_e( 'Reign LearnDash addon provides advanced styling options and layout customization to create visually engaging and user-friendly course pages.', 'reign' ); ?></p>
-										</div>
-										<div class="reign-addon-listing-btn">
-											<a class="option-link" href="<?php echo esc_url( 'https://wbcomdesigns.com/downloads/reign-learndash-addon/' ); ?>" target="_blank">
-												<?php esc_html_e( 'Buy Now', 'reign' ); ?>
-											</a>
-										</div>
-									</div>
-								<?php endif; ?>
-								<?php if ( ! class_exists( 'Reign_Dokan_Addon' ) ) : ?>
-									<div class="reign-addon-listing-row" data-category="multivendor">
-										<div class="reign-addon-listin-block">
-											<h4 class="reign-addon-title"><?php esc_html_e( 'Reign Dokan', 'reign' ); ?></h4>
-											<p class="reign-addon-desc"><?php esc_html_e( 'Reign Dokan Addon is a premium plugin optimized for creating WooCommerce online stores that provide a super-fast interface for the ultimate user experience.', 'reign' ); ?></p>
-										</div>
-										<div class="reign-addon-listing-btn">
-											<a class="option-link" href="<?php echo esc_url( 'https://wbcomdesigns.com/downloads/reign-dokan-addon/' ); ?>" target="_blank">
-												<?php esc_html_e( 'Buy Now', 'reign' ); ?>
-											</a>
-										</div>
-									</div>
-								<?php endif; ?>
-								<?php if ( ! class_exists( 'Reign_Wcvendors_Addon' ) ) : ?>
-									<div class="reign-addon-listing-row" data-category="multivendor">
-										<div class="reign-addon-listin-block">
-											<h4 class="reign-addon-title"><?php esc_html_e( 'Reign WC Vendors', 'reign' ); ?></h4>
-											<p class="reign-addon-desc"><?php esc_html_e( 'Reign WC Vendors comes with custom designs for Single Store page layout, including a clean & modern WC Vendors Store extra widget.', 'reign' ); ?></p>
-										</div>
-										<div class="reign-addon-listing-btn">
-											<a class="option-link" href="<?php echo esc_url( 'https://wbcomdesigns.com/downloads/reign-wc-vendors-addon/' ); ?>" target="_blank">
-												<?php esc_html_e( 'Buy Now', 'reign' ); ?>
-											</a>
-										</div>
-									</div>
-								<?php endif; ?>
-								<?php if ( ! class_exists( 'Reign_Wcfm_Addon' ) ) : ?>
-									<div class="reign-addon-listing-row" data-category="multivendor">
-										<div class="reign-addon-listin-block">
-											<h4 class="reign-addon-title"><?php esc_html_e( 'Reign WCFM', 'reign' ); ?></h4>
-											<p class="reign-addon-desc"><?php esc_html_e( 'Build Run and expand your marketplace with Reign WCFM Addon. This addon ensures you to have each and every functionality of WCFM and WooCommerce.', 'reign' ); ?></p>
-										</div>
-										<div class="reign-addon-listing-btn">
-											<a class="option-link" href="<?php echo esc_url( 'https://wbcomdesigns.com/downloads/reign-wcfm-addon/' ); ?>" target="_blank">
-												<?php esc_html_e( 'Buy Now', 'reign' ); ?>
-											</a>
-										</div>
-									</div>
-								<?php endif; ?>
-								<?php if ( ! class_exists( 'Reign_LifterLMS_Addon' ) ) : ?>
-									<div class="reign-addon-listing-row" data-category="learning">
-										<div class="reign-addon-listin-block">
-											<h4 class="reign-addon-title"><?php esc_html_e( 'Reign LifterLMS', 'reign' ); ?></h4>
-											<p class="reign-addon-desc"><?php esc_html_e( 'Reign LifterLMS addon has been designed to enable you to create, sell, and protect engaging online courses in a distraction-free environment.', 'reign' ); ?></p>
-										</div>
-										<div class="reign-addon-listing-btn">
-											<a class="option-link" href="<?php echo esc_url( 'https://wbcomdesigns.com/downloads/reign-lifterlms-addon/' ); ?>" target="_blank">
-												<?php esc_html_e( 'Buy Now', 'reign' ); ?>
-											</a>
-										</div>
-									</div>
-								<?php endif; ?>
-								<?php if ( ! class_exists( 'Reign_Sensei_Addon' ) ) : ?>
-									<div class="reign-addon-listing-row" data-category="learning">
-										<div class="reign-addon-listin-block">
-											<h4 class="reign-addon-title"><?php esc_html_e( 'Reign Sensei', 'reign' ); ?></h4>
-											<p class="reign-addon-desc"><?php esc_html_e( 'If you are looking to earn via an online course marketplace like Udemy. Reign Sensei add-on is just the perfect match for you.', 'reign' ); ?></p>
-										</div>
-										<div class="reign-addon-listing-btn">
-											<a class="option-link" href="<?php echo esc_url( 'https://wbcomdesigns.com/downloads/reign-sensei-addon/' ); ?>" target="_blank">
-												<?php esc_html_e( 'Buy Now', 'reign' ); ?>
-											</a>
-										</div>
-									</div>
-								<?php endif; ?>
-								<?php if ( ! class_exists( 'Reign_Tutorlms_Addon' ) ) : ?>
-									<div class="reign-addon-listing-row" data-category="learning">
-										<div class="reign-addon-listin-block">
-											<h4 class="reign-addon-title"><?php esc_html_e( 'Reign Tutor LMS', 'reign' ); ?></h4>
-											<p class="reign-addon-desc"><?php esc_html_e( 'Create and Manage your Learning Management System on WordPress using our advanced and feature-packed Reign Tutor Lms Add-on.', 'reign' ); ?></p>
-										</div>
-										<div class="reign-addon-listing-btn">
-											<a class="option-link" href="<?php echo esc_url( 'https://wbcomdesigns.com/downloads/reign-tutor-lms-addon/' ); ?>" target="_blank">
-												<?php esc_html_e( 'Buy Now', 'reign' ); ?>
-											</a>
-										</div>
-									</div>
-								<?php endif; ?>
-								<?php if ( ! class_exists( 'Reign_WP_Job_Manager_Addon' ) ) : ?>
-									<div class="reign-addon-listing-row" data-category="other">
-										<div class="reign-addon-listin-block">
-											<h4 class="reign-addon-title"><?php esc_html_e( 'Reign WP Job Manager', 'reign' ); ?></h4>
-											<p class="reign-addon-desc"><?php esc_html_e( 'The plugin has been developed from the ground up to extend WP Job Manager Plugin and all of its extensions.', 'reign' ); ?></p>
-										</div>
-										<div class="reign-addon-listing-btn">
-											<a class="option-link" href="<?php echo esc_url( 'https://wbcomdesigns.com/downloads/reign-wp-job-manager-addon/' ); ?>" target="_blank">
-												<?php esc_html_e( 'Buy Now', 'reign' ); ?>
-											</a>
-										</div>
-									</div>
-								<?php endif; ?>
-								<?php if ( ! class_exists( 'Reign_Geodirectory_Addon' ) ) : ?>
-									<div class="reign-addon-listing-row" data-category="other">
-										<div class="reign-addon-listin-block">
-											<h4 class="reign-addon-title"><?php esc_html_e( 'Reign GeoDirectory', 'reign' ); ?></h4>
-											<p class="reign-addon-desc"><?php esc_html_e( 'Reign Geo Directory Add-On offers a solution for site owners to have maps for their directories.', 'reign' ); ?></p>
-										</div>
-										<div class="reign-addon-listing-btn">
-											<a class="option-link" href="<?php echo esc_url( 'https://wbcomdesigns.com/downloads/reign-geodirectory-addon/' ); ?>" target="_blank">
-												<?php esc_html_e( 'Buy Now', 'reign' ); ?>
-											</a>
-										</div>
-									</div>
-								<?php endif; ?>
-							</div>
-						</div>
-					</div>
+					<?php do_action( 'reign_options_sidebar' ); ?>
 				</div><!-- .reign-theme-admin-sidebar -->
 
 			</div><!-- .reign-theme-admin-wrap-main -->
@@ -323,7 +219,8 @@ if ( ! class_exists( 'Reign_Theme_Options_Manager' ) ) :
 			// if ( $screen->id != 'reign-settings_page_reign-options' ) {
 			// return;
 			// }
-			if ( ( ! isset( $_GET['page'] ) ) || ( 'reign-options' !== $_GET['page'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin-page detection for asset loading.
+			if ( ( ! isset( $_GET['page'] ) ) || ( 'reign-options' !== sanitize_key( wp_unslash( $_GET['page'] ) ) ) ) {
 				return;
 			}
 
@@ -415,6 +312,36 @@ if ( ! class_exists( 'Reign_Theme_Options_Manager' ) ) :
 				$media  = 'all'
 			);
 			wp_enqueue_style( 'reign-vertical-tabs-skeleton-css' );
+
+			wp_enqueue_style(
+				'reign-options-ui',
+				get_template_directory_uri() . '/assets/css/reign-options-ui.css',
+				array(),
+				REIGN_THEME_VERSION
+			);
+			wp_style_add_data( 'reign-options-ui', 'rtl', 'replace' );
+
+			wp_enqueue_script(
+				'reign-get-started',
+				get_template_directory_uri() . '/assets/js/reign-get-started.js',
+				array(),
+				REIGN_THEME_VERSION,
+				true
+			);
+			wp_localize_script(
+				'reign-get-started',
+				'ReignGetStarted',
+				array(
+					'ajaxurl' => admin_url( 'admin-ajax.php' ),
+					'nonce'   => wp_create_nonce( 'reign_install_plugin' ),
+					'i18n'    => array(
+						'installing'         => __( 'Installing…', 'reign' ),
+						'active'             => __( 'Active', 'reign' ),
+						'essentialInstalled' => __( 'Wbcom Essential installed', 'reign' ),
+						'failed'             => __( 'Install failed. Please try again.', 'reign' ),
+					),
+				)
+			);
 		}
 
 		/**

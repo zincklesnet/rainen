@@ -90,6 +90,13 @@ if ( ! function_exists( 'reign_render_peepso_member_cover_image' ) ) {
 if ( ! function_exists( 'reign_get_peepso_member_cover_image' ) ) {
 
 	function reign_get_peepso_member_cover_image( $size = 0 ) {
+		// PeepSoProfile is a separate class from PeepSo; guard against the
+		// case where PeepSo loads partially (custom installs, partial
+		// activation) where the main PeepSo class exists but the Profile
+		// module hasn't been included.
+		if ( ! class_exists( 'PeepSoProfile' ) ) {
+			return null;
+		}
 		$cover         = null;
 		$PeepSoProfile = PeepSoProfile::get_instance();
 		$PeepSoUser    = $PeepSoProfile->user;
@@ -137,6 +144,10 @@ add_filter( 'body_class', 'reign_peepso_body_class', 999, 2 );
 function reign_peepso_body_class( $classes, $class ) {
 	if ( class_exists( 'PeepSo' ) ) {
 		array_push( $classes, 'reign_peepso_active' );
+		// PeepSoUrlSegments is a separate module from PeepSo's main class.
+		if ( ! class_exists( 'PeepSoUrlSegments' ) ) {
+			return $classes;
+		}
 		$peepso_url_segments = PeepSoUrlSegments::get_instance();
 		if ( ( 'peepso_groups' === $peepso_url_segments->_shortcode ) && ( sizeof( $peepso_url_segments->_segments ) == 1 ) ) {
 			if ( is_array( $classes ) ) {
@@ -387,6 +398,12 @@ add_action( 'peepso_init', 'reign_peepso_page_default_sidebar', 15 );
  * Set default sidebar and page template in PeepSo pages.
  */
 function reign_peepso_page_default_sidebar() {
+	// peepso_init hook fires only when PeepSo is active, but guard
+	// anyway in case the hook is dispatched defensively or the
+	// PeepSo class is partially loaded.
+	if ( ! class_exists( 'PeepSo' ) ) {
+		return;
+	}
 	$pages         = array(
 		'page_activity'  => PeepSo::get_option( 'page_activity' ),
 		'page_members'   => PeepSo::get_option( 'page_members' ),
@@ -442,7 +459,7 @@ add_filter( 'reign_alter_display_right_sidebar', 'reign_peepso_display_right_sid
  * Display Right sidebar for cart and checkout tab in PeepSo pages.
  */
 function reign_peepso_display_right_sidebar_for_woo( $display ) {
-	if ( class_exists( 'PeepSo' ) ) {
+	if ( class_exists( 'PeepSo' ) && class_exists( 'PeepSoUrlSegments' ) ) {
 		$peepso_url_segments = PeepSoUrlSegments::get_instance();
 		if ( ( 'peepso_profile' === $peepso_url_segments->_shortcode ) ) {
 			if ( class_exists( 'WooCommerce' ) ) {
@@ -458,6 +475,10 @@ function reign_peepso_display_right_sidebar_for_woo( $display ) {
 add_filter( 'peepso_hovercard', 'reign_peepso_member_hovercard', 10, 2 );
 
 function reign_peepso_member_hovercard( $res, $uid ) {
+	// Same module-availability guard as the cover-image helper above.
+	if ( ! class_exists( 'PeepSoUser' ) ) {
+		return $res;
+	}
 	$cover      = null;
 	$size       = 750;
 	$PeepSoUser = PeepSoUser::get_instance( $uid );

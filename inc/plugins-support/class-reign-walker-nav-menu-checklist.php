@@ -43,7 +43,7 @@ class Reign_Walker_Nav_Menu_Checklist extends Walker_Nav_Menu {
 	 * @param array  $args   See {@Walker_Nav_Menu::start_lvl()}.
 	 */
 	public function start_lvl( &$output, $depth = 0, $args = array() ) {
-		$indent = str_repeat( "\t", $depth );
+		$indent  = str_repeat( "\t", $depth );
 		$output .= "\n$indent<ul class='children'>\n";
 	}
 
@@ -57,7 +57,7 @@ class Reign_Walker_Nav_Menu_Checklist extends Walker_Nav_Menu {
 	 * @param array  $args   See {@Walker_Nav_Menu::end_lvl()}.
 	 */
 	public function end_lvl( &$output, $depth = 0, $args = array() ) {
-		$indent = str_repeat( "\t", $depth );
+		$indent  = str_repeat( "\t", $depth );
 		$output .= "\n$indent</ul>";
 	}
 
@@ -73,12 +73,13 @@ class Reign_Walker_Nav_Menu_Checklist extends Walker_Nav_Menu {
 	 * @param object|array $args   See {@Walker::start_el()}.
 	 * @param int          $id     See {@Walker::start_el()}.
 	 */
-	function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 		global $_nav_menu_placeholder;
 
-		$_nav_menu_placeholder = ( 0 > $_nav_menu_placeholder ) ? intval($_nav_menu_placeholder) - 1 : -1;
-		$possible_object_id = isset( $item->post_type ) && 'nav_menu_item' == $item->post_type ? $item->object_id : $_nav_menu_placeholder;
-		$possible_db_id = ( ! empty( $item->ID ) ) && ( 0 < $possible_object_id ) ? (int) $item->ID : 0;
+		// Mirrors WP core Walker_Nav_Menu_Checklist, which intentionally drives this core global.
+		$_nav_menu_placeholder = ( 0 > $_nav_menu_placeholder ) ? intval( $_nav_menu_placeholder ) - 1 : -1; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		$possible_object_id    = isset( $item->post_type ) && 'nav_menu_item' == $item->post_type ? $item->object_id : $_nav_menu_placeholder;
+		$possible_db_id        = ( ! empty( $item->ID ) ) && ( 0 < $possible_object_id ) ? (int) $item->ID : 0;
 
 		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
 
@@ -90,7 +91,7 @@ class Reign_Walker_Nav_Menu_Checklist extends Walker_Nav_Menu {
 			$title = $item->label;
 		}
 
-		$output .= '" name="menu-item[' . $possible_object_id . '][menu-item-object-id]" value="'. esc_attr( $item->object_id ) .'" /> ';
+		$output .= '" name="menu-item[' . $possible_object_id . '][menu-item-object-id]" value="' . esc_attr( $item->object_id ) . '" /> ';
 		$output .= isset( $title ) ? esc_html( $title ) : esc_html( $item->title );
 		$output .= '</label>';
 
@@ -98,37 +99,37 @@ class Reign_Walker_Nav_Menu_Checklist extends Walker_Nav_Menu {
 			$item->url = $item->guid;
 		}
 
-		if ( ! in_array( array( 'peepso-menu', 'peepso-'. $item->post_excerpt .'-nav' ), $item->classes ) ) {
+		if ( ! in_array( array( 'peepso-menu', 'peepso-' . $item->post_excerpt . '-nav' ), $item->classes ) ) {
 			$item->classes[] = 'peepso-menu';
-			$item->classes[] = 'peepso-'. $item->post_excerpt .'-nav';
+			$item->classes[] = 'peepso-' . $item->post_excerpt . '-nav';
 		}
 
 		// Menu item hidden fields.
-		$output .= '<input type="hidden" class="menu-item-db-id" name="menu-item[' . $possible_object_id . '][menu-item-db-id]" value="' . $possible_db_id . '" />';
-		$output .= '<input type="hidden" class="menu-item-object" name="menu-item[' . $possible_object_id . '][menu-item-object]" value="'. esc_attr( $item->object ) .'" />';
-		$output .= '<input type="hidden" class="menu-item-parent-id" name="menu-item[' . $possible_object_id . '][menu-item-parent-id]" value="'. esc_attr( $item->menu_item_parent ) .'" />';
+		$output .= '<input type="hidden" class="menu-item-db-id" name="menu-item[' . $possible_object_id . '][menu-item-db-id]" value="' . esc_attr( $possible_db_id ) . '" />';
+		$output .= '<input type="hidden" class="menu-item-object" name="menu-item[' . $possible_object_id . '][menu-item-object]" value="' . esc_attr( $item->object ) . '" />';
+		$output .= '<input type="hidden" class="menu-item-parent-id" name="menu-item[' . $possible_object_id . '][menu-item-parent-id]" value="' . esc_attr( $item->menu_item_parent ) . '" />';
 		$output .= '<input type="hidden" class="menu-item-type" name="menu-item[' . $possible_object_id . '][menu-item-type]" value="custom" />';
-		$output .= '<input type="hidden" class="menu-item-title" name="menu-item[' . $possible_object_id . '][menu-item-title]" value="'. esc_attr( $item->title ) .'" />';
-		$output .= '<input type="hidden" class="menu-item-url" name="menu-item[' . $possible_object_id . '][menu-item-url]" value="'. esc_attr( $item->url ) .'" />';
-		$output .= '<input type="hidden" class="menu-item-target" name="menu-item[' . $possible_object_id . '][menu-item-target]" value="'. esc_attr( $item->target ) .'" />';
-		$output .= '<input type="hidden" class="menu-item-attr_title" name="menu-item[' . $possible_object_id . '][menu-item-attr_title]" value="'. esc_attr( $item->attr_title ) .'" />';
-		$output .= '<input type="hidden" class="menu-item-classes" name="menu-item[' . $possible_object_id . '][menu-item-classes]" value="'. esc_attr( implode( ' ', $item->classes ) ) .'" />';
-		$output .= '<input type="hidden" class="menu-item-xfn" name="menu-item[' . $possible_object_id . '][menu-item-xfn]" value="'. esc_attr( $item->xfn ) .'" />';
+		$output .= '<input type="hidden" class="menu-item-title" name="menu-item[' . $possible_object_id . '][menu-item-title]" value="' . esc_attr( $item->title ) . '" />';
+		$output .= '<input type="hidden" class="menu-item-url" name="menu-item[' . $possible_object_id . '][menu-item-url]" value="' . esc_attr( $item->url ) . '" />';
+		$output .= '<input type="hidden" class="menu-item-target" name="menu-item[' . $possible_object_id . '][menu-item-target]" value="' . esc_attr( $item->target ) . '" />';
+		$output .= '<input type="hidden" class="menu-item-attr_title" name="menu-item[' . $possible_object_id . '][menu-item-attr_title]" value="' . esc_attr( $item->attr_title ) . '" />';
+		$output .= '<input type="hidden" class="menu-item-classes" name="menu-item[' . $possible_object_id . '][menu-item-classes]" value="' . esc_attr( implode( ' ', $item->classes ) ) . '" />';
+		$output .= '<input type="hidden" class="menu-item-xfn" name="menu-item[' . $possible_object_id . '][menu-item-xfn]" value="' . esc_attr( $item->xfn ) . '" />';
 	}
 }
 
 
 /*
- * Add Nav Menu option 
- * 
+ * Add Nav Menu option
+ *
  * Date: 2020-07-28
  */
 
 add_action( 'load-nav-menus.php', 'reign_theme_admin_wp_nav_menu_meta_box' );
+// phpcs:ignore Universal.Files.SeparateFunctionsFromOO.Mixed -- Walker class is paired with its admin meta-box helper functions in one file by design.
 function reign_theme_admin_wp_nav_menu_meta_box() {
 
 	add_meta_box( 'add-peppso-nav-menu', __( 'Peepso', 'reign' ), 'reign_theme_admin_peepso_nav_menu_meta_box', 'nav-menus', 'side', 'default' );
-	
 }
 function reign_theme_admin_peepso_nav_menu_meta_box() {
 	global $nav_menu_selected_id;
@@ -146,10 +147,10 @@ function reign_theme_admin_peepso_nav_menu_meta_box() {
 	?>
 
 	<div id="reign-menu" class="posttypediv">
-		<h4><?php _e( 'Logged-In', 'reign' ); ?></h4>
-		<p><?php _e( '<em>Logged-In</em> links are relative to the current user, and are not visible to visitors who are not logged in.', 'reign' ); ?></p>
+		<h4><?php esc_html_e( 'Logged-In', 'reign' ); ?></h4>
+		<p><?php echo wp_kses_post( __( '<em>Logged-In</em> links are relative to the current user, and are not visible to visitors who are not logged in.', 'reign' ) ); ?></p>
 
-		<div id="tabs-panel-posttype-<?php echo $post_type_name; ?>-loggedin" class="tabs-panel tabs-panel-active">
+		<div id="tabs-panel-posttype-<?php echo esc_attr( $post_type_name ); ?>-loggedin" class="tabs-panel tabs-panel-active">
 			<ul id="reign-menu-checklist-loggedin" class="categorychecklist form-no-clear">
 				<?php echo walk_nav_menu_tree( array_map( 'wp_setup_nav_menu_item', $tabs['loggedin']['pages'] ), 0, (object) $args ); ?>
 			</ul>
@@ -174,7 +175,7 @@ function reign_theme_admin_peepso_nav_menu_meta_box() {
 					wp_nav_menu_disabled_check( $nav_menu_selected_id );
 				endif;
 				?>
-				 class="button-secondary submit-add-to-menu right" value="<?php esc_attr_e( 'Add to Menu', 'reign' ); ?>" name="add-custom-menu-item" id="submit-reign-menu" />
+				class="button-secondary submit-add-to-menu right" value="<?php esc_attr_e( 'Add to Menu', 'reign' ); ?>" name="add-custom-menu-item" id="submit-reign-menu" />
 				<span class="spinner"></span>
 			</span>
 		</p>
@@ -185,33 +186,31 @@ function reign_theme_admin_peepso_nav_menu_meta_box() {
 
 
 function reign_peepso_nav_menu_get_loggedin_pages() {
-	
-	 // List of links to be displayed
-	$links = apply_filters('peepso_navigation_profile', array('_user_id'=>get_current_user_id()));
-	$instance['links'] = $links;
+
+	// List of links to be displayed
+	$links                            = apply_filters( 'peepso_navigation_profile', array( '_user_id' => get_current_user_id() ) );
+	$instance['links']                = $links;
 	$instance['links']['preferences'] = array(
-		'href' => 'preferences',
-		'icon' => 'gcis gci-user-edit',
-		'label' => __('Preferences', 'reign'),
+		'href'  => 'preferences',
+		'icon'  => 'gcis gci-user-edit',
+		'label' => __( 'Preferences', 'reign' ),
 	);
 
 	$instance['links']['log-out'] = array(
-		'href' => PeepSo::get_page('logout'),
-		'icon' => 'gcis gci-power-off',
-		'label' => __('Log Out', 'reign'),
-		'widget'=>TRUE,
+		'href'   => PeepSo::get_page( 'logout' ),
+		'icon'   => 'gcis gci-power-off',
+		'label'  => __( 'Log Out', 'reign' ),
+		'widget' => true,
 	);
 
-	foreach( $instance['links'] as $key=>$value){
+	foreach ( $instance['links'] as $key => $value ) {
 		$peepso_menu_items[] = array(
-								'name' => $value['label'],
-								'slug' => $key,
-								'link' => $value['href'],
-								'icon' => $value['icon'],								
-							);
+			'name' => $value['label'],
+			'slug' => $key,
+			'link' => $value['href'],
+			'icon' => $value['icon'],
+		);
 	}
-	
-	
 
 	// If there's nothing to show, we're done.
 	if ( count( $peepso_menu_items ) < 1 ) {
@@ -231,81 +230,81 @@ function reign_peepso_nav_menu_get_loggedin_pages() {
 			'post_author'    => 0,
 			'post_date'      => 0,
 			'post_excerpt'   => $peepso_item['slug'],
-			'post_name'      => 'peepso-'.$peepso_item['slug'],
+			'post_name'      => 'peepso-' . $peepso_item['slug'],
 			'post_type'      => 'page',
 			'post_status'    => 'publish',
 			'comment_status' => 'closed',
-			'guid'           => $peepso_item['link']
+			'guid'           => $peepso_item['link'],
 		);
 	}
 
 	return $page_args;
 }
 
-function reign_peepso_walker_nav_menu_start_el( $item_output, $item, $depth, $args){
-	
-	$links = apply_filters('peepso_navigation_profile', array('_user_id'=>get_current_user_id()));
-	$instance['links'] = $links;
+function reign_peepso_walker_nav_menu_start_el( $item_output, $item, $depth, $args ) {
+
+	$links                            = apply_filters( 'peepso_navigation_profile', array( '_user_id' => get_current_user_id() ) );
+	$instance['links']                = $links;
 	$instance['links']['preferences'] = array(
-		'href' => 'preferences',
-		'icon' => 'gcis gci-user-edit',
-		'label' => __('Preferences', 'reign'),
+		'href'  => 'preferences',
+		'icon'  => 'gcis gci-user-edit',
+		'label' => __( 'Preferences', 'reign' ),
 	);
 
 	$instance['links']['log-out'] = array(
-		'href' => PeepSo::get_page('logout'),
-		'icon' => 'gcis gci-power-off',
-		'label' => __('Log Out', 'reign'),
-		'widget'=>TRUE,
+		'href'   => PeepSo::get_page( 'logout' ),
+		'icon'   => 'gcis gci-power-off',
+		'label'  => __( 'Log Out', 'reign' ),
+		'widget' => true,
 	);
-	
+
 	$peepso_link = array();
-	foreach( $instance['links'] as $key=>$value){		
-		$peepso_link[] = ( $key != 'videos') ? $key : 'audio-video';
-	}	
-	
-	if ( in_array( $item->post_name,$peepso_link) && !is_user_logged_in() ) {
+	foreach ( $instance['links'] as $key => $value ) {
+		$peepso_link[] = ( 'videos' !== $key ) ? $key : 'audio-video';
+	}
+
+	if ( in_array( $item->post_name, $peepso_link ) && ! is_user_logged_in() ) {
 		return '';
 	}
 	return $item_output;
 }
-function reign_peepso_nav_menu_link_attributes( $atts, $item, $args, $depth){
-	
-	$user_id    = get_current_user_id();
-    $current_user      = PeepSoUser::get_instance($user_id);
-	
-	$links = apply_filters('peepso_navigation_profile', array('_user_id'=>get_current_user_id()));
-	$instance['links'] = $links;
+function reign_peepso_nav_menu_link_attributes( $atts, $item, $args, $depth ) {
+
+	$user_id      = get_current_user_id();
+	$current_user = PeepSoUser::get_instance( $user_id );
+
+	$links                            = apply_filters( 'peepso_navigation_profile', array( '_user_id' => get_current_user_id() ) );
+	$instance['links']                = $links;
 	$instance['links']['preferences'] = array(
-		'href' => $current_user->get_profileurl() . 'about/preferences/',
-		'icon' => 'gcis gci-user-edit',
-		'label' => __('Preferences', 'reign'),
+		'href'  => $current_user->get_profileurl() . 'about/preferences/',
+		'icon'  => 'gcis gci-user-edit',
+		'label' => __( 'Preferences', 'reign' ),
 	);
 
 	$instance['links']['log-out'] = array(
-		'href' => PeepSo::get_page('logout'),
-		'icon' => 'gcis gci-power-off',
-		'label' => __('Log Out', 'reign'),
-		'widget'=>TRUE,
+		'href'   => PeepSo::get_page( 'logout' ),
+		'icon'   => 'gcis gci-power-off',
+		'label'  => __( 'Log Out', 'reign' ),
+		'widget' => true,
 	);
-	
+
 	$peepso_link = array();
-	foreach( $instance['links'] as $key=>$value){		
-		$peepso_link[] = ( $key != 'videos') ? $key : 'audio-video';
+	foreach ( $instance['links'] as $key => $value ) {
+		$peepso_link[] = ( 'videos' !== $key ) ? $key : 'audio-video';
 	}
-	
-	if ( in_array( $item->post_name, $peepso_link) && is_user_logged_in() ) {
-		
-		$item->post_name = ($item->post_name == 'audio-video') ? 'videos' : $item->post_name ;
-		
-		$href = $current_user->get_profileurl(). $instance['links'][$item->post_name]['href'];
-		if('http' == substr(strtolower($instance['links'][$item->post_name]['href']), 0,4)) {
-			$href = $instance['links'][$item->post_name]['href'];
+
+	if ( in_array( $item->post_name, $peepso_link ) && is_user_logged_in() ) {
+
+		$item->post_name = ( 'audio-video' === $item->post_name ) ? 'videos' : $item->post_name;
+
+		$href = $current_user->get_profileurl() . $instance['links'][ $item->post_name ]['href'];
+		if ( 'http' == substr( strtolower( $instance['links'][ $item->post_name ]['href'] ), 0, 4 ) ) {
+			$href = $instance['links'][ $item->post_name ]['href'];
 		}
 		$atts['href'] = $href;
-	}	
-	
+	}
+
 	return $atts;
 }
-add_filter('walker_nav_menu_start_el', 'reign_peepso_walker_nav_menu_start_el', 99, 4 );
-add_filter('nav_menu_link_attributes', 'reign_peepso_nav_menu_link_attributes', 99, 4 );
+add_filter( 'walker_nav_menu_start_el', 'reign_peepso_walker_nav_menu_start_el', 99, 4 );
+add_filter( 'nav_menu_link_attributes', 'reign_peepso_nav_menu_link_attributes', 99, 4 );

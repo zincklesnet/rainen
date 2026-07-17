@@ -3,8 +3,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-// Initialize current active tab.
-$current_active_tab = isset( $_POST['render_theme_setting_current_tab'] ) ? intval( $_POST['render_theme_setting_current_tab'] ) : 0;
+// Initialize current active tab. Non-destructive UI state restore; gated on the
+// settings form nonce ('reign-options') emitted by reign-theme-options-manager.php.
+$current_active_tab = 0;
+if ( isset( $_POST['render_theme_setting_current_tab'] ) && isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'reign-options' ) ) {
+	$current_active_tab = intval( wp_unslash( $_POST['render_theme_setting_current_tab'] ) );
+}
 ?>
 <input type="hidden" id="render_theme_setting_current_tab" name="render_theme_setting_current_tab" value="<?php echo esc_attr( $current_active_tab ); ?>" />
 

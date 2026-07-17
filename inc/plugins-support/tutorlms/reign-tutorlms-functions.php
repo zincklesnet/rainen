@@ -5,6 +5,8 @@
  * @package reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 // Hook into the template_redirect action.
 add_filter( 'body_class', 'reign_tutorlms_body_class_custom_color' );
 

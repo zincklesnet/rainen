@@ -47,15 +47,30 @@ if ( ! class_exists( 'RTM_MPP_Customization' ) ) :
 
 			$reign_mpp_media_view = get_theme_mod( 'reign_mpp_media_view', true );
 
-			if ( true == $reign_mpp_media_view ) {
+			// reign_is_truthy() — the pre-existing `true == 'on'` evaluated
+			// to FALSE in PHP 8, silently disabling the entire MediaPress
+			// media-view override on every site upgraded past 7.x.
+			// function_exists guard: this class is instantiated via file-
+			// scope ::instance() (see class-reign-theme-structure.php hotfix
+			// of the same bug — load-order safety).
+			$mpp_media_view_on = function_exists( 'reign_is_truthy' )
+				? reign_is_truthy( $reign_mpp_media_view )
+				: ! empty( $reign_mpp_media_view ) && 'off' !== $reign_mpp_media_view;
+			if ( $mpp_media_view_on ) {
 				remove_action( 'bp_activity_entry_content', 'mpp_activity_inject_attached_media_html' );
 				add_action( 'bp_activity_entry_content', array( $this, 'reign_mpp_activity_inject_attached_media_html' ) );
 			}
 		}
 
 		public function reign_mpp_activity_inject_attached_media_html() {
+			// The bp_activity_entry_content hook only fires under BP, but
+			// guard anyway in case the hook dispatch ever changes or this
+			// method is called directly elsewhere.
+			if ( ! function_exists( 'bp_get_activity_id' ) ) {
+				return;
+			}
 			$activity_id = bp_get_activity_id();
-			echo $this->reign_get_mpp_injected_attached_media_html( $activity_id ); // phpcs:ignore
+			echo $this->reign_get_mpp_injected_attached_media_html( $activity_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- builds markup from esc_url/absint parts.
 		}
 
 		public function reign_get_mpp_injected_attached_media_html( $activity_id = false ) {
@@ -84,14 +99,14 @@ if ( ! class_exists( 'RTM_MPP_Customization' ) ) :
 					$type  = $media->type;
 					$class = 'post-column mpp-media-' . esc_attr( $type ); // Add media type class.
 
-					if ( $type === 'photo' ) {
+					if ( 'photo' === $type ) {
 						$class .= ' ' . $this->get_media_col_class( $count, $key ); // Assuming this function handles your column classes.
 						++$photo_count; // Increment the photo count for each photo.
 
 						// Only apply the 5+ layout when the count is 5 or more.
 						if ( $count >= 5 ) {
 							// Start building the HTML for count >= 5.
-							if ( $photo_count === 1 ) {
+							if ( 1 === $photo_count ) {
 								// Start the 'col-left' container when the first image is encountered.
 								echo '<div class="col-left ' . esc_attr( $class ) . '">';
 							}
@@ -99,23 +114,23 @@ if ( ! class_exists( 'RTM_MPP_Customization' ) ) :
 							if ( $photo_count <= 2 ) {
 								?>
 								<div class="col-12">
-									<?php echo $this->reign_generate_image_div( $media, $activity_id, $count, $key ); // phpcs:ignore ?>
+									<?php echo $this->reign_generate_image_div( $media, $activity_id, $count, $key ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- builds markup from esc_url/absint parts. ?>
 								</div>
 								<?php
 							}
 							// For the 3rd, 4th, and 5th images: Normal display in col-right.
 							if ( $photo_count > 2 && $photo_count <= 5 ) {
 								// Start the 'col-right' container once we reach the 3rd image.
-								if ( $photo_count === 3 ) {
+								if ( 3 === $photo_count ) {
 									echo '<div class="col-right ' . esc_attr( $class ) . '">';
 								}
 
 								?>
-								<div class="col-12 <?php echo $photo_count === 5 ? 'overlay-container' : ''; ?>">
-									<?php echo $this->reign_generate_image_div( $media, $activity_id, $count, $key ); // phpcs:ignore ?>
+								<div class="col-12 <?php echo 5 === $photo_count ? 'overlay-container' : ''; ?>">
+									<?php echo $this->reign_generate_image_div( $media, $activity_id, $count, $key ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- builds markup from esc_url/absint parts. ?>
 									
 									<?php
-									if ( $photo_count === 5 && $count > 5 ) :
+									if ( 5 === $photo_count && $count > 5 ) :
 										$media_src = mpp_get_media_permalink( $media_id );
 										?>
 										<a href="<?php echo esc_url( $media_src ); ?>" class="more-overlay-link">
@@ -127,19 +142,19 @@ if ( ! class_exists( 'RTM_MPP_Customization' ) ) :
 							}
 
 							// Close the 'col-left' container after the second image.
-							if ( $photo_count === 2 ) {
+							if ( 2 === $photo_count ) {
 								echo '</div>'; // Close col-left.
 							}
 
 							// Close the 'col-right' container after the fifth image.
-							if ( $photo_count === 5 ) {
+							if ( 5 === $photo_count ) {
 								echo '</div>'; // Close col-right.
 							}
 						} else {
 							// For cases where the photo count is less than 5, handle normally.
 							?>
 							<div class="<?php echo esc_attr( $class ); ?>">
-								<?php echo $this->reign_generate_image_div( $media, $activity_id, $count, $key ); // phpcs:ignore ?>
+								<?php echo $this->reign_generate_image_div( $media, $activity_id, $count, $key ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- builds markup from esc_url/absint parts. ?>
 							</div>
 							<?php
 						}
@@ -147,7 +162,7 @@ if ( ! class_exists( 'RTM_MPP_Customization' ) ) :
 						// Display other media types as normal.
 						?>
 						<div class="<?php echo esc_attr( $class ); ?>">
-							<?php echo $this->reign_generate_image_div( $media, $activity_id, $count, $key ); // phpcs:ignore ?>
+							<?php echo $this->reign_generate_image_div( $media, $activity_id, $count, $key ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- builds markup from esc_url/absint parts. ?>
 						</div>
 						<?php
 					}
@@ -160,16 +175,16 @@ if ( ! class_exists( 'RTM_MPP_Customization' ) ) :
 
 		// Function to return correct column class.
 		private function get_media_col_class( $count, $key ) {
-			if ( $count == 1 ) {
+			if ( 1 == $count ) {
 				return 'col-12';
 			}
-			if ( $count == 2 ) {
+			if ( 2 == $count ) {
 				return 'col-6';
 			}
-			if ( $count == 3 ) {
-				return ( $key == 0 ) ? 'col-12' : 'col-6';
+			if ( 3 == $count ) {
+				return ( 0 == $key ) ? 'col-12' : 'col-6';
 			}
-			if ( $count == 4 ) {
+			if ( 4 == $count ) {
 				return 'col-6';
 			}
 			if ( $count >= 5 ) {
@@ -183,18 +198,18 @@ if ( ! class_exists( 'RTM_MPP_Customization' ) ) :
 			$media_id  = $media->id;
 			$media_src = mpp_get_media_permalink( $media_id );
 
-			if ( $type == 'photo' ) {
+			if ( 'photo' == $type ) {
 				return '<a href="' . esc_url( $media_src ) . '" data-mpp-type="photo" data-mpp-activity-id="' . esc_attr( $activity_id ) . '" data-mpp-media-id="' . esc_attr( $media_id ) . '" class="mpp-media mpp-activity-media mpp-activity-media-photo">
 							<img src="' . esc_url( mpp_get_media_src( 'large', $media_id ) ) . '" class="mpp-attached-media-item" alt="' . esc_attr( mpp_get_media_title( $media_id ) ) . '" title="' . esc_attr( mpp_get_media_title( $media_id ) ) . '" loading="lazy">
 						</a>';
-			} elseif ( $type == 'video' ) {
+			} elseif ( 'video' == $type ) {
 				if ( mpp_is_oembed_media( $media ) ) {
 					return '<div class="reign_video_height post-wrap-inner mpp-activity-media-list mpp-activity-video-player">' . mpp_get_oembed_content( $media, 'full' ) . '</div>';
 				} else {
 					$media_file = mpp_get_media_src( '', $media );
 					return '<div class="reign_video_height post-wrap-inner mpp-activity-media-list mpp-activity-video-player">' . do_shortcode( '[video src=' . $media_file . ' controls]' ) . '</div>';
 				}
-			} elseif ( $type == 'audio' ) {
+			} elseif ( 'audio' == $type ) {
 				$div_html = '<div class="post-wrap-inner mpp-activity-media-list mpp-activity-audio-player"><audio src="' . mpp_get_media_src( '', $media ) . '" controls></audio></div>';
 				return $div_html;
 			} else {
@@ -213,7 +228,7 @@ if ( ! class_exists( 'RTM_MPP_Customization' ) ) :
 		 * Add panels and sections
 		 */
 		public function add_panels_and_sections() {
-			new \Kirki\Section(
+			\Reign\Customizer_Framework\Section::add(
 				'reign_mpp_support',
 				array(
 					'title'       => esc_html__( 'MediaPress', 'reign' ),
@@ -229,7 +244,8 @@ if ( ! class_exists( 'RTM_MPP_Customization' ) ) :
 		 */
 		public function add_fields() {
 
-			new \Kirki\Field\Checkbox_Switch(
+			\Reign\Customizer_Framework\Field::add(
+				'switch',
 				array(
 					'settings'    => 'reign_mpp_media_view',
 					'label'       => esc_html__( 'Override Activity Media List View', 'reign' ),
@@ -252,6 +268,14 @@ endif;
 /**
  * Main instance of RTM_MPP_Customization.
  *
+ * Gated by MediaPress presence: the class hooks into MPP-only
+ * actions (mpp_activity_inject_attached_media_html, etc.) and
+ * registers customizer fields scoped to MPP features. Without
+ * this guard the constructor's init_hooks() runs on every request,
+ * even on non-MPP installs.
+ *
  * @return RTM_MPP_Customization
  */
-RTM_MPP_Customization::instance();
+if ( function_exists( 'mediapress' ) || function_exists( 'mpp_activity_get_attached_media_ids' ) ) {
+	RTM_MPP_Customization::instance();
+}

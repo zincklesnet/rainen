@@ -60,6 +60,12 @@ if ( class_exists( 'bbPress' ) ) {
 			if ( ! empty( $group_ids ) ) {
 				$group_id = $group_ids[0];
 
+				// BuddyPress group functions only exist when BP is active.
+				// bbPress can be installed without BP, so guard before use.
+				if ( ! function_exists( 'bp_is_active' ) ) {
+					return '';
+				}
+
 				// Group cover image check.
 				if ( bp_is_active( 'groups' ) && ! bp_disable_group_cover_image_uploads() && bp_attachments_get_group_has_cover_image( $group_id ) ) {
 					$group_cover_image = bp_attachments_get_attachment(

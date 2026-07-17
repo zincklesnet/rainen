@@ -5,6 +5,8 @@
  * @package reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 /**
  * Jobs
  */
@@ -134,7 +136,8 @@ if ( ! function_exists( 'jobmate_display_the_deadline' ) ) {
 		global $post;
 
 		if ( jobmate_is_wp_job_manager_application_deadline_activated() ) {
-			if ( $deadline = get_post_meta( $post->ID, '_application_deadline', true ) ) {
+			$deadline = get_post_meta( $post->ID, '_application_deadline', true );
+			if ( $deadline ) {
 				$expiring_days = apply_filters( 'job_manager_application_deadline_expiring_days', 2 );
 				$expiring      = ( floor( ( time() - strtotime( $deadline ) ) / ( 60 * 60 * 24 ) ) >= $expiring_days );
 				$expired       = ( floor( ( time() - strtotime( $deadline ) ) / ( 60 * 60 * 24 ) ) >= 0 );
@@ -142,7 +145,15 @@ if ( ! function_exists( 'jobmate_display_the_deadline' ) ) {
 				if ( is_singular( 'job_listing' ) && $expired ) {
 					return;
 				}
-				echo '<div class="application-deadline ' . ( $expiring ? 'expiring' : '' ) . ' ' . ( $expired ? 'expired' : '' ) . '"><label>' . ( $expired ? esc_html__( 'Closed', 'reign' ) : esc_html__( 'Closes', 'reign' ) ) . ':</label> ' . date_i18n( esc_html__( 'M j, Y', 'reign' ), strtotime( $deadline ) ) . '</div>';
+				$deadline_label = $expired ? esc_html__( 'Closed', 'reign' ) : esc_html__( 'Closes', 'reign' );
+				$deadline_date  = date_i18n( esc_html__( 'M j, Y', 'reign' ), strtotime( $deadline ) );
+				printf(
+					'<div class="application-deadline %1$s %2$s"><label>%3$s:</label> %4$s</div>',
+					esc_attr( $expiring ? 'expiring' : '' ),
+					esc_attr( $expired ? 'expired' : '' ),
+					esc_html( $deadline_label ),
+					esc_html( $deadline_date )
+				);
 			}
 		}
 	}
@@ -298,8 +309,8 @@ if ( ! function_exists( 'jobmate_single_resume_head_right_end' ) ) {
 if ( ! function_exists( 'jobmate_resume_category' ) ) {
 	function jobmate_resume_category() {
 		global $post;
-		$post = get_post( $post );
-		if ( $post->post_type !== 'resume' ) {
+		$resume_post = get_post( $post );
+		if ( 'resume' !== $resume_post->post_type ) {
 			return '';
 		}
 
@@ -307,7 +318,7 @@ if ( ! function_exists( 'jobmate_resume_category' ) ) {
 			return '';
 		}
 
-		$categories = wp_get_object_terms( $post->ID, 'resume_category' );
+		$categories = wp_get_object_terms( $resume_post->ID, 'resume_category' );
 
 		if ( is_wp_error( $categories ) ) {
 			return '';
@@ -324,7 +335,8 @@ if ( ! function_exists( 'jobmate_resume_category' ) ) {
 if ( ! function_exists( 'jobmate_single_candidate_content_navbar_links' ) ) {
 	function jobmate_single_candidate_content_navbar_links() {
 		global $post;
-		if ( ! empty( get_the_content() || get_post_meta( $post->ID, '_candidate_education', true ) || get_post_meta( $post->ID, '_candidate_experience', true ) || ( ( $skills = wp_get_object_terms( $post->ID, 'resume_skill', array( 'fields' => 'names' ) ) ) && is_array( $skills ) ) || get_the_candidate_video() ) ) {
+		$skills = wp_get_object_terms( $post->ID, 'resume_skill', array( 'fields' => 'names' ) );
+		if ( ! empty( get_the_content() || get_post_meta( $post->ID, '_candidate_education', true ) || get_post_meta( $post->ID, '_candidate_experience', true ) || ( $skills && is_array( $skills ) ) || get_the_candidate_video() ) ) {
 			echo '<ul class="nav navbar-links">';
 			if ( ! empty( get_the_content() ) ) :
 				?>
@@ -341,7 +353,7 @@ if ( ! function_exists( 'jobmate_single_candidate_content_navbar_links' ) ) {
 					<li class="nav-item navbar-link"><a class="nav-link" href="#candidate-experience"><i class="far fa-chart-area"></i><?php esc_html_e( 'Work Experience', 'reign' ); ?></a></li>
 				<?php
 				endif;
-			if ( ( $skills = wp_get_object_terms( $post->ID, 'resume_skill', array( 'fields' => 'names' ) ) ) && is_array( $skills ) ) :
+			if ( $skills && is_array( $skills ) ) :
 				?>
 					<li class="nav-item navbar-link"><a class="nav-link" href="#candidate-skills"><i class="far fa-lightbulb"></i><?php esc_html_e( 'Professional Skills', 'reign' ); ?></a></li>
 				<?php
@@ -389,10 +401,13 @@ if ( ! function_exists( 'jobmate_candidate_info' ) ) {
 			<div class="candidate-image">
 				<?php the_candidate_photo(); ?>
 			</div>
-			<h4 class="candidate-name"><?php echo apply_filters( 'jobmate_candidate_name', get_the_title() ); ?></h4>
-			<p class="job-title"><?php echo apply_filters( 'jobmate_candidate_title', get_the_candidate_title() ); ?></p>
-			<?php if ( get_post_meta( $post->ID, '_candidate_email', true ) ) : ?>
-				<p class="candidate-e-mail"><a href="mailto:<?php echo get_post_meta( $post->ID, '_candidate_email', true ); ?>"><i class="far fa-envelope"></i><?php echo get_post_meta( $post->ID, '_candidate_email', true ); ?></a></p>
+			<h4 class="candidate-name"><?php echo esc_html( apply_filters( 'jobmate_candidate_name', get_the_title() ) ); ?></h4>
+			<p class="job-title"><?php echo esc_html( apply_filters( 'jobmate_candidate_title', get_the_candidate_title() ) ); ?></p>
+			<?php
+			$candidate_email = get_post_meta( $post->ID, '_candidate_email', true );
+			if ( $candidate_email ) :
+				?>
+				<p class="candidate-e-mail"><a href="mailto:<?php echo esc_attr( antispambot( $candidate_email ) ); ?>"><i class="far fa-envelope"></i><?php echo esc_html( antispambot( $candidate_email ) ); ?></a></p>
 				<?php
 			endif;
 			jobmate_the_resume_links();
@@ -503,7 +518,7 @@ if ( ! function_exists( 'jobmate_candidate_description' ) ) {
 			?>
 			<div id="candidate-description" class="candidate-description">
 				<h2><?php esc_html_e( 'Candidates About', 'reign' ); ?></h2>
-				<?php echo apply_filters( 'the_resume_description', get_the_content() ); ?>
+				<?php echo wp_kses_post( apply_filters( 'the_resume_description', get_the_content() ) ); ?>
 			</div>
 			<?php
 		endif;
@@ -513,7 +528,8 @@ if ( ! function_exists( 'jobmate_candidate_description' ) ) {
 if ( ! function_exists( 'jobmate_candidate_qualification' ) ) {
 	function jobmate_candidate_qualification() {
 		global $post;
-		if ( $items = get_post_meta( $post->ID, '_candidate_education', true ) ) :
+		$items = get_post_meta( $post->ID, '_candidate_education', true );
+		if ( $items ) :
 			?>
 			<div id="candidate-qualification" class="candidate-qualification">
 				<h2><?php esc_html_e( 'Education', 'reign' ); ?></h2>
@@ -524,10 +540,10 @@ if ( ! function_exists( 'jobmate_candidate_qualification' ) ) {
 
 						<dt>
 							<small class="date"><?php echo esc_html( $item['date'] ); ?></small>
-							<div class="timeline-title"><?php printf( '%s %s', '<strong class="location">' . esc_html( $item['location'] ) . '</strong>', '<span class="qualification">' . esc_html( $item['qualification'] ) . '</span>' ); ?></div>
+							<div class="timeline-title"><?php printf( '%s %s', '<strong class="location">' . esc_html( $item['location'] ) . '</strong>', '<span class="qualification">' . esc_html( $item['qualification'] ) . '</span>' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Values escaped individually above. ?></div>
 						</dt>
 						<dd>
-							<?php echo wpautop( wptexturize( $item['notes'] ) ); ?>
+							<?php echo wp_kses_post( wpautop( wptexturize( $item['notes'] ) ) ); ?>
 						</dd>
 
 					<?php
@@ -543,7 +559,8 @@ if ( ! function_exists( 'jobmate_candidate_qualification' ) ) {
 if ( ! function_exists( 'jobmate_candidate_experience' ) ) {
 	function jobmate_candidate_experience() {
 		global $post;
-		if ( $items = get_post_meta( $post->ID, '_candidate_experience', true ) ) :
+		$items = get_post_meta( $post->ID, '_candidate_experience', true );
+		if ( $items ) :
 			?>
 			<div id="candidate-experience" class="candidate-experience">
 				<h2><?php esc_html_e( 'Work & Experience', 'reign' ); ?></h2>
@@ -553,11 +570,11 @@ if ( ! function_exists( 'jobmate_candidate_experience' ) ) {
 					?>
 
 						<dt>
-							<div class="timeline-title"><?php printf( '%s %s', '<strong class="job_title">' . esc_html( $item['job_title'] ) . '</strong>', '<span class="employer">' . esc_html( $item['employer'] ) . '</span>' ); ?></div>
+							<div class="timeline-title"><?php printf( '%s %s', '<strong class="job_title">' . esc_html( $item['job_title'] ) . '</strong>', '<span class="employer">' . esc_html( $item['employer'] ) . '</span>' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Values escaped individually above. ?></div>
 							<small class="date"><?php echo esc_html( $item['date'] ); ?></small>
 						</dt>
 						<dd>
-							<?php echo wpautop( wptexturize( $item['notes'] ) ); ?>
+							<?php echo wp_kses_post( wpautop( wptexturize( $item['notes'] ) ) ); ?>
 						</dd>
 
 					<?php
@@ -573,12 +590,17 @@ if ( ! function_exists( 'jobmate_candidate_experience' ) ) {
 if ( ! function_exists( 'jobmate_candidate_skill' ) ) {
 	function jobmate_candidate_skill() {
 		global $post;
-		if ( ( $skills = wp_get_object_terms( $post->ID, 'resume_skill', array( 'fields' => 'names' ) ) ) && is_array( $skills ) ) :
+		$skills = wp_get_object_terms( $post->ID, 'resume_skill', array( 'fields' => 'names' ) );
+		if ( $skills && is_array( $skills ) ) :
 			?>
 			<div id="candidate-skills" class="candidate-skills">
 				<h2><?php esc_html_e( 'Professional Skills', 'reign' ); ?></h2>
 				<ul class="resume-manager-skills">
-					<?php echo '<li>' . implode( '</li><li>', $skills ) . '</li>'; ?>
+					<?php
+					foreach ( $skills as $skill ) {
+						echo '<li>' . esc_html( $skill ) . '</li>';
+					}
+					?>
 				</ul>
 			</div>
 			<?php
@@ -599,7 +621,28 @@ if ( ! function_exists( 'jobmate_candidate_video' ) ) {
 			?>
 			<div id="candidate-video" class="candidate-video">
 				<h2><?php esc_html_e( 'Candidates Video', 'reign' ); ?></h2>
-				<?php echo apply_filters( 'the_candidate_video', the_candidate_video() ); ?>
+				<?php
+				// the_candidate_video() echoes the embed markup itself; capture and allow oEmbed/iframe HTML.
+				ob_start();
+				the_candidate_video();
+				$candidate_video_html = ob_get_clean();
+				$video_allowed_html   = array_merge(
+					wp_kses_allowed_html( 'post' ),
+					array(
+						'iframe' => array(
+							'src'             => true,
+							'width'           => true,
+							'height'          => true,
+							'frameborder'     => true,
+							'allow'           => true,
+							'allowfullscreen' => true,
+							'title'           => true,
+							'class'           => true,
+						),
+					)
+				);
+				echo wp_kses( apply_filters( 'the_candidate_video', $candidate_video_html ), $video_allowed_html );
+				?>
 			</div>
 			<?php
 		endif;

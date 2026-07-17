@@ -5,6 +5,8 @@
  * @package reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 if ( ! function_exists( 'render_store_header_on_top' ) ) {
 	/**
 	 * Renders the store header at the top of the page.

@@ -5,6 +5,8 @@
  * @package reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 // Hook into the template_redirect action.
 add_action( 'template_redirect', 'reign_remove_single_course_page_header' );
 
