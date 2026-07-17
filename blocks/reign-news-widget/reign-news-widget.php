@@ -5,6 +5,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 if ( ! function_exists( 'reign_news_widget_block_init' ) ) {
 	/**
 	 * Registers the block using the metadata loaded from the `block.json` file.

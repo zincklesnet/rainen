@@ -8,6 +8,8 @@
  * @version 10.0.0
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 $avatar_url = bp_activity_get_meta( bp_get_activity_id(), 'member_avatar_image', true );
 $itme_name  = bp_core_get_user_displayname( bp_get_activity_user_id() );
 
@@ -59,6 +61,7 @@ $itme_name  = bp_core_get_user_displayname( bp_get_activity_user_id() );
 					'class'   => 'avatar',
 					'id'      => false,
 					'html'    => false,
+					/* translators: %s: member display name. */
 					'alt'     => sprintf( __( 'Profile picture of %s', 'reign' ), $itme_name ),
 				)
 			);

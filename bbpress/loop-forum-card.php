@@ -28,7 +28,7 @@ $layout_class = in_array( $layout, array( 'cover', 'card' ) ) ? 'rg-forum-detail
 	<div class="rg-cover-list-item">
 		<?php if ( function_exists( 'bbp_get_forum_thumbnail_image' ) ) { ?>
 			<a href="<?php bbp_forum_permalink(); ?>" class="rg-cover-wrap" title="<?php bbp_forum_title(); ?>">
-				<?php echo bbp_get_forum_thumbnail_image( bbp_get_forum_id(), 'large', 'full' ); ?>
+				<?php echo wp_kses_post( bbp_get_forum_thumbnail_image( bbp_get_forum_id(), 'large', 'full' ) ); ?>
 			</a>
 		<?php } else { ?>
 			<a href="<?php bbp_forum_permalink(); ?>" class="rg-cover-wrap" title="<?php bbp_forum_title(); ?>">
@@ -73,7 +73,7 @@ $layout_class = in_array( $layout, array( 'cover', 'card' ) ) ? 'rg-forum-detail
 				?>
 				</div>
 
-			<?php if ( $layout != 'cover' ) { ?>
+			<?php if ( 'cover' !== $layout ) { ?>
 				<div class="rg-timestamp">
 					<?php do_action( 'bbp_theme_before_forum_freshness_link' ); ?>
 					<?php bbp_forum_freshness_link(); ?>

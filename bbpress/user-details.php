@@ -9,6 +9,8 @@
 defined( 'ABSPATH' ) || exit;
 
 do_action( 'bbp_template_before_user_details' );
+
+$bbp_display_name = bbp_get_displayed_user_field( 'display_name' );
 ?>
 
 <div id="bbp-single-user-details">
@@ -26,37 +28,57 @@ do_action( 'bbp_template_before_user_details' );
 	<div id="bbp-user-navigation">
 		<ul>
 			<?php if ( ! class_exists( 'WBPBI_PeepSo_BbPress_Integration' ) ) : ?>
-			<li class="<?php if ( bbp_is_single_user_profile() ) : ?>current<?php endif; ?>">
+			<li class="
+				<?php
+				if ( bbp_is_single_user_profile() ) :
+					?>
+				current<?php endif; ?>">
 				<span class="vcard bbp-user-profile-link">
-					<a class="url fn n" href="<?php bbp_user_profile_url(); ?>" title="<?php printf( esc_attr__( "%s's Profile", 'reign' ), bbp_get_displayed_user_field( 'display_name' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" rel="me"><?php esc_html_e( 'Profile', 'reign' ); ?></a>
+					<a class="url fn n" href="<?php bbp_user_profile_url(); ?>" title="<?php /* translators: %s: User display name. */ printf( esc_attr__( "%s's Profile", 'reign' ), esc_attr( $bbp_display_name ) ); ?>" rel="me"><?php esc_html_e( 'Profile', 'reign' ); ?></a>
 				</span>
 			</li
 			<?php endif; ?>
 
-			<li class="<?php if ( bbp_is_single_user_topics() ) : ?>current<?php endif; ?>">
+			<li class="
+			<?php
+			if ( bbp_is_single_user_topics() ) :
+				?>
+				current<?php endif; ?>">
 				<span class='bbp-user-topics-created-link'>
-					<a href="<?php bbp_user_topics_created_url(); ?>" title="<?php printf( esc_attr__( "%s's Topics Started", 'reign' ), bbp_get_displayed_user_field( 'display_name' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Topics Started', 'reign' ); ?></a>
+					<a href="<?php bbp_user_topics_created_url(); ?>" title="<?php /* translators: %s: User display name. */ printf( esc_attr__( "%s's Topics Started", 'reign' ), esc_attr( $bbp_display_name ) ); ?>"><?php esc_html_e( 'Topics Started', 'reign' ); ?></a>
 				</span>
 			</li>
 
-			<li class="<?php if ( bbp_is_single_user_replies() ) : ?>current<?php endif; ?>">
+			<li class="
+			<?php
+			if ( bbp_is_single_user_replies() ) :
+				?>
+				current<?php endif; ?>">
 				<span class='bbp-user-replies-created-link'>
-					<a href="<?php bbp_user_replies_created_url(); ?>" title="<?php printf( esc_attr__( "%s's Replies Created", 'reign' ), bbp_get_displayed_user_field( 'display_name' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Replies Created', 'reign' ); ?></a>
+					<a href="<?php bbp_user_replies_created_url(); ?>" title="<?php /* translators: %s: User display name. */ printf( esc_attr__( "%s's Replies Created", 'reign' ), esc_attr( $bbp_display_name ) ); ?>"><?php esc_html_e( 'Replies Created', 'reign' ); ?></a>
 				</span>
 			</li>
 
 			<?php if ( bbp_is_engagements_active() ) : ?>
-				<li class="<?php if ( bbp_is_single_user_engagements() ) : ?>current<?php endif; ?>">
+				<li class="
+				<?php
+				if ( bbp_is_single_user_engagements() ) :
+					?>
+					current<?php endif; ?>">
 					<span class='bbp-user-engagements-created-link'>
-						<a href="<?php bbp_user_engagements_url(); ?>" title="<?php printf( esc_attr__( "%s's Engagements", 'reign' ), bbp_get_displayed_user_field( 'display_name' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Engagements', 'reign' ); ?></a>
+						<a href="<?php bbp_user_engagements_url(); ?>" title="<?php /* translators: %s: User display name. */ printf( esc_attr__( "%s's Engagements", 'reign' ), esc_attr( $bbp_display_name ) ); ?>"><?php esc_html_e( 'Engagements', 'reign' ); ?></a>
 					</span>
 				</li>
 			<?php endif; ?>
 
 			<?php if ( bbp_is_favorites_active() ) : ?>
-				<li class="<?php if ( bbp_is_favorites() ) : ?>current<?php endif; ?>">
+				<li class="
+				<?php
+				if ( bbp_is_favorites() ) :
+					?>
+					current<?php endif; ?>">
 					<span class="bbp-user-favorites-link">
-						<a href="<?php bbp_favorites_permalink(); ?>" title="<?php printf( esc_attr__( "%s's Favorites", 'reign' ), bbp_get_displayed_user_field( 'display_name' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Favorites', 'reign' ); ?></a>
+						<a href="<?php bbp_favorites_permalink(); ?>" title="<?php /* translators: %s: User display name. */ printf( esc_attr__( "%s's Favorites", 'reign' ), esc_attr( $bbp_display_name ) ); ?>"><?php esc_html_e( 'Favorites', 'reign' ); ?></a>
 					</span>
 				</li>
 			<?php endif; ?>
@@ -64,16 +86,24 @@ do_action( 'bbp_template_before_user_details' );
 			<?php if ( bbp_is_user_home() || current_user_can( 'edit_user', bbp_get_displayed_user_id() ) ) : ?>
 
 				<?php if ( bbp_is_subscriptions_active() ) : ?>
-					<li class="<?php if ( bbp_is_subscriptions() ) : ?>current<?php endif; ?>">
+					<li class="
+					<?php
+					if ( bbp_is_subscriptions() ) :
+						?>
+						current<?php endif; ?>">
 						<span class="bbp-user-subscriptions-link">
-							<a href="<?php bbp_subscriptions_permalink(); ?>" title="<?php printf( esc_attr__( "%s's Subscriptions", 'reign' ), bbp_get_displayed_user_field( 'display_name' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Subscriptions', 'reign' ); ?></a>
+							<a href="<?php bbp_subscriptions_permalink(); ?>" title="<?php /* translators: %s: User display name. */ printf( esc_attr__( "%s's Subscriptions", 'reign' ), esc_attr( $bbp_display_name ) ); ?>"><?php esc_html_e( 'Subscriptions', 'reign' ); ?></a>
 						</span>
 					</li>
 				<?php endif; ?>
 
-				<li class="<?php if ( bbp_is_single_user_edit() ) : ?>current<?php endif; ?>">
+				<li class="
+				<?php
+				if ( bbp_is_single_user_edit() ) :
+					?>
+					current<?php endif; ?>">
 					<span class="bbp-user-edit-link">
-						<a href="<?php bbp_user_profile_edit_url(); ?>" title="<?php printf( esc_attr__( "Edit %s's Profile", 'reign' ), bbp_get_displayed_user_field( 'display_name' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Edit', 'reign' ); ?></a>
+						<a href="<?php bbp_user_profile_edit_url(); ?>" title="<?php /* translators: %s: User display name. */ printf( esc_attr__( "Edit %s's Profile", 'reign' ), esc_attr( $bbp_display_name ) ); ?>"><?php esc_html_e( 'Edit', 'reign' ); ?></a>
 					</span>
 				</li>
 

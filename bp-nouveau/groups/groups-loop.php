@@ -5,11 +5,16 @@
  * @since 3.0.0
  * @version 12.0.0
  */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 ?>
 
 <?php
 $loops_layout = 1;
+// Customizer preview data is injected by BuddyPress inside the preview iframe; no form processing occurs here.
+// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Customizer live-preview read; value cast with intval(), no state change.
 if ( isset( $_POST['customized']['bp_nouveau_appearance_groups_layout'] ) ) {
+	// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Customizer live-preview read; value cast with intval(), no state change.
 	$loops_layout = intval( $_POST['customized']['bp_nouveau_appearance_groups_layout'] );
 } else {
 	$bp_nouveau_appearance = bp_get_option( 'bp_nouveau_appearance', array() );
@@ -116,7 +121,7 @@ if ( isset( $_POST['customized']['bp_nouveau_appearance_groups_layout'] ) ) {
 
 	global $wbtm_reign_settings;
 	$group_directory_type = $wbtm_reign_settings['reign_buddyextender']['group_directory_type'] ?? 'wbtm-group-directory-type-2';
-	$img_class            = ( $group_directory_type == 'wbtm-group-directory-type-4' ) ? 'img-card' : '';
+	$img_class            = ( 'wbtm-group-directory-type-4' === $group_directory_type ) ? 'img-card' : '';
 	?>
 
 	<?php if ( bp_get_current_group_directory_type() ) : ?>
@@ -150,7 +155,7 @@ if ( isset( $_POST['customized']['bp_nouveau_appearance_groups_layout'] ) ) {
 						<?php if ( ! bp_disable_group_avatar_uploads() ) : ?>
 							<div class="item-avatar">
 								<?php
-								if ( $group_directory_type == 'wbtm-group-directory-type-4' ) {
+								if ( 'wbtm-group-directory-type-4' === $group_directory_type ) {
 									echo '<figure class="img-dynamic aspect-ratio avatar">';
 								}
 								?>
@@ -160,7 +165,7 @@ if ( isset( $_POST['customized']['bp_nouveau_appearance_groups_layout'] ) ) {
 									<a class="item-avatar-group <?php echo esc_attr( $img_class ); ?>" href="<?php bp_group_permalink(); ?>"><?php bp_group_avatar( bp_nouveau_avatar_args() ); ?></a>
 								<?php endif; ?>
 								<?php
-								if ( $group_directory_type == 'wbtm-group-directory-type-4' ) {
+								if ( 'wbtm-group-directory-type-4' === $group_directory_type ) {
 									echo '</figure>';
 								}
 								?>
@@ -214,11 +219,11 @@ if ( isset( $_POST['customized']['bp_nouveau_appearance_groups_layout'] ) ) {
 
 							<!-- Added action buttons here -->
 							<?php
-							if ( $group_directory_type == 'wbtm-group-directory-type-3' ) {
+							if ( 'wbtm-group-directory-type-3' === $group_directory_type ) {
 								echo '<div class="action-wrap"><i class="far fa-plus-circle"></i>';
 							}
 							bp_nouveau_groups_loop_buttons();
-							if ( $group_directory_type == 'wbtm-group-directory-type-3' ) {
+							if ( 'wbtm-group-directory-type-3' === $group_directory_type ) {
 								echo '</div>';
 							}
 							?>

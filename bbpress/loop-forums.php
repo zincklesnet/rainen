@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
 $layout = get_theme_mod( 'forum_archive_layout', 'default' );
 $class  = 'rg-card-list';
 
-if ( $layout == 'cover' ) {
+if ( 'cover' === $layout ) {
 	$class = 'rg-cover-list';
 }
 ?>
@@ -24,7 +24,7 @@ if ( $layout == 'cover' ) {
 <!-- Forums List -->
 <?php do_action( 'bbp_template_before_forums_loop' ); ?>
 
-	<?php if ( $layout == 'card' || $layout == 'cover' ) { ?>
+	<?php if ( 'card' === $layout || 'cover' === $layout ) { ?>
 		<ul class="grid-view wb-grid rg-forums-list <?php echo esc_attr( $class ); ?>">
 			<?php
 			while ( bbp_forums() ) :

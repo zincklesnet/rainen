@@ -43,15 +43,21 @@ if ( ! bbp_is_single_forum() ) :
 					<legend>
 
 						<?php
-						if ( bbp_is_topic_edit() ) :
-							printf( esc_html__( 'Now Editing &ldquo;%s&rdquo;', 'reign' ), bbp_get_topic_title() );
-						else :
-							if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
-								bbp_is_single_forum() ? printf( esc_html__( 'Ask a question or share an idea', 'reign' ), bbp_get_forum_title() ) : esc_html_e( 'Start New Discussion', 'reign' );
+						if ( bbp_is_topic_edit() ) {
+							/* translators: %s: Topic title being edited. */
+							printf( esc_html__( 'Now Editing &ldquo;%s&rdquo;', 'reign' ), esc_html( bbp_get_topic_title() ) );
+						} elseif ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
+							if ( bbp_is_single_forum() ) {
+								esc_html_e( 'Ask a question or share an idea', 'reign' );
 							} else {
-								( bbp_is_single_forum() && bbp_get_forum_title() ) ? printf( esc_html__( 'Create New Topic in &ldquo;%s&rdquo;', 'reign' ), bbp_get_forum_title() ) : esc_html_e( 'Create New Topic', 'reign' );
+								esc_html_e( 'Start New Discussion', 'reign' );
 							}
-						endif;
+						} elseif ( bbp_is_single_forum() && bbp_get_forum_title() ) {
+							/* translators: %s: Forum title. */
+							printf( esc_html__( 'Create New Topic in &ldquo;%s&rdquo;', 'reign' ), esc_html( bbp_get_forum_title() ) );
+						} else {
+							esc_html_e( 'Create New Topic', 'reign' );
+						}
 						?>
 
 					</legend>
@@ -94,7 +100,8 @@ if ( ! bbp_is_single_forum() ) :
 							<?php if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) : ?>
 								<label for="bbp_topic_title"><?php esc_html_e( 'Discussion Title', 'reign' ); ?></label>
 							<?php else : ?>
-								<label for="bbp_topic_title"><?php printf( esc_html__( 'Topic Title (Maximum Length: %d):', 'reign' ), bbp_get_title_max_length() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></label>
+								<?php /* translators: %d: Maximum topic title length. */ ?>
+								<label for="bbp_topic_title"><?php printf( esc_html__( 'Topic Title (Maximum Length: %d):', 'reign' ), absint( bbp_get_title_max_length() ) ); ?></label>
 							<?php endif; ?>
 							<input type="text" id="bbp_topic_title" value="<?php bbp_form_topic_title(); ?>" size="40" name="bbp_topic_title" maxlength="<?php bbp_title_max_length(); ?>" />
 						</p>
@@ -116,7 +123,8 @@ if ( ! bbp_is_single_forum() ) :
 						<?php if ( ! ( bbp_use_wp_editor() || current_user_can( 'unfiltered_html' ) ) ) : ?>
 
 							<p class="form-allowed-tags">
-								<label><?php printf( esc_html__( 'You may use these %s tags and attributes:', 'reign' ), '<abbr title="HyperText Markup Language">HTML</abbr>' ); ?></label>
+								<?php /* translators: %s: HTML abbreviation markup. */ ?>
+								<label><?php printf( esc_html__( 'You may use these %s tags and attributes:', 'reign' ), '<abbr title="HyperText Markup Language">HTML</abbr>' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Hardcoded safe HTML literal. ?></label>
 								<code><?php bbp_allowed_tags(); ?></code>
 							</p>
 
@@ -228,7 +236,7 @@ if ( ! bbp_is_single_forum() ) :
 								</legend>
 
 								<div>
-									<label for="bbp_topic_edit_reason"><?php printf( esc_html__( 'Optional reason for editing:', 'reign' ), bbp_get_current_user_name() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></label>
+									<label for="bbp_topic_edit_reason"><?php esc_html_e( 'Optional reason for editing:', 'reign' ); ?></label>
 									<input type="text" value="<?php bbp_form_topic_edit_reason(); ?>" size="40" name="bbp_topic_edit_reason" id="bbp_topic_edit_reason" />
 								</div>
 							</fieldset>
@@ -268,9 +276,11 @@ if ( ! bbp_is_single_forum() ) :
 			<div class="bbp-template-notice">
 				<ul>
 					<?php if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) : ?>
-						<p><?php printf( esc_html__( 'The forum "%s" is closed to new discussions and replies.', 'reign' ), bbp_get_forum_title() ); ?></p>
+						<?php /* translators: %s: Forum title. */ ?>
+					<p><?php printf( esc_html__( 'The forum "%s" is closed to new discussions and replies.', 'reign' ), esc_html( bbp_get_forum_title() ) ); ?></p>
 					<?php else : ?>
-						<li><?php printf( esc_html__( 'The forum &#8216;%s&#8217; is closed to new topics and replies.', 'reign' ), bbp_get_forum_title() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></li>
+						<?php /* translators: %s: Forum title. */ ?>
+					<li><?php printf( esc_html__( 'The forum &#8216;%s&#8217; is closed to new topics and replies.', 'reign' ), esc_html( bbp_get_forum_title() ) ); ?></li>
 					<?php endif; ?>
 				</ul>
 			</div>

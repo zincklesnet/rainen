@@ -6,6 +6,8 @@
  * @version 3.0.0
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 global $wbtm_reign_settings;
 
 // Member header position
@@ -16,18 +18,26 @@ $member_header_position = isset( $wbtm_reign_settings['reign_buddyextender']['me
 $member_header_position = apply_filters( 'wbtm_rth_manage_member_header_position', $member_header_position );
 
 // BuddyPress appearance & nav style settings
-$appearance = bp_get_option( 'bp_nouveau_appearance', array( 'user_nav_display' => false ) );
+$appearance  = bp_get_option( 'bp_nouveau_appearance', array( 'user_nav_display' => false ) );
 $nav_display = ! empty( $appearance['user_nav_display'] );
 
 $nav_style = get_theme_mod( 'buddypress_single_member_nav_style', 'iconic' );
-$class     = $nav_style === 'iconic' ? 'reign-nav-iconic' : 'reign-default';
+$class     = 'iconic' === $nav_style ? 'reign-nav-iconic' : 'reign-default';
 
 $nav_view = get_theme_mod( 'buddypress_main_nav_view_style', 'text_icon' );
-$nav_view_style = match ( $nav_view ) {
-	'swipe'     => 'reign-nav-swipe',
-	'text_icon' => 'reign-nav-swipe text-icon',
-	default     => 'reign-nav-more',
-};
+// switch (not match) — match expressions are PHP 8.0+ and would
+// parse-fatal on PHP 7.4, the theme's declared minimum.
+switch ( $nav_view ) {
+	case 'swipe':
+		$nav_view_style = 'reign-nav-swipe';
+		break;
+	case 'text_icon':
+		$nav_view_style = 'reign-nav-swipe text-icon';
+		break;
+	default:
+		$nav_view_style = 'reign-nav-more';
+		break;
+}
 
 // Determine if we're in a context that should *not* display nav/sidebar/header
 $is_restricted_context = bp_is_user_messages()
@@ -44,7 +54,7 @@ $profile_link = trailingslashit( bp_displayed_user_domain() . bp_get_profile_slu
 
 <?php bp_nouveau_member_hook( 'before', 'home_content' ); ?>
 
-<?php if ( $member_header_position === 'top' ) : ?>
+<?php if ( 'top' === $member_header_position ) : ?>
 	<div id="item-header"
 		role="complementary"
 		data-bp-item-id="<?php echo esc_attr( bp_displayed_user_id() ); ?>"
@@ -80,7 +90,7 @@ $profile_link = trailingslashit( bp_displayed_user_domain() . bp_get_profile_slu
 
 				<div class="item-body-inner-wrapper">
 
-					<?php if ( $member_header_position === 'inside' ) : ?>
+					<?php if ( 'inside' === $member_header_position ) : ?>
 						<div id="item-header"
 							role="complementary"
 							data-bp-item-id="<?php echo esc_attr( bp_displayed_user_id() ); ?>"

@@ -12,7 +12,8 @@ defined( 'ABSPATH' ) || exit;
 <div id="post-<?php bbp_forum_id(); ?>" <?php bbp_forum_class(); ?>>
 	<div class="bbp-forum-header">
 		<div class="bbp-meta">
-			<span class="bbp-forum-post-date"><?php printf( esc_html__( 'Updated %s', 'reign' ), bbp_get_forum_last_active_time() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+				<?php /* translators: %s: Forum last active time. */ ?>
+				<span class="bbp-forum-post-date"><?php printf( esc_html__( 'Updated %s', 'reign' ), esc_html( bbp_get_forum_last_active_time() ) ); ?></span>
 			<a href="<?php bbp_forum_permalink(); ?>" class="bbp-forum-permalink">#<?php bbp_forum_id(); ?></a>
 		</div><!-- .bbp-meta -->
 

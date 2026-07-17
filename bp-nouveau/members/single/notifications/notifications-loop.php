@@ -6,6 +6,8 @@
  * @version 3.1.0
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 if ( bp_has_notifications( bp_ajax_querystring( 'notifications' ) ) ) :
 
 	bp_nouveau_pagination( 'top' ); ?>

@@ -6,6 +6,8 @@
  * @version 12.0.0
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 if ( class_exists( 'Youzify' ) ) {
 	?>
 	<div class="item-list-tabs no-ajax" id="subnav" aria-label="<?php esc_attr_e( 'Member secondary navigation', 'reign' ); ?>" role="navigation">

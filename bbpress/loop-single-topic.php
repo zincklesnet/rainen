@@ -88,7 +88,8 @@ defined( 'ABSPATH' ) || exit;
 
 					<?php do_action( 'bbp_theme_before_topic_started_by' ); ?>
 
-					<span class="bbp-topic-started-by"><?php printf( esc_html__( 'by %1$s', 'reign' ), bbp_get_topic_author_link( array( 'type' => 'name' ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span> <span class="bbp-topic-freshness"><?php do_action( 'bbp_theme_before_topic_freshness_link' ); ?><?php esc_html_e( 'last updated', 'reign' ); ?> <?php bbp_topic_freshness_link(); ?><?php do_action( 'bbp_theme_after_topic_freshness_link' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+					<?php /* translators: %1$s: Topic author link. */ ?>
+					<span class="bbp-topic-started-by"><?php printf( esc_html__( 'by %1$s', 'reign' ), wp_kses_post( bbp_get_topic_author_link( array( 'type' => 'name' ) ) ) ); ?></span> <span class="bbp-topic-freshness"><?php do_action( 'bbp_theme_before_topic_freshness_link' ); ?><?php esc_html_e( 'last updated', 'reign' ); ?> <?php bbp_topic_freshness_link(); ?><?php do_action( 'bbp_theme_after_topic_freshness_link' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 
 					<?php do_action( 'bbp_theme_after_topic_started_by' ); ?>
 
@@ -96,7 +97,12 @@ defined( 'ABSPATH' ) || exit;
 
 						<?php do_action( 'bbp_theme_before_topic_started_in' ); ?>
 
-						<span class="bbp-topic-started-in"><?php printf( esc_html__( 'in: %1$s', 'reign' ), '<a href="' . bbp_get_forum_permalink( bbp_get_topic_forum_id() ) . '">' . bbp_get_forum_title( bbp_get_topic_forum_id() ) . '</a>' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+						<?php
+						$started_in_link = '<a href="' . esc_url( bbp_get_forum_permalink( bbp_get_topic_forum_id() ) ) . '">' . esc_html( bbp_get_forum_title( bbp_get_topic_forum_id() ) ) . '</a>';
+						/* translators: %1$s: Forum link the topic was started in. */
+						$started_in_text = sprintf( esc_html__( 'in: %1$s', 'reign' ), wp_kses_post( $started_in_link ) );
+						?>
+						<span class="bbp-topic-started-in"><?php echo wp_kses_post( $started_in_text ); ?></span>
 						<?php do_action( 'bbp_theme_after_topic_started_in' ); ?>
 
 					<?php endif; ?>

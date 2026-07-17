@@ -6,6 +6,8 @@
  * @version 12.0.0
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 global $wbtm_reign_settings;
 
 // Determine if the header should be displayed

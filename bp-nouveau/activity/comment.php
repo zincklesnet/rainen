@@ -9,6 +9,8 @@
  * @version 12.0.0
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 bp_nouveau_activity_hook( 'before', 'comment' ); ?>
 
 <li id="acomment-<?php bp_activity_comment_id(); ?>" class="comment-item" <?php bp_nouveau_activity_comment_data_attribute_id(); ?>>

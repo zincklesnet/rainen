@@ -9,6 +9,8 @@
  * @version 10.0.0
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 bp_nouveau_activity_hook( 'before', 'entry' );
 $activity_id      = bp_get_activity_id();
 $bp_edit_activity = bp_activity_get_meta( $activity_id, '_bp_edit_activity', true );

@@ -5,11 +5,16 @@
  * @since 3.0.0
  * @version 3.2.0
  */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 ?>
 
 <?php
 $loops_layout = 1;
+// Customizer preview data is injected by BuddyPress inside the preview iframe; no form processing occurs here.
+// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Customizer live-preview read; value cast with intval(), no state change.
 if ( isset( $_POST['customized']['bp_nouveau_appearance_members_group_layout'] ) ) {
+	// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Customizer live-preview read; value cast with intval(), no state change.
 	$loops_layout = intval( $_POST['customized']['bp_nouveau_appearance_members_group_layout'] );
 } else {
 	$bp_nouveau_appearance = bp_get_option( 'bp_nouveau_appearance', array() );
@@ -92,7 +97,7 @@ if ( isset( $_POST['customized']['bp_nouveau_appearance_members_group_layout'] )
 	global $wbtm_reign_settings;
 	$member_directory_type = $wbtm_reign_settings['reign_buddyextender']['member_directory_type'] ?? 'wbtm-member-directory-type-2';
 
-	$img_class = ( $member_directory_type == 'wbtm-member-directory-type-4' ) ? 'img-card' : '';
+	$img_class = ( 'wbtm-member-directory-type-4' === $member_directory_type ) ? 'img-card' : '';
 	?>
 
 	<?php if ( bp_group_has_members( bp_ajax_querystring( 'group_members' ) ) ) : ?>
@@ -119,7 +124,7 @@ if ( isset( $_POST['customized']['bp_nouveau_appearance_members_group_layout'] )
 
 						<div class="item-avatar">
 							<?php
-							if ( $member_directory_type == 'wbtm-member-directory-type-4' ) {
+							if ( 'wbtm-member-directory-type-4' === $member_directory_type ) {
 								echo '<figure class="img-dynamic aspect-ratio avatar">';
 							}
 							?>
@@ -127,14 +132,14 @@ if ( isset( $_POST['customized']['bp_nouveau_appearance_members_group_layout'] )
 								<?php bp_group_member_avatar(); ?>
 							</a>
 							<?php
-							if ( $member_directory_type == 'wbtm-member-directory-type-4' ) {
+							if ( 'wbtm-member-directory-type-4' === $member_directory_type ) {
 								echo '</figure>';
 							}
 							?>
 						</div>
 
 						<?php
-						if ( $member_directory_type == 'wbtm-member-directory-type-4' ) {
+						if ( 'wbtm-member-directory-type-4' === $member_directory_type ) {
 							echo '<div class="item-wrapper">';
 						}
 						?>
@@ -156,7 +161,7 @@ if ( isset( $_POST['customized']['bp_nouveau_appearance_members_group_layout'] )
 						</div>
 
 						<?php
-						if ( $member_directory_type == 'wbtm-member-directory-type-2' || $member_directory_type == 'wbtm-member-directory-type-3' || $member_directory_type == 'wbtm-member-directory-type-4' ) {
+						if ( 'wbtm-member-directory-type-2' === $member_directory_type || 'wbtm-member-directory-type-3' === $member_directory_type || 'wbtm-member-directory-type-4' === $member_directory_type ) {
 							reign_buddypress_member_primary_actions();
 						}
 						?>
@@ -164,7 +169,7 @@ if ( isset( $_POST['customized']['bp_nouveau_appearance_members_group_layout'] )
 						<div class="action-wrap">
 							<i class="far fa-plus-circle"></i>
 							<?php
-							if ( $member_directory_type == 'wbtm-member-directory-type-1' ) {
+							if ( 'wbtm-member-directory-type-1' === $member_directory_type ) {
 								bp_nouveau_members_loop_buttons(
 									array(
 										'container'      => 'ul',
@@ -176,14 +181,14 @@ if ( isset( $_POST['customized']['bp_nouveau_appearance_members_group_layout'] )
 						</div>
 						<!-- Added actions buttons outside "item" section :: End  -->
 						<?php
-						if ( $member_directory_type == 'wbtm-member-directory-type-4' ) {
+						if ( 'wbtm-member-directory-type-4' === $member_directory_type ) {
 							echo '</div>';
 						}
 						?>
 
-						<?php if ( $member_directory_type == 'wbtm-member-directory-type-2' || $member_directory_type == 'wbtm-member-directory-type-3' || $member_directory_type == 'wbtm-member-directory-type-4' ) : ?>
+						<?php if ( 'wbtm-member-directory-type-2' === $member_directory_type || 'wbtm-member-directory-type-3' === $member_directory_type || 'wbtm-member-directory-type-4' === $member_directory_type ) : ?>
 							<div class="bp-activity-more-options-wrap">
-								<a href="#" class="bp-activity-more-options-action bp-members-more-options-action bp-tooltip" data-bp-tooltip-pos="<?php echo ( $member_directory_type === 'wbtm-member-directory-type-4' ) ? 'left' : 'up'; ?>" data-bp-tooltip="<?php esc_attr_e( 'More Options', 'reign' ); ?>" aria-label="<?php esc_attr_e( 'More Options', 'reign' ); ?>" aria-haspopup="true" aria-expanded="false">
+								<a href="#" class="bp-activity-more-options-action bp-members-more-options-action bp-tooltip" data-bp-tooltip-pos="<?php echo ( 'wbtm-member-directory-type-4' === $member_directory_type ) ? 'left' : 'up'; ?>" data-bp-tooltip="<?php esc_attr_e( 'More Options', 'reign' ); ?>" aria-label="<?php esc_attr_e( 'More Options', 'reign' ); ?>" aria-haspopup="true" aria-expanded="false">
 									<i class="fa fa-ellipsis-h" aria-hidden="true"></i>
 								</a>
 								<div class="bp-activity-more-options">
@@ -208,7 +213,8 @@ if ( isset( $_POST['customized']['bp_nouveau_appearance_members_group_layout'] )
 
 		<?php bp_nouveau_group_hook( 'after', 'members_content' ); ?>
 
-	<?php else :
+		<?php
+	else :
 
 		bp_nouveau_user_feedback( 'group-members-none' );
 

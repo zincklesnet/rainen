@@ -6,6 +6,8 @@
  * @version 8.0.0
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 $bp_pages = get_option( 'bp-pages' );
 $register = isset( $bp_pages['register'] ) ? get_permalink( $bp_pages['register'] ) : site_url( 'wp-login.php?action=register&type=internal', 'login_post' );
 $register = bp_get_signup_page();

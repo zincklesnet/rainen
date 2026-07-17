@@ -8,11 +8,13 @@
  * @version 12.0.0
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 // Get the group from the activity item_id
-$group = bp_get_group( bp_get_activity_item_id() );
-$group_url = bp_get_group_url( $group );
-$group_name = bp_get_group_name( $group );
-$group_cover = bp_get_group_cover_url( $group );
+$group        = bp_get_group( bp_get_activity_item_id() );
+$group_url    = bp_get_group_url( $group );
+$group_name   = bp_get_group_name( $group );
+$group_cover  = bp_get_group_cover_url( $group );
 $group_avatar = bp_core_fetch_avatar(
 	array(
 		'item_id' => $group->id,
