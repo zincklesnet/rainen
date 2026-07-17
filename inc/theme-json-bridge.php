@@ -2,11 +2,18 @@
 /**
  * Reign Theme JSON Bridge
  *
- * Syncs Kirki customizer colors to WordPress block editor by overriding
- * --wp--preset--color--* CSS variables with Kirki's color scheme values.
+ * Syncs Reign's customizer color scheme to the WordPress block editor by
+ * overriding --wp--preset--color--* CSS variables with the active scheme's
+ * computed values. Reads `reign_color_scheme` theme_mod and resolves it
+ * through `reign_color_scheme_set()` (defined in
+ * inc/Customizer_Settings/customizer-defaults.php).
+ *
+ * Dark-mode overrides are now emitted by inc/Tokens/Component.php which
+ * targets `:root[data-bx-mode="dark"]` and covers --wp--preset--color--*
+ * vars in its $dark_defaults map. This bridge is light-mode only.
  *
  * @package reign
- * @version 1.0.0
+ * @version 2.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -59,32 +66,42 @@ function reign_theme_json_bridge_output_css() {
 	
 	// Calculate neutral color for better text hierarchy
 	$neutral = reign_theme_json_bridge_mix_colors( $contrast, $base, 0.7 );
-	
+
+	// When the admin has selected a dark Site Skin variation, the dark cascade
+	// owns --wp--preset--color--* on the front end (Component.php emits them in
+	// :root[data-bx-mode="dark"] from $dark_defaults). This bridge must NOT
+	// stamp the LIGHT preset vars onto `body` in that case: `body` is a closer
+	// ancestor than `<html>` to block/pattern content, so a light value set on
+	// `body` shadows the dark value set on :root[data-bx-mode="dark"] for
+	// everything inside <body> — blocks/patterns render light on a dark page.
+	//
+	// We still emit for `.editor-styles-wrapper` so the block EDITOR (which has
+	// no front-end data-bx-mode dark cascade) keeps the correct palette. On the
+	// front end we only suppress the `:root, body` light vars when a dark
+	// variation is active; light/default variations are unchanged.
+	$variation_is_dark = class_exists( '\\Reign\\Tokens\\Component' )
+		? \Reign\Tokens\Component::is_active_variation_dark()
+		: false;
+	$frontend_selector = $variation_is_dark ? '.editor-styles-wrapper' : ':root, body, .editor-styles-wrapper';
+
 	?>
 	<style id="reign-theme-json-bridge">
-	/* Reign Theme JSON Bridge v1.0.0 */
-	:root, body, .editor-styles-wrapper {
-		--wp--preset--color--base: <?php echo esc_attr( $base ); ?>;
-		--wp--preset--color--contrast: <?php echo esc_attr( $contrast ); ?>;
-		--wp--preset--color--primary: <?php echo esc_attr( $primary ); ?>;
-		--wp--preset--color--secondary: <?php echo esc_attr( $secondary ); ?>;
-		--wp--preset--color--tertiary: <?php echo esc_attr( $tertiary ); ?>;
+	/* Reign Theme JSON Bridge v2.1.0 - block-support presets now ALIAS the
+		   --reign-* token system (single source of truth: --reign-colors-theme),
+		   so --wp--preset--color--* track the active Site Skin accent + dark mode
+		   automatically; the per-scheme hexes are kept only as fallbacks.
+		   light mode only. Dark mode is handled
+	   by inc/Tokens/Component.php via :root[data-bx-mode="dark"] overrides.
+	   When a dark Site Skin variation is active the front-end :root/body light
+	   preset vars are suppressed so they don't shadow the dark cascade. */
+	<?php echo esc_html( $frontend_selector ); ?> {
+		--wp--preset--color--base: var(--reign-site-sections-bg-color, <?php echo esc_attr( $base ); ?>);
+		--wp--preset--color--contrast: var(--reign-site-body-text-color, <?php echo esc_attr( $contrast ); ?>);
+		--wp--preset--color--primary: var(--reign-colors-theme, <?php echo esc_attr( $primary ); ?>);
+		--wp--preset--color--secondary: var(--reign-accent-hover-color, <?php echo esc_attr( $secondary ); ?>);
+		--wp--preset--color--tertiary: var(--reign-site-secondary-bg-color, <?php echo esc_attr( $tertiary ); ?>);
 		--wp--preset--color--neutral: <?php echo esc_attr( $neutral ); ?>;
 		--wp--preset--color--white: #ffffff;
-	}
-	
-	/* Dark mode overrides */
-	.dark-mode body,
-	body.dark-mode,
-	html.dark-mode,
-	html.dark-mode body,
-	html.dark-mode .editor-styles-wrapper {
-		--wp--preset--color--base: #1a2028;
-		--wp--preset--color--contrast: #c5c8cd;
-		--wp--preset--color--primary: #3772ff;
-		--wp--preset--color--secondary: #2057d8;
-		--wp--preset--color--tertiary: #2b323c;
-		--wp--preset--color--neutral: color-mix(in srgb, #c5c8cd 70%, #1a2028);
 	}
 	</style>
 	<?php

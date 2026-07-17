@@ -36,8 +36,10 @@ class Reign_FluentCart_Support {
 		// Set defaults for post types on theme activation only.
 		add_action( 'after_switch_theme', array( $this, 'reign_fluentcart_set_post_type_defaults' ) );
 
-		// Hook early to modify Kirki fields.
-		add_action( 'init', array( $this, 'reign_fluentcart_modify_kirki_fields' ), 5 );
+		// Inject FluentCart cart choice into header icon-picker fields when
+		// FluentCart owns the cart. Generic framework filter, applies to
+		// every Field::add() call so we self-gate on the setting id.
+		add_filter( 'reign_customizer_field_args', array( $this, 'reign_fluentcart_add_to_icon_choices' ), 10, 2 );
 
 		// Add body classes for FluentCart pages.
 		add_filter( 'body_class', array( $this, 'reign_fluentcart_body_classes' ) );
@@ -119,10 +121,6 @@ class Reign_FluentCart_Support {
 		add_filter( 'customize_register', array( $this, 'reign_fluentcart_add_cart_to_customizer' ), 20 );
 		add_filter( 'reign_header_default_icons', array( $this, 'reign_fluentcart_add_cart_to_default_icons' ) );
 		add_filter( 'reign_mobile_header_default_icons', array( $this, 'reign_fluentcart_add_cart_to_default_icons' ) );
-
-		// Add to Kirki field choices.
-		add_filter( 'kirki_reign_header_icons_set_field', array( $this, 'reign_fluentcart_add_to_kirki_choices' ) );
-		add_filter( 'kirki_reign_mobile_header_icons_set_field', array( $this, 'reign_fluentcart_add_to_kirki_choices' ) );
 	}
 
 	/**
@@ -169,39 +167,31 @@ class Reign_FluentCart_Support {
 	}
 
 	/**
-	 * Add FluentCart cart to Kirki field choices
+	 * Inject 'fluentcart-cart' into the header icon-picker choices when
+	 * FluentCart owns the cart (i.e. neither WooCommerce nor SureCart is
+	 * active). Hooks `reign_customizer_field_args` so the choice becomes
+	 * available in the customizer sortable + the saved-value path.
+	 *
+	 * @param array                $args         Field args.
+	 * @param \WP_Customize_Manager $wp_customize Customizer manager.
+	 * @return array
 	 */
-	public function reign_fluentcart_add_to_kirki_choices( $field ) {
-		if ( isset( $field['choices'] ) && is_array( $field['choices'] ) ) {
-			// Add FluentCart cart option.
-			$field['choices']['fluentcart-cart'] = __( 'FluentCart Cart', 'reign' );
+	public function reign_fluentcart_add_to_icon_choices( $args, $wp_customize ) {
+		if ( ! isset( $args['settings'] ) ) {
+			return $args;
 		}
-		return $field;
-	}
-
-	/**
-	 * Modify Kirki fields to add FluentCart options
-	 */
-	public function reign_fluentcart_modify_kirki_fields() {
-		add_filter( 'kirki_values_get_value', array( $this, 'reign_fluentcart_filter_header_icons' ), 10, 2 );
-	}
-
-	/**
-	 * Filter header icons to ensure FluentCart cart is available
-	 */
-	public function reign_fluentcart_filter_header_icons( $value, $field ) {
-		// Only if WooCommerce and SureCart are not active.
+		$target_settings = array( 'reign_header_icons_set', 'reign_mobile_header_icons_set' );
+		if ( ! in_array( $args['settings'], $target_settings, true ) ) {
+			return $args;
+		}
+		// Defer to WooCommerce / SureCart if either is active.
 		if ( class_exists( 'WooCommerce' ) || defined( 'SURECART_PLUGIN_FILE' ) ) {
-			return $value;
+			return $args;
 		}
-
-		if ( in_array( $field, array( 'reign_header_icons_set', 'reign_mobile_header_icons_set' ), true ) ) {
-			// Add 'fluentcart-cart' if it's not already in the array.
-			if ( is_array( $value ) && ! in_array( 'fluentcart-cart', $value, true ) ) {
-				$value[] = 'fluentcart-cart';
-			}
+		if ( isset( $args['choices'] ) && is_array( $args['choices'] ) ) {
+			$args['choices']['fluentcart-cart'] = __( 'FluentCart Cart', 'reign' );
 		}
-		return $value;
+		return $args;
 	}
 
 	/**

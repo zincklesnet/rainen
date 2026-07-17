@@ -5,6 +5,8 @@
  * @package reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 add_filter( 'reign_alter_display_right_sidebar', 'reign_alter_display_right_sidebar_for_woo', 10, 1 );
 
 /**
@@ -80,13 +82,13 @@ function reign_woo_my_account_avatar() {
 			<div class="rg-woo-user-info">
 				<div class="user-name">
 					<?php
-					echo $current_user->display_name; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					echo esc_html( $current_user->display_name );
 					?>
 				</div>
 				<div class="user-email">
 					<?php
 					$current_user = wp_get_current_user();
-					echo $current_user->user_email; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					echo esc_html( $current_user->user_email );
 					?>
 				</div>
 				<div class="user-logout"><a href="<?php echo esc_url( $logout_url ); ?>"><?php esc_html_e( 'Log Out', 'reign' ); ?></a></div>
@@ -111,12 +113,12 @@ if ( ! function_exists( 'reign_sanitize_checkbox' ) ) {
 }
 
 // Remove orderby if disabled.
-if ( ! get_theme_mod( 'reign_woo_shop_sort', true ) ) {
+if ( ! reign_is_truthy( get_theme_mod( 'reign_woo_shop_sort', true ) ) ) {
 	remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
 }
 
 // Remove result count if disabled.
-if ( ! get_theme_mod( 'reign_woo_shop_result_count', true ) ) {
+if ( ! reign_is_truthy( get_theme_mod( 'reign_woo_shop_result_count', true ) ) ) {
 	remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
 }
 
@@ -192,7 +194,7 @@ if ( ! function_exists( 'off_canvas_filter_button' ) ) {
 if ( ! function_exists( 'reign_has_woo_filter_button' ) ) {
 	if ( class_exists( 'WooCommerce' ) ) {
 		function reign_has_woo_filter_button() {
-			if ( true === get_theme_mod( 'reign_woo_off_canvas_filter', false ) ) {
+			if ( reign_is_truthy( get_theme_mod( 'reign_woo_off_canvas_filter', false ) ) ) {
 				return true;
 			} else {
 				return false;
@@ -235,7 +237,7 @@ if ( ! function_exists( 'reign_filters_widget_side' ) ) {
 		if (
 			class_exists( 'WooCommerce' ) &&
 			( is_shop() || is_product_taxonomy() ) &&
-			true === get_theme_mod( 'reign_woo_off_canvas_filter', false )
+			reign_is_truthy( get_theme_mod( 'reign_woo_off_canvas_filter', false ) )
 		) {
 			add_action( 'reign_before_page', 'reign_filters_widget_side', 9 );
 		}
@@ -255,7 +257,7 @@ if ( ! function_exists( 'reign_filters_widget_close_side' ) ) {
 		<?php
 	}
 
-	if ( class_exists( 'WooCommerce' ) && true === get_theme_mod( 'reign_woo_off_canvas_filter', false ) ) {
+	if ( class_exists( 'WooCommerce' ) && reign_is_truthy( get_theme_mod( 'reign_woo_off_canvas_filter', false ) ) ) {
 		add_action( 'reign_footer', 'reign_filters_widget_close_side' );
 	}
 }
@@ -266,7 +268,7 @@ if ( ! function_exists( 'reign_filters_widget_close_side' ) ) {
  * @since 7.1.2
  */
 if ( ! function_exists( 'rg_woocommerce_before_shop_loop_item_title' ) ) {
-	if ( class_exists( 'WooCommerce' ) && true === get_theme_mod( 'reign_woo_product_thumbnail_hover_effect', true ) ) {
+	if ( class_exists( 'WooCommerce' ) && reign_is_truthy( get_theme_mod( 'reign_woo_product_thumbnail_hover_effect', true ) ) ) {
 
 		remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10 );
 
@@ -280,7 +282,7 @@ if ( ! function_exists( 'rg_woocommerce_before_shop_loop_item_title' ) ) {
 
 if ( ! function_exists( 'rg_woocommerce_get_product_thumbnail' ) ) {
 
-	if ( class_exists( 'WooCommerce' ) && true === get_theme_mod( 'reign_woo_product_thumbnail_hover_effect', true ) ) {
+	if ( class_exists( 'WooCommerce' ) && reign_is_truthy( get_theme_mod( 'reign_woo_product_thumbnail_hover_effect', true ) ) ) {
 		function rg_woocommerce_get_product_thumbnail( $size = 'woocommerce_thumbnail', $placeholder_width = 0, $placeholder_height = 0 ) {
 
 			global $post, $product, $woocommerce;
@@ -575,12 +577,12 @@ function reign_get_default_catalog_view_mod() {
 
 	$reign_woo_layout_view_buttons = get_theme_mod( 'reign_woo_layout_view_buttons', true );
 
-	if ( true === $reign_woo_layout_view_buttons ) {
+	if ( reign_is_truthy( $reign_woo_layout_view_buttons ) ) {
 		$use_cookies = false;
 	}
 
 	if ( $use_cookies ) { // Do not use cookie in customize.
-		$cookie_mod = ( isset( $_COOKIE['reign_wc_pl_view_mod'] ) && $_COOKIE['reign_wc_pl_view_mod'] ) ? sanitize_text_field( $_COOKIE['reign_wc_pl_view_mod'] ) : false; // WPCS: sanitization ok.
+		$cookie_mod = ! empty( $_COOKIE['reign_wc_pl_view_mod'] ) ? sanitize_text_field( wp_unslash( $_COOKIE['reign_wc_pl_view_mod'] ) ) : false;
 		if ( $cookie_mod ) {
 			if ( 'grid-four' == $cookie_mod ) {
 				$default = $cookie_mod;
@@ -605,7 +607,7 @@ function reign_wc_catalog_view_mod() {
 
 	$reign_woo_layout_view_buttons = get_theme_mod( 'reign_woo_layout_view_buttons', true );
 
-	if ( false === $reign_woo_layout_view_buttons ) {
+	if ( ! reign_is_truthy( $reign_woo_layout_view_buttons ) ) {
 		return '';
 	}
 
@@ -637,7 +639,7 @@ function reign_wc_catalog_view_mod() {
 	}
 }
 
-if ( class_exists( 'WooCommerce' ) && true === get_theme_mod( 'reign_woo_off_canvas_filter', false ) ) {
+if ( class_exists( 'WooCommerce' ) && reign_is_truthy( get_theme_mod( 'reign_woo_off_canvas_filter', false ) ) ) {
 	add_action( 'woocommerce_before_shop_loop', 'off_canvas_filter_button', 29 );
 }
 
@@ -659,7 +661,7 @@ if ( ! function_exists( 'rg_woocommerce_loader' ) ) {
 		<?php
 	}
 
-	if ( true === $reign_woo_layout_view_buttons ) {
+	if ( reign_is_truthy( $reign_woo_layout_view_buttons ) ) {
 		add_action( 'woocommerce_before_shop_loop', 'rg_woocommerce_loader', 30 );
 	}
 }
@@ -709,13 +711,20 @@ function reign_single_product_wrap_after() {
 add_action( 'woocommerce_after_single_product_summary', 'reign_single_product_wrap_after', 9 );
 
 
-$reign_woo_review_position = get_theme_mod( 'reign_woo_review_position', 'inside' );
 /**
- * Single product review tab
+ * Single product review tab — gated by WC presence so the hooks
+ * are not registered against filters WC has not declared yet (which
+ * would silently no-op on activation order race conditions).
  */
-if ( 'outside' === $reign_woo_review_position ) {
-	add_filter( 'woocommerce_product_tabs', 'reign_remove_reviews_tab', 98 );
+if ( class_exists( 'WooCommerce' ) ) {
+	$reign_woo_review_position = get_theme_mod( 'reign_woo_review_position', 'inside' );
+
+	if ( 'outside' === $reign_woo_review_position ) {
+		add_filter( 'woocommerce_product_tabs', 'reign_remove_reviews_tab', 98 );
+		add_action( 'woocommerce_after_single_product_summary', 'reign_show_reviews', 14 );
+	}
 }
+
 /**
  * Function to remove the default Reviews tab
  *
@@ -724,10 +733,6 @@ if ( 'outside' === $reign_woo_review_position ) {
 function reign_remove_reviews_tab( $tabs ) {
 	unset( $tabs['reviews'] );
 	return $tabs;
-}
-
-if ( 'outside' === $reign_woo_review_position ) {
-	add_action( 'woocommerce_after_single_product_summary', 'reign_show_reviews', 14 );
 }
 /**
  * Function to display the reviews section after the single product summary
@@ -750,8 +755,10 @@ if ( ! function_exists( 'reign_reviews_summary_bar' ) ) {
 		$rating_counts  = $product->get_rating_counts();
 		$total_ratings  = array_sum( $rating_counts );
 
-		// Hide summary bar if there are no ratings.
-		if ( 0 === $total_ratings || false === $reign_woo_summary_bar ) {
+		// Hide summary bar if there are no ratings or the toggle is disabled.
+		// Strict `false === ...` silently failed for saved 'off' / '0' values
+		// (they are not === false); reign_is_truthy() normalises every shape.
+		if ( 0 === $total_ratings || ! reign_is_truthy( $reign_woo_summary_bar ) ) {
 			return;
 		}
 

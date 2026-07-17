@@ -1,9 +1,14 @@
 <?php
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 // Require plugin.php to use is_plugin_active() below.
 if ( ! function_exists( 'is_plugin_active' ) ) {
 	include_once ABSPATH . 'wp-admin/includes/plugin.php';
 }
+
+/* Search results UX helpers (count header, type badges, term highlighting). */
+require_once get_template_directory() . '/inc/search-results.php';
 
 /**
  * Reign functions and definitions
@@ -232,7 +237,7 @@ if ( ! function_exists( 'reign_widgets_init' ) ) {
 			);
 
 			// Off Canvas Sidebar.
-			if ( true === get_theme_mod( 'reign_woo_off_canvas_filter', false ) ) {
+			if ( reign_is_truthy( get_theme_mod( 'reign_woo_off_canvas_filter', false ) ) ) {
 				register_sidebar(
 					array(
 						'name'          => esc_html__( 'Off Canvas Sidebar', 'reign' ),
@@ -606,6 +611,10 @@ if ( ! function_exists( 'reign_scripts' ) ) {
 		if ( function_exists( 'reign_should_load_learndash_assets' ) && reign_should_load_learndash_assets() ) {
 			wp_enqueue_style( 'reign_learndash', get_template_directory_uri() . '/assets/css' . $rtl_css . '/learndash-main.min.css', '', REIGN_THEME_VERSION );
 			wp_enqueue_style( 'reign_learndash_dark', get_template_directory_uri() . '/assets/css' . $rtl_css . '/learndash-dark.min.css', '', REIGN_THEME_VERSION );
+		}
+
+		// LearnDash Dashboard CSS - Only load on pages using [ld_dashboard].
+		if ( function_exists( 'reign_should_load_ld_dashboard_assets' ) && reign_should_load_ld_dashboard_assets() ) {
 			wp_enqueue_style( 'reign_ld_dashboard', get_template_directory_uri() . '/assets/css' . $rtl_css . '/ld-dashboard-main.min.css', '', REIGN_THEME_VERSION );
 		}
 
@@ -684,53 +693,106 @@ if ( ! function_exists( 'reign_scripts' ) ) {
 			wp_enqueue_style( 'reign-stachethemes-event-calendar', get_template_directory_uri() . '/assets/css' . $rtl_css . '/stachethemes-event-calendar.min.css', array(), REIGN_THEME_VERSION );
 		}
 
-		// Font Awesome Files Enqueue.
-		wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/font-awesome/css/fontawesome-optimized.min.css', '', '6.6.0' );
+		// Font Awesome Files Enqueue — split delivery:
+		// 1. reign-icons-core: @font-face + base classes + every glyph the theme
+		//    itself renders (header icons incl. BP notification/message dropdowns,
+		//    template-parts, common nav/social picks). Tiny (~13KB), render-blocking
+		//    so above-the-fold icons paint immediately.
+		// 2. font-awesome (full 4,800-glyph map, ~180KB): still ships complete —
+		//    the menu icon picker and the customizable header icon sets let site
+		//    owners choose ANY glyph, so subsetting it would break customer icons.
+		//    Loaded deferred (preload + onload swap via reign_defer_style_handles)
+		//    since the core file already covers everything visible at first paint.
+		wp_enqueue_style( 'reign-icons-core', get_template_directory_uri() . '/assets/font-awesome/css/reign-icons-core.min.css', '', '6.6.0' );
+		wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/font-awesome/css/fontawesome-optimized.min.css', array( 'reign-icons-core' ), '6.6.0' );
 
 		// Load theme font.
 		wp_enqueue_style( 'theme-font', get_template_directory_uri() . '/assets/fonts/fonts.css', '', REIGN_THEME_VERSION );
 
-		// Site Main CSS Enqueue.
+		// Site Main CSS Enqueue — critical/deferred split when Smart
+		// Performance Mode is ON: reign-critical (~109KB shell: base +
+		// grid/layout/header/nav + dynamic colors, composed from the SAME
+		// partials as main so rules are byte-identical) loads blocking;
+		// the full main.min.css (292KB) is deferred via
+		// reign_defer_style_tag. Toggle OFF = classic single blocking bundle.
+		if ( reign_split_main_css() ) {
+			wp_enqueue_style( 'reign-critical', get_template_directory_uri() . '/assets/css' . $rtl_css . '/critical.min.css', '', REIGN_THEME_VERSION );
+		}
 		wp_enqueue_style( 'reign_main_style', get_template_directory_uri() . '/assets/css' . $rtl_css . '/main.min.css', '', REIGN_THEME_VERSION );
 
-		// Load Dark Mode JS File.
-		$reign_dark_mode_option = get_theme_mod( 'reign_dark_mode_option' );
-
-		if ( $reign_dark_mode_option === true ) {
-			// Get the default mode setting from the theme options.
-			$default_mode = get_theme_mod( 'reign_default_mode', 'light' );
-
-			// Enqueue the main dark mode JavaScript file.
-			wp_enqueue_script( 'wp-dark-mode', get_template_directory_uri() . '/assets/js/dark-mode.min.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
-
-			// Add inline script to define the defaultMode variable.
-			wp_add_inline_script( 'wp-dark-mode', 'var defaultMode = "' . esc_js( $default_mode ) . '";' );
-		}
+		// Dark mode is now handled by the new Color_Mode_Toggle component
+		// (inc/Color_Mode_Toggle/Component.php) and the Tokens system
+		// (inc/Tokens/Component.php) emitting :root[data-bx-mode="dark"]
+		// CSS variable overrides. The old wp-dark-mode.js enqueue + the
+		// reign_dark_mode_option gate are retired in 8.0.0.
+		//
+		// Customer values are preserved via the v8_dark_mode_toggle
+		// migration filter in inc/Customizer_Settings/migrations.php which
+		// copies reign_dark_mode_option -> site_color_mode_toggle_show and
+		// reign_dark_mode_default -> site_color_mode on init priority 1.
 
 		if ( reign_flickity_load_slider_js() ) {
 			wp_enqueue_script( 'reign-flickity', get_template_directory_uri() . '/assets/js/vendors/flickity.pkgd.min.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
 		}
 
-		// Load fitvids JS file.
+		/*
+		 * Vendor JS — selectively loaded (8.0.0 perf pass).
+		 *
+		 * main.js now wraps every vendor-lib call in a `typeof` feature
+		 * guard (e.g. `if ( typeof $.fn.fitVids === 'function' )`), so a
+		 * lib that is not enqueued on a given page no longer produces a
+		 * runtime TypeError. That makes it safe to gate the heavier /
+		 * page-specific libs below.
+		 *
+		 * Globally enqueued (used on essentially every front-end page, or
+		 * by multiple conditionally-loaded bundles):
+		 *   - fitvids        : main.js runs `$('body').fitVids()` on every page.
+		 *   - slick (43 KB)  : main.js gallery archives + the WooCommerce /
+		 *                       BuddyPress / EDD / PeepSo / LifterLMS bundles
+		 *                       all call `.slick()`. Too broadly used to gate
+		 *                       reliably; the typeof guards make future gating
+		 *                       safe without risking a slider regression.
+		 *   - doubletaptogo  : main.js mobile menu wires it on every page.
+		 *
+		 * Conditionally enqueued (gated to where the consuming code runs):
+		 *   - more-menu / jquery.cookie : only consumed by reign-buddypress.js
+		 *                                 (BP subnav "more" + BP filter cookies),
+		 *                                 which itself only loads on BP pages.
+		 *   - sticky-sidebar : main.js `theiaStickySidebar()` only acts on
+		 *                       `body.reign-sticky-sidebar` (the reign_sticky_sidebar
+		 *                       switch). Gate on the same theme_mod.
+		 *   - sticky-kit     : main.js `stick_in_parent()` only targets the
+		 *                       single-post social-share box, which renders on
+		 *                       singular content. Gate on is_singular().
+		 */
 		wp_enqueue_script( 'reign-fitvids', get_template_directory_uri() . '/assets/js/vendors/fitvids.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
-
-		// Load slick JS file.
 		wp_enqueue_script( 'reign-slick', get_template_directory_uri() . '/assets/js/vendors/slick.min.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
-
-		// Load more menu JS file.
-		wp_enqueue_script( 'reign-more-menu', get_template_directory_uri() . '/assets/js/vendors/more-menu.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
-
-		// Load sticky sidebar JS file.
-		wp_enqueue_script( 'reign-sticky-sidebar', get_template_directory_uri() . '/assets/js/vendors/sticky-sidebar.min.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
-
-		// Load sticky kit JS file.
-		wp_enqueue_script( 'reign-sticky-kit', get_template_directory_uri() . '/assets/js/vendors/sticky-kit.min.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
-
-		// Load jquery cookie JS file.
-		wp_enqueue_script( 'reign-jquery-cookie', get_template_directory_uri() . '/assets/js/vendors/jquery.cookie.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
-
-		// Load doubletaptogo JS file.
 		wp_enqueue_script( 'reign-doubletaptogo', get_template_directory_uri() . '/assets/js/vendors/jquery.doubletaptogo.min.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
+
+		// more-menu + jquery.cookie are only used by reign-buddypress.js, which
+		// is enqueued on BuddyPress pages. Load them only there.
+		if ( function_exists( 'reign_should_load_buddypress_assets' ) && reign_should_load_buddypress_assets() ) {
+			wp_enqueue_script( 'reign-more-menu', get_template_directory_uri() . '/assets/js/vendors/more-menu.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
+			wp_enqueue_script( 'reign-jquery-cookie', get_template_directory_uri() . '/assets/js/vendors/jquery.cookie.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
+		}
+
+		// sticky-sidebar (theiaStickySidebar) is needed when the Sticky Sidebar
+		// option is on (main.js sticks the widget area), or a WooCommerce page is
+		// loaded (reign-woocommerce.js sticks the review form regardless of the
+		// theme option). reign-woocommerce.min.js is not typeof-guarded, so keep
+		// the lib present on WC pages.
+		if (
+			reign_is_truthy( get_theme_mod( 'reign_sticky_sidebar', true ) )
+			|| ( function_exists( 'reign_should_load_woocommerce_assets' ) && reign_should_load_woocommerce_assets( 'js' ) )
+		) {
+			wp_enqueue_script( 'reign-sticky-sidebar', get_template_directory_uri() . '/assets/js/vendors/sticky-sidebar.min.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
+		}
+
+		// sticky-kit (stick_in_parent) only floats the single-post social-share
+		// box, which renders on singular content.
+		if ( is_singular() ) {
+			wp_enqueue_script( 'reign-sticky-kit', get_template_directory_uri() . '/assets/js/vendors/sticky-kit.min.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
+		}
 
 		// Load mscrollbar JS file.
 		if ( has_nav_menu( 'panel-menu' ) || class_exists( 'WooCommerce' ) ) {
@@ -742,8 +804,10 @@ if ( ! function_exists( 'reign_scripts' ) ) {
 			wp_enqueue_script( 'reign-gamipress', get_template_directory_uri() . '/assets/js/gamipress.min.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
 		}
 
-		// Scroll Up.
-		if ( true == get_theme_mod( 'reign_enable_scrollup', false ) ) {
+		// Scroll Up. Read once and reuse below (was also read in
+		// wp_localize_script payload — see $reign_enable_scrollup local).
+		$reign_enable_scrollup = get_theme_mod( 'reign_enable_scrollup', false );
+		if ( reign_is_truthy( $reign_enable_scrollup ) ) {
 			wp_enqueue_script( 'scrollup', get_template_directory_uri() . '/assets/js/vendors/scrollup.min.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
 		}
 
@@ -762,14 +826,30 @@ if ( ! function_exists( 'reign_scripts' ) ) {
 			wp_enqueue_script( 'reign-bbpress', get_template_directory_uri() . '/assets/js/reign-bbpress.min.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
 		}
 
-		// BuddyPress Header Icons JS File - Only load on BuddyPress pages.
+		// BuddyPress Header Icons + BuddyPress JS - only load on BP pages.
+		// password-strength-meter REMOVED from the dependency array: it
+		// pulls in zxcvbn.min.js (~400 KB) and password-strength-meter.min.js
+		// on every BP page (activity feeds, members, groups) even though
+		// password validation is only needed on the register page. The
+		// register popup, which DOES use password validation, conditionally
+		// enqueues password-strength-meter inside template-parts/login-form
+		// rendering. Savings: ~410 KB per BP page that isn't the register form.
 		if ( function_exists( 'reign_should_load_buddypress_assets' ) && reign_should_load_buddypress_assets() ) {
-			wp_enqueue_script( 'reign-bp-header-icons', get_template_directory_uri() . '/assets/js/reign-bp-header-icons.min.js', array( 'jquery', 'password-strength-meter' ), REIGN_THEME_VERSION, true );
-		}
+			wp_enqueue_script( 'reign-bp-header-icons', get_template_directory_uri() . '/assets/js/reign-bp-header-icons.min.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
+			wp_enqueue_script( 'reign-buddypress', get_template_directory_uri() . '/assets/js/reign-buddypress.min.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
 
-		// BuddyPress JS File - Only load on BuddyPress pages.
-		if ( function_exists( 'reign_should_load_buddypress_assets' ) && reign_should_load_buddypress_assets() ) {
-			wp_enqueue_script( 'reign-buddypress', get_template_directory_uri() . '/assets/js/reign-buddypress.min.js', array( 'jquery', 'password-strength-meter' ), REIGN_THEME_VERSION, true );
+			// Conditionally enqueue password-strength-meter only when a
+			// registration / lost-password / reset-password form is being
+			// rendered. BP's bp_is_register_page() / bp_is_activation_page()
+			// cover the BP routes; bp_is_user_settings() covers the
+			// in-account password change page.
+			if (
+				( function_exists( 'bp_is_register_page' )      && bp_is_register_page() )
+				|| ( function_exists( 'bp_is_activation_page' ) && bp_is_activation_page() )
+				|| ( function_exists( 'bp_is_user_settings' )   && bp_is_user_settings() )
+			) {
+				wp_enqueue_script( 'password-strength-meter' );
+			}
 		}
 
 		// LifterLMS JS File.
@@ -796,31 +876,61 @@ if ( ! function_exists( 'reign_scripts' ) ) {
 				'reign-woocommerce',
 				'wp_woocommerce_js_obj',
 				array(
-					'enable_layout_view_buttons'   => $reign_woo_layout_view_buttons,
-					'enable_myaccount_menu_toggle' => $reign_woo_myaccount_menu_toggle,
+					'enable_layout_view_buttons'   => reign_is_truthy( $reign_woo_layout_view_buttons ) ? 1 : 0, // reign-woocommerce.js compares `== true`; switch stores "on"/"off".
+					'enable_myaccount_menu_toggle' => reign_is_truthy( $reign_woo_myaccount_menu_toggle ) ? 1 : 0, // reign-woocommerce.js compares `== 1`; switch stores "on"/"off".
 				)
 			);
 		}
 
+		// Read the blog-layout setting once and reuse across the three
+		// downstream sites (masonry filter, masonry enqueue guard, and
+		// the wp_localize_script payload below).
+		$reign_blog_list_layout = get_theme_mod( 'reign_blog_list_layout', 'default-view' );
+
 		// Filter to set the enable_masonry value.
 		add_filter(
 			'reign_enable_masonry',
-			function () {
+			function () use ( $reign_blog_list_layout ) {
 				global $post;
 				if ( isset( $post->post_content ) && check_masonry_view_in_shortcode( $post->post_content ) ) {
 					return 'masonry-view';
 				}
-				return get_theme_mod( 'reign_blog_list_layout', 'default-view' );
+				return $reign_blog_list_layout;
 			}
 		);
 
 		// Masonry JS File.
-		if ( apply_filters( 'reign_enable_masonry', get_theme_mod( 'reign_blog_list_layout', 'default-view' ) ) == 'masonry-view' ) {
+		if ( apply_filters( 'reign_enable_masonry', $reign_blog_list_layout ) == 'masonry-view' ) {
 			wp_enqueue_script( 'reign-masonry', get_template_directory_uri() . '/assets/js/vendors/masonry.min.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
 		}
 
 		// Theme JS File.
 		wp_enqueue_script( 'wp-main', get_template_directory_uri() . '/assets/js/main.min.js', array( 'jquery' ), REIGN_THEME_VERSION, true );
+
+		/*
+		 * Reign REST API JavaScript client. Modern fetch + wp.apiFetch
+		 * style — no jQuery dependency, no admin-ajax — talks to
+		 * /wp-json/reign/v1/*. Loaded as a footer script so it never
+		 * render-blocks. Configuration is localized into
+		 * `window.reignApiConfig` immediately below this enqueue.
+		 *
+		 * @since 8.0.0
+		 */
+		wp_enqueue_script( 'reign-api', get_template_directory_uri() . '/assets/js/reign-api.min.js', array(), REIGN_THEME_VERSION, true );
+
+		// Cache-safe localize: only site-wide settings. rest_nonce is
+		// per-user — baking it into cached HTML would defeat P1's
+		// cache-safety fix. The nonce is appended for logged-in
+		// visitors via reign_emit_logged_in_nonces() (wp_footer:30).
+		wp_localize_script(
+			'reign-api',
+			'reignApiConfig',
+			array(
+				'root'          => esc_url_raw( rest_url( 'reign/v1/' ) ),
+				'rest_nonce'    => '',
+				'ajax_fallback' => esc_url_raw( admin_url( 'admin-ajax.php' ) ),
+			)
+		);
 
 		// Add More Header Script.
 		$more_menu_enable = get_theme_mod( 'reign_header_main_menu_more_enable', true );
@@ -851,40 +961,39 @@ if ( ! function_exists( 'reign_scripts' ) ) {
 			$theme_package_id = 'legacy';
 		}
 
+		// Cache-safe localize payload: only site-wide settings. logged_in flag
+		// + 4 nonces removed because they vary per visitor and would bake
+		// into cached HTML, breaking page caching site-wide. JS reads auth
+		// state via `document.body.classList.contains('logged-in')` (WP core
+		// emits the body class). Per-user nonces are emitted by
+		// reign_emit_logged_in_nonces() — a wp_footer callback gated on
+		// is_user_logged_in().
 		wp_localize_script(
 			'wp-main',
 			'wp_main_js_obj',
 			array(
 				'ajaxurl'                => admin_url( 'admin-ajax.php' ),
-				'reign_more_menu_enable' => $more_menu_enable,
-				'logged_in'              => is_user_logged_in(),
-				'topbar_mobile_disabled' => $reign_header_topbar_mobile_view_disable,
+				'reign_more_menu_enable' => reign_is_truthy( $more_menu_enable ) ? 1 : 0, // main.js:263 uses it truthy; switch stores "on"/"off".
+				'topbar_mobile_disabled' => reign_is_truthy( $reign_header_topbar_mobile_view_disable ) ? 1 : 0, // switch stores "on"/"off"; raw 'off' is truthy in JS.
 				'reign_rtl'              => $rtl,
 				'single_activity_page'   => $single_activity_page,
 				'append_text'            => $append_text,
 				'excerpt_length'         => $excerpt_length,
 				'theme_package_id'       => $theme_package_id,
-				'reign_enable_scrollup'  => get_theme_mod( 'reign_enable_scrollup', false ),
+				'reign_enable_scrollup'  => reign_is_truthy( $reign_enable_scrollup ) ? 1 : 0, // read once at line 745; normalized to int because main.min.js guards with `1 == ...` and switch stores "on".
 				'reign_scrollup_style'   => get_theme_mod( 'reign_scrollup_style', 'style1' ),
 				'bp_subnav_view_style'   => get_theme_mod( 'buddypress_main_subnav_view_style', 'default' ),
-				'enable_masonry'         => apply_filters( 'reign_enable_masonry', get_theme_mod( 'reign_blog_list_layout', 'default-view' ) ),
-				'reign_login_nonce'      => wp_create_nonce( 'reign-sign-form' ),
-				'reign_friendship_nonce' => wp_create_nonce( 'reign_friendship_nonce' ),
-				'reign_notification_nonce' => wp_create_nonce( 'reign_notification_nonce' ),
-				'mpp_empty_content_msg' => __( 'Please enter some content to post.', 'reign' ),
+				'enable_masonry'         => apply_filters( 'reign_enable_masonry', $reign_blog_list_layout ), // read once at line 823
+				'no_messages_text'       => __( 'No messages found.', 'reign' ),
+				'mpp_empty_content_msg'  => __( 'Please enter some content to post.', 'reign' ),
+				'scroll_to_top'          => __( 'Scroll to Top', 'reign' ),
 			)
 		);
 
-		$custom_logo = wp_get_attachment_image_src( get_theme_mod( 'custom_logo' ), 'large' );
-		wp_localize_script(
-			'wp-dark-mode',
-			'dark_mode_settings',
-			array(
-				'light_mode_logo' => ( ! empty( $custom_logo ) ) ? $custom_logo[0] : '',
-				'dark_mod_logo'   => get_theme_mod( 'reign_dark_mode_logo' ),
-				'images'          => get_option( 'reign_dark_mode_image_settings' ),
-			)
-		);
+		// wp_localize_script for 'wp-dark-mode' removed in 8.0.0 alongside
+		// the wp-dark-mode.js retirement. Logo + image overrides for dark
+		// mode will be re-introduced in Phase 4 as CSS-only swaps driven by
+		// :root[data-bx-mode="dark"] - simpler and avoids the JS sync.
 
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );
@@ -898,21 +1007,64 @@ if ( ! function_exists( 'reign_scripts' ) ) {
 			}
 		}
 
-		// Loads dynamic inline style.
-		$css = load_color_palette();
+		// Loads dynamic inline style — TRANSIENT-CACHED on the front end.
+		// Without the transient, this regenerates ~60 get_theme_mod() reads
+		// + ~15 KB string concat on EVERY front-end page render, even
+		// though the output is identical until the admin saves the
+		// customizer. The transient is busted via clear_inline_css_cache()
+		// on customize_save_after.
+		//
+		// In the customizer PREVIEW the cache is bypassed (and never written)
+		// so unsaved per-element / scheme colour changes render live - the
+		// previewed theme_mod values flow straight through load_color_palette().
+		// Without this, the live preview served the day-old cached CSS and
+		// colour edits only appeared after Publish.
+		$is_preview = function_exists( 'is_customize_preview' ) && is_customize_preview();
+		$css        = $is_preview ? false : get_transient( 'reign_inline_palette_css' );
+		if ( false === $css ) {
+			$css = load_color_palette();
+			if ( ! $is_preview ) {
+				set_transient( 'reign_inline_palette_css', $css, DAY_IN_SECONDS );
+			}
+		}
 		wp_add_inline_style( 'reign_main_style', $css );
 
-		// Loads dynamic inline style.
-		$reign_dark_mode_option        = get_theme_mod( 'reign_dark_mode_option' );
-		$reign_custom_dark_mode_option = get_theme_mod( 'reign_custom_dark_mode_option' );
-
-		if ( true === $reign_dark_mode_option && true === $reign_custom_dark_mode_option ) {
-			$dark_css = load_color_dark_palette();
+		// Loads dynamic dark-mode inline style — TRANSIENT-CACHED (same
+		// customizer-preview bypass as the light palette above).
+		// Switch fields can store polymorphic values ('on' / 'off' / '1' /
+		// '0' / true / false / ''). reign_is_truthy() normalises across
+		// all storage shapes (the strict `=== true` check used before
+		// 8.0.0 silently failed because sanitize_bool_int stores 1, not true).
+		// Emitted unconditionally: the [data-bx-mode="dark"] block only takes
+		// effect when the page is in dark mode, and carrying it on every page
+		// is what lets the toggle switch instantly. Buyer overrides from the
+		// "Dark Mode Colors" section win; otherwise the per-palette dark
+		// defaults render (matching the SCSS, so no visible change until
+		// overridden). !important + loaded after the compiled CSS so it beats
+		// the SCSS dark defaults.
+		$dark_css = $is_preview ? false : get_transient( 'reign_inline_dark_palette_css' );
+		if ( false === $dark_css ) {
+			$dark_css = reign_load_dark_mode_palette();
+			if ( ! $is_preview ) {
+				set_transient( 'reign_inline_dark_palette_css', $dark_css, DAY_IN_SECONDS );
+			}
+		}
+		if ( $dark_css ) {
 			wp_add_inline_style( 'reign_main_style', $dark_css );
 		}
 
-		// Loads dynamic border radius inline style.
-		$radius_css = load_border_radius();
+		// Loads dynamic border radius inline style — TRANSIENT-CACHED with the
+		// same customizer-preview bypass as the palettes above. load_border_radius()
+		// otherwise re-runs 3 get_theme_mod() + 3 get_option() reads + string
+		// concat on every front-end render, though the output is identical until
+		// the admin saves. Busted via clear_inline_css_cache() on customize_save_after.
+		$radius_css = $is_preview ? false : get_transient( 'reign_inline_border_radius_css' );
+		if ( false === $radius_css ) {
+			$radius_css = load_border_radius();
+			if ( ! $is_preview ) {
+				set_transient( 'reign_inline_border_radius_css', $radius_css, DAY_IN_SECONDS );
+			}
+		}
 		wp_add_inline_style( 'reign_main_style', $radius_css );
 	}
 
@@ -920,12 +1072,72 @@ if ( ! function_exists( 'reign_scripts' ) ) {
 }
 
 /**
+ * Defer non-critical stylesheets via the preload + onload swap pattern.
+ *
+ * Handles listed here render as <link rel="preload" as="style"> with an
+ * onload swap to rel="stylesheet", plus a <noscript> fallback — the file
+ * downloads at high priority but never blocks first paint. Only safe for
+ * styles whose above-the-fold rules are covered elsewhere (e.g. the full
+ * Font Awesome glyph map, whose visible glyphs ship in reign-icons-core).
+ *
+ * @param string[] $handles Style handles to defer (filter: reign_deferred_style_handles).
+ */
+/**
+ * Whether the main stylesheet ships as a critical/deferred split.
+ *
+ * Rides the Smart Performance toggle (same switch that gates conditional
+ * asset loading) so site owners have ONE safety valve: toggle OFF restores
+ * the classic single render-blocking bundle. Filterable independently for
+ * edge setups.
+ *
+ * @return bool
+ */
+function reign_split_main_css() {
+	$split = ! function_exists( 'reign_bypass_conditional_assets' ) || ! reign_bypass_conditional_assets();
+	return (bool) apply_filters( 'reign_split_main_css', $split );
+}
+
+function reign_defer_style_tag( $tag, $handle, $href, $media ) {
+	$defaults = array( 'font-awesome' );
+	if ( reign_split_main_css() ) {
+		$defaults[] = 'reign_main_style';
+	}
+	$deferred = apply_filters( 'reign_deferred_style_handles', $defaults );
+
+	if ( ! in_array( $handle, $deferred, true ) || is_admin() || is_customize_preview() ) {
+		return $tag;
+	}
+
+	$preload = sprintf(
+		'<link rel="preload" href="%1$s" as="style" id="%2$s-css" media="%3$s" onload="this.onload=null;this.rel=\'stylesheet\'" />' . "\n" .
+		'<noscript><link rel="stylesheet" href="%1$s" media="%3$s" /></noscript>' . "\n",
+		esc_url( $href ),
+		esc_attr( $handle ),
+		esc_attr( $media )
+	);
+
+	return $preload;
+}
+add_filter( 'style_loader_tag', 'reign_defer_style_tag', 10, 4 );
+
+/**
  * Preload default font when no custom font-family is set.
+ *
+ * Front-end only: wp-admin doesn't use this preload (it never paints
+ * with the front-end Inter stack), so emitting the link there is wasted
+ * theme_mod read + one extra <head> element per wp-admin page view.
  */
 add_action( 'wp_head', function () {
-    $body_typography = get_theme_mod( 'reign_body_typography' );
-    if ( empty( $body_typography['font-family'] ) ) {
-        echo '<link rel="preload" href="' . esc_url( get_template_directory_uri() . '/assets/fonts/GTWalsheimPro-Regular.woff2' ) . '" as="font" type="font/woff2" crossorigin>' . "\n";
+    if ( is_admin() ) {
+        return;
+    }
+    // Default to an empty array so the offset access below is safe even
+    // when no typography value has been saved yet (fresh install / wp-cli
+    // / REST context). Without this default, get_theme_mod returns false
+    // and `false['font-family']` triggers PHP 8 deprecation notice.
+    $body_typography = get_theme_mod( 'reign_body_typography', array() );
+    if ( ! is_array( $body_typography ) || empty( $body_typography['font-family'] ) ) {
+        echo '<link rel="preload" href="' . esc_url( get_template_directory_uri() . '/assets/fonts/inter/Inter-Regular.woff2' ) . '" as="font" type="font/woff2" crossorigin>' . "\n";
     }
 }, 1 );
 
@@ -962,8 +1174,13 @@ if ( ! function_exists( 'register_reign_menu_page' ) ) {
 /**
  * Remove Secondary Group Icon
  */
-function my_remove_secondary_avatars( $bp_legacy ) {
-	remove_filter( 'bp_get_activity_action_pre_meta', array( $bp_legacy, 'secondary_avatars' ), 10, 2 );
+// `my_*` is a tutorial-boilerplate prefix used by thousands of WP
+// snippets — extremely high collision risk with child themes, mu-plugins,
+// and BP tutorials. Wrap so a redeclaration anywhere else doesn't fatal.
+if ( ! function_exists( 'my_remove_secondary_avatars' ) ) {
+	function my_remove_secondary_avatars( $bp_legacy ) {
+		remove_filter( 'bp_get_activity_action_pre_meta', array( $bp_legacy, 'secondary_avatars' ), 10, 2 );
+	}
 }
 
 add_action( 'bp_theme_compat_actions', 'my_remove_secondary_avatars' );
@@ -976,7 +1193,21 @@ add_action( 'bp_theme_compat_actions', 'my_remove_secondary_avatars' );
 if ( ! function_exists( 'reign_color_scheme' ) ) {
 
 	function reign_color_scheme() {
+		// $GLOBALS export — runs on every request because downstream
+		// code reads from the global. Cheap, autoloaded option.
 		$GLOBALS['rtm_color_scheme'] = get_theme_mod( 'reign_color_scheme', 'reign_clean' );
+
+		// Skip the migration walk + per-request DB writes once the
+		// `update_reign_theme` flag has been set. Without this early
+		// return the migration block at line ~1050 fires up to 2
+		// update_option() DB writes per request (one for each
+		// theme_mod scheme overwrite) on every page load, including
+		// REST / AJAX / cron — wasted CPU + DB for the entire life
+		// of a post-migrated site.
+		if ( get_option( 'update_reign_theme' ) ) {
+			return;
+		}
+
 		$theme_mods                  = $mods                             = get_theme_mods();
 
 		if ( isset( $mods[0] ) && $mods[0] == '' ) {
@@ -1061,9 +1292,12 @@ function reign_header_v4_body_class( $classes ) {
 		$classes[] = 'reign-header-v4';
 	}
 
-	if ( ! is_user_logged_in() ) {
-		$classes[] = 'logged-out';
-	}
+	// Removed: appending `logged-out` body class for anonymous visitors.
+	// That made the HTML vary per auth state, forcing page caches into
+	// vary-by-cookie mode (which most caching plugins handle poorly).
+	// WordPress core already emits the `logged-in` body class for
+	// authenticated visitors; CSS should use `:not(.logged-in)` for any
+	// rule that previously targeted `.logged-out`.
 	return $classes;
 }
 
@@ -1094,6 +1328,9 @@ add_filter( 'cartflows_is_compatibility_theme', '__return_true' );
  *
  * @return string
  */
+// Generic un-prefixed helper. Common utility name used by many themes
+// + plugins. Wrap so a collision can't fatal the theme load.
+if ( ! function_exists( 'hex2rgb' ) ) :
 function hex2rgb( string $color ) {
 
 	$default = '0, 0, 0';
@@ -1126,6 +1363,7 @@ function hex2rgb( string $color ) {
 
 	return implode( ', ', $rgb );
 }
+endif;
 
 
 /**
@@ -1134,6 +1372,7 @@ function hex2rgb( string $color ) {
  * @since 6.9.2
  * @return string
  */
+if ( ! function_exists( 'load_color_palette' ) ) :
 function load_color_palette() {
 	$colors = array(
 		'reign_header_topbar_bg_color'             => '--reign-header-topbar-bg-color',
@@ -1206,9 +1445,20 @@ function load_color_palette() {
 
 	);
 
-	// Customizer colors.
-	$default_value_set      = reign_color_scheme_set();
-	$default_value_set_form = reign_forms_color_scheme_default_set();
+	// Customizer colors. Defensive guards — load_color_palette() fires
+	// from wp_enqueue_scripts:5001 which runs LATE, but the underlying
+	// reign_color_scheme_set() + reign_forms_color_scheme_default_set()
+	// functions live in customizer-defaults.php which is loaded via
+	// the customizer settings loader. If that loader ever fails (file
+	// missing, plugin conflict, error during include), this callback
+	// would otherwise fatal mid-page-render — far worse than emitting
+	// a default palette.
+	$default_value_set      = function_exists( 'reign_color_scheme_set' )
+		? reign_color_scheme_set()
+		: array( 'reign_clean' => array() );
+	$default_value_set_form = function_exists( 'reign_forms_color_scheme_default_set' )
+		? reign_forms_color_scheme_default_set()
+		: array();
 	$reign_color_scheme     = get_theme_mod( 'reign_color_scheme', 'reign_clean' );
 
 	$admin_colors = array(
@@ -1305,6 +1555,7 @@ function load_color_palette() {
 
 	return ':root{' . $color_string . '}';
 }
+endif;
 
 /**
  * Load dark color palette
@@ -1312,12 +1563,14 @@ function load_color_palette() {
  * @since 6.9.2
  * @return string
  */
+if ( ! function_exists( 'load_color_dark_palette' ) ) :
 function load_color_dark_palette() {
-	// Customizer colors.
-	$reign_dark_mode_option        = get_theme_mod( 'reign_dark_mode_option' );
-	$reign_custom_dark_mode_option = get_theme_mod( 'reign_custom_dark_mode_option' );
+	// Customizer colors. See note above caller in reign_scripts() — switch
+	// fields need reign_is_truthy() not strict === true comparison.
+	$reign_dark_mode_option        = get_theme_mod( 'reign_dark_mode_option', '' );
+	$reign_custom_dark_mode_option = get_theme_mod( 'reign_custom_dark_mode_option', '' );
 
-	if ( true === $reign_dark_mode_option && true === $reign_custom_dark_mode_option ) {
+	if ( reign_is_truthy( $reign_dark_mode_option ) && reign_is_truthy( $reign_custom_dark_mode_option ) ) {
 		// Preset defaults for the "reign_dark" scheme — used as the base when the
 		// user has enabled custom dark mode but not yet overridden individual colors.
 		// Without these, get_theme_mod() returns false for every unset key, the
@@ -1496,6 +1749,120 @@ function load_color_dark_palette() {
 		return '.dark-mode{' . $color_string . '}';
 	}
 }
+endif;
+
+/**
+ * Build the modern per-palette dark-mode CSS.
+ *
+ * Emits a [data-bx-mode="dark"] block (the selector the 8.0.0 light/dark
+ * toggle sets - the legacy load_color_dark_palette() above targets the old
+ * .dark-mode class and no longer applies). For each --reign-* var it prefers
+ * the buyer's "Dark Mode Colors" override ({scheme}-dark-{var}) and falls back
+ * to the per-palette dark default from reign_dark_color_scheme_set(), which
+ * matches the compiled [data-bx-mode="dark"] SCSS - so output is unchanged
+ * until a value is overridden. !important + loaded after the compiled CSS so
+ * overrides win over the SCSS defaults.
+ *
+ * @since 8.0.0
+ * @return string
+ */
+if ( ! function_exists( 'reign_load_dark_mode_palette' ) ) :
+function reign_load_dark_mode_palette() {
+	$scheme       = get_theme_mod( 'reign_color_scheme', 'reign_clean' );
+	$defaults_all = function_exists( 'reign_dark_color_scheme_set' ) ? reign_dark_color_scheme_set() : array();
+	$defaults     = isset( $defaults_all[ $scheme ] )
+		? $defaults_all[ $scheme ]
+		: ( isset( $defaults_all['reign_clean'] ) ? $defaults_all['reign_clean'] : array() );
+
+	// reign_* setting key => --reign-* CSS custom property.
+	$map = array(
+		'reign_header_topbar_bg_color'             => '--reign-header-topbar-bg-color',
+		'reign_header_topbar_text_color'           => '--reign-header-topbar-text-color',
+		'reign_header_topbar_text_hover_color'     => '--reign-header-topbar-text-hover-color',
+		'reign_header_bg_color'                    => '--reign-header-bg-color',
+		'reign_header_nav_bg_color'                => '--reign-header-nav-bg-color',
+		'reign_title_tagline_typography'           => '--reign-title-tagline-typography',
+		'reign_header_main_menu_font'              => '--reign-header-main-menu-font',
+		'reign_header_main_menu_text_hover_color'  => '--reign-header-main-menu-text-hover-color',
+		'reign_header_main_menu_text_active_color' => '--reign-header-main-menu-text-active-color',
+		'reign_header_main_menu_bg_hover_color'    => '--reign-header-main-menu-bg-hover-color',
+		'reign_header_main_menu_bg_active_color'   => '--reign-header-main-menu-bg-active-color',
+		'reign_header_sub_menu_bg_color'           => '--reign-header-sub-menu-bg-color',
+		'reign_header_sub_menu_font'               => '--reign-header-sub-menu-font',
+		'reign_header_sub_menu_text_hover_color'   => '--reign-header-sub-menu-text-hover-color',
+		'reign_header_sub_menu_bg_hover_color'     => '--reign-header-sub-menu-bg-hover-color',
+		'reign_header_icon_color'                  => '--reign-header-icon-color',
+		'reign_header_icon_hover_color'            => '--reign-header-icon-hover-color',
+		'reign_mobile_menu_bg_color'               => '--reign-mobile-menu-bg-color',
+		'reign_mobile_menu_color'                  => '--reign-mobile-menu-color',
+		'reign_mobile_menu_hover_color'            => '--reign-mobile-menu-hover-color',
+		'reign_mobile_menu_active_color'           => '--reign-mobile-menu-active-color',
+		'reign_mobile_menu_active_bg_color'        => '--reign-mobile-menu-active-bg-color',
+		'reign_left_panel_bg_color'                => '--reign-left-panel-bg-color',
+		'reign_left_panel_toggle_color'            => '--reign-left-panel-toggle-color',
+		'reign_left_panel_menu_font_color'         => '--reign-left-panel-menu-font-color',
+		'reign_left_panel_menu_hover_color'        => '--reign-left-panel-menu-hover-color',
+		'reign_left_panel_menu_active_color'       => '--reign-left-panel-menu-active-color',
+		'reign_left_panel_menu_bg_hover_color'     => '--reign-left-panel-menu-bg-hover-color',
+		'reign_left_panel_menu_bg_active_color'    => '--reign-left-panel-menu-bg-active-color',
+		'reign_left_panel_menu_icon_active_color'  => '--reign-left-panel-menu-icon-active-color',
+		'reign_left_panel_tooltip_bg_color'        => '--reign-left-panel-tooltip-bg-color',
+		'reign_left_panel_tooltip_color'           => '--reign-left-panel-tooltip-color',
+		'reign_site_body_bg_color'                 => '--reign-site-body-bg-color',
+		'reign_site_body_text_color'               => '--reign-site-body-text-color',
+		'reign_site_alternate_text_color'          => '--reign-site-alternate-text-color',
+		'reign_site_sections_bg_color'             => '--reign-site-sections-bg-color',
+		'reign_site_secondary_bg_color'            => '--reign-site-secondary-bg-color',
+		'reign_colors_theme'                       => '--reign-colors-theme',
+		'reign_site_headings_color'                => '--reign-site-headings-color',
+		'reign_site_link_color'                    => '--reign-site-link-color',
+		'reign_site_link_hover_color'              => '--reign-site-link-hover-color',
+		'reign_accent_color'                       => '--reign-accent-color',
+		'reign_accent_hover_color'                 => '--reign-accent-hover-color',
+		'reign_site_button_text_color'             => '--reign-site-button-text-color',
+		'reign_site_button_text_hover_color'       => '--reign-site-button-text-hover-color',
+		'reign_site_button_bg_color'               => '--reign-site-button-bg-color',
+		'reign_site_button_bg_hover_color'         => '--reign-site-button-bg-hover-color',
+		'reign_site_border_color'                  => '--reign-site-border-color',
+		'reign_site_hr_color'                      => '--reign-site-hr-color',
+		'reign_footer_widget_area_bg_color'        => '--reign-footer-widget-area-bg-color',
+		'reign_footer_widget_title_color'          => '--reign-footer-widget-title-color',
+		'reign_footer_widget_text_color'           => '--reign-footer-widget-text-color',
+		'reign_footer_widget_link_color'           => '--reign-footer-widget-link-color',
+		'reign_footer_widget_link_hover_color'     => '--reign-footer-widget-link-hover-color',
+		'reign_footer_copyright_bg_color'          => '--reign-footer-copyright-bg-color',
+		'reign_footer_copyright_text_color'        => '--reign-footer-copyright-text-color',
+		'reign_footer_copyright_link_color'        => '--reign-footer-copyright-link-color',
+		'reign_footer_copyright_link_hover_color'  => '--reign-footer-copyright-link-hover-color',
+		'reign_form_text_color'                    => '--reign-form-text-color',
+		'reign_form_background_color'              => '--reign-form-background-color',
+		'reign_form_border_color'                  => '--reign-form-border-color',
+		'reign_form_placeholder_color'             => '--reign-form-placeholder-color',
+		'reign_form_focus_text_color'              => '--reign-form-focus-text-color',
+		'reign_form_focus_background_color'        => '--reign-form-focus-background-color',
+		'reign_form_focus_border_color'            => '--reign-form-focus-border-color',
+		'reign_form_focus_placeholder_color'       => '--reign-form-focus-placeholder-color',
+	);
+
+	$css = '';
+	foreach ( $map as $modkey => $cssvar ) {
+		$fallback = isset( $defaults[ $modkey ] ) ? $defaults[ $modkey ] : '';
+		$val      = get_theme_mod( $scheme . '-dark-' . $modkey, $fallback );
+		if ( '' === $val || false === $val ) {
+			continue;
+		}
+		$css .= $cssvar . ':' . $val . '!important;';
+		if ( function_exists( 'hex2rgb' ) ) {
+			$rgb = hex2rgb( (string) $val );
+			if ( $rgb ) {
+				$css .= $cssvar . '-rgb:' . $rgb . '!important;';
+			}
+		}
+	}
+
+	return $css ? '[data-bx-mode="dark"]{' . $css . '}' : '';
+}
+endif;
 
 /**
  * Load global border radius
@@ -1503,6 +1870,7 @@ function load_color_dark_palette() {
  * @since 6.9.2
  * @return string
  */
+if ( ! function_exists( 'load_border_radius' ) ) :
 function load_border_radius() {
 	$global_radius = array(
 		'reign_global_border_radius_option' => '--reign-global-border-radius',
@@ -1543,3 +1911,46 @@ function load_border_radius() {
 
 	return ':root{' . $radius_string . '}';
 }
+endif;
+
+/**
+ * Emit per-user nonces in a logged-in-only inline script.
+ *
+ * Page-cache plugins (WP Rocket, WP Super Cache, LiteSpeed Cache,
+ * Cloudflare APO with the WP plugin, etc.) skip caching for
+ * authenticated requests by default. So this inline `<script>` is only
+ * ever served live — never baked into a cached HTML response. Anonymous
+ * visitors get the cached HTML which contains NO nonces; they don't
+ * need any because they can't perform the friendship / notification /
+ * message actions these nonces protect. The login form itself emits a
+ * fresh wp_nonce_field() inside its own POST request so authentication
+ * is unaffected.
+ *
+ * Why wp_footer (not wp_head): the wp-main script that consumes these
+ * values is enqueued in footer, so the nonces just need to exist before
+ * that script runs.
+ */
+if ( ! function_exists( 'reign_emit_logged_in_nonces' ) ) :
+function reign_emit_logged_in_nonces() {
+	if ( ! is_user_logged_in() ) {
+		return;
+	}
+	$nonces = array(
+		'reign_login_nonce'        => wp_create_nonce( 'reign-sign-form' ),
+		'reign_friendship_nonce'   => wp_create_nonce( 'reign_friendship_nonce' ),
+		'reign_notification_nonce' => wp_create_nonce( 'reign_notification_nonce' ),
+		'reign_message_nonce'      => wp_create_nonce( 'reign_message_nonce' ),
+	);
+	$rest_nonce = wp_create_nonce( 'wp_rest' );
+	?>
+	<script id="reign-per-user-nonces">
+	window.wp_main_js_obj = window.wp_main_js_obj || {};
+	Object.assign( window.wp_main_js_obj, <?php echo wp_json_encode( $nonces ); ?> );
+	// REST nonce for the modern fetch-based client (reignApi).
+	window.reignApiConfig = window.reignApiConfig || {};
+	window.reignApiConfig.rest_nonce = <?php echo wp_json_encode( $rest_nonce ); ?>;
+	</script>
+	<?php
+}
+endif;
+add_action( 'wp_footer', 'reign_emit_logged_in_nonces', 30 );

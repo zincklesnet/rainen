@@ -5,6 +5,9 @@
  * @package Reign
  */
 
+// File name follows the theme's `inc/*-support.php` plugin-integration convention.
+// phpcs:disable WordPress.Files.FileName
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -26,24 +29,26 @@ class Reign_SureCart_Support {
 	public function __construct() {
 		// Hide duplicate elements on SureCart single products.
 		add_action( 'wp', array( $this, 'reign_surecart_single_page_setup' ) );
-		
+
 		// Ensure SureCart post types have proper names in customizer.
 		add_filter( 'reign_customizer_supported_post_types', array( $this, 'reign_surecart_rename_post_types' ) );
-		
+
 		// Add SureCart cart icon support.
 		add_action( 'after_setup_theme', array( $this, 'reign_surecart_cart_icon_support' ) );
-		
+
 		// Hook into when SureCart sets its page IDs (most performant approach).
 		add_action( 'update_option_surecart_shop_page_id', array( $this, 'reign_surecart_page_created' ), 10, 2 );
 		add_action( 'update_option_surecart_checkout_page_id', array( $this, 'reign_surecart_page_created' ), 10, 2 );
 		add_action( 'update_option_surecart_cart_page_id', array( $this, 'reign_surecart_page_created' ), 10, 2 );
 		add_action( 'update_option_surecart_dashboard_page_id', array( $this, 'reign_surecart_page_created' ), 10, 2 );
-		
+
 		// Set defaults for post types on theme activation only.
 		add_action( 'after_switch_theme', array( $this, 'reign_surecart_set_post_type_defaults' ) );
-		
-		// Hook early to modify Kirki fields.
-		add_action( 'init', array( $this, 'reign_surecart_modify_kirki_fields' ), 5 );
+
+		// Inject SureCart cart choice into header icon-picker fields when
+		// SureCart owns the cart. Generic framework filter, applies to
+		// every Field::add() call so we self-gate on the setting id.
+		add_filter( 'reign_customizer_field_args', array( $this, 'reign_surecart_add_to_icon_choices' ), 10, 2 );
 	}
 
 	/**
@@ -56,10 +61,10 @@ class Reign_SureCart_Support {
 
 		// Hide the entire page header section for SureCart products.
 		add_filter( 'reign_page_header_enable', '__return_false' );
-		
+
 		// Hide featured image as SureCart includes product media.
 		add_filter( 'reign_single_post_featured_image', '__return_false' );
-		
+
 		// Add CSS to hide duplicate elements.
 		add_action( 'wp_head', array( $this, 'reign_surecart_hide_duplicate_elements' ) );
 	}
@@ -122,28 +127,24 @@ class Reign_SureCart_Support {
 			function reign_sc_cart_count() {
 				?>
 				<div class="rg-surecart-cart-icon-wrap rg-icon-wrap">
-					<?php 
+					<?php
 					// Use SureCart's cart menu icon block.
-					echo do_blocks( '<!-- wp:surecart/cart-menu-icon {"cart_icon":"shopping-bag","cart_menu_always_shown":true} /-->' );
+					echo do_blocks( '<!-- wp:surecart/cart-menu-icon {"cart_icon":"shopping-bag","cart_menu_always_shown":true} /-->' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- do_blocks() returns rendered, safe block HTML from a static markup string.
 					?>
 				</div>
 				<?php
 			}
 		}
-		
+
 		// Only create template file on theme activation or admin area.
 		if ( is_admin() || did_action( 'after_switch_theme' ) ) {
 			$this->reign_surecart_create_cart_template();
 		}
-		
+
 		// Hook to add SureCart cart to header icons set.
 		add_filter( 'customize_register', array( $this, 'reign_surecart_add_cart_to_customizer' ), 20 );
 		add_filter( 'reign_header_default_icons', array( $this, 'reign_surecart_add_cart_to_default_icons' ) );
 		add_filter( 'reign_mobile_header_default_icons', array( $this, 'reign_surecart_add_cart_to_default_icons' ) );
-		
-		// Add to Kirki field choices.
-		add_filter( 'kirki_reign_header_icons_set_field', array( $this, 'reign_surecart_add_to_kirki_choices' ) );
-		add_filter( 'kirki_reign_mobile_header_icons_set_field', array( $this, 'reign_surecart_add_to_kirki_choices' ) );
 	}
 
 	/**
@@ -190,34 +191,31 @@ class Reign_SureCart_Support {
 	}
 
 	/**
-	 * Add SureCart cart to Kirki field choices
+	 * Inject 'surecart-cart' into the header icon-picker choices when
+	 * SureCart owns the cart (defers to WooCommerce if both are active).
+	 * Hooks `reign_customizer_field_args` so the choice becomes available
+	 * in the customizer sortable + the saved-value path.
+	 *
+	 * @param array                $args         Field args.
+	 * @param \WP_Customize_Manager $wp_customize Customizer manager.
+	 * @return array
 	 */
-	public function reign_surecart_add_to_kirki_choices( $field ) {
-		if ( isset( $field['choices'] ) && is_array( $field['choices'] ) ) {
-			// Add SureCart cart option.
-			$field['choices']['surecart-cart'] = __( 'SureCart Cart', 'reign' );
+	public function reign_surecart_add_to_icon_choices( $args, $wp_customize ) {
+		if ( ! isset( $args['settings'] ) ) {
+			return $args;
 		}
-		return $field;
-	}
-
-	/**
-	 * Modify Kirki fields to add SureCart options
-	 */
-	public function reign_surecart_modify_kirki_fields() {
-		add_filter( 'kirki_values_get_value', array( $this, 'reign_surecart_filter_header_icons' ), 10, 2 );
-	}
-
-	/**
-	 * Filter header icons to ensure SureCart cart is available
-	 */
-	public function reign_surecart_filter_header_icons( $value, $field ) {
-		if ( in_array( $field, array( 'reign_header_icons_set', 'reign_mobile_header_icons_set' ), true ) ) {
-			// Add 'surecart-cart' if it's not already in the array.
-			if ( is_array( $value ) && ! in_array( 'surecart-cart', $value, true ) ) {
-				$value[] = 'surecart-cart';
-			}
+		$target_settings = array( 'reign_header_icons_set', 'reign_mobile_header_icons_set' );
+		if ( ! in_array( $args['settings'], $target_settings, true ) ) {
+			return $args;
 		}
-		return $value;
+		// WooCommerce takes precedence if both are active.
+		if ( class_exists( 'WooCommerce' ) ) {
+			return $args;
+		}
+		if ( isset( $args['choices'] ) && is_array( $args['choices'] ) ) {
+			$args['choices']['surecart-cart'] = __( 'SureCart Cart', 'reign' );
+		}
+		return $args;
 	}
 
 	/**
@@ -228,7 +226,7 @@ class Reign_SureCart_Support {
 		if ( ! $new_value || $new_value === $old_value ) {
 			return;
 		}
-		
+
 		// Set full width layout for the page.
 		$this->reign_surecart_set_page_layout( $new_value );
 	}
@@ -240,17 +238,17 @@ class Reign_SureCart_Support {
 		if ( ! $page_id ) {
 			return;
 		}
-		
+
 		// Get existing meta data.
 		$meta_data = get_post_meta( $page_id, 'reign_wbcom_metabox_data', true );
-		
+
 		// Initialize if not exists.
 		if ( ! is_array( $meta_data ) ) {
 			$meta_data = array();
 		}
-		
+
 		// Only set if not already set.
-		if ( ! isset( $meta_data['layout']['site_layout'] ) || $meta_data['layout']['site_layout'] === '0' ) {
+		if ( ! isset( $meta_data['layout']['site_layout'] ) || '0' === $meta_data['layout']['site_layout'] ) {
 			$meta_data['layout']['site_layout'] = 'full_width';
 			update_post_meta( $page_id, 'reign_wbcom_metabox_data', $meta_data );
 		}
@@ -264,18 +262,18 @@ class Reign_SureCart_Support {
 		if ( get_option( 'reign_surecart_post_type_defaults_set' ) ) {
 			return;
 		}
-		
+
 		// Set full width layout for SureCart post types.
 		$surecart_post_types = array( 'sc_product', 'sc_collection', 'sc_upsell' );
-		
+
 		foreach ( $surecart_post_types as $post_type ) {
 			// Archive layout.
 			set_theme_mod( 'reign_' . $post_type . '_archive_layout', 'full_width' );
-			
+
 			// Single layout.
 			set_theme_mod( 'reign_' . $post_type . '_single_layout', 'full_width' );
 		}
-		
+
 		// Also set layouts for existing pages.
 		$pages = array(
 			get_option( 'surecart_shop_page_id' ),
@@ -283,11 +281,11 @@ class Reign_SureCart_Support {
 			get_option( 'surecart_cart_page_id' ),
 			get_option( 'surecart_dashboard_page_id' ),
 		);
-		
+
 		foreach ( array_filter( $pages ) as $page_id ) {
 			$this->reign_surecart_set_page_layout( $page_id );
 		}
-		
+
 		// Mark that we've set the defaults.
 		update_option( 'reign_surecart_post_type_defaults_set', true );
 	}
@@ -296,13 +294,13 @@ class Reign_SureCart_Support {
 	 * Create cart template file
 	 */
 	private function reign_surecart_create_cart_template() {
-		$header_icons_dir = get_template_directory() . '/template-parts/header-icons/';
+		$header_icons_dir   = get_template_directory() . '/template-parts/header-icons/';
 		$surecart_cart_file = $header_icons_dir . 'surecart-cart.php';
-		
+
 		if ( ! file_exists( $surecart_cart_file ) ) {
 			// Create the file content.
 			$file_content = "<?php\n/**\n * SureCart Cart Icon\n *\n * Template part for displaying the SureCart cart count\n *\n * @package Reign\n */\n\nif ( function_exists( 'reign_sc_cart_count' ) ) {\n\treign_sc_cart_count();\n}\n";
-			
+
 			// Try to create the file.
 			if ( is_writable( $header_icons_dir ) ) {
 				file_put_contents( $surecart_cart_file, $file_content );

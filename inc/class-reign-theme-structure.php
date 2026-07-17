@@ -101,10 +101,28 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 			// Clear cached inline CSS when customizer settings are saved.
 			add_action( 'customize_save_after', array( $this, 'clear_inline_css_cache' ) );
 
+			// Also clear when theme_mods change OUTSIDE the customizer — reset/
+			// restore plugins (e.g. Customizer Backup & Reset), WP-CLI, and
+			// migrations write theme_mods directly and never fire
+			// customize_save_after, so the day-long colour-CSS transients would
+			// otherwise keep serving stale values until the next customizer save.
+			$reign_theme_mods_option = 'theme_mods_' . get_stylesheet();
+			add_action( "update_option_{$reign_theme_mods_option}", array( $this, 'clear_inline_css_cache' ) );
+			add_action( "delete_option_{$reign_theme_mods_option}", array( $this, 'clear_inline_css_cache' ) );
+
 			/**
 			 * Set post excerpt.
 			 */
-			if ( true == get_theme_mod( 'reign_advanced_excerpt', true ) ) {
+			// init_hooks() fires from the file-scope ::instance() call at the
+			// bottom of this file, which runs during the theme's includes()
+			// pass. Guard against load-order regressions where
+			// customizer-framework-bootstrap.php (which defines
+			// reign_is_truthy) has not been included yet.
+			$reign_advanced_excerpt = get_theme_mod( 'reign_advanced_excerpt', true );
+			$advanced_excerpt_on    = function_exists( 'reign_is_truthy' )
+				? reign_is_truthy( $reign_advanced_excerpt )
+				: ! empty( $reign_advanced_excerpt ) && 'off' !== $reign_advanced_excerpt;
+			if ( $advanced_excerpt_on ) {
 				add_filter( 'the_excerpt', array( $this, 'reign_the_excerpt' ), 20, 1 );
 				add_filter( 'excerpt_length', array( $this, 'reign_excerpt_length' ), 999 );
 			}
@@ -140,13 +158,13 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 			if ( bbp_is_single_topic() ) {
 				?>
 				<header class="entry-header bb-single-forum">
-					<h1 class="entry-title"><?php echo bbp_get_topic_title(); ?></h1>
+					<h1 class="entry-title"><?php echo esc_html( bbp_get_topic_title() ); ?></h1>
 				</header> <!--.entry-header -->
 				<?php
 			} elseif ( bbp_is_single_reply() ) {
 				?>
 				<header class="entry-header bb-single-forum">
-					<h1 class="entry-title"><?php echo bbp_get_reply_title(); ?></h1>
+					<h1 class="entry-title"><?php echo esc_html( bbp_get_reply_title() ); ?></h1>
 				</header> <!--.entry-header -->
 				<?php
 
@@ -161,18 +179,14 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 			$default_single_header_enable = get_theme_mod( 'reign_cpt_default_sub_header_switch', false );
 			$cpt_single_header_enable     = get_theme_mod( 'reign_' . get_post_type() . '_single_header_enable', true );
 
-			if ( false === $default_single_header_enable ) {
-				if ( false === $cpt_single_header_enable ) {
-					$single_header_enable = true;
-				} else {
-					$single_header_enable = false;
-				}
+			if ( ! reign_is_truthy( $default_single_header_enable ) ) {
+				$single_header_enable = ! reign_is_truthy( $cpt_single_header_enable );
 			}
 			$reign_subheader_settings = get_post_meta( get_the_ID(), '_subheader_overwrite', true );
-			if ( $reign_subheader_settings == 'yes' ) {
+			if ( 'yes' == $reign_subheader_settings ) {
 				$single_header_enable = true;
 			}
-			if ( is_single() && 'post' === get_post_type() && ( $reign_single_post_layout === 'wide' || $reign_single_post_layout === 'wide_sidebar' ) ) {
+			if ( is_single() && 'post' === get_post_type() && ( 'wide' === $reign_single_post_layout || 'wide_sidebar' === $reign_single_post_layout ) ) {
 				?>
 				<div class="rg-post-meta-info-wrapper">
 					<?php if ( get_post_type() == 'post' ) : ?>
@@ -206,7 +220,7 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 			}
 		}
 
-		function reign_excerpt_length( $length ) {
+		public function reign_excerpt_length( $length ) {
 			$length = get_theme_mod( 'reign_blog_excerpt_length', 20 );
 			return apply_filters( 'reign_excerpt_length', $length );
 		}
@@ -245,12 +259,12 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 
 		public function render_post_tags_at_bottom() {
 			/* list of tags assigned to post */
-			$tags_list = get_the_term_list( get_the_ID(), 'post_tag', $before      = '', $sep      = '', $after        = '' );
+			$tags_list = get_the_term_list( get_the_ID(), 'post_tag', '', '', '' );
 			if ( $tags_list ) {
 				$tags_list = '<span class="tag-links">' . $tags_list . '</span>';
 			}
 			echo '<div class="rg-post-tags-wrapper">';
-			echo apply_filters( 'reign_post_tags', $tags_list );
+			echo wp_kses_post( apply_filters( 'reign_post_tags', $tags_list ) );
 			echo '</div>';
 		}
 
@@ -263,9 +277,19 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 
 			global $rtm_color_scheme;
 
+			// Defensive: if customizer-defaults.php failed to load (or this
+			// runs in an unusual context like wp-cli pre-init), fall back
+			// to an empty scheme set so a missing function doesn't fatal
+			// the wp_head emit.
+			if ( ! function_exists( 'reign_color_scheme_set' ) ) {
+				return;
+			}
 			$color_schemes_set = reign_color_scheme_set();
-			$default_theme_cs  = $color_schemes_set[ $rtm_color_scheme ]['reign_colors_theme'];
-			$theme_color       = get_theme_mod( $rtm_color_scheme . '-' . 'reign_colors_theme', $default_theme_cs );
+			if ( ! isset( $color_schemes_set[ $rtm_color_scheme ]['reign_colors_theme'] ) ) {
+				return;
+			}
+			$default_theme_cs = $color_schemes_set[ $rtm_color_scheme ]['reign_colors_theme'];
+			$theme_color      = get_theme_mod( $rtm_color_scheme . '-reign_colors_theme', $default_theme_cs );
 			// $theme_color = get_theme_mod( 'reign_colors_theme', '#3b5998' );
 			$selector_for_color = '';
 			$selector_for_color = apply_filters( 'reign_selector_set_to_apply_theme_color', $selector_for_color );
@@ -279,7 +303,13 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 			$selector_for_border = apply_filters( 'reign_selector_set_to_apply_theme_color_to_border', $selector_for_border );
 			$selector_for_border = trim( $selector_for_border, ',' );
 
-			$reign_preloading_icon     = get_theme_mod( 'reign_preloading_icon', REIGN_THEME_URI . '/lib/images/loader-1.svg' );
+			$reign_preloading_icon = get_theme_mod( 'reign_preloading_icon', REIGN_THEME_URI . '/lib/images/loader-1.svg' );
+			// Fall back to the default loader when the saved value is empty (e.g. data
+			// left behind by the pre-8.0.0 radio_image sanitizer that mangled URLs),
+			// otherwise the background would render as an empty url() and break.
+			if ( empty( $reign_preloading_icon ) ) {
+				$reign_preloading_icon = REIGN_THEME_URI . '/lib/images/loader-1.svg';
+			}
 			$reign_preloading_bg_color = get_theme_mod( 'reign_preloading_bg_color', '#ffffff' );
 
 			$reign_blog_per_row = get_theme_mod( 'reign_blog_per_row', '3' );
@@ -338,10 +368,19 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 
 		/**
 		 * Clear cached inline CSS transients when customizer saves.
+		 *
+		 * Additional transients added in 8.0.0 for the palette + dark
+		 * palette + border-radius CSS (previously regenerated on every page
+		 * render at the cost of dozens of get_theme_mod reads + string concat
+		 * per request). All radius inputs are customizer settings, so
+		 * customize_save_after fully covers their invalidation.
 		 */
 		public function clear_inline_css_cache() {
 			delete_transient( 'reign_theme_color_css' );
 			delete_transient( 'reign_custom_styles_css' );
+			delete_transient( 'reign_inline_palette_css' );
+			delete_transient( 'reign_inline_dark_palette_css' );
+			delete_transient( 'reign_inline_border_radius_css' );
 		}
 
 		public function render_theme_header_desktop() {
@@ -363,7 +402,7 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 
 		public function render_theme_topbar() {
 			$topbar_enable = get_theme_mod( 'reign_header_topbar_enable', '1' );
-			if ( $topbar_enable ) {
+			if ( reign_is_truthy( $topbar_enable ) ) {
 				get_template_part( 'template-parts/header/header', 'topbar' );
 			}
 		}
@@ -381,7 +420,7 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 
 			// Bail if customizer layout is wide and wide with sidebar.
 			$reign_single_post_layout = get_theme_mod( 'reign_single_post_layout', 'default' );
-			if ( is_single() && 'post' === get_post_type() && ( $reign_single_post_layout === 'wide' || $reign_single_post_layout === 'wide_sidebar' ) ) {
+			if ( is_single() && 'post' === get_post_type() && ( 'wide' === $reign_single_post_layout || 'wide_sidebar' === $reign_single_post_layout ) ) {
 				return;
 			}
 
@@ -393,6 +432,9 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 				}
 				$bp_pages = get_option( 'bp-pages' );
 
+				// Intentionally set the global $post to the BuddyPress directory page so
+				// per-page layout/metabox lookups below resolve to the correct BP page.
+				// phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited
 				if ( bp_is_current_component( 'groups' ) && isset( $bp_pages['groups'] ) && ! bp_is_user() && ! bp_is_group_create() && ! bp_is_group() ) {
 					$post = get_post( $bp_pages['groups'] );
 				} elseif ( bp_is_current_component( 'members' ) && isset( $bp_pages['members'] ) && ! bp_is_user() ) {
@@ -408,10 +450,11 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 				} else {
 					global $post;
 				}
+				// phpcs:enable WordPress.WP.GlobalVariablesOverride.Prohibited
 
 				if ( is_object( $post ) ) {
 					$_subheader_overwrite = get_post_meta( $post->ID, '_subheader_overwrite', true );
-					if ( $_subheader_overwrite != 'yes' || bp_is_group_create() ) {
+					if ( 'yes' != $_subheader_overwrite || bp_is_group_create() ) {
 						return;
 					}
 				}
@@ -426,26 +469,28 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 
 			$_subheader_overwrite = get_post_meta( get_the_ID(), '_subheader_overwrite', true );
 
-			$reign_forum_archive_header_enable = get_theme_mod( 'reign_forum_archive_header_enable' );
-			$reign_forum_single_header_enable  = get_theme_mod( 'reign_forum_single_header_enable' );
-			$reign_topic_single_header_enable  = get_theme_mod( 'reign_topic_single_header_enable' );
+			// Default to false so a fresh install with no saved value
+			// behaves as "header disabled" rather than null/undefined.
+			$reign_forum_archive_header_enable = get_theme_mod( 'reign_forum_archive_header_enable', false );
+			$reign_forum_single_header_enable  = get_theme_mod( 'reign_forum_single_header_enable', false );
+			$reign_topic_single_header_enable  = get_theme_mod( 'reign_topic_single_header_enable', false );
 
 			/* BBpress support added */
-			if ( function_exists( 'is_bbpress' ) && is_bbpress() && ( bbp_is_forum_archive() || bbp_is_topic_archive() ) && $_subheader_overwrite != 'yes' && true === $reign_forum_archive_header_enable ) {
+			if ( function_exists( 'is_bbpress' ) && is_bbpress() && ( bbp_is_forum_archive() || bbp_is_topic_archive() ) && 'yes' != $_subheader_overwrite && reign_is_truthy( $reign_forum_archive_header_enable ) ) {
 				echo '<div class="bbp-header-search-wrap">';
 				echo '<div class="bbp-header-search-inner">';
 				echo do_shortcode( '[bbp-search-form]' );
 				echo '</div>';
 				echo '</div>';
 				return;
-			} elseif ( function_exists( 'is_bbpress' ) && is_bbpress() && bbp_is_single_forum() && $_subheader_overwrite != 'yes' && true === $reign_forum_single_header_enable ) {
+			} elseif ( function_exists( 'is_bbpress' ) && is_bbpress() && bbp_is_single_forum() && 'yes' != $_subheader_overwrite && reign_is_truthy( $reign_forum_single_header_enable ) ) {
 				echo '<div class="bbp-header-search-wrap">';
 				echo '<div class="bbp-header-search-inner">';
 				echo do_shortcode( '[bbp-search-form]' );
 				echo '</div>';
 				echo '</div>';
 				return;
-			} elseif ( function_exists( 'is_bbpress' ) && is_bbpress() && bbp_is_single_topic() && $_subheader_overwrite != 'yes' && true === $reign_topic_single_header_enable ) {
+			} elseif ( function_exists( 'is_bbpress' ) && is_bbpress() && bbp_is_single_topic() && 'yes' != $_subheader_overwrite && reign_is_truthy( $reign_topic_single_header_enable ) ) {
 				echo '<div class="bbp-header-search-wrap">';
 				echo '<div class="bbp-header-search-inner">';
 				echo do_shortcode( '[bbp-search-form]' );
@@ -462,7 +507,7 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 					$page_key             = 'page_' . $page;
 					$_subheader_overwrite = get_post_meta( get_the_ID(), '_subheader_overwrite', true );
 					if ( isset( $wp_query->queried_object ) && isset( $wp_query->queried_object->post_name ) ) {
-						if ( PeepSo::get_option( $page_key ) === $wp_query->queried_object->post_name && $_subheader_overwrite != 'yes' ) {
+						if ( PeepSo::get_option( $page_key ) === $wp_query->queried_object->post_name && 'yes' != $_subheader_overwrite ) {
 							return;
 						}
 					}
@@ -483,22 +528,18 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 
 			$post_type = get_post_type();
 
-			$kirki_post_types_support_class = new Reign_Kirki_Post_Types_Support();
+			$kirki_post_types_support_class = new Reign_Customizer_Post_Types_Fields();
 			$supported_post_types           = $kirki_post_types_support_class->get_post_types_to_support();
 			if ( is_singular() ) {
 				$single_header_enable         = false;
 				$default_single_header_enable = get_theme_mod( 'reign_cpt_default_sub_header_switch', false );
 				$cpt_single_header_enable     = get_theme_mod( 'reign_' . $post_type . '_single_header_enable', true );
 
-				if ( false === $default_single_header_enable ) {
-					if ( false === $cpt_single_header_enable ) {
-						$single_header_enable = true;
-					} else {
-						$single_header_enable = false;
-					}
+				if ( ! reign_is_truthy( $default_single_header_enable ) ) {
+					$single_header_enable = ! reign_is_truthy( $cpt_single_header_enable );
 				}
 
-				if ( $reign_subheader_settings == 'yes' ) {
+				if ( 'yes' == $reign_subheader_settings ) {
 					$single_header_enable = true;
 				}
 				if ( $single_header_enable ) {
@@ -506,19 +547,15 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 				}
 			} elseif ( is_search() ) {
 				$search_header_enable = get_theme_mod( 'reign_search_header_enable', true );
-				if ( ! $search_header_enable ) {
+				if ( ! reign_is_truthy( $search_header_enable ) ) {
 					get_template_part( 'template-parts/reign', 'page-header' );
 				}
 			} elseif ( is_archive() || is_home() ) {
 				$archive_header_enable           = false;
 				$default_single_header_enable    = get_theme_mod( 'reign_cpt_default_sub_header_switch', false );
 				$archive_post_type_header_enable = get_theme_mod( 'reign_' . $post_type . '_archive_header_enable', true );
-				if ( false === $default_single_header_enable ) {
-					if ( false === $archive_post_type_header_enable ) {
-						$archive_header_enable = true;
-					} else {
-						$archive_header_enable = false;
-					}
+				if ( ! reign_is_truthy( $default_single_header_enable ) ) {
+					$archive_header_enable = ! reign_is_truthy( $archive_post_type_header_enable );
 				}
 				if ( $archive_header_enable ) {
 					get_template_part( 'template-parts/reign', 'page-header' );
@@ -597,7 +634,7 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 
 			// 3) If a page_id was determined (BP/BB/Woo/posts), check its per-page metabox and respect it.
 			if ( $page_id ) {
-				$meta = get_post_meta( $page_id, "{$theme_slug}_wbcom_metabox_data", true );
+				$meta        = get_post_meta( $page_id, "{$theme_slug}_wbcom_metabox_data", true );
 				$site_layout = $meta['layout']['site_layout'] ?? '';
 
 				if ( in_array( $site_layout, array( 'left_sidebar', 'both_sidebar' ), true ) ) {
@@ -614,7 +651,7 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 			// 4) Also check the currently queried object itself (covers pages that are directly edited in WP admin).
 			$queried_id = (int) get_queried_object_id();
 			if ( $queried_id && $queried_id !== $page_id ) {
-				$meta = get_post_meta( $queried_id, "{$theme_slug}_wbcom_metabox_data", true );
+				$meta        = get_post_meta( $queried_id, "{$theme_slug}_wbcom_metabox_data", true );
 				$site_layout = $meta['layout']['site_layout'] ?? '';
 
 				if ( in_array( $site_layout, array( 'left_sidebar', 'both_sidebar' ), true ) ) {
@@ -658,14 +695,18 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 			}
 
 			// 6) LearnDash archive special-case: temporarily clear $post to avoid wrong metabox.
+			// phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited
 			if ( is_archive() && 'sfwd-courses' === get_post_type() ) {
 				$course_post = $post;
-				$post = null;
+				$post        = null;
 			}
+			// phpcs:enable WordPress.WP.GlobalVariablesOverride.Prohibited
 
 			// 7) If $post exists, check its metabox (typical single/page per-post override).
+			// Restores below re-set the global $post to the saved LearnDash course post.
+			// phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited
 			if ( isset( $post ) && $post ) {
-				$meta = get_post_meta( $post->ID, "{$theme_slug}_wbcom_metabox_data", true );
+				$meta        = get_post_meta( $post->ID, "{$theme_slug}_wbcom_metabox_data", true );
 				$site_layout = $meta['layout']['site_layout'] ?? '';
 
 				if ( in_array( $site_layout, array( 'left_sidebar', 'both_sidebar' ), true ) ) {
@@ -692,6 +733,7 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 				global $post;
 				$post = $course_post;
 			}
+			// phpcs:enable WordPress.WP.GlobalVariablesOverride.Prohibited
 
 			// 8) Finally, fallback to customizer per-post-type layout.
 			$post_type = get_post_type();
@@ -715,8 +757,8 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 		public function render_right_sidebar_area() {
 			if ( is_search() ) {
 				$search_content_layout = get_theme_mod( 'reign_search_page_layout', 'right_sidebar' );
-				if ( ( $search_content_layout == 'both_sidebar' ) || ( $search_content_layout == 'right_sidebar' ) ) {
-					echo get_sidebar();
+				if ( ( 'both_sidebar' == $search_content_layout ) || ( 'right_sidebar' == $search_content_layout ) ) {
+					get_sidebar();
 
 				}
 				return;
@@ -724,11 +766,14 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 
 			// Bail if customizer layout is wide.
 			$reign_single_post_layout = get_theme_mod( 'reign_single_post_layout', 'default' );
-			if ( is_single() && 'post' === get_post_type() && ( $reign_single_post_layout === 'wide' ) ) {
+			if ( is_single() && 'post' === get_post_type() && ( 'wide' === $reign_single_post_layout ) ) {
 				return;
 			}
 
 			global $wp_query;
+			// Intentionally re-point the global $post to the blog/WooCommerce page so the
+			// right-sidebar layout lookup below reads the correct page metabox.
+			// phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited
 			if ( isset( $wp_query ) && (bool) $wp_query->is_posts_page ) {
 				$post_id = get_option( 'page_for_posts' );
 				$post    = get_post( $post_id );
@@ -736,7 +781,7 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 				global $post;
 
 				if ( class_exists( 'woocommerce' ) ) {
-					if ( is_woocommerce() && is_archive() && get_post_type() == 'product' ) {
+					if ( is_woocommerce() && is_archive() && 'product' === get_post_type() ) {
 						$shop_page_id = get_option( 'woocommerce_shop_page_id' );
 						$post         = get_post( $shop_page_id );
 					}
@@ -754,13 +799,14 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 					}
 				}
 			}
+			// phpcs:enable WordPress.WP.GlobalVariablesOverride.Prohibited
 			if ( $post ) {
 				$theme_slug         = apply_filters( 'wbcom_essential_theme_slug', 'reign' );
 				$wbcom_metabox_data = get_post_meta( $post->ID, $theme_slug . '_wbcom_metabox_data', true );
 				$site_layout        = isset( $wbcom_metabox_data['layout']['site_layout'] ) ? $wbcom_metabox_data['layout']['site_layout'] : '';
 
-				if ( ( $site_layout == 'both_sidebar' ) || ( $site_layout == 'right_sidebar' ) ) {
-					echo get_sidebar();
+				if ( ( 'both_sidebar' == $site_layout ) || ( 'right_sidebar' == $site_layout ) ) {
+					get_sidebar();
 					return;
 				}
 
@@ -786,8 +832,8 @@ if ( ! class_exists( 'Reign_Theme_Structure' ) ) :
 				$active_content_layout = get_theme_mod( 'reign_' . $post_type . '_archive_layout', 'right_sidebar' );
 			}
 
-			if ( ( $active_content_layout == 'both_sidebar' ) || ( $active_content_layout == 'right_sidebar' ) ) {
-				echo get_sidebar();
+			if ( ( 'both_sidebar' == $active_content_layout ) || ( 'right_sidebar' == $active_content_layout ) ) {
+				get_sidebar();
 				return;
 			}
 		}

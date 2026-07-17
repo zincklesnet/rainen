@@ -7,6 +7,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 function reign_get_default_page_header_image() {
 	// return '';
 	return REIGN_THEME_URI . '/lib/images/default-header-image.jpg';
@@ -130,6 +132,57 @@ function reign_mobile_header_default_icons_set() {
 }
 
 /**
+ * Read a sortable customizer theme_mod as a normalized flat array of slug strings.
+ *
+ * The Customizer Framework's sortable control stores a flat array of slugs in
+ * display order. Pre-5.1.x builds occasionally saved the value as a JSON-encoded
+ * string or as an array of `{slug, enabled}` objects (the legacy JS shape).
+ * Templates that iterate the value directly (`foreach $icons as $icon`) would
+ * silently render zero icons when handed a string or an object array, because
+ * `foreach` over a string emits nothing and `'template-parts/header-icons/' . $obj`
+ * yields an unusable path.
+ *
+ * This helper accepts every shape we have ever emitted and always returns a
+ * flat `array<int, string>`. Use it everywhere a sortable theme_mod is read
+ * so a future contract change in the control surface cannot break the header.
+ *
+ * @since 7.8.5
+ *
+ * @param string $key     Theme mod key (e.g. `reign_header_icons_set`).
+ * @param array  $default Flat array of slug strings to use when nothing is saved.
+ * @return array<int, string> Ordered slug list, never a string, never null.
+ */
+function reign_get_sortable_setting( string $key, array $default ): array {
+	$raw = get_theme_mod( $key, $default );
+
+	// Legacy JSON-string saves — decode in place.
+	if ( is_string( $raw ) ) {
+		$decoded = json_decode( $raw, true );
+		$raw     = is_array( $decoded ) ? $decoded : $default;
+	}
+
+	if ( ! is_array( $raw ) ) {
+		return array_values( array_filter( $default, 'is_string' ) );
+	}
+
+	$out = array();
+	foreach ( $raw as $item ) {
+		if ( is_string( $item ) && '' !== $item ) {
+			$out[] = $item;
+			continue;
+		}
+		// Legacy {slug, enabled} object shape — drop disabled rows.
+		if ( is_array( $item ) && ! empty( $item['slug'] ) ) {
+			$enabled = ! array_key_exists( 'enabled', $item ) || ! empty( $item['enabled'] );
+			if ( $enabled ) {
+				$out[] = (string) $item['slug'];
+			}
+		}
+	}
+	return array_values( array_unique( $out ) );
+}
+
+/**
  * Returns the correct sidebar ID
  *
  * @since  1.0.4
@@ -147,7 +200,7 @@ function reign_get_sidebar_id_to_show( $sidebar_location = 'primary_sidebar' ) {
 		$wbcom_metabox_data = get_post_meta( $post->ID, $theme_slug . '_wbcom_metabox_data', true );
 		$sidebar_id         = isset( $wbcom_metabox_data['layout'][ $sidebar_location ] ) ? $wbcom_metabox_data['layout'][ $sidebar_location ] : '';
 		$site_layout        = isset( $wbcom_metabox_data['layout']['site_layout'] ) ? $wbcom_metabox_data['layout']['site_layout'] : '';
-		if ( ! empty( $sidebar_id ) && ( $sidebar_id != '0' ) ) {
+		if ( ! empty( $sidebar_id ) && ( '0' != $sidebar_id ) ) {
 			return $sidebar_id;
 		}
 	}
@@ -158,7 +211,7 @@ function reign_get_sidebar_id_to_show( $sidebar_location = 'primary_sidebar' ) {
 add_filter(
 	'wbcom_essential_theme_slug',
 	function () {
-		$theme_info = wp_get_theme();
+		$theme_info   = wp_get_theme();
 		$parent_theme = $theme_info->parent();
 
 		if ( $parent_theme instanceof WP_Theme ) {
@@ -185,7 +238,7 @@ function reign_breadcrumbs() {
 	}
 
 	$wpseo_titles = get_option( 'wpseo_titles' );
-	if ( function_exists( 'yoast_breadcrumb' ) && isset( $wpseo_titles['breadcrumbs-enable'] ) && $wpseo_titles['breadcrumbs-enable'] == 1 ) {
+	if ( function_exists( 'yoast_breadcrumb' ) && isset( $wpseo_titles['breadcrumbs-enable'] ) && 1 == $wpseo_titles['breadcrumbs-enable'] ) {
 
 		yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' );
 
@@ -225,17 +278,17 @@ function reign_breadcrumbs() {
 					$userdata = get_userdata( $author );
 					echo '<li class="item-current item-author"><strong class="bread-current bread-author">' . esc_html( $userdata->display_name ) . '</strong></li>';
 				} elseif ( is_day() ) {
-					echo '<li class="item-year item-year-' . esc_attr( get_the_time( 'Y' ) ) . '"><a class="bread-year" href="' . esc_url( get_year_link( get_the_time( 'Y' ) ) ) . '">' . esc_html( get_the_time( 'Y' ) ) . ' Archives</a></li>';
+					echo '<li class="item-year item-year-' . esc_attr( get_the_time( 'Y' ) ) . '"><a class="bread-year" href="' . esc_url( get_year_link( get_the_time( 'Y' ) ) ) . '">' . esc_html( get_the_time( 'Y' ) ) . ' ' . esc_html__( 'Archives', 'reign' ) . '</a></li>';
 					echo '<li class="separator"> ' . wp_kses_post( $separator ) . ' </li>';
-					echo '<li class="item-month item-month-' . esc_attr( get_the_time( 'm' ) ) . '"><a class="bread-month" href="' . esc_url( get_month_link( get_the_time( 'Y' ), get_the_time( 'm' ) ) ) . '">' . esc_html( get_the_time( 'F' ) ) . ' Archives</a></li>';
+					echo '<li class="item-month item-month-' . esc_attr( get_the_time( 'm' ) ) . '"><a class="bread-month" href="' . esc_url( get_month_link( get_the_time( 'Y' ), get_the_time( 'm' ) ) ) . '">' . esc_html( get_the_time( 'F' ) ) . ' ' . esc_html__( 'Archives', 'reign' ) . '</a></li>';
 					echo '<li class="separator"> ' . wp_kses_post( $separator ) . ' </li>';
-					echo '<li class="item-current item-day"><strong class="bread-current bread-day">' . esc_html( get_the_time( 'jS' ) ) . ' ' . esc_html( get_the_time( 'F' ) ) . ' Archives</strong></li>';
+					echo '<li class="item-current item-day"><strong class="bread-current bread-day">' . esc_html( get_the_time( 'jS' ) ) . ' ' . esc_html( get_the_time( 'F' ) ) . ' ' . esc_html__( 'Archives', 'reign' ) . '</strong></li>';
 				} elseif ( is_month() ) {
-					echo '<li class="item-year item-year-' . esc_attr( get_the_time( 'Y' ) ) . '"><a class="bread-year" href="' . esc_url( get_year_link( get_the_time( 'Y' ) ) ) . '">' . esc_html( get_the_time( 'Y' ) ) . ' Archives</a></li>';
+					echo '<li class="item-year item-year-' . esc_attr( get_the_time( 'Y' ) ) . '"><a class="bread-year" href="' . esc_url( get_year_link( get_the_time( 'Y' ) ) ) . '">' . esc_html( get_the_time( 'Y' ) ) . ' ' . esc_html__( 'Archives', 'reign' ) . '</a></li>';
 					echo '<li class="separator"> ' . wp_kses_post( $separator ) . ' </li>';
-					echo '<li class="item-current item-month"><strong class="bread-current bread-month">' . esc_html( get_the_time( 'F' ) ) . ' Archives</strong></li>';
+					echo '<li class="item-current item-month"><strong class="bread-current bread-month">' . esc_html( get_the_time( 'F' ) ) . ' ' . esc_html__( 'Archives', 'reign' ) . '</strong></li>';
 				} elseif ( is_year() ) {
-					echo '<li class="item-current item-year"><strong class="bread-current bread-year">' . esc_html( get_the_time( 'Y' ) ) . ' Archives</strong></li>';
+					echo '<li class="item-current item-year"><strong class="bread-current bread-year">' . esc_html( get_the_time( 'Y' ) ) . ' ' . esc_html__( 'Archives', 'reign' ) . '</strong></li>';
 				}
 			}
 
@@ -245,7 +298,7 @@ function reign_breadcrumbs() {
 				$post_type = get_post_type();
 
 				// Custom post type handling.
-				if ( $post_type != 'post' ) {
+				if ( 'post' != $post_type ) {
 
 					$post_type_object  = get_post_type_object( $post_type );
 					$post_type_archive = get_post_type_archive_link( $post_type );
@@ -288,7 +341,11 @@ function reign_breadcrumbs() {
 
 			// Handle search results page.
 			if ( is_search() ) {
-				echo '<li class="item-current item-current-' . get_search_query() . '"><strong class="bread-current bread-current-' . get_search_query() . '" title="Search results for: ' . get_search_query() . '">Search results for: ' . get_search_query() . '</strong></li>';
+				$search_query = get_search_query( false );
+				/* translators: %s: search query string. */
+				$search_label = sprintf( __( 'Search results for: %s', 'reign' ), $search_query );
+				$search_class = sanitize_html_class( $search_query );
+				echo '<li class="item-current item-current-' . esc_attr( $search_class ) . '"><strong class="bread-current bread-current-' . esc_attr( $search_class ) . '" title="' . esc_attr( $search_label ) . '">' . esc_html( $search_label ) . '</strong></li>';
 			}
 
 			// Handle 404.
@@ -297,7 +354,7 @@ function reign_breadcrumbs() {
 			}
 
 			if ( is_home() && ! is_front_page() ) {
-				echo '<li>' . single_post_title( '', false ) . '</li>';
+				echo '<li>' . esc_html( single_post_title( '', false ) ) . '</li>';
 			}
 
 			// Allow last element customization.
@@ -324,9 +381,9 @@ if ( ! function_exists( 'reign_post_content_after' ) ) {
 	function reign_post_content_after() {
 		if ( is_singular( 'post' ) ) {
 			$reign_author_info = get_theme_mod( 'reign_author_info', 'on' );
-			if ( ! empty( $reign_author_info ) ) {
+			if ( reign_is_truthy( $reign_author_info ) ) {
 				$reign_author_info_link = get_theme_mod( 'reign_author_info_link', 'on' );
-				if ( class_exists( 'BuddyPress' ) && $reign_author_info_link ) {
+				if ( class_exists( 'BuddyPress' ) && reign_is_truthy( $reign_author_info_link ) ) {
 					if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
 						$user_link = bp_members_get_user_url( get_the_author_meta( 'ID' ) );
 					} else {
@@ -358,7 +415,7 @@ if ( ! function_exists( 'reign_post_content_after' ) ) {
 			<?php
 			$reign_show_related_post  = get_theme_mod( 'reign_show_related_post', false );
 			$reign_related_post_title = get_theme_mod( 'reign_related_post_title', 'Related Posts' );
-			if ( ! empty( $reign_show_related_post ) ) {
+			if ( reign_is_truthy( $reign_show_related_post ) ) {
 				$related_query = new WP_Query(
 					array(
 						'post_type'      => 'post',
@@ -427,7 +484,7 @@ if ( ! function_exists( 'reign_post_content_after' ) ) {
  */
 if ( ! function_exists( 'reign_css_compress' ) ) {
 	function reign_css_compress( $css ) {
-		if ( $css !== null ) {
+		if ( null !== $css ) {
 			$css = preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css );
 			$css = str_replace( ': ', ':', $css );
 			$css = str_replace( array( "\r\n", "\r", "\n", "\t", '  ', '    ', '    ' ), '', $css );
@@ -439,28 +496,6 @@ if ( ! function_exists( 'reign_css_compress' ) ) {
 }
 
 /**
- * Adds a 'dark-mode' class to the HTML element when dark mode is enabled.
- *
- * @param array $classes Array of existing classes for the HTML element.
- * @return array Modified array of classes with 'dark-mode' added if applicable.
- */
-function reign_add_dark_mode_html_class( $classes ) {
-	$stored_mode = isset( $_COOKIE['reign_dark_mode'] ) ? $_COOKIE['reign_dark_mode'] : '';
-	$default_mode = get_theme_mod( 'reign_default_mode', 'light' );
-
-	if ( $stored_mode === 'dark' || ( !$stored_mode && $default_mode === 'dark' ) ) {
-		$classes[] = 'dark-mode';
-	}
-	return $classes;
-}
-
-$reign_dark_mode_option = get_theme_mod( 'reign_dark_mode_option' );
-
-if ( $reign_dark_mode_option === true ) {
-	add_filter( 'reign_html_class', 'reign_add_dark_mode_html_class' );
-}
-
-/**
  *
  * Replace dark mode logo when user set dark mode from fronted.
  *
@@ -469,12 +504,12 @@ if ( $reign_dark_mode_option === true ) {
 add_filter( 'get_custom_logo', 'reign_theme_get_custom_logo', 99, 2 );
 function reign_theme_get_custom_logo( $html, $blog_id ) {
 
-	if ( isset( $_COOKIE['reign_dark_mode'] ) && $_COOKIE['reign_dark_mode'] == 'true' ) {
+	if ( isset( $_COOKIE['reign_dark_mode'] ) && 'dark' === $_COOKIE['reign_dark_mode'] ) {
 		$custom_logo = wp_get_attachment_image_src( get_theme_mod( 'custom_logo' ), 'full' );
 		$light_logo  = ( ! empty( $custom_logo ) ) ? $custom_logo[0] : '';
-		$dark_logo   = get_theme_mod( 'reign_dark_mode_logo' );
+		$dark_logo   = get_theme_mod( 'reign_dark_mode_logo', '' );
 
-		if ( $dark_logo != '' ) {
+		if ( '' != $dark_logo ) {
 			$light_logo_url = $light_logo;
 			$dark_logo_url  = $dark_logo;
 
@@ -647,13 +682,13 @@ add_action( 'wp_loaded', 'save_reign_theme_dark_mode_image_settings' );
  * Save dark mode image settings.
  */
 function save_reign_theme_dark_mode_image_settings() {
-	if ( isset( $_POST['reign-settings-submit'] ) && $_POST['reign-settings-submit'] == 'Y' ) {
+	if ( isset( $_POST['reign-settings-submit'] ) && 'Y' === sanitize_text_field( wp_unslash( $_POST['reign-settings-submit'] ) ) ) {
 		check_admin_referer( 'reign-options' );
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 		if ( isset( $_POST['reign_dark_mode_image_settings'] ) ) {
-			$raw      = $_POST['reign_dark_mode_image_settings']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$raw      = wp_unslash( $_POST['reign_dark_mode_image_settings'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- array values sanitized below with esc_url_raw.
 			$settings = array(
 				'light_images' => array_map( 'esc_url_raw', (array) ( isset( $raw['light_images'] ) ? $raw['light_images'] : array() ) ),
 				'dark_images'  => array_map( 'esc_url_raw', (array) ( isset( $raw['dark_images'] ) ? $raw['dark_images'] : array() ) ),
@@ -688,8 +723,7 @@ function reign_post_comment_box() {
 	$post_id   = get_the_ID();
 	if ( class_exists( 'Buddypress_Reactions_Public' ) ) {
 
-		$query                = $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'bp_reactions_shortcodes WHERE post_type = %s and front_render=%s limit 1', $post_type, 1 );
-		$reactions_shortcodes = $wpdb->get_results( $query );
+		$reactions_shortcodes = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'bp_reactions_shortcodes WHERE post_type = %s and front_render = %s limit 1', $post_type, 1 ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom plugin table, no core API available.
 		$bp_reactions         = isset( $reactions_shortcodes[0] ) ? $reactions_shortcodes[0] : null;
 		$bp_shortcode_id      = $bp_reactions ? $bp_reactions->id : null;
 		$bp_reactions         = $bp_reactions ? json_decode( $bp_reactions->options, true ) : null;
@@ -697,8 +731,7 @@ function reign_post_comment_box() {
 		$animation            = $bp_reactions['animation'] ?? '';
 		$reacted_animation    = $bp_reactions['react_icon_animation'] ?? 'true';
 
-		$query            = $wpdb->prepare( 'SELECT emoji_id FROM ' . $wpdb->prefix . 'bp_reactions_reacted_emoji WHERE user_id = %s and post_id = %s and  post_type = %s and bprs_id=%s', $user_id, $post_id, $post_type, $bp_shortcode_id );
-		$reacted_emoji_id = $wpdb->get_var( $query );
+		$reacted_emoji_id = $wpdb->get_var( $wpdb->prepare( 'SELECT emoji_id FROM ' . $wpdb->prefix . 'bp_reactions_reacted_emoji WHERE user_id = %s and post_id = %s and post_type = %s and bprs_id = %s', $user_id, $post_id, $post_type, $bp_shortcode_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom plugin table, no core API available.
 
 		$bp_reations_classes       = 'bp-reactions-animation-' . $animation;
 		$reacted_animation_classes = 'bp-reactions-animation-' . $reacted_animation;
@@ -706,7 +739,7 @@ function reign_post_comment_box() {
 		$activity_react_label = ( isset( $bp_reactions['activity_react_label'] ) && ! empty( $bp_reactions['activity_react_label'] ) ) ? $bp_reactions['activity_react_label'] : __( 'React', 'reign' );
 
 		// Update the react label to the emoji name if a reaction is found.
-		if ( $reacted_emoji_id && $reacted_emoji_id !== 0 ) {
+		if ( $reacted_emoji_id && 0 !== $reacted_emoji_id ) {
 			$activity_react_label = get_buddypress_reaction_emoji_name( $reacted_emoji_id );
 		}
 	}
@@ -734,6 +767,7 @@ function reign_post_comment_box() {
 						<?php
 						echo esc_html(
 							sprintf(
+								/* translators: %s: number of comments. */
 								_nx(
 									'%s Comment',
 									'%s Comments',
@@ -750,7 +784,7 @@ function reign_post_comment_box() {
 				<div class="reign-meta-line">
 					<p class="reign-meta-line-text">
 						<span id="bp-activity-reshare-count-<?php echo esc_attr( get_the_ID() ); ?>" class="reshare-count bp-post-reshare-count"><?php echo esc_html( $share_count ); ?></span>
-					<?php echo __( 'Shares', 'reign' ); ?></p>
+					<?php esc_html_e( 'Shares', 'reign' ); ?></p>
 				</div>				
 			</div>
 		</div>
@@ -763,13 +797,13 @@ function reign_post_comment_box() {
 							<div class="bp-activity-react-btn">
 								<a class="button item-button bp-secondary-action bp-activity-react-button" rel="nofollow" data-post-id="<?php echo esc_attr( $post_id ); ?>" data-type="<?php echo esc_attr( $post_type ); ?>"  data-bprs-id="<?php echo esc_attr( $bp_shortcode_id ); ?>">
 									<div class="bp-post-react-icon bp-activity-react-icon <?php echo esc_attr( $reacted_animation_classes ); ?>">
-										<?php if ( $reacted_emoji_id != '' && $reacted_emoji_id != 0 ) : ?>
-											<?php if ( $reacted_animation == 'false' ) : ?>
-												<img class="post-option-image" src="<?php echo get_buddypress_reaction_emoji( $reacted_emoji_id, 'svg' ); ?>" alt="">
+										<?php if ( '' != $reacted_emoji_id && 0 != $reacted_emoji_id ) : ?>
+											<?php if ( 'false' == $reacted_animation ) : ?>
+												<img class="post-option-image" src="<?php echo esc_url( get_buddypress_reaction_emoji( $reacted_emoji_id, 'svg' ) ); ?>" alt="">
 											<?php else : ?>
-												<div class="emoji-pick" data-emoji-id="<?php echo $reacted_emoji_id; ?>" title="<?php echo $reacted_emoji_id; ?>">
+												<div class="emoji-pick" data-emoji-id="<?php echo esc_attr( $reacted_emoji_id ); ?>" title="<?php echo esc_attr( $reacted_emoji_id ); ?>">
 													<div class="emoji-lottie-holder" style="display: none"></div>
-													<figure itemprop="gif" class="emoji-svg-holder" style="background-image: url('<?php echo get_buddypress_reaction_emoji( $reacted_emoji_id, 'svg' ); ?>'"></figure>
+													<figure itemprop="gif" class="emoji-svg-holder" style="background-image: url('<?php echo esc_url( get_buddypress_reaction_emoji( $reacted_emoji_id, 'svg' ) ); ?>'"></figure>
 												</div>
 											<?php endif; ?>
 										<?php else : ?>
@@ -785,13 +819,11 @@ function reign_post_comment_box() {
 								<?php if ( ! empty( $emojis ) ) : ?>
 									<?php
 									foreach ( $emojis as $emoji ) :
-										$table_name  = $wpdb->prefix . 'bp_reactions_emojis ';
-										$query       = $wpdb->prepare( "SELECT name FROM {$table_name} WHERE id = %d", $emoji );
-										$emojis_name = $wpdb->get_var( $query );
+										$emojis_name = $wpdb->get_var( $wpdb->prepare( 'SELECT name FROM ' . $wpdb->prefix . 'bp_reactions_emojis WHERE id = %d', $emoji ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom plugin table, no core API available.
 										?>
 										<div class="emoji-pick" data-post-id="<?php echo esc_attr( $post_id ); ?>" data-type="<?php echo esc_attr( $post_type ); ?>" data-emoji-id="<?php echo esc_attr( $emoji ); ?>" title="<?php echo esc_attr( $emojis_name ); ?>" data-bprs-id="<?php echo esc_attr( $bp_shortcode_id ); ?>" >
 											<div class="emoji-lottie-holder" style="display: none"></div>
-											<figure itemprop="gif" class="emoji-svg-holder" style="background-image: url('<?php echo get_buddypress_reaction_emoji( $emoji, 'svg' ); ?>'"></figure>
+											<figure itemprop="gif" class="emoji-svg-holder" style="background-image: url('<?php echo esc_url( get_buddypress_reaction_emoji( $emoji, 'svg' ) ); ?>'"></figure>
 										</div>
 									<?php endforeach; ?>
 								<?php endif; ?>
@@ -807,7 +839,7 @@ function reign_post_comment_box() {
 				<?php
 				if ( class_exists( 'Buddypress_Share_Public' ) ) :
 					$bp_reshare_settings = get_site_option( 'bp_reshare_settings' );
-					if ( isset( $bp_reshare_settings['disable_post_reshare_activity'] ) && $bp_reshare_settings['disable_post_reshare_activity'] == 1 ) {
+					if ( isset( $bp_reshare_settings['disable_post_reshare_activity'] ) && 1 == $bp_reshare_settings['disable_post_reshare_activity'] ) {
 						?>
 						<div class="reign-post-option-wrap" style="display: none;">
 						<?php
@@ -849,16 +881,14 @@ function reign_post_comment_bp_reactions( $comment_id, $comment ) {
 		$post_type = get_post_type();
 		$post_id   = get_the_ID();
 
-		$query                = $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'bp_reactions_shortcodes WHERE post_type = %s and front_render=%s limit 1', $post_type, 1 );
-		$reactions_shortcodes = $wpdb->get_results( $query );
+		$reactions_shortcodes = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'bp_reactions_shortcodes WHERE post_type = %s and front_render = %s limit 1', $post_type, 1 ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom plugin table, no core API available.
 		$bp_reactions         = $reactions_shortcodes[0];
 		$bp_shortcode_id      = $bp_reactions->id;
 		$bp_reactions         = json_decode( $bp_reactions->options, true );
 		$emojis               = $bp_reactions['emojis'];
 		$animation            = $bp_reactions['animation'];
 
-		$query            = $wpdb->prepare( 'SELECT emoji_id FROM ' . $wpdb->prefix . 'bp_reactions_reacted_emoji WHERE user_id = %s and post_id = %s and  post_type = %s and bprs_id=%s', $user_id, $comment_id, 'post-comment', $bp_shortcode_id );
-		$reacted_emoji_id = $wpdb->get_var( $query );
+		$reacted_emoji_id = $wpdb->get_var( $wpdb->prepare( 'SELECT emoji_id FROM ' . $wpdb->prefix . 'bp_reactions_reacted_emoji WHERE user_id = %s and post_id = %s and post_type = %s and bprs_id = %s', $user_id, $comment_id, 'post-comment', $bp_shortcode_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom plugin table, no core API available.
 
 		$bp_reations_classes = 'bp-reactions-animation-' . $animation;
 
@@ -880,13 +910,11 @@ function reign_post_comment_bp_reactions( $comment_id, $comment ) {
 				<?php if ( ! empty( $emojis ) ) : ?>
 					<?php
 					foreach ( $emojis as $emoji ) :
-						$table_name  = $wpdb->prefix . 'bp_reactions_emojis ';
-						$query       = $wpdb->prepare( "SELECT name FROM {$table_name} WHERE id = %d", $emoji );
-						$emojis_name = $wpdb->get_var( $query );
+						$emojis_name = $wpdb->get_var( $wpdb->prepare( 'SELECT name FROM ' . $wpdb->prefix . 'bp_reactions_emojis WHERE id = %d', $emoji ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom plugin table, no core API available.
 						?>
 						<div class="emoji-pick" data-post-id="<?php echo esc_attr( $comment_id ); ?>" data-type="post-comment" data-emoji-id="<?php echo esc_attr( $emoji ); ?>" title="<?php echo esc_attr( $emojis_name ); ?>" data-bprs-id="<?php echo esc_attr( $bp_shortcode_id ); ?>" >
 							<div class="emoji-lottie-holder" style="display: none"></div>
-							<figure itemprop="gif" class="emoji-svg-holder" style="background-image: url('<?php echo get_buddypress_reaction_emoji( $emoji, 'svg' ); ?>'"></figure>
+							<figure itemprop="gif" class="emoji-svg-holder" style="background-image: url('<?php echo esc_url( get_buddypress_reaction_emoji( $emoji, 'svg' ) ); ?>'"></figure>
 						</div>
 					<?php endforeach; ?>
 				<?php endif; ?>
@@ -911,8 +939,10 @@ function reign_post_comment_bp_reactions( $comment_id, $comment ) {
  */
 function reign_comments_callback( $comment, $args, $depth ) {
 
-	$GLOBALS['comment']       = $comment;
-	$GLOBALS['comment_depth'] = $depth;
+	// Comment template tags (e.g. comment_text(), comment_author()) read these
+	// globals; the core comment walker sets them the same way for custom callbacks.
+	$GLOBALS['comment']       = $comment; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Required by comment template tags in a wp_list_comments() callback.
+	$GLOBALS['comment_depth'] = $depth; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Required by comment template tags in a wp_list_comments() callback.
 	/* Get the comment type of the current comment. */
 	$comment_type     = get_comment_type( $comment->comment_ID );
 	$comment_template = array();
@@ -1266,7 +1296,7 @@ function reign_display_primary_navigation() {
 				)
 			);
 		}
-		if ( $more_menu_enable ) :
+		if ( reign_is_truthy( $more_menu_enable ) ) :
 			?>
 			<div id="navbar-collapse">
 				<a class="more-button" href="#" aria-label="<?php esc_attr_e( 'More menu items', 'reign' ); ?>" aria-expanded="false"><i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
@@ -1304,43 +1334,58 @@ function reign_replace_missing_shortcodes_with_notices( $content ) {
 
 	// Add Reign Dokan Addon shortcodes if the addon is not active.
 	if ( ! class_exists( 'Reign_Dokan_Addon' ) ) {
-		$shortcodes_to_check = array_merge( $shortcodes_to_check, array(
-			'rda_dokan_store_listing',
-			'rda_dokan_vendors',
-		) );
+		$shortcodes_to_check = array_merge(
+			$shortcodes_to_check,
+			array(
+				'rda_dokan_store_listing',
+				'rda_dokan_vendors',
+			)
+		);
 	}
 
 	// Add Reign LearnDash Addon shortcodes if the addon is not active.
 	if ( ! class_exists( 'LearnMate_LearnDash_Addon' ) ) {
-		$shortcodes_to_check = array_merge( $shortcodes_to_check, array(
-			'reign_ld_pro_comments_tab_content',
-			'reign_ld_pro_instructor_tab_content',
-			'reign_ld_pro_course_content_tab_content',
-		) );
+		$shortcodes_to_check = array_merge(
+			$shortcodes_to_check,
+			array(
+				'reign_ld_pro_comments_tab_content',
+				'reign_ld_pro_instructor_tab_content',
+				'reign_ld_pro_course_content_tab_content',
+			)
+		);
 	}
 
 	// Add Reign LifterLMS Addon shortcodes if the addon is not active.
 	if ( ! class_exists( 'Reign_LifterLMS_Addon' ) ) {
-		$shortcodes_to_check = array_merge( $shortcodes_to_check, array(
-			'reign_lifterlms_courses',
-			'reign_lifterlms_instructors',
-		) );
+		$shortcodes_to_check = array_merge(
+			$shortcodes_to_check,
+			array(
+				'reign_lifterlms_courses',
+				'reign_lifterlms_instructors',
+			)
+		);
 	}
 
 	// Add Reign WC Vendor Addon shortcodes if the addon is not active.
 	if ( ! class_exists( 'Reign_Wcvendors_Addon' ) ) {
-		$shortcodes_to_check = array_merge( $shortcodes_to_check, array(
-			'reign-wcvendors-sellers',
-		) );
+		$shortcodes_to_check = array_merge(
+			$shortcodes_to_check,
+			array(
+				'reign-wcvendors-sellers',
+			)
+		);
 	}
 
 	// Add Reign WP Job Manager Addon shortcodes if the addon is not active.
 	if ( ! class_exists( 'Reign_WP_Job_Manager_Addon' ) ) {
-		$shortcodes_to_check = array_merge( $shortcodes_to_check, array(
-			'jobmate_job_search_filter',
-			'jobmate_job_listing',
-			'jobmate_resume_listing',
-		) );
+		$shortcodes_to_check = array_merge(
+			$shortcodes_to_check,
+			array(
+				'jobmate_job_search_filter',
+				'jobmate_job_listing',
+				'jobmate_resume_listing',
+			)
+		);
 	}
 
 	// Allow developers to add or modify the list of shortcodes using a filter.
@@ -1354,7 +1399,7 @@ function reign_replace_missing_shortcodes_with_notices( $content ) {
 		}
 
 		// Prepare the notice HTML.
-		$notice = '<div class="missing-addon-shortcode-notice" style="background: #ffebe8; color: #c00; padding: 12px; border: 1px solid #c00; text-align: center; margin: 20px auto;">';
+		$notice  = '<div class="missing-addon-shortcode-notice" style="background: #ffebe8; color: #c00; padding: 12px; border: 1px solid #c00; text-align: center; margin: 20px auto;">';
 		$notice .= '⚠️ <strong>Notice:</strong> The <code>[' . esc_html( $shortcode_tag ) . ']</code> shortcode is used here, but the required addon/plugin is not active.';
 		$notice .= '</div>';
 
@@ -1374,7 +1419,7 @@ if ( ! function_exists( 'render_reign_user_profile_block' ) ) {
 	/**
 	 * Render a user profile block showing avatar, name, profile link, and settings link.
 	 *
-	 * This function checks if PeepSo, BuddyPress, or WordPress is active and 
+	 * This function checks if PeepSo, BuddyPress, or WordPress is active and
 	 * builds a consistent user block that includes:
 	 * - Avatar (PeepSo or WP default)
 	 * - Display name
@@ -1398,11 +1443,11 @@ if ( ! function_exists( 'render_reign_user_profile_block' ) ) {
 
 		// PeepSo check
 		if ( class_exists( 'PeepSo' ) ) {
-			$peepso_user     = PeepSoUser::get_instance( $user_id );
-			$user_link       = $peepso_user->get_profileurl();
-			$avatar_url      = $peepso_user->get_avatar();
-			$user_fullname   = $peepso_user->get_fullname();
-			$settings_link   = $user_link . 'about/preferences/';
+			$peepso_user   = PeepSoUser::get_instance( $user_id );
+			$user_link     = $peepso_user->get_profileurl();
+			$avatar_url    = $peepso_user->get_avatar();
+			$user_fullname = $peepso_user->get_fullname();
+			$settings_link = $user_link . 'about/preferences/';
 		} else {
 			// Fallback to BuddyPress or WordPress
 			if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
@@ -1410,8 +1455,8 @@ if ( ! function_exists( 'render_reign_user_profile_block' ) ) {
 			} else {
 				$user_link = function_exists( 'bp_core_get_user_domain' ) ? bp_core_get_user_domain( $user_id ) : get_author_posts_url( $user_id );
 			}
-			$current_user   = get_userdata( $user_id );
-			$user_fullname  = $current_user->display_name;
+			$current_user  = get_userdata( $user_id );
+			$user_fullname = $current_user->display_name;
 		}
 
 		?>

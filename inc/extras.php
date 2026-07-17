@@ -1,5 +1,7 @@
 <?php
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 if ( ! function_exists( 'reign_body_classes' ) ) {
 
 	/**
@@ -23,7 +25,7 @@ if ( ! function_exists( 'reign_body_classes' ) ) {
 		}
 
 		$reign_header_topbar_enable = get_theme_mod( 'reign_header_topbar_enable', '1' );
-		if ( ! empty( $reign_header_topbar_enable ) ) {
+		if ( reign_is_truthy( $reign_header_topbar_enable ) ) {
 			$classes[] = 'topbar-enable';
 		} else {
 			$classes[] = 'topbar-disable';
@@ -31,13 +33,13 @@ if ( ! function_exists( 'reign_body_classes' ) ) {
 
 		// More Menu.
 		$more_menu_enable = get_theme_mod( 'reign_header_main_menu_more_enable', true );
-		if ( ! empty( $more_menu_enable ) ) {
+		if ( reign_is_truthy( $more_menu_enable ) ) {
 			$classes[] = 'more-menu-enable';
 		}
 
 		// Scroll Up.
 		$reign_scrollup_position = get_theme_mod( 'reign_scrollup_position', 'right' );
-		if ( $reign_scrollup_position === 'left' ) {
+		if ( 'left' === $reign_scrollup_position ) {
 			$classes[] = 'scrollup-position-left';
 		} else {
 			$classes[] = 'scrollup-position-right';
@@ -55,13 +57,13 @@ if ( ! function_exists( 'reign_body_classes' ) ) {
 
 		// Left Panel Position.
 		$reign_left_panel_position = get_theme_mod( 'reign_left_panel_position', 'left' );
-		if ( $reign_left_panel_position === 'right' ) {
+		if ( 'right' === $reign_left_panel_position ) {
 			$classes[] = 'panel-position-right';
 		}
 
 		// Mobile Header Icons Set.
 		$reign_mobile_default_icons_set = reign_mobile_header_default_icons_set();
-		$reign_mobile_header_icons_set  = get_theme_mod( 'reign_mobile_header_icons_set', $reign_mobile_default_icons_set );
+		$reign_mobile_header_icons_set  = reign_get_sortable_setting( 'reign_mobile_header_icons_set', reign_mobile_header_default_icons_set() );
 		if ( ! empty( $reign_mobile_header_icons_set ) ) {
 			$classes[] = 'reign-mobile-header-icons-enable';
 		}
@@ -69,8 +71,10 @@ if ( ! function_exists( 'reign_body_classes' ) ) {
 		/**
 		 * Manage header sticky or not.
 		 */
+		// Phase 7 truthy normalization: bare `if ( $value )` would treat
+		// the string 'off' as truthy (PHP: (bool) 'off' === true).
 		$reign_header_sticky_menu_enable = get_theme_mod( 'reign_header_sticky_menu_enable', true );
-		if ( $reign_header_sticky_menu_enable ) {
+		if ( reign_is_truthy( $reign_header_sticky_menu_enable ) ) {
 			$classes[] = 'reign-sticky-header';
 		}
 
@@ -80,7 +84,7 @@ if ( ! function_exists( 'reign_body_classes' ) ) {
 		 * @since 2.0.2
 		 */
 		$reign_sticky_sidebar = get_theme_mod( 'reign_sticky_sidebar', true );
-		if ( $reign_sticky_sidebar ) {
+		if ( reign_is_truthy( $reign_sticky_sidebar ) ) {
 			$classes[] = 'reign-sticky-sidebar';
 		}
 
@@ -141,15 +145,15 @@ if ( ! function_exists( 'reign_body_classes' ) ) {
 
 		// Body Class for register page.
 		$register_split_view = get_theme_mod( 'register_split_view' );
-		if ( $register_split_view && function_exists( 'bp_is_register_page' ) && bp_is_register_page() && ! is_singular( 'memberpressproduct' ) ) {
+		if ( reign_is_truthy( $register_split_view ) && function_exists( 'bp_is_register_page' ) && bp_is_register_page() && ! is_singular( 'memberpressproduct' ) ) {
 			$classes[] = 'login-split-page rg-login';
-		} elseif ( $register_split_view && function_exists( 'bp_is_activation_page' ) && bp_is_activation_page() && ! is_singular( 'memberpressproduct' ) ) {
+		} elseif ( reign_is_truthy( $register_split_view ) && function_exists( 'bp_is_activation_page' ) && bp_is_activation_page() && ! is_singular( 'memberpressproduct' ) ) {
 			$classes[] = 'login-split-page rg-login';
 		}
 
 		if ( class_exists( 'Youzify' ) ) {
 			$youzify_color_mode = get_theme_mod( 'reign_youzify_color_mode', 'on' );
-			if ( $youzify_color_mode ) {
+			if ( reign_is_truthy( $youzify_color_mode ) ) {
 				$classes[] = 'youzify-color-mode-active';
 			}
 		}
@@ -188,7 +192,8 @@ if ( ! function_exists( 'reign_viewport_meta' ) ) {
 	 * Add a viewport meta
 	 */
 	function reign_viewport_meta() {
-		echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">';
+		// Allow pinch-zoom (WCAG 1.4.4): do NOT set maximum-scale / user-scalable=no.
+		echo '<meta name="viewport" content="width=device-width, initial-scale=1">';
 	}
 
 	add_action( 'wp_head', 'reign_viewport_meta' );
@@ -306,16 +311,18 @@ if ( ! function_exists( 'reign_posted_on' ) ) :
 		);
 
 		$posted_on = sprintf(
+			/* translators: %s: post date link. */
 			esc_html_x( 'Posted on %s', 'post date', 'reign' ),
 			'<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
 		);
 
 		$byline = sprintf(
+			/* translators: %s: post author link. */
 			esc_html_x( 'by %s', 'post author', 'reign' ),
 			'<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a></span>'
 		);
 
-		echo '<span class="posted-on">' . $posted_on . '</span><span class="byline"> ' . $byline . '</span>'; // WPCS: XSS OK.
+		echo '<span class="posted-on">' . $posted_on . '</span><span class="byline"> ' . $byline . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Composed from values escaped above.
 	}
 
 endif;
@@ -342,22 +349,16 @@ if ( ! function_exists( 'reign_entry_list_footer' ) ) {
 				esc_html( get_the_modified_date() )
 			);
 
-			$posted_on = sprintf(
-				esc_html_x( '%s', 'post date', 'reign' ),
-				'<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
-			);
+			$posted_on = '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>';
 
 			/** Co-author support added */
 			if ( class_exists( 'CoAuthors_Plus' ) ) {
 				$coauthors = get_coauthors();
 				foreach ( $coauthors as $coauthor ) :
 					$author_name = get_the_author_meta( 'first_name', $coauthor->ID ) . ' ' . get_the_author_meta( 'last_name', $coauthor->ID );
-					$byline      = sprintf(
-						esc_html_x( '%s', 'post author', 'reign' ),
-						'<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( $coauthor->ID ) ) . '">' . esc_html( $author_name ) . '</a></span>'
-					);
+					$byline      = '<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( $coauthor->ID ) ) . '">' . esc_html( $author_name ) . '</a></span>';
 
-					echo '<span class="byline"><i class="fa fa-user-circle"></i> ' . $byline . '<span class="posted-on">' . $posted_on . '</span></span>'; // WPCS: XSS OK
+					echo '<span class="byline"><i class="fa fa-user-circle"></i> ' . $byline . '<span class="posted-on">' . $posted_on . '</span></span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Composed from values escaped above.
 				endforeach;
 			} else {
 				$author_name = get_the_author();
@@ -369,6 +370,7 @@ if ( ! function_exists( 'reign_entry_list_footer' ) ) {
 						'<a href="%1$s" rel="bookmark" aria-label="%3$s">%2$s</a>',
 						esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
 						$avatar_img,
+						/* translators: %s: author display name. */
 						esc_attr( sprintf( __( 'View all posts by %s', 'reign' ), $author_name ) )
 					);
 				} else {
@@ -376,16 +378,14 @@ if ( ! function_exists( 'reign_entry_list_footer' ) ) {
 					$avatar = sprintf(
 						'<a href="%1$s" rel="bookmark" aria-label="%2$s"><i class="fa fa-user-circle" aria-hidden="true"></i></a>',
 						esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+						/* translators: %s: author display name. */
 						esc_attr( sprintf( __( 'View all posts by %s', 'reign' ), $author_name ) )
 					);
 				}
 
-				$byline = sprintf(
-					esc_html_x( '%s', 'post author', 'reign' ),
-					'<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( $author_name ) . '</a></span>'
-				);
+				$byline = '<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( $author_name ) . '</a></span>';
 
-				echo '<span class="byline">' . $avatar . $byline . '<span class="posted-on">' . $posted_on . '</span></span>'; // WPCS: XSS OK
+				echo '<span class="byline">' . $avatar . $byline . '<span class="posted-on">' . $posted_on . '</span></span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Composed from values escaped above.
 			}
 
 			// Get the theme option for category color behavior.
@@ -463,13 +463,15 @@ if ( ! function_exists( 'reign_entry_footer' ) ) :
 			/* translators: used between list items, there is a space after the comma */
 			$categories_list = get_the_category_list( esc_html__( ', ', 'reign' ) );
 			if ( $categories_list && reign_categorized_blog() ) {
-				printf( '<span class="cat-links">' . esc_html__( 'Posted in %1$s', 'reign' ) . '</span>', $categories_list ); // WPCS: XSS OK.
+				/* translators: %1$s: list of categories. */
+				printf( '<span class="cat-links">' . esc_html__( 'Posted in %1$s', 'reign' ) . '</span>', wp_kses_post( $categories_list ) );
 			}
 
 			/* translators: used between list items, there is a space after the comma */
 			$tags_list = get_the_tag_list( '', esc_html__( ', ', 'reign' ) );
 			if ( $tags_list ) {
-				printf( '<span class="tags-links">' . esc_html__( 'Tagged %1$s', 'reign' ) . '</span>', $tags_list ); // WPCS: XSS OK.
+				/* translators: %1$s: list of tags. */
+				printf( '<span class="tags-links">' . esc_html__( 'Tagged %1$s', 'reign' ) . '</span>', wp_kses_post( $tags_list ) );
 			}
 		}
 
@@ -501,7 +503,8 @@ if ( ! function_exists( 'reign_categorized_blog' ) ) {
 	 * @return bool
 	 */
 	function reign_categorized_blog() {
-		if ( false === ( $all_the_cool_cats = get_transient( 'reign_categories' ) ) ) {
+		$all_the_cool_cats = get_transient( 'reign_categories' );
+		if ( false === $all_the_cool_cats ) {
 			// Create an array of all the categories that are attached to posts.
 			$all_the_cool_cats = get_categories(
 				array(
@@ -558,7 +561,7 @@ if ( ! function_exists( 'rg_page_loader' ) ) {
 		$active_loader_layout      = get_theme_mod( 'reign_enable_preloading', false );
 		$reign_preloading_icon     = get_theme_mod( 'reign_preloading_icon', '' );
 		$reign_preloading_bg_color = get_theme_mod( 'reign_preloading_bg_color', '' );
-		if ( $active_loader_layout ) {
+		if ( reign_is_truthy( $active_loader_layout ) ) {
 			echo '<div class="rg-page-loader"></div>';
 		}
 	}
@@ -572,7 +575,7 @@ if ( ! function_exists( 'rg_content_wrapper_start' ) ) {
 	function rg_content_wrapper_start() {
 		/*       * * Add PeepSo support ** */
 		global $wbtm_reign_settings;
-		$wrapper = '<div class="container"><div class="' . apply_filters( 'reign_site_content_grid_class', 'wb-grid site-content-grid' ) . '">';
+		$wrapper = '<div class="container"><div class="' . esc_attr( apply_filters( 'reign_site_content_grid_class', 'wb-grid site-content-grid' ) ) . '">';
 		if ( class_exists( 'PeepSo' ) ) {
 			$peepso_url_segments = PeepSoUrlSegments::get_instance();
 			if ( 'peepso_profile' === $peepso_url_segments->_shortcode ) {
@@ -593,7 +596,7 @@ if ( ! function_exists( 'rg_content_wrapper_start' ) ) {
 					echo '</div>';
 
 				}
-			} elseif ( ( ( 'peepso_groups' === $peepso_url_segments->_shortcode ) && ( sizeof( $peepso_url_segments->_segments ) > 1 ) ) ) {
+			} elseif ( ( ( 'peepso_groups' === $peepso_url_segments->_shortcode ) && ( count( $peepso_url_segments->_segments ) > 1 ) ) ) {
 				$group_layout = isset( $wbtm_reign_settings['reign_peepsoextender']['group_layout'] ) ? $wbtm_reign_settings['reign_peepsoextender']['group_layout'] : 'full-width';
 				$group_layout = apply_filters( 'wbtm_rth_manage_group_layout', $group_layout );
 				if ( 'full-width' === $group_layout ) {
@@ -609,9 +612,9 @@ if ( ! function_exists( 'rg_content_wrapper_start' ) ) {
 				}
 			}
 
-			$wrapper = '<div class="container"><div class="reign-peepso-page"><div class="' . apply_filters( 'reign_site_content_grid_class', 'wb-grid site-content-grid' ) . '">';
+			$wrapper = '<div class="container"><div class="reign-peepso-page"><div class="' . esc_attr( apply_filters( 'reign_site_content_grid_class', 'wb-grid site-content-grid' ) ) . '">';
 		}
-		echo $wrapper;
+		echo $wrapper; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Static wrapper markup; dynamic class escaped above.
 	}
 
 	add_action( 'reign_content_top', 'rg_content_wrapper_start' );
@@ -660,86 +663,26 @@ if ( ! function_exists( 'rg_woocommerce_theme_wrapper_end' ) ) {
 
 
 /**
-* Dark Mode Toggle
-*/
-add_action( 'reign_before_content', 'dark_mode_toggle' );
-$reign_dark_mode_style = get_theme_mod( 'reign_dark_mode_style', 'style2' );
-if ( 'style3' === $reign_dark_mode_style ) {
-	remove_action( 'reign_before_content', 'dark_mode_toggle' );
-	add_action( 'reign_after_header_icons', 'dark_mode_toggle' );
-}
-
-if ( 'style4' === $reign_dark_mode_style ) {
-	remove_action( 'reign_before_content', 'dark_mode_toggle' );
-	add_action( 'reign_before_user_menu_item', 'dark_mode_toggle' );
-
-	// Hook to add extra content inside the ul with class "header-notifications-dropdown-menu".
-	add_filter( 'wp_nav_menu_objects', 'add_extra_menu_item', 10, 2 );
-
-	/**
-	 * Function to add extra menu item.
-	 *
-	 * @param array  $items The array of menu items.
-	 * @param object $args An object containing wp_nav_menu() arguments.
-	 * @return array Modified array of menu items.
-	 */
-	function add_extra_menu_item( $items, $args ) {
-		// Check if it's the correct menu location.
-		if ( 'menu-2' === $args->theme_location ) {
-			// Generate HTML content using the action hook.
-			ob_start();
-			do_action( 'reign_before_user_menu_item' );
-			$action_output = ob_get_clean();
-
-			// Construct your custom menu item.
-			$extra_item                   = new stdClass();
-			$extra_item->ID               = 'custom-menu-item dark-mode-toggle-layout-four'; // Unique ID for the item.
-			$extra_item->db_id            = 0; // Set db_id to 0 to prevent undefined property warning.
-			$extra_item->title            = $action_output; // Assign the HTML content.
-			$extra_item->url              = 'javascript:void(0)'; // URL for the item.
-			$extra_item->menu_order       = -1; // Ensure it appears at the beginning.
-			$extra_item->menu_item_parent = 0; // No parent.
-			$extra_item->xfn              = ''; // Optional: Define xfn.
-			$extra_item->target           = ''; // Optional: Define target.
-			$extra_item->current          = false; // Optional: Define current.
-			$extra_item->object           = ''; // Optional: Define object.
-			$extra_item->object_id        = ''; // Optional: Define object ID.
-			$extra_item->classes          = array(); // Optional: Define classes.
-
-			// Add your custom item to the beginning of the menu.
-			array_unshift( $items, $extra_item );
-		}
-		return $items;
-	}
-}
+ * Dark Mode Toggle (legacy)
+ *
+ * Retired in Reign 8.0.0. The new Color_Mode_Toggle component
+ * (inc/Color_Mode_Toggle/Component.php) renders a light/dark/auto
+ * toggle into the same `reign_after_user_menu_item` /
+ * `reign_after_header_icons` hooks the legacy version used to mount on.
+ *
+ * The function below is kept as a no-op so child themes or third-party
+ * code that previously called `dark_mode_toggle()` directly do not
+ * fatal post-upgrade.
+ */
 
 if ( ! function_exists( 'dark_mode_toggle' ) ) {
+	/**
+	 * No-op since 8.0.0. See block above for migration notes.
+	 *
+	 * @deprecated 8.0.0 Use \Reign\Color_Mode_Toggle\Component instead.
+	 */
 	function dark_mode_toggle() {
-		$reign_color_scheme     = get_theme_mod( 'reign_color_scheme' );
-		$reign_dark_mode_option = get_theme_mod( 'reign_dark_mode_option' );
-		$reign_dark_mode_style  = get_theme_mod( 'reign_dark_mode_style', 'style2' );
-		if ( 'reign_dark' !== $reign_color_scheme ) {
-			if ( 'style4' === $reign_dark_mode_style ) {
-				echo '<li class="custom-menu-item dark-mode-toggle-layout-four">';
-				echo '<a href="javascript:void(0)">';
-			}
-			if ( $reign_dark_mode_option === true ) {
-				?>
-				<span role="button" class="rg-dark__scheme-toggle <?php echo esc_attr( $reign_dark_mode_style ); ?>">
-					<span class="rg-dark__scheme-toggle-icons">
-						<i class="rg__scheme-toggle-icon rg-dark__scheme-toggle-icon far fa-sun-bright"></i>
-						<i class="rg__scheme-toggle-icon rg-light__scheme-toggle-icon far fa-moon-stars"></i>
-					</span>
-					<span class="toggle-label rg-dark__scheme-toggle-label-dark"><?php esc_html_e( 'Dark', 'reign' ); ?></span>
-					<span class="toggle-label rg-dark__scheme-toggle-label-light"><?php esc_html_e( 'Light', 'reign' ); ?></span> 
-				</span>
-				<?php
-			}
-			if ( 'style4' === $reign_dark_mode_style ) {
-				echo '</a>';
-				echo '</li>';
-			}
-		}
+		// Intentionally empty - the new Color_Mode_Toggle renders the toggle.
 	}
 }
 
@@ -769,9 +712,13 @@ if ( ! function_exists( 'reign_prepend_attachment' ) ) {
 function reign_login_reigister_popup() {
 
 	$form_type_login        = get_theme_mod( 'reign_sign_form_popup', 'default' );
-	$popup_custom_shortcode = get_theme_mod( 'reign_sign_form_shortcode' );
+	$popup_custom_shortcode = get_theme_mod( 'reign_sign_form_shortcode', '' );
 
-	if ( true == get_theme_mod( 'reign_sign_form_shortcode' ) ) {
+	// reign_sign_form_shortcode stores a shortcode string (not a switch).
+	// The intent here is "apply the custom class when a shortcode is
+	// configured" — express that with ! empty() instead of `true ==`
+	// loose-compare that happens to work today by accident.
+	if ( ! empty( $popup_custom_shortcode ) ) {
 		$reign_login_shortcode = 'reign-custom-shortcode';
 	} else {
 		$reign_login_shortcode = '';
@@ -785,10 +732,10 @@ function reign_login_reigister_popup() {
 					</div>
 					<div class="modal-body no-padding <?php echo esc_attr( $reign_login_shortcode ); ?>">
 							<?php
-							if ( $form_type_login != 'custom' ) {
-								echo reign_get_login_reg_form_html();
+							if ( 'custom' != $form_type_login ) {
+								echo reign_get_login_reg_form_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Returns pre-escaped login/registration form markup.
 							} else {
-								echo do_shortcode( $popup_custom_shortcode );
+								echo do_shortcode( $popup_custom_shortcode ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- do_shortcode() returns rendered, trusted shortcode output.
 							}
 
 							?>
@@ -799,19 +746,55 @@ function reign_login_reigister_popup() {
 	<?php
 }
 
-$reign_signin_popup = get_theme_mod( 'reign_signin_popup', false );
+// Defer the sign-in popup registration to a front-end-only hook so this
+// theme_mod read + add_action call doesn't fire on REST / AJAX / cron /
+// admin requests. The popup itself only ever renders via the
+// `reign_body_bottom` action which fires inside the page template anyway.
+add_action(
+	'template_redirect',
+	static function () {
+		if ( reign_is_truthy( get_theme_mod( 'reign_signin_popup', false ) ) ) {
+			add_action( 'reign_body_bottom', 'reign_login_reigister_popup', 10 );
 
-if ( true === $reign_signin_popup ) {
-	add_action( 'reign_body_bottom', 'reign_login_reigister_popup', 10 );
-}
+			// Themed show/hide password eye for the register popup fields
+			// (the login form has its own; the BuddyPress register form did not).
+			add_action(
+				'wp_enqueue_scripts',
+				static function () {
+					$theme_uri = get_template_directory_uri();
+					$theme_dir = get_template_directory();
+
+					$js_rel  = '/assets/js/reign-signform-password-eye.js';
+					$js_path = $theme_dir . $js_rel;
+					if ( file_exists( $js_path ) ) {
+						wp_enqueue_script( 'reign-signform-password-eye', $theme_uri . $js_rel, array( 'jquery' ), filemtime( $js_path ), true );
+						wp_localize_script(
+							'reign-signform-password-eye',
+							'reignPwEye',
+							array( 'label' => esc_attr__( 'Toggle password visibility', 'reign' ) )
+						);
+					}
+
+					$css_rel  = '/assets/css/src/_signform-password-eye.css';
+					$css_path = $theme_dir . $css_rel;
+					if ( file_exists( $css_path ) ) {
+						wp_enqueue_style( 'reign-signform-password-eye', $theme_uri . $css_rel, array(), filemtime( $css_path ) );
+					}
+				}
+			);
+		}
+	}
+);
 
 function reign_get_login_reg_form_html( $redirect_to_custom = '', $option_data = array() ) {
 	global $wp;
 
-	$forms             = get_theme_mod( 'reign_sign_form_display', 'login' );
-	$redirect          = get_theme_mod( 'reign_login_redirect', 'current' );
-	$redirect_to       = get_theme_mod( 'reign_login_redirect_url' );
-	$login_description = get_theme_mod( 'reign_login_description' );
+	$forms               = get_theme_mod( 'reign_sign_form_display', 'login' );
+	$redirect            = get_theme_mod( 'reign_login_redirect', 'current' );
+	$redirect_to         = get_theme_mod( 'reign_login_redirect_url' );
+	$login_description   = get_theme_mod( 'reign_login_description' );
+	$login_form_title    = get_theme_mod( 'reign_login_form_title', '' );
+	$register_form_title = get_theme_mod( 'reign_register_form_title', '' );
 
 	$register_redirect    = get_theme_mod( 'reign_register_redirect', 'current' );
 	$register_redirect_to = get_theme_mod( 'reign_register_redirect_url' );
@@ -819,12 +802,12 @@ function reign_get_login_reg_form_html( $redirect_to_custom = '', $option_data =
 
 	$redirect_to_custom = filter_var( $redirect_to_custom, FILTER_VALIDATE_URL );
 
-	$redirect_to = ( $redirect_to && $redirect === 'custom' ) ? $redirect_to : home_url( $wp->request );
+	$redirect_to = ( $redirect_to && 'custom' === $redirect ) ? $redirect_to : home_url( $wp->request );
 	if ( $redirect_to_custom ) {
 		$redirect_to = $redirect_to_custom;
 	}
 
-	$register_redirect_to = ( $register_redirect_to && $register_redirect === 'custom' ) ? $register_redirect_to : home_url( $wp->request );
+	$register_redirect_to = ( $register_redirect_to && 'custom' === $register_redirect ) ? $register_redirect_to : home_url( $wp->request );
 	if ( $redirect_to_custom ) {
 		$register_redirect_to = $redirect_to_custom;
 	}
@@ -841,7 +824,8 @@ function reign_get_login_reg_form_html( $redirect_to_custom = '', $option_data =
 			'redirect_to'          => $redirect_to,
 			'login_description'    => $login_description,
 			'forms'                => $forms,
-			'login_title'          => '',
+			'login_title'          => $login_form_title,
+			'register_title'       => $register_form_title,
 			'redirect'             => $redirect,
 			'register_redirect'    => $register_redirect,
 			'register_fields_type' => $register_fields_type,
@@ -865,7 +849,7 @@ function reign_signin_form() {
 		return;
 	}
 
-	if ( ! wp_verify_nonce( $_POST['_ajax_nonce'], 'reign-sign-form' ) ) {
+	if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) ), 'reign-sign-form' ) ) {
 		ob_end_clean();
 		wp_send_json_error(
 			array(
@@ -969,29 +953,29 @@ function reign_signin_form() {
 
 			if ( reign_BuddyPress() ) {
 				if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
-					if ( $redirect === 'profile' && function_exists( 'bp_members_get_user_url' ) ) {
+					if ( 'profile' === $redirect && function_exists( 'bp_members_get_user_url' ) ) {
 						$redirect_to = bp_members_get_user_url( $user->ID );
 					}
-					if ( $redirect === 'activity' ) {
+					if ( 'activity' === $redirect ) {
 						$redirect_to = bp_get_root_url() . '/' . bp_get_activity_slug();
 					}
 				} else {
-					if ( $redirect === 'profile' && function_exists( 'bp_core_get_user_domain' ) ) {
+					if ( 'profile' === $redirect && function_exists( 'bp_core_get_user_domain' ) ) {
 						$redirect_to = bp_core_get_user_domain( $user->ID );
 					}
-					if ( $redirect === 'activity' ) {
+					if ( 'activity' === $redirect ) {
 						$redirect_to = bp_get_root_domain() . '/' . bp_get_activity_slug();
 					}
 				}
 			}
 
 			if ( class_exists( 'PeepSo' ) ) {
-				if ( $redirect === 'profile' && class_exists( 'PeepSo' ) ) {
+				if ( 'profile' === $redirect && class_exists( 'PeepSo' ) ) {
 					$redirect_to = home_url( '/' ) . 'profile/?user/';
 					$user        = PeepSoUser::get_instance( $user->ID );
 					$redirect_to = $user->get_profileurl();
 				}
-				if ( $redirect === 'activity' && class_exists( 'PeepSo' ) ) {
+				if ( 'activity' === $redirect && class_exists( 'PeepSo' ) ) {
 					$redirect_to = home_url( '/' ) . PeepSo::get_option( 'page_activity' );
 				}
 			}
@@ -1016,17 +1000,20 @@ function reign_signin_form() {
 
 	// Allow security plugins to handle 2FA before login
 	$pre_login = apply_filters( 'reign_before_signin', null, $log, $pwd );
-	if ( $pre_login !== null ) {
+	if ( null !== $pre_login ) {
 		// Security plugin is handling the login
 		if ( is_wp_error( $pre_login ) ) {
 			$error_message = $pre_login->get_error_message();
 			// Check if it's a 2FA notification
 			if ( strpos( $error_message, 'email' ) !== false || strpos( $error_message, 'two-factor' ) !== false ) {
 				ob_end_clean();
+				// Third-party (security plugin) message rendered via .html() in
+				// main.js — kses it so a crafted message can't script-inject,
+				// while legit markup (e.g. lost-password links) survives.
 				wp_send_json_success(
 					array(
 						'email_sent' => true,
-						'message'    => $error_message,
+						'message'    => wp_kses_post( $error_message ),
 						'two_factor' => true,
 					)
 				);
@@ -1034,7 +1021,7 @@ function reign_signin_form() {
 			ob_end_clean();
 			wp_send_json_error(
 				array(
-					'message' => $error_message,
+					'message' => wp_kses_post( $error_message ),
 				)
 			);
 		}
@@ -1074,9 +1061,9 @@ function reign_signin_form() {
 			ob_end_clean();
 			wp_send_json_success(
 				array(
-					'email_sent'     => true,
-					'message'        => esc_html__( 'Two-Factor Authentication required. Please check your email for the authentication code.', 'reign' ),
-					'two_factor'     => true,
+					'email_sent'      => true,
+					'message'         => esc_html__( 'Two-Factor Authentication required. Please check your email for the authentication code.', 'reign' ),
+					'two_factor'      => true,
 					'reign_2fa_token' => $twofa_token,
 				)
 			);
@@ -1123,10 +1110,10 @@ function reign_signin_form() {
 			// This is not really an error - email was sent for 2FA/Magic Link
 			wp_send_json_success(
 				array(
-					'email_sent'     => true,
+					'email_sent'      => true,
 					'reign_2fa_token' => $twofa_token,
-					'message'    => $message,
-					'two_factor' => true,
+					'message'         => $message,
+					'two_factor'      => true,
 				)
 			);
 		}
@@ -1134,7 +1121,7 @@ function reign_signin_form() {
 		ob_end_clean();
 		wp_send_json_error(
 			array(
-				'message' => $error_message,
+				'message' => wp_kses_post( $error_message ),
 			)
 		);
 	}
@@ -1146,32 +1133,32 @@ function reign_signin_form() {
 
 	if ( reign_BuddyPress() ) {
 		if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
-			if ( $redirect === 'profile' && function_exists( 'bp_members_get_user_url' ) ) {
+			if ( 'profile' === $redirect && function_exists( 'bp_members_get_user_url' ) ) {
 				$redirect_to = bp_members_get_user_url( $user->ID );
 			}
 
-			if ( $redirect === 'activity' ) {
+			if ( 'activity' === $redirect ) {
 				$redirect_to = bp_get_root_url() . '/' . bp_get_activity_slug();
 			}
 		} else {
-			if ( $redirect === 'profile' && function_exists( 'bp_core_get_user_domain' ) ) {
+			if ( 'profile' === $redirect && function_exists( 'bp_core_get_user_domain' ) ) {
 				$redirect_to = bp_core_get_user_domain( $user->ID );
 			}
 
-			if ( $redirect === 'activity' ) {
+			if ( 'activity' === $redirect ) {
 				$redirect_to = bp_get_root_domain() . '/' . bp_get_activity_slug();
 			}
 		}
 	}
 
 	if ( class_exists( 'PeepSo' ) ) {
-		if ( $redirect === 'profile' && class_exists( 'PeepSo' ) ) {
+		if ( 'profile' === $redirect && class_exists( 'PeepSo' ) ) {
 			$redirect_to = home_url( '/' ) . 'profile/?user/';
 			$user        = PeepSoUser::get_instance( $user->ID );
 			$redirect_to = $user->get_profileurl();
 		}
 
-		if ( $redirect === 'activity' && class_exists( 'PeepSo' ) ) {
+		if ( 'activity' === $redirect && class_exists( 'PeepSo' ) ) {
 			$redirect_to = home_url( '/' ) . PeepSo::get_option( 'page_activity' );
 		}
 	}
@@ -1190,7 +1177,7 @@ add_action( 'wp_ajax_nopriv_reign-signin-form', 'reign_signin_form' );
 function reign_send_magic_link() {
 	// Verify nonce
 	if ( ! isset( $_POST['_ajax_nonce'] ) ||
-		! wp_verify_nonce( $_POST['_ajax_nonce'], 'reign-sign-form' ) ) {
+		! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) ), 'reign-sign-form' ) ) {
 		wp_send_json_error(
 			array(
 				'message' => esc_html__( 'Security check failed. Please refresh the page and try again.', 'reign' ),
@@ -1288,7 +1275,7 @@ add_action( 'wp_ajax_reign-send-magic-link', 'reign_send_magic_link' );
  *
  * @package Reign
  */
-function reign_BuddyPress() {
+function reign_BuddyPress() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid -- Public theme API consumed by template parts; renaming is a breaking change.
 	if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
 		if ( function_exists( 'bp_members_get_user_url' ) && function_exists( 'bp_activity_get_user_mentionname' ) && function_exists( 'bp_attachments_get_attachment' ) && function_exists( 'bp_loggedin_user_domain' ) && function_exists( 'bp_is_active' ) && function_exists( 'bp_get_activity_slug' ) && function_exists( 'bp_is_active' ) && function_exists( 'bp_get_notifications_unread_permalink' ) && function_exists( 'bp_loggedin_user_domain' ) && function_exists( 'bp_get_settings_slug' ) ) {
 			return true;
@@ -1368,7 +1355,7 @@ function reign_signup_form() {
 		return;
 	}
 
-	if ( ! wp_verify_nonce( $_POST['_ajax_nonce'], 'reign-sign-form' ) ) {
+	if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) ), 'reign-sign-form' ) ) {
 		wp_send_json_error(
 			array(
 				'message' => 'Security check failed. Please refresh the page and try again.',
@@ -1408,18 +1395,19 @@ function reign_signup_form() {
 	}
 	$register_fields_type = 'simple';
 	$bp_fields            = reign_get_buddypress_fields();
-	if ( $register_fields_type != 'simple' ) {
+	if ( 'simple' != $register_fields_type ) {
 		if ( ! empty( $bp_fields ) ) {
 			foreach ( $bp_fields as $bp_field_key => $bp_field_value ) {
-				$post_val = ( isset( $_POST[ $bp_field_key ] ) ) ? $_POST[ $bp_field_key ] : '';
+				$post_val = ( isset( $_POST[ $bp_field_key ] ) ) ? sanitize_text_field( wp_unslash( $_POST[ $bp_field_key ] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified by the registration handler before this validation helper runs.
 				if ( empty( $post_val ) ) {
+					/* translators: %s: field label. */
 					$errors[ $bp_field_key ] = sprintf( esc_html__( '%s is required', 'reign' ), esc_html( $bp_field_value['label'] ) );
 				}
 			}
 		}
 	}
 
-	if ( $register_fields_type == 'simple' ) {
+	if ( 'simple' == $register_fields_type ) {
 		if ( ! trim( $first_name ) && isset( $first_name ) ) {
 			$errors['first_name'] = esc_html__( 'First name is required', 'reign' );
 		}
@@ -1468,7 +1456,7 @@ function reign_signup_form() {
 			$password_check = apply_filters( 'reign_validate_signup_password', true, $user_password, $user_login, $user_email );
 			if ( is_wp_error( $password_check ) ) {
 				$errors['user_password'] = $password_check->get_error_message();
-			} elseif ( $password_check === false ) {
+			} elseif ( false === $password_check ) {
 				$errors['user_password'] = esc_html__( 'Password does not meet security requirements', 'reign' );
 			}
 		}
@@ -1490,8 +1478,8 @@ function reign_signup_form() {
 			array(
 				'user_login' => $user_login,
 				'user_email' => $user_email,
-				'ip'         => $_SERVER['REMOTE_ADDR'],
-				'user_agent' => $_SERVER['HTTP_USER_AGENT'],
+				'ip'         => isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '',
+				'user_agent' => isset( $_SERVER['HTTP_USER_AGENT'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) : '',
 			)
 		);
 
@@ -1502,7 +1490,7 @@ function reign_signup_form() {
 
 	if ( ! empty( $errors ) ) {
 		// Log failed registration attempt for security plugins
-		do_action( 'reign_signup_failed', $user_login, $user_email, $errors, $_SERVER['REMOTE_ADDR'] );
+		do_action( 'reign_signup_failed', $user_login, $user_email, $errors, isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '' );
 
 		wp_send_json_error(
 			array(
@@ -1520,7 +1508,7 @@ function reign_signup_form() {
 	$register_page_status  = get_post_status( $register_page_id );
 	$register_page_url     = get_permalink( $register_page_id );
 
-	if ( $register_page_status != 'publish' || $register_fields_type != 'extensional' ) {
+	if ( 'publish' != $register_page_status || 'extensional' != $register_fields_type ) {
 		if ( ! reign_BuddyPress() ) {
 			$user_id = reign_register_new_user( $user_login, $user_email, $user_password );
 
@@ -1556,8 +1544,8 @@ function reign_signup_form() {
 			if ( ! empty( $bp_fields ) ) {
 				$date_val = array();
 				foreach ( $bp_fields as $bp_field_key => $bp_field_value ) {
-					$post_val = ( isset( $_POST[ $bp_field_key ] ) ) ? $_POST[ $bp_field_key ] : '';
-					if ( $bp_field_value['type'] != 'datebox' ) {
+					$post_val = ( isset( $_POST[ $bp_field_key ] ) ) ? sanitize_text_field( wp_unslash( $_POST[ $bp_field_key ] ) ) : '';
+					if ( 'datebox' != $bp_field_value['type'] ) {
 						$user_meta_arr[ 'reign_sign_form_' . $bp_field_key ] = $post_val;
 						$user_meta_arr[ $bp_field_key ]                      = $post_val;
 					} else {
@@ -1576,7 +1564,7 @@ function reign_signup_form() {
 					}
 				}
 			}
-			if ( $send_validation_email == '' ) {
+			if ( '' == $send_validation_email ) {
 				add_action( 'bp_core_signup_user', 'reign_bp_core_signup_user_disable_validation' );
 			}
 			$user_id = bp_core_signup_user( $user_login, $user_password, $user_email, $user_meta_arr );
@@ -1591,16 +1579,16 @@ function reign_signup_form() {
 			update_user_meta( $user_id, 'first_name', $first_name );
 			update_user_meta( $user_id, 'last_name', $last_name );
 
-			if ( $send_validation_email == '' ) {
+			if ( '' == $send_validation_email ) {
 				if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
-					if ( $redirect === 'profile' && function_exists( 'bp_members_get_user_url' ) ) {
+					if ( 'profile' === $redirect && function_exists( 'bp_members_get_user_url' ) ) {
 						$redirect_to = bp_members_get_user_url( $user_id );
 					}
-				} elseif ( $redirect === 'profile' && function_exists( 'bp_core_get_user_domain' ) ) {
+				} elseif ( 'profile' === $redirect && function_exists( 'bp_core_get_user_domain' ) ) {
 						$redirect_to = bp_core_get_user_domain( $user_id );
 				}
 
-				if ( $redirect === 'profile' && class_exists( 'PeepSo' ) ) {
+				if ( 'profile' === $redirect && class_exists( 'PeepSo' ) ) {
 					$redirect_to = home_url( '/' ) . 'profile/?user/';
 					$user        = PeepSoUser::get_instance( $user_id );
 					$redirect_to = $user->get_profileurl();
@@ -1609,14 +1597,14 @@ function reign_signup_form() {
 				$user_data = get_userdata( $user_id );
 
 				if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
-					if ( $redirect === 'activity' ) {
+					if ( 'activity' === $redirect ) {
 						$redirect_to = bp_get_root_url() . '/' . bp_get_activity_slug();
 					}
-				} elseif ( $redirect === 'activity' ) {
+				} elseif ( 'activity' === $redirect ) {
 						$redirect_to = bp_get_root_domain() . '/' . bp_get_activity_slug();
 				}
 
-				if ( $redirect === 'activity' && class_exists( 'PeepSo' ) ) {
+				if ( 'activity' === $redirect && class_exists( 'PeepSo' ) ) {
 					$redirect_to = home_url( '/' ) . PeepSo::get_option( 'page_activity' );
 				}
 
@@ -1633,21 +1621,21 @@ function reign_signup_form() {
 				);
 			}
 		}
-	} elseif ( $register_page_status == 'publish' && $register_fields_type == 'extensional' ) {
+	} elseif ( 'publish' == $register_page_status && 'extensional' == $register_fields_type ) {
 		$register_page_url = wp_registration_url();
 		$add_params        = '?reign_sign_form_prefill=1&user_login=' . $user_login . '&user_email=' . $user_email . '&first_name=' . $first_name . '&last_name=' . $last_name;
 
 		if ( ! empty( $bp_fields ) ) {
 			foreach ( $bp_fields as $bp_field_key => $bp_field_value ) {
 				$post_val_el = '';
-				$post_val    = ( isset( $_POST[ $bp_field_key ] ) ) ? $_POST[ $bp_field_key ] : '';
+				$post_val    = ( isset( $_POST[ $bp_field_key ] ) ) ? map_deep( wp_unslash( $_POST[ $bp_field_key ] ), 'sanitize_text_field' ) : '';
 				if ( is_array( $post_val ) ) {
 					foreach ( $post_val as $post_val_v ) {
-						$post_val_el .= wp_unslash( $post_val_v ) . '|';
+						$post_val_el .= sanitize_text_field( $post_val_v ) . '|';
 					}
 					$post_val_el = substr( $post_val_el, 0, -1 );
 				} else {
-					$post_val_el = wp_unslash( $post_val );
+					$post_val_el = sanitize_text_field( $post_val );
 				}
 
 				$add_params .= '&' . $bp_field_key . '=' . $post_val_el;
@@ -1760,7 +1748,7 @@ function reign_register_new_user( $user_login, $user_email, $user_pass ) {
 	$user_email = apply_filters( 'user_registration_email', $user_email );
 
 	// Check the username
-	if ( $sanitized_user_login === '' ) {
+	if ( '' === $sanitized_user_login ) {
 		$errors->add( 'empty_username', __( '<strong>ERROR</strong>: Please enter a username.', 'reign' ) );
 	} elseif ( ! validate_username( $user_login ) ) {
 		$errors->add( 'invalid_username', __( '<strong>ERROR</strong>: This username is invalid because it uses illegal characters. Please enter a valid username.', 'reign' ) );
@@ -1776,7 +1764,7 @@ function reign_register_new_user( $user_login, $user_email, $user_pass ) {
 	}
 
 	// Check the email address
-	if ( $user_email === '' ) {
+	if ( '' === $user_email ) {
 		$errors->add( 'empty_email', __( '<strong>ERROR</strong>: Please type your email address.', 'reign' ) );
 	} elseif ( ! is_email( $user_email ) ) {
 		$errors->add( 'invalid_email', __( '<strong>ERROR</strong>: The email address isn&#8217;t correct.', 'reign' ) );
@@ -1786,7 +1774,7 @@ function reign_register_new_user( $user_login, $user_email, $user_pass ) {
 	}
 
 	// Check the password
-	if ( $user_pass === '' ) {
+	if ( '' === $user_pass ) {
 		$errors->add( 'empty_pass', __( '<strong>ERROR</strong>: Please type your password.', 'reign' ) );
 	} elseif ( strlen( $user_pass ) < 6 ) {
 		$errors->add( 'invalid_pass', __( '<strong>ERROR</strong>: The minimum password length is 6 characters.', 'reign' ) );
@@ -1829,6 +1817,7 @@ function reign_register_new_user( $user_login, $user_email, $user_pass ) {
 
 	$user_id = wp_create_user( $sanitized_user_login, $user_pass, $user_email );
 	if ( ! $user_id || is_wp_error( $user_id ) ) {
+		/* translators: %s: admin email address. */
 		$errors->add( 'registerfail', sprintf( __( '<strong>ERROR</strong>: Couldn&#8217;t register you&hellip; please contact the <a href="mailto:%s">webmaster</a> !', 'reign' ), get_option( 'admin_email' ) ) );
 		return $errors;
 	}
@@ -1865,6 +1854,7 @@ function reign_bp_core_signup_user_disable_validation( $user_id ) {
 		bp_activity_add(
 			array(
 				'user_id'   => $user_id,
+				/* translators: %s: member profile link. */
 				'action'    => apply_filters( 'bp_core_activity_registered_member', sprintf( __( '%s became a registered member', 'reign' ), $userlink ), $user_id ),
 				'component' => 'profile',
 				'type'      => 'new_member',
@@ -1904,9 +1894,10 @@ function reign_action_reign_sign_form_prefill_register_form() {
 	$bp_fields = array();
 	$bp_fields = reign_get_buddypress_fields();
 
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only registration-form prefill from URL parameters, fully sanitized.
 	if ( isset( $_GET['reign_sign_form_prefill'] ) ) {
-		$user_login = ( isset( $_GET['user_login'] ) ) ? $_GET['user_login'] : '';
-		$user_email = ( isset( $_GET['user_email'] ) ) ? $_GET['user_email'] : '';
+		$user_login = ( isset( $_GET['user_login'] ) ) ? sanitize_text_field( wp_unslash( $_GET['user_login'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only registration-form prefill.
+		$user_email = ( isset( $_GET['user_email'] ) ) ? sanitize_text_field( wp_unslash( $_GET['user_email'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only registration-form prefill.
 		?>
 		<script>
 			jQuery( document ).ready( function($) {
@@ -1915,34 +1906,31 @@ function reign_action_reign_sign_form_prefill_register_form() {
 				<?php
 				if ( ! empty( $bp_fields ) ) {
 					foreach ( $bp_fields as $bp_field_key => $bp_field_value ) {
-						$get_field_val = ( isset( $_GET[ $bp_field_key ] ) ) ? $_GET[ $bp_field_key ] : '';
+						$get_field_val = ( isset( $_GET[ $bp_field_key ] ) ) ? sanitize_text_field( wp_unslash( $_GET[ $bp_field_key ] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only registration-form prefill.
 						$input_types   = array( 'textbox', 'textarea', 'number', 'telephone', 'url', 'datebox', 'selectbox' );
 						if ( in_array( $bp_field_value['type'], $input_types ) ) {
 							?>
 						$('*[name="<?php echo esc_js( $bp_field_key ); ?>"]').val(<?php echo wp_json_encode( $get_field_val ); ?>);
 							<?php
-						} elseif ( $bp_field_value['type'] == 'radio' ) {
-							$escaped_value = esc_js( $get_field_val );
+						} elseif ( 'radio' == $bp_field_value['type'] ) {
 							?>
-						$('#<?php echo esc_js( $bp_field_key ); ?>').find('input[value="<?php echo $escaped_value; ?>"]').prop('checked', true);
+						$('#<?php echo esc_js( $bp_field_key ); ?>').find('input[value="<?php echo esc_js( $get_field_val ); ?>"]').prop('checked', true);
 							<?php
-						} elseif ( $bp_field_value['type'] == 'checkbox' ) {
+						} elseif ( 'checkbox' == $bp_field_value['type'] ) {
 							$values_arr = explode( '|', $get_field_val );
 							if ( ! empty( $values_arr ) ) {
 								foreach ( $values_arr as $values_arr_v ) {
-									$escaped_value = esc_js( $values_arr_v );
 									?>
-								$('#<?php echo esc_js( $bp_field_key ); ?>').find('input[value="<?php echo $escaped_value; ?>"]').prop('checked', true);
+								$('#<?php echo esc_js( $bp_field_key ); ?>').find('input[value="<?php echo esc_js( $values_arr_v ); ?>"]').prop('checked', true);
 									<?php
 								}
 							}
-						} elseif ( $bp_field_value['type'] == 'multiselectbox' ) {
+						} elseif ( 'multiselectbox' == $bp_field_value['type'] ) {
 							$values_arr = explode( '|', $get_field_val );
 							if ( ! empty( $values_arr ) ) {
 								foreach ( $values_arr as $values_arr_v ) {
-									$escaped_value = esc_js( $values_arr_v );
 									?>
-								$('select[name="<?php echo esc_js( $bp_field_key ); ?>[]"]').find('option[value="<?php echo $escaped_value; ?>"]').attr("selected", "selected");
+								$('select[name="<?php echo esc_js( $bp_field_key ); ?>[]"]').find('option[value="<?php echo esc_js( $values_arr_v ); ?>"]').attr("selected", "selected");
 									<?php
 								}
 							}
@@ -1968,7 +1956,7 @@ if ( ! function_exists( 'reign_footer_custom_copyright_text' ) ) {
 	 */
 	function reign_footer_custom_copyright_text() {
 
-		$copyright = get_theme_mod( 'reign_footer_copyright_text' );
+		$copyright = get_theme_mod( 'reign_footer_copyright_text', '' );
 		if ( ! empty( $copyright ) ) {
 			$copyright    = str_replace( '[current_year]', date_i18n( 'Y' ), $copyright );
 			$copyright    = str_replace( '[site_title]', '<span class="reign-footer-site-title"><a href="' . esc_url( home_url( '/' ) ) . '">' . esc_html( get_bloginfo( 'name' ) ) . '</a></span>', $copyright );

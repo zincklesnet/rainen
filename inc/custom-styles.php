@@ -5,6 +5,8 @@
  * @package Reign
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 /**
  * Reign custom styles
  */
@@ -34,10 +36,19 @@ CSS;
 
 		$register_split_view = get_theme_mod( 'register_split_view' );
 
-		if ( $register_split_view ) {
+		// Switch control stores 'on'/'off' strings — 'off' is truthy, so the
+		// raw value must go through reign_is_truthy() or the toggle can never
+		// be turned off once saved.
+		if ( reign_is_truthy( $register_split_view ) ) {
 
-			$register_heading_color    = get_theme_mod( 'register_heading_color' );
-			$register_background_media = get_theme_mod( 'register_background_media' );
+			// esc_url() locks the background-image URL to a safe scheme
+			// + escapes any CSS-breaking characters. Output_Builder's
+			// CSS-value sanitizer strips structural chars from the heading
+			// colour so a crafted save can't break out of the declaration.
+			$register_heading_color    = \Reign\Customizer_Framework\Output_Builder::sanitize_css_value(
+				get_theme_mod( 'register_heading_color', '' )
+			);
+			$register_background_media = esc_url( get_theme_mod( 'register_background_media', '' ) );
 
 			if ( ! empty( $rg_logoimg ) ) {
 				$rg_login_logo = $rg_logoimg;

@@ -8,6 +8,8 @@
  * @since 7.9.6
  */
 
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+
 /* Resolving Changeset Related Issue In Theme Customizer */
 add_filter(
 	'get_post_status',
@@ -71,7 +73,7 @@ if ( ! function_exists( 'reigntm_post_id' ) ) {
 function reign_get_image_id_from_url( $image_url ) {
 	global $wpdb;
 	$attachment_id = '';
-	$attachment    = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE guid='%s';", $image_url ) );
+	$attachment    = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE guid=%s;", $image_url ) );
 	if ( $attachment ) {
 		$attachment_id = $attachment[0];
 	}

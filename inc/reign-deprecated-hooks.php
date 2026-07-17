@@ -6,6 +6,8 @@
  *
  * @package Reign
  */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
  
 /*
  * deprecated "wbcom_before_content_section" action
