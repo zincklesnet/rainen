@@ -119,7 +119,7 @@ final class Menu_Icons_Settings {
 					?>
                     <div class="hidden hide reign-menu-icon-settings">
 
-                        <h3><?php _e( 'Icon Types Available', 'reign' ) ?></h3>
+                        <h3><?php esc_html_e( 'Icon Types Available', 'reign' ) ?></h3>
 
                         <div class="reign-menu-icon-settings-options">
 							<?php
@@ -181,8 +181,9 @@ final class Menu_Icons_Settings {
 			return $nav_menu_selected_id;
 		}
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only current-menu detection on the nav-menus admin screen.
 		if ( is_admin() && isset( $_REQUEST['menu'] ) ) {
-			$menu_id = absint( $_REQUEST['menu'] );
+			$menu_id = absint( $_REQUEST['menu'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only current-menu detection, absint-sanitized.
 		} else {
 			$menu_id = absint( get_user_option( 'nav_menu_recently_edited' ) );
 		}
@@ -259,11 +260,13 @@ final class Menu_Icons_Settings {
 		if ( ! empty( $_POST['menu-icons']['settings'] ) ) {
 			check_admin_referer( self::UPDATE_KEY, self::UPDATE_KEY );
 
-			$redirect_url = self::_update_settings( $_POST['menu-icons']['settings'] ); // Input var okay.
-			wp_redirect( $redirect_url );
+			$redirect_url = self::_update_settings( wp_unslash( $_POST['menu-icons']['settings'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Values validated/sanitized by kucrut_validate() inside _update_settings().
+			wp_safe_redirect( $redirect_url );
+			exit;
 		} elseif ( ! empty( $_REQUEST[ self::RESET_KEY ] ) ) {
 			check_admin_referer( self::RESET_KEY, self::RESET_KEY );
-			wp_redirect( self::_reset_settings() );
+			wp_safe_redirect( self::_reset_settings() );
+			exit;
 		}
 	}
 
@@ -345,7 +348,7 @@ final class Menu_Icons_Settings {
 			wp_send_json_error();
 		}
 
-		$redirect_url = self::_update_settings( $_POST['menu-icons']['settings'] ); // Input var okay.
+		$redirect_url = self::_update_settings( wp_unslash( $_POST['menu-icons']['settings'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Values validated/sanitized by kucrut_validate() inside _update_settings().
 		wp_send_json_success( array( 'redirectUrl' => $redirect_url ) );
 	}
 

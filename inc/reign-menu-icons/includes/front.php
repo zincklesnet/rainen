@@ -51,6 +51,18 @@ final class Menu_Icons_Front_End {
 	 */
 	protected static $hidden_label_class = 'visuallyhidden';
 
+	/**
+	 * Theme location of the menu currently being rendered.
+	 *
+	 * Captured from wp_nav_menu() args so the icon-less fallback can be scoped
+	 * to the location that actually needs it (the left panel) instead of
+	 * leaking into every location the same menu is assigned to.
+	 *
+	 * @access protected
+	 * @var    string
+	 */
+	protected static $current_theme_location = '';
+
 
 	/**
 	 * Add hooks for front-end functionalities
@@ -162,6 +174,8 @@ final class Menu_Icons_Front_End {
 	 * @return array
 	 */
 	public static function _add_menu_item_title_filter( $args ) {
+		self::$current_theme_location = isset( $args['theme_location'] ) ? (string) $args['theme_location'] : '';
+
 		add_filter( 'the_title', array( __CLASS__, '_add_icon' ), 999, 2 );
 
 		return $args;
@@ -182,6 +196,8 @@ final class Menu_Icons_Front_End {
 	public static function _remove_menu_item_title_filter( $nav_menu ) {
 		remove_filter( 'the_title', array( __CLASS__, '_add_icon' ), 999, 2 );
 
+		self::$current_theme_location = '';
+
 		return $nav_menu;
 	}
 
@@ -198,6 +214,14 @@ final class Menu_Icons_Front_End {
 	 * @return string
 	 */
 	public static function _add_icon( $title, $id = 0 ) {
+		// Guard: only process nav menu items. When wp_nav_menu() exits early
+		// (no menu assigned, fallback fires), the wp_nav_menu filter is skipped
+		// and this filter is never removed — so the_title calls for post titles,
+		// widget titles, etc. would otherwise receive a spurious icon.
+		if ( ! $id || 'nav_menu_item' !== get_post_type( $id ) ) {
+			return $title;
+		}
+
 		$meta = Menu_Icons_Meta::get( $id );
 		$icon = self::get_icon( $meta );
 
@@ -208,39 +232,22 @@ final class Menu_Icons_Front_End {
 			$title
 		);
 
-		$locations = get_nav_menu_locations();
-
-		$menu = '';
-		if ( isset( $locations['panel-menu'] ) ) {
-			$menu = wp_get_nav_menu_object( $locations['panel-menu'] );
-		}
-
-		if ( isset( $locations['panel-menu-loggedout'] ) ) {
-			$menu_loggedout = wp_get_nav_menu_object( $locations['panel-menu-loggedout'] );
-		}
-
-		$menu_term = wp_get_post_terms( $id, 'nav_menu', array( 'fields' => 'ids' ) );
-
-		if ( is_array( $menu_term ) && ! empty( $menu_term ) ) {
-			$menu_term = array_shift( $menu_term );
-		}
-
+		// The left-panel rail is icon-only, so items with no icon of their own
+		// get a generic link icon as a fallback. Scope this to the panel
+		// locations actually being rendered — otherwise the fallback leaks into
+		// the header/mobile menus whenever the same menu is shared across
+		// locations (which is the common setup).
 		if ( empty( $icon ) ) {
-			if ( isset( $menu->term_id ) && $menu->term_id == $menu_term ) {
-				$icon = '<i class="_mi _before reign fa fa-link" aria-hidden="true"></i>';
-			} elseif ( isset( $menu_loggedout->term_id ) && $menu_loggedout->term_id == $menu_term ) {
-				$icon = '<i class="_mi _before reign fa fa-link" aria-hidden="true"></i>';
-			} else {
+			$panel_locations = apply_filters(
+				'reign_menu_icons_fallback_locations',
+				array( 'panel-menu', 'panel-menu-loggedout' )
+			);
+
+			if ( ! in_array( self::$current_theme_location, $panel_locations, true ) ) {
 				return $title;
 			}
-		}
 
-		if ( empty( $icon ) ) {
-			if ( isset( $menu_loggedout->term_id ) && $menu_loggedout->term_id == $menu_term ) {
-				$icon = '<i class="_mi _before reign fa fa-link" aria-hidden="true"></i>';
-			} else {
-				return $title;
-			}
+			$icon = '<i class="_mi _before reign fa fa-link" aria-hidden="true"></i>';
 		}
 
 		if ( isset( $meta['position'] ) && 'after' === $meta['position'] ) {

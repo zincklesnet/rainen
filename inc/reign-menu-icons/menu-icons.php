@@ -92,15 +92,18 @@ if ( ! class_exists( 'Reign_Menu_Icons' ) ) {
 
 			if ( $pagenow == 'plugins.php' ) {
 
-				if ( isset( $_GET['action'] ) && $_GET['action'] == 'activate' && isset( $_GET['plugin'] ) ) {
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only plugins.php action detection; the redirect guard performs no state change.
+				if ( isset( $_GET['action'] ) && 'activate' === sanitize_key( wp_unslash( $_GET['action'] ) ) && isset( $_GET['plugin'] ) ) {
 
-					if ( $_GET['plugin'] == Reign_Menu_Icons::get( 'menu_icons_basename' ) ) {
-						wp_redirect( self_admin_url( 'plugins.php?prevent_activating_menu_icons=1' ), 301 );
+					// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only plugins.php plugin-basename detection.
+					if ( sanitize_text_field( wp_unslash( $_GET['plugin'] ) ) == Reign_Menu_Icons::get( 'menu_icons_basename' ) ) {
+						wp_safe_redirect( self_admin_url( 'plugins.php?prevent_activating_menu_icons=1' ), 301 );
 						exit;
 					}
 
 				}
 
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only notice flag (presence check only).
 				if ( isset( $_GET['prevent_activating_menu_icons'] ) ) {
 					$this->prevented_activating_menu_icons_notice();
 				}
@@ -148,7 +151,13 @@ if ( ! class_exists( 'Reign_Menu_Icons' ) ) {
 			}
 			Icon_Picker::instance();
 
-			add_filter( 'themeisle_sdk_products', array( 'Reign_Menu_Icons', 'kucrut_register_sdk' ), 10, 1 );
+			// NOTE: The bundled ThemeIsle SDK shipped with Menu Icons is incomplete
+			// (missing Reign_SDK_Feedback_Factory, and a mangled Reign_SDK_Product
+			// class name) and fatals on clean PHP 8 installs the moment a product is
+			// registered into it. Reign manages its own updates/licensing via EDD, so
+			// the menu-icons SDK telemetry/updater is unnecessary. Leaving this filter
+			// unregistered keeps start.php's product loop empty and avoids the fatal.
+			// add_filter( 'themeisle_sdk_products', array( 'Reign_Menu_Icons', 'kucrut_register_sdk' ), 10, 1 );
 
 			require_once self::$data['dir'] . 'includes/library/compat.php';
 			require_once self::$data['dir'] . 'includes/library/functions.php';
@@ -235,7 +244,7 @@ if ( ! class_exists( 'Reign_Menu_Icons' ) ) {
 		}
 
 
-		public function kucrut_register_sdk( $products ) {
+		public static function kucrut_register_sdk( $products ) {
 
 			$products[] = __FILE__;
 
